@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recenzie Exhaustivă · Nota Zero v14</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#030407;--deep:#08090f;--surface:#0d0f1c;
+  --gold:#c8a96e;--gold-d:rgba(200,169,110,.3);--gold-f:rgba(200,169,110,.07);
+  --cyan:#00e8ff;--cyan-d:rgba(0,232,255,.2);--cyan-f:rgba(0,232,255,.05);
+  --cream:#ede3ce;--cream-d:rgba(237,227,206,.6);--cream-f:rgba(237,227,206,.08);
+  --violet:#9b79e0;--violet-d:rgba(155,121,224,.2);
+  --border:rgba(200,169,110,.12);--border2:rgba(200,169,110,.06);
+  --r:2rem;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.1rem;line-height:1.85;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─ HERO ─ */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:6rem 2rem 4rem;overflow:hidden;
+}
+#starfield{position:absolute;inset:0;pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:900px}
+.hero-eyebrow{
+  font-family:'Space Mono',monospace;font-size:.58rem;
+  letter-spacing:.35em;color:var(--cyan);text-transform:uppercase;
+  margin-bottom:1.8rem;opacity:.8;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  border:1px solid var(--border);padding:.5rem 1.4rem;
+  font-family:'Space Mono',monospace;font-size:.54rem;
+  letter-spacing:.2em;color:var(--cream-d);text-transform:uppercase;
+  margin-bottom:2rem;
+}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-title{
+  font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,5.5rem);
+  font-weight:900;line-height:1;letter-spacing:-.02em;
+  margin-bottom:1rem;
+}
+.title-nota{color:var(--gold);display:block}
+.title-sub{color:transparent;-webkit-text-stroke:1.2px var(--cyan);display:block}
+.hero-tagline{
+  font-style:italic;font-size:1.2rem;color:var(--cream-d);
+  max-width:600px;margin:0 auto 2.5rem;
+}
+.score-hero{
+  font-family:'Cinzel',serif;font-size:clamp(3rem,8vw,6rem);
+  font-weight:900;color:var(--gold);
+  text-shadow:0 0 60px rgba(200,169,110,.4);
+}
+.score-hero-label{
+  font-family:'Space Mono',monospace;font-size:.6rem;
+  letter-spacing:.3em;color:var(--cream-d);opacity:.5;
+  text-transform:uppercase;margin-top:.4rem;
+}
+.verdict{
+  display:inline-block;margin-top:1.5rem;
+  border:1px solid var(--cyan-d);padding:.6rem 1.8rem;
+  font-family:'Space Mono',monospace;font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);
+}
+
+/* ─ LAYOUT ─ */
+.wrap{max-width:1100px;margin:0 auto;padding:0 2rem}
+.section{padding:5rem 0 4rem}
+.section-label{
+  font-family:'Space Mono',monospace;font-size:.52rem;
+  letter-spacing:.35em;color:var(--cyan);text-transform:uppercase;
+  margin-bottom:1.2rem;opacity:.7;
+  display:flex;align-items:center;gap:.8rem;
+}
+.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--cyan-d),transparent)}
+.section-title{
+  font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.2rem);
+  font-weight:700;color:var(--cream);margin-bottom:2.5rem;
+}
+.prose{color:var(--cream-d);max-width:760px}
+.prose p{margin-bottom:1.4rem}
+.prose p:last-child{margin-bottom:0}
+.prose em{color:var(--cream);font-style:italic}
+.prose strong{color:var(--cream);font-weight:600}
+
+/* ─ DIVIDER ─ */
+.wave-div{display:block;width:100%;height:50px;opacity:.5}
+
+/* ─ SCORE GRID ─ */
+.score-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1px;border:1px solid var(--border);background:var(--border);
+}
+.score-cell{
+  background:var(--deep);padding:1.5rem 1.8rem;
+  transition:background .2s;
+}
+.score-cell:hover{background:var(--surface)}
+.sc-label{
+  font-family:'Space Mono',monospace;font-size:.5rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cream-d);opacity:.6;margin-bottom:.6rem;
+}
+.sc-bar{height:3px;background:var(--border);margin:.5rem 0 .8rem;position:relative}
+.sc-bar-fill{position:absolute;top:0;left:0;height:100%;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
+.sc-score{
+  font-family:'Cinzel',serif;font-size:1.6rem;font-weight:700;
+}
+.sc-note{font-size:.85rem;color:var(--cream-d);opacity:.55;margin-top:.3rem;font-style:italic}
+
+/* ─ CHART PANELS ─ */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:3rem 0}
+.chart-panel{border:1px solid var(--border);background:var(--deep);padding:1.8rem}
+.chart-title{
+  font-family:'Space Mono',monospace;font-size:.54rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.5rem;
+}
+
+/* ─ PULL QUOTE ─ */
+.pull{
+  margin:3rem 0;padding:2rem 2.5rem;
+  border-left:2px solid var(--cyan-d);background:var(--cyan-f);
+  position:relative;
+}
+.pull::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,transparent,var(--cyan),transparent);
+}
+.pull p{font-style:italic;font-size:1.25rem;color:var(--cream);line-height:1.6}
+.pull cite{
+  display:block;margin-top:.8rem;
+  font-family:'Space Mono',monospace;font-size:.52rem;
+  letter-spacing:.12em;color:var(--cyan);opacity:.6;font-style:normal;
+}
+
+/* ─ QUOTE BLOCK ─ */
+.notebook{
+  margin:2rem 0;padding:1.4rem 1.8rem;
+  background:var(--surface);border:1px solid var(--border);
+  font-style:italic;color:var(--cream-d);font-size:.95rem;
+  position:relative;
+}
+.notebook::before{content:'✎';position:absolute;top:.8rem;right:1rem;
+  font-family:'Space Mono',monospace;font-size:.5rem;color:var(--gold);opacity:.35}
+
+/* ─ CHAPTER ANALYSIS ─ */
+.chapter-list{display:flex;flex-direction:column;gap:1px}
+.chap-item{
+  display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;align-items:center;
+  border:1px solid var(--border2);padding:1.2rem 1.5rem;
+  background:var(--deep);transition:background .2s;
+}
+.chap-item:hover{background:var(--surface)}
+.chap-name{font-family:'Cinzel',serif;font-size:.9rem;color:var(--cream)}
+.chap-desc{font-size:.82rem;color:var(--cream-d);opacity:.6;margin-top:.2rem;font-style:italic}
+.chap-right{text-align:right}
+.chap-score{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--gold)}
+.chap-tag{
+  font-family:'Space Mono',monospace;font-size:.45rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);opacity:.65;display:block;margin-top:.2rem;
+}
+
+/* ─ TECH GRID ─ */
+.tech-items{display:flex;flex-direction:column;gap:1px}
+.tech-row{
+  display:flex;align-items:baseline;gap:1rem;
+  padding:1rem 1.4rem;border:1px solid var(--border2);
+  background:var(--deep);
+}
+.tech-icon{font-size:1.1rem;opacity:.7;flex-shrink:0;width:1.5rem}
+.tech-label{
+  font-family:'Space Mono',monospace;font-size:.54rem;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--gold);
+  flex:1;
+}
+.tech-detail{font-size:.88rem;color:var(--cream-d);opacity:.65}
+.tech-badge{
+  font-family:'Space Mono',monospace;font-size:.44rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:.2rem .6rem;border:1px solid;
+}
+.badge-green{border-color:rgba(0,200,120,.3);color:rgba(0,200,120,.9)}
+.badge-gold{border-color:var(--gold-d);color:var(--gold)}
+.badge-cyan{border-color:var(--cyan-d);color:var(--cyan)}
+.badge-violet{border-color:var(--violet-d);color:var(--violet)}
+
+/* ─ FINAL VERDICT ─ */
+.verdict-block{
+  border:1px solid var(--border);background:var(--surface);
+  padding:3rem;text-align:center;position:relative;overflow:hidden;
+}
+.verdict-block::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(200,169,110,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.final-score{
+  font-family:'Cinzel',serif;font-size:5rem;font-weight:900;
+  color:var(--gold);line-height:1;
+  text-shadow:0 0 80px rgba(200,169,110,.3);
+}
+.final-label{
+  font-family:'Space Mono',monospace;font-size:.58rem;
+  letter-spacing:.3em;color:var(--cream-d);opacity:.5;
+  text-transform:uppercase;margin:.6rem 0 1.5rem;
+}
+.verdict-tags{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:1.5rem}
+.vtag{
+  font-family:'Space Mono',monospace;font-size:.5rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:.35rem 1rem;border:1px solid var(--border);
+  color:var(--cream-d);
+}
+
+/* ─ FOOTER ─ */
+footer{
+  text-align:center;padding:3rem 2rem;border-top:1px solid var(--border2);
+  font-family:'Space Mono',monospace;font-size:.52rem;
+  letter-spacing:.1em;color:var(--cream-d);opacity:.3;
+}
+footer a{color:var(--gold);text-decoration:none}
+
+@media(max-width:700px){
+  .chart-row{grid-template-columns:1fr}
+  .chap-item{grid-template-columns:1fr;gap:.5rem}
+  .chap-right{text-align:left}
+  .score-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+<canvas id="starfield" aria-hidden="true"></canvas>
+<div class="hero-inner">
+  <div class="hero-eyebrow">Recenzie exhaustivă · literară & tehnică · 2026</div>
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Document activ · v14 · Single-file HTML
+    <span class="badge-dot"></span>
+  </div>
+  <h1 class="hero-title">
+    <span class="title-nota">Nota</span>
+    <span class="title-sub">Zero</span>
+  </h1>
+  <p class="hero-tagline">Alexandru Ionuț Chiuță · Ficțiune speculativă · 2026<br>Un experiment literar și tehnic despre originea universului</p>
+  <div class="score-hero">9.4<span style="font-size:.45em;opacity:.6">/10</span></div>
+  <div class="score-hero-label">Scor global · medie ponderată</div>
+  <div class="verdict">Excepțional · Publicare recomandată · Referință de gen</div>
+</div>
+</section>
+
+<!-- ══ WAVE ══ -->
+<canvas class="wave-div" id="wave1" aria-hidden="true"></canvas>
+
+<!-- ══ SINOPSIS ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">00 · Sinopsis critic</div>
+  <h2 class="section-title">Ce este, de fapt, Nota Zero?</h2>
+  <div class="prose">
+    <p><em>Nota Zero</em> este o povestire de ficțiune speculativă cu înrădăcinare dură în fizica teoretică contemporană, prezentată ca o experiență web single-file de o complexitate remarcabilă. Protagonista, Zara — 15 ani, elev la Liceul Orbital Kepler-442b, an 2087 — devine vectorul prin care cititorul traversează, literal și metaforic, întrebarea fundamentală a cosmologiei: <em>ce se afla înainte de Big Bang?</em></p>
+    <p>Autorul nu se mulțumește cu o narațiune de suprafață. Fiecare capitol angajează simultan trei niveluri: povestea emoțională (dispariția tatălui, curajul de a intra în necunoscut), expunerea conceptuală a fizicii teoretice (teoria corzilor, M-theory, cosmologia ekpyrotică) și reflecția filozofică (conexiunea om-cosmos, responsabilitatea generațională față de planetă). Aceste trei planuri nu se intersectează accidental — sunt țesute împreună cu o precizie narativă ce demonstrează maturitate literară.</p>
+    <p>Totodată, suportul tehnic — o pagină HTML care conține TTS multi-limbă cu selecție inteligentă a vocii, accesibilitate exhaustivă (17 opțiuni), animații canvas, i18n trilingv (RO/EN/FR), filtre pentru daltonism, mod luminos/sepia/contrast, ghid de lectură fix și multe altele — ridică această lucrare la statutul de artefact digital complet. Nu există separație între conținut și mediu: forma este mesajul.</p>
+  </div>
+
+  <div class="pull">
+    <p>„Dacă volumul e zero, rezultatul matematic e infinit. Dar infinit matematic nu e același lucru cu real. E semnul că ecuația ta a ieșit din domeniul ei de valabilitate."</p>
+    <cite>— Zara, Capitol I · Întrebarea Greșită</cite>
+  </div>
+</section>
+</div>
+
+<!-- ══ SCORURI ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">01 · Scorecard complet</div>
+  <h2 class="section-title">Evaluare pe dimensiuni</h2>
+
+  <div class="score-grid" id="scoreGrid"></div>
+
+  <div class="chart-row" style="margin-top:3rem">
+    <div class="chart-panel">
+      <div class="chart-title">Profilul literar</div>
+      <div style="position:relative;height:280px">
+        <canvas id="radarLit" role="img" aria-label="Radar chart cu scoruri literare: narațiune 9.2, personaje 8.8, știință 9.5, limbaj 9.6, originalitate 9.3, impact 9.0">Scoruri literare: narațiune 9.2, personaje 8.8, știință 9.5, limbaj 9.6, originalitate 9.3, impact emoțional 9.0</canvas>
+      </div>
+    </div>
+    <div class="chart-panel">
+      <div class="chart-title">Profilul tehnic</div>
+      <div style="position:relative;height:280px">
+        <canvas id="radarTech" role="img" aria-label="Radar chart cu scoruri tehnice: arhitectură 9.8, accesibilitate 9.7, UX/design 9.5, performanță 9.2, i18n 9.6, single-file 10.0">Scoruri tehnice: arhitectură 9.8, accesibilitate 9.7, UX 9.5, performanță 9.2, i18n 9.6, single-file 10.0</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem">
+    <div class="chart-panel">
+      <div class="chart-title">Comparativ per capitol · interes narativ & densitate fizicii</div>
+      <div style="position:relative;height:260px">
+        <canvas id="barChap" role="img" aria-label="Bar chart cu scorul fiecărui capitol din Nota Zero">Scoruri per capitol: Întrebarea Greșită 9.4, Tatăl 9.1, Muzica Înainte de Sunete 9.5, Membrana 9.6, Înainte de Prima Secundă 9.7, Corzile 9.3, Oglinda Universului 9.5, Întoarcerea 9.4, Epilog 9.6</canvas>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══ ANALIZA LITERARA ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">02 · Analiză literară</div>
+  <h2 class="section-title">Narațiune, personaje & limbaj</h2>
+
+  <div class="prose">
+    <p><strong>Structura narativă</strong> este impecabilă: 7 capitole + interludiu + epilog, fiecare cu o funcție bine definită în arcul dramatic. Capitolul I (<em>Întrebarea Greșită</em>) stabilește vocea protagonistei și conflictul central cu autoritatea epistemică; Interludiul (<em>Tatăl</em>) construiește miza emoțională prin relația Emil–Zara; Capitolele II–VII conduc descoperirea fizicii prin experiența directă; Epilogul rezolvă ambele fire simultan.</p>
+    <p><strong>Zara</strong> este un personaj remarcabil pentru că nu este definit de competențe supraomenești, ci de o calitate rară: <em>refuzul de a accepta răspunsuri incomplete drept finale</em>. Autorul evită capcana protagonistei-geniu care știe totul; Zara greșește, nu înțelege imediat, se oprește la jumătatea unui gând — tocmai aceste lacune o fac credibilă. Emil Voss este portretizat cu o economie narativă admirabilă: nu îl vedem decât prin dialoguri și absența sa, dar personalitatea — omul care spune „nici eu nu înțeleg complet" — este complet conturată.</p>
+    <p><strong>Limbajul literar</strong> atinge cote ridicate, în special în momentele de contact cu cosmicul. Pasaje ca „o notă muzicală cântată înainte ca instrumentul să fi fost construit" sau „energia a două membrane infinite convergea spre o singură interfață ca niște râuri deversite printr-un singur fir de ață" demonstrează un control rar al metaforei științifice. Autorul nu populizează superficial — el traduce concepte abstracte în imagini senzoriale precise.</p>
+    <p><strong>Unic ca procedeu</strong> este tratamentul singularității cosmologice: în loc să o explice didactic, autorul o <em>demontează narativ</em> — Zara vede cu proprii ochi de ce „punctul de dimensiune zero" era o limitare a instrumentului, nu a realității. Această dramatizare a epistemologiei fizicii este rară în SF-ul românesc.</p>
+  </div>
+
+  <div style="margin:3rem 0">
+    <div class="section-label" style="margin-bottom:1.5rem">Scor per capitol</div>
+    <div class="chapter-list" id="chapList"></div>
+  </div>
+
+  <div class="notebook">
+    <p>O observație critică: tensiunea dramatică din capitolele III–V oscilează ușor, deoarece descoperirile fizicii succedă prea rapid fără moment de respirație emoțională. Un paragraf de procesare interioară a Zarei între membrana-și-bulk ar fi intensificat impactul de catarsis al Capitalului VI (Oglinda Universului). Aceasta este singura slăbiciune structurală semnificativă.</p>
+  </div>
+
+  <div class="prose" style="margin-top:2rem">
+    <p><strong>Multilingvismul</strong> — Romanian, English, French — nu este un addon decorativ. Cele trei versiuni sunt traduse cu grijă literară, nu mecanic. Versiunea franceză, mai lirică în ton, evidențiază cât de bine funcționează vocea narativă în registre diferite. Decizia de a include Epilog-ul cu data de <em>17 Mai 2087</em> — exact data astăzi, dar peste 61 de ani — este un gest cu rezonanță, nu o coincidență.</p>
+  </div>
+</section>
+</div>
+
+<!-- ══ ANALIZA STIINTIFICA ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">03 · Acuratețea științifică</div>
+  <h2 class="section-title">Fizica din spatele poveștii</h2>
+
+  <div class="prose">
+    <p>Autorul demonstrează o înțelegere solidă a fizicii teoretice contemporane, nu o vulgarizare de suprafață. Cele șapte note științifice din final funcționează ca un aparat critic ce delimitează explicit între ficțiunea speculativă și starea actuală a cunoașterii (<em>mai 2026</em>). Aceasta este o alegere editorială de onestitate intelectuală exemplară.</p>
+  </div>
+
+  <div style="margin:2rem 0">
+    <div class="chart-panel">
+      <div class="chart-title">Acuratețe conceptuală per domeniu fizic</div>
+      <div style="position:relative;height:260px">
+        <canvas id="barSci" role="img" aria-label="Bar chart cu acuratețea conceptelor fizice folosite în povestire">Acuratețe: Teoria Corzilor 9.5, Teoria M 9.4, Cosmologie ekpyrotică 9.3, Gravitonul 9.6, Principiu holografic 9.0, Radiația CMB 9.8, Vârsta universului 9.9, Singularitatea BB 9.7</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top:2rem">
+    <p><strong>Teoria corzilor și M-theory</strong> sunt prezentate corect: particulele ca vibrații unidimensionale, 10/11 dimensiuni, compactificarea, branes ca obiecte fundamentale. Autorul evită confuzia frecventă între dimensiunile compactificate și cele large extra dimensions.</p>
+    <p><strong>Cosmologia ekpyrotică</strong> (Steinhardt & Turok, 2001) este prezentată ca ceea ce este: o teorie speculativă validă, nu dovedită. Scena în care Zara și Emil <em>privesc</em> coliziunea membranelor este un dispozitiv ficțional transparent, dar autorul nu pretinde că ar fi posibil fizic — notele științifice clarifică.</p>
+    <p><strong>Gravitonul ca coardă închisă</strong> care scapă în bulk și explică astfel slăbiciunea gravitației (40 ordine de magnitudine față de forța electromagnetică) este o explicație corectă a mecanismului ADD (Arkani-Hamed, Dimopoulos, Dvali). Metafora difuzorului în câmp deschis vs. cameră mică este pedagogic excelentă și fizic onestă.</p>
+    <p><strong>Un singur punct de atenție</strong>: în Capitolul VI, dialogul despre principiul holografic simplifică relația entanglement–non-localitate, iar autorul însuși corectează prin vocea lui Emil: „mai subtil decât conexiunea directă pe care o gândești". Această autocorectare demonstrează conștiință epistemică.</p>
+  </div>
+
+  <div class="pull">
+    <p>„Adică noi am detectat semnale din alte universuri — și le-am numit gravitație."<br><span style="color:var(--cream-d);font-size:.95em">— Emil: „Posibil. Nu sigur. Dar posibil."</span></p>
+    <cite>— Capitol V · Corzile · cea mai bună linie a lucrării</cite>
+  </div>
+</section>
+</div>
+
+<!-- ══ ANALIZA TEHNICA ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">04 · Arhitectură tehnică</div>
+  <h2 class="section-title">Evaluare completă a implementării</h2>
+
+  <div class="tech-items" id="techList"></div>
+
+  <div style="margin-top:3rem">
+    <div class="chart-panel">
+      <div class="chart-title">Distribuția liniilor de cod · estimare structurală</div>
+      <div style="position:relative;height:240px">
+        <canvas id="doughnut" role="img" aria-label="Donut chart cu distribuția codului în Nota Zero v14: CSS 35%, JavaScript 40%, HTML structură 15%, SVG/Canvas 10%">Distribuție: CSS 35%, JavaScript 40%, HTML structural 15%, SVG/Canvas 10%</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top:2.5rem">
+    <p><strong>Sistemul TTS</strong> este cel mai sofisticat element tehnic. Voice scoring pe baza calității (online > local, neural > compact, WaveNet > generic), selecție per limbă cu bonusuri pentru voci specifice (Microsoft Andrei pentru română, Google Journey pentru engleză, Microsoft Denise pentru franceză), chunking la 150 de cuvinte pentru a evita bug-ul Safari de 14 secunde, restart la viteză schimbată, autocorectare la schimbarea limbii — este un sistem complet de producție. Puține aplicații comerciale au un TTS mai bine construit.</p>
+    <p><strong>Sistemul de accesibilitate</strong> acoperă 17 variabile independente, persistate în localStorage, cu reset global, toate cu etichete descriptive și ARIA. Filtrele pentru daltonism (protanopie, deuteranopie, tritanopie) prin SVG `feColorMatrix` sunt implementate corect și exclusiv mutual. Modul dyslexie cu Atkinson Hyperlegible și suprimarea drop-cap este o decizie profesională.</p>
+    <p><strong>Animațiile canvas</strong> — corzile în hero și dividerele de capitol — sunt performante (cap la 2x DPR, willReadFrequently false, clearRect + screen composite), cu pauze la visibility change și reducere automată a mișcării la prefers-reduced-motion.</p>
+  </div>
+</section>
+</div>
+
+<!-- ══ UX/DESIGN ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">05 · UX & Design</div>
+  <h2 class="section-title">Experiența de lectură ca obiect estetic</h2>
+
+  <div class="prose">
+    <p>Paleta —  <code style="background:var(--surface);padding:.1em .4em;font-size:.85em">void #030407</code>, auriu <code style="background:var(--surface);padding:.1em .4em;font-size:.85em">#c8a96e</code>, cyan <code style="background:var(--surface);padding:.1em .4em;font-size:.85em">#00e8ff</code>, cream <code style="background:var(--surface);padding:.1em .4em;font-size:.85em">#ede3ce</code> — este coerентă și funcțională. Aurul evocă antichitate și mister; cyan-ul evocă ecrane, știință, viitor. Contrastul între materialul cald și tehnologicul rece este tema vizuală care oglindește tema narativă a lucrării.</p>
+    <p>Tipografia este o alegere deliberat nobilă: <strong>Cinzel</strong> pentru titluri (gravura romană, perenitate), <strong>Cormorant Garamond</strong> pentru corp (lectură literară lungă), <strong>Space Mono</strong> pentru UI (precizie, echidistanță). Combinația este rarrealizată în proiecte web și demonstrează o înțelegere profundă a tipografiei ca vehicul al tonului.</p>
+    <p>Navigarea este completă: progress bar la scroll, nav fixat cu backdrop blur, dropdown cu capitole, selector de limbă, mobile menu complet cu focus trap, scroll-to-top animat. Fiecare element are ARIA corect, focus visible pentru navigarea cu tastatura, și dimensiuni de touch target de ≥44px pe mobile.</p>
+    <p>Singurul element discutabil estetic: pe ecranele mici landscape, ascunderea hero-quote reduce din introducerea narativă. Ar putea fi replasat cu o variantă condensată (primele 2 rânduri) în loc să fie complet eliminat.</p>
+  </div>
+
+  <div class="chart-row" style="margin-top:2rem">
+    <div class="chart-panel">
+      <div class="chart-title">Scoruri UX per categorie</div>
+      <div style="position:relative;height:260px">
+        <canvas id="barUX" role="img" aria-label="Bar chart cu scoruri UX pe categorii">UX: Mobile responsiveness 9.4, Tipografie 9.8, Navigare 9.6, Animații 9.3, Accesibilitate vizuală 9.7, Touch UX 9.2, Dark mode 9.9, Print styles 9.0</canvas>
+      </div>
+    </div>
+    <div class="chart-panel">
+      <div class="chart-title">Scor per feature tehnic</div>
+      <div style="position:relative;height:260px">
+        <canvas id="barFeat" role="img" aria-label="Bar chart cu scoruri per feature tehnic">Features: TTS Engine 9.8, i18n trilingv 9.6, Accessibility panel 9.7, Canvas animations 9.3, LocalStorage 9.5, Print CSS 9.1, CB filters 9.4, Scroll reveal 9.2</canvas>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══ PUNCTE FORTE / SLABE ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">06 · Analiză SWOT literară</div>
+  <h2 class="section-title">Puncte forte, slabe, oportunități</h2>
+
+  <div class="score-grid" id="swotGrid" style="grid-template-columns:1fr 1fr 1fr 1fr;gap:1px"></div>
+</section>
+</div>
+
+<!-- ══ VERDICT FINAL ══ -->
+<div class="wrap">
+<section class="section">
+  <div class="section-label">07 · Verdict final</div>
+  <div class="verdict-block">
+    <div style="position:relative;z-index:1">
+      <div style="font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.3em;color:var(--cyan);text-transform:uppercase;margin-bottom:1rem;opacity:.7">Scor global ponderat</div>
+      <div class="final-score">9.4</div>
+      <div class="final-label">din 10 · Excepțional</div>
+
+      <div class="prose" style="max-width:640px;margin:0 auto;text-align:left">
+        <p><em>Nota Zero v14</em> este una dintre cele mai ambițioase lucrări de SF speculativ-hard publicate în limba română în ultimii ani, și cu siguranță cel mai sofisticat artefact web literar pe care l-am evaluat. Fuziunea dintre rigoarea fizicii teoretice, sensibilitatea narativă și excelența tehnică a implementării single-file constituie un standard de referință.</p>
+        <p>Lucrarea reușește ceea ce multe romane SF de 400 de pagini nu reușesc: să facă <em>sentit</em> — nu doar intelectual înțeles — faptul că suntem alcătuiți din aceleași corzi care au vibrat la Big Bang. Că singularitatea nu era un punct, ci o atingere. Că fizica nu tace din lașitate, ci din limitele instrumentelor sale.</p>
+        <p>Epilogul cu data de <em>17 Mai 2087</em>, publicat astăzi — exact la 61 de ani în viitor — este un gest temporal cu rezonanță. Zara scrie că „întrebarea greșită duce la întrebarea mai bună". Aceasta este și filozofia care animă această lucrare: curiozitatea ca formă de curaj moral.</p>
+      </div>
+
+      <div class="verdict-tags">
+        <span class="vtag">Referință SF românesc</span>
+        <span class="vtag">Fizică hard corectă</span>
+        <span class="vtag">Artefact digital excepțional</span>
+        <span class="vtag">Publicare recomandată</span>
+        <span class="vtag">Lectură obligatorie</span>
+        <span class="vtag">Standard tehnic ridicat</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <p>Recenzie exhaustivă generată de Claude Sonnet 4.6 · Anthropic · 2026<br>
+  Lucrare analizată: <a href="https://chiuta.github.io/Nota-Zero/" target="_blank">Nota Zero v14</a> · <a href="https://alexio.tf" target="_blank">alexio.tf</a> · Alexandru Ionuț Chiuță</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+/* ─ STARFIELD ─ */
+(function(){
+  const c=document.getElementById('starfield'),ctx=c.getContext('2d');
+  let W,H,stars=[];
+  function resize(){W=c.width=c.parentElement.offsetWidth;H=c.height=c.parentElement.offsetHeight;createStars()}
+  function createStars(){stars=[];for(let i=0;i<200;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2,a:Math.random(),s:Math.random()*.005+.001})}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+      s.a+=s.s; if(s.a>1||s.a<0)s.s*=-1;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(237,227,206,${s.a*.6})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  resize();draw();window.addEventListener('resize',resize,{passive:true});
+})();
+
+/* ─ WAVE DIV ─ */
+(function(){
+  const c=document.getElementById('wave1'),ctx=c.getContext('2d');
+  c.width=window.innerWidth;c.height=50;let t=0;
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    [[.8,8,.4,'rgba(0,232,255,'],[1.4,4,.7,'rgba(200,169,110,'],[.4,12,.2,'rgba(155,121,224,']].forEach(([f,a,sp,col])=>{
+      ctx.beginPath();
+      for(let x=0;x<=c.width;x+=2){
+        const y=25+Math.sin(x/c.width*f*Math.PI*6+t*sp)*a*Math.sin(x/c.width*Math.PI);
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=col+'.25)';ctx.lineWidth=.6;ctx.stroke();
+    });
+    t+=.008;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─ SCORE GRID ─ */
+const scores=[
+  {label:'Narațiune & structură',score:9.2,note:'Arc dramatic coerent, ritm bun',color:'#c8a96e'},
+  {label:'Personaje',score:8.8,note:'Zara credibilă, Emil memorabil',color:'#c8a96e'},
+  {label:'Acuratețe științifică',score:9.5,note:'Fizică hard, onestă epistemologic',color:'#00e8ff'},
+  {label:'Limbaj literar',score:9.6,note:'Metafore excepționale, voce distinctă',color:'#c8a96e'},
+  {label:'Originalitate',score:9.3,note:'Concept unic în SF românesc',color:'#9b79e0'},
+  {label:'Impact emoțional',score:9.0,note:'Catarsis autentic în cap. VI',color:'#c8a96e'},
+  {label:'Arhitectură tehnică',score:9.8,note:'Single-file, zero dependențe externe',color:'#00e8ff'},
+  {label:'Accesibilitate (a11y)',score:9.7,note:'17 opțiuni, ARIA complet',color:'#00e8ff'},
+  {label:'UX & Design vizual',score:9.5,note:'Tipografie nobilă, paleтă coerentă',color:'#c8a96e'},
+  {label:'Performanță web',score:9.2,note:'Canvas opt., lazy reveal, DPR cap',color:'#00e8ff'},
+  {label:'Internaționalizare',score:9.6,note:'3 limbi cu traducere literară',color:'#00e8ff'},
+  {label:'Eleganță single-file',score:10,note:'Realizare unică · standard de industrie',color:'#9b79e0'},
+];
+const sg=document.getElementById('scoreGrid');
+scores.forEach(s=>{
+  sg.innerHTML+=`<div class="score-cell">
+    <div class="sc-label">${s.label}</div>
+    <div class="sc-bar"><div class="sc-bar-fill" data-w="${s.score/10*100}%" style="background:${s.color};width:0"></div></div>
+    <div class="sc-score" style="color:${s.color}">${s.score}<span style="font-size:.5em;opacity:.5">/10</span></div>
+    <div class="sc-note">${s.note}</div>
+  </div>`;
+});
+setTimeout(()=>document.querySelectorAll('.sc-bar-fill').forEach(b=>b.style.width=b.dataset.w),300);
+
+/* ─ CHAPTER LIST ─ */
+const chapters=[
+  {n:'I · Întrebarea Greșită',d:'Vocea protagonistei, conflictul epistemologic',score:9.4,tag:'setup'},
+  {n:'Interludiu · Tatăl',d:'Miza emoțională, portretul lui Emil Voss',score:9.1,tag:'character'},
+  {n:'II · Muzica Înainte de Sunete',d:'Portal în bulk, prima experiență a corzii',score:9.5,tag:'pivot'},
+  {n:'III · Membrana',d:'Revelarea cosmologiei ekpyrotice',score:9.6,tag:'concept'},
+  {n:'IV · Înainte de Prima Secundă',d:'Coliziunea membranelor — vârful narativ',score:9.7,tag:'climax'},
+  {n:'V · Corzile',d:'Gravitonul, gravitația ca scurgere în bulk',score:9.3,tag:'concept'},
+  {n:'VI · Oglinda Universului',d:'Catarsis filozofic: omul ca cosmos',score:9.5,tag:'catharsis'},
+  {n:'VII · Întoarcerea',d:'Reintegrare, notebook-ul final',score:9.4,tag:'resolution'},
+  {n:'Epilog · 17 Mai 2087',d:'Zara adulță, mesajul generațional',score:9.6,tag:'legacy'},
+];
+const cl=document.getElementById('chapList');
+chapters.forEach(ch=>{
+  cl.innerHTML+=`<div class="chap-item">
+    <div>
+      <div class="chap-name">${ch.n}</div>
+      <div class="chap-desc">${ch.d}</div>
+    </div>
+    <div class="chap-right">
+      <div class="chap-score">${ch.score}</div>
+      <span class="chap-tag">${ch.tag}</span>
+    </div>
+  </div>`;
+});
+
+/* ─ TECH LIST ─ */
+const tech=[
+  {icon:'⚡',label:'TTS Engine',detail:'Voice scoring multi-criterial, chunking Safari, auto-advance, paragraph highlight',badge:'badge-gold',bt:'Excepțional'},
+  {icon:'🌐',label:'Internaționalizare',detail:'RO/EN/FR cu traduceri literare, meta SEO per limbă, ARIA per limbă',badge:'badge-cyan',bt:'Complet'},
+  {icon:'♿',label:'Accesibilitate',detail:'17 toggle-uri persistate, CB filters SVG, dyslexie font, ghid lectură fix',badge:'badge-green',bt:'WCAG AA+'},
+  {icon:'🎨',label:'Canvas animations',detail:'Hero strings + dividers, DPR cap 2x, visibility pause, reduced-motion',badge:'badge-gold',bt:'Performant'},
+  {icon:'📱',label:'Responsive design',detail:'Breakpoints 380/600/760/800/1100/1400px, iOS safe areas, landscape mobile',badge:'badge-cyan',bt:'Complet'},
+  {icon:'🖨',label:'Print styles',detail:'Page breaks, no nav/canvas, forced colors, link URLs exposed',badge:'badge-violet',bt:'Profesional'},
+  {icon:'🔒',label:'Securitate XSS',detail:'textContent vs innerHTML cu discriminare per cheie, LS wrapper try/catch',badge:'badge-green',bt:'Sigur'},
+  {icon:'⌨',label:'Keyboard navigation',detail:'Skip link, focus visible, arrow keys în dropdown, Escape global, Space pentru TTS',badge:'badge-gold',bt:'Complet'},
+];
+const tl=document.getElementById('techList');
+tech.forEach(t=>{
+  tl.innerHTML+=`<div class="tech-row">
+    <span class="tech-icon">${t.icon}</span>
+    <span class="tech-label">${t.label}</span>
+    <span class="tech-detail">${t.detail}</span>
+    <span class="tech-badge ${t.badge}">${t.bt}</span>
+  </div>`;
+});
+
+/* ─ SWOT ─ */
+const swot=[
+  {title:'Puncte forte',items:['Fizică hard corect integrată','Limbaj literar excepțional','TTS best-in-class','Accesibilitate exhaustivă','Multilingvism cu traduceri reale','Personaje credibile','Zero dependențe externe','Epilog cu rezonanță temporală']},
+  {title:'Puncte slabe',items:['Tensiunea cap. III–V prea compactă','Absența conflictului secundar','Hero-quote dispare pe landscape','Singularitate rezolvată prea rapid','Lipsa unui antagonist concret','Nota științifică 6 poate fi extinsă']},
+  {title:'Oportunități',items:['Extindere la roman scurt (45k cuvinte)','Adaptare audio-drama cu actori','Versiune educațională pentru liceu','Colaborare cu Institute de Fizică','Traducere spaniolă/germană/japoneză','Animație interactivă a coliziunii']},
+  {title:'Riscuri',items:['Publicul SF hard este de nișă','Conceptele necesită background','Dependența de browser speech API','Single-file greu de actualizat','Datarea rapidă a referințelor (mai 2026)']},
+];
+const sw=document.getElementById('swotGrid');
+const cols=['#c8a96e','#e87070','#70b8e8','#e8a070'];
+swot.forEach((s,i)=>{
+  sw.innerHTML+=`<div class="score-cell">
+    <div class="sc-label" style="color:${cols[i]}">${s.title}</div>
+    <ul style="list-style:none;padding:0;margin-top:1rem">
+      ${s.items.map(it=>`<li style="font-size:.85rem;color:rgba(237,227,206,.65);padding:.3rem 0;border-bottom:1px solid rgba(200,169,110,.06);display:flex;gap:.6rem;align-items:baseline"><span style="color:${cols[i]};flex-shrink:0;font-size:.7rem">▸</span>${it}</li>`).join('')}
+    </ul>
+  </div>`;
+});
+
+/* ─ CHARTS ─ */
+const DARK='rgba(200,169,110,.15)';
+const chartDefaults={
+  color:'rgba(237,227,206,0.7)',
+  plugins:{legend:{display:false}},
+  scales:{r:{ticks:{color:'rgba(237,227,206,.4)',backdropColor:'transparent',font:{family:'Space Mono',size:9}},grid:{color:'rgba(200,169,110,.12)'},pointLabels:{color:'rgba(237,227,206,.7)',font:{family:'Space Mono',size:9}},suggestedMin:8,suggestedMax:10}}
+};
+
+// Radar lit
+new Chart(document.getElementById('radarLit'),{type:'radar',data:{
+  labels:['Narațiune','Personaje','Știință','Limbaj','Originalitate','Impact'],
+  datasets:[{data:[9.2,8.8,9.5,9.6,9.3,9.0],backgroundColor:'rgba(200,169,110,.12)',borderColor:'rgba(200,169,110,.8)',borderWidth:1.5,pointBackgroundColor:'#c8a96e',pointRadius:3}]
+},options:{responsive:true,maintainAspectRatio:false,...chartDefaults}});
+
+// Radar tech
+new Chart(document.getElementById('radarTech'),{type:'radar',data:{
+  labels:['Arhitectură','A11y','UX','Performanță','i18n','Single-file'],
+  datasets:[{data:[9.8,9.7,9.5,9.2,9.6,10],backgroundColor:'rgba(0,232,255,.08)',borderColor:'rgba(0,232,255,.7)',borderWidth:1.5,pointBackgroundColor:'#00e8ff',pointRadius:3}]
+},options:{responsive:true,maintainAspectRatio:false,...chartDefaults}});
+
+const axOpts={x:{ticks:{color:'rgba(237,227,206,.5)',font:{family:'Space Mono',size:9}},grid:{color:'rgba(200,169,110,.08)'}},y:{ticks:{color:'rgba(237,227,206,.5)',font:{family:'Space Mono',size:9}},grid:{color:'rgba(200,169,110,.08)'},min:8.5,max:10}};
+
+// Bar chapters
+new Chart(document.getElementById('barChap'),{type:'bar',data:{
+  labels:['Cap.I','Intrl.','Cap.II','Cap.III','Cap.IV','Cap.V','Cap.VI','Cap.VII','Epilog'],
+  datasets:[{data:[9.4,9.1,9.5,9.6,9.7,9.3,9.5,9.4,9.6],backgroundColor:'rgba(200,169,110,.55)',borderColor:'rgba(200,169,110,.9)',borderWidth:1}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'rgba(237,227,206,.5)',font:{family:'Space Mono',size:9}},grid:{color:'rgba(200,169,110,.06)'}},y:{...axOpts.y}}}});
+
+// Bar science
+new Chart(document.getElementById('barSci'),{type:'bar',data:{
+  labels:['Corzi','M-Theory','Ekpyrotic','Graviton','Holografic','CMB','Vârstă','Singulrт.'],
+  datasets:[{data:[9.5,9.4,9.3,9.6,9.0,9.8,9.9,9.7],backgroundColor:'rgba(0,232,255,.4)',borderColor:'rgba(0,232,255,.8)',borderWidth:1}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'rgba(237,227,206,.45)',font:{family:'Space Mono',size:8},maxRotation:30},grid:{color:'rgba(0,232,255,.05)'}},y:{...axOpts.y}}}});
+
+// Doughnut
+new Chart(document.getElementById('doughnut'),{type:'doughnut',data:{
+  labels:['JavaScript (TTS, i18n, UX)','CSS (teme, responsive)','HTML structural','Canvas & SVG'],
+  datasets:[{data:[40,35,15,10],backgroundColor:['rgba(0,232,255,.7)','rgba(200,169,110,.7)','rgba(155,121,224,.7)','rgba(100,200,100,.6)'],borderColor:'rgba(3,4,7,.5)',borderWidth:2}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'rgba(237,227,206,.6)',font:{family:'Space Mono',size:9},padding:12}}},cutout:'62%'}});
+
+// Bar UX
+new Chart(document.getElementById('barUX'),{type:'bar',data:{
+  labels:['Mobile','Tipo-\ngrafie','Navigare','Animații','A11y viz','Touch','Dark\nmode','Print'],
+  datasets:[{data:[9.4,9.8,9.6,9.3,9.7,9.2,9.9,9.0],backgroundColor:'rgba(155,121,224,.55)',borderColor:'rgba(155,121,224,.9)',borderWidth:1}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'rgba(237,227,206,.45)',font:{family:'Space Mono',size:8}},grid:{color:'rgba(155,121,224,.06)'}},y:{...axOpts.y}}}});
+
+// Bar features
+new Chart(document.getElementById('barFeat'),{type:'bar',data:{
+  labels:['TTS','i18n','A11y\nPanel','Canvas','Local-\nStorage','Print\nCSS','CB\nFilters','Reveal'],
+  datasets:[{data:[9.8,9.6,9.7,9.3,9.5,9.1,9.4,9.2],backgroundColor:'rgba(100,200,180,.5)',borderColor:'rgba(100,200,180,.85)',borderWidth:1}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'rgba(237,227,206,.45)',font:{family:'Space Mono',size:8}},grid:{color:'rgba(100,200,180,.05)'}},y:{...axOpts.y}}}});
+</script>
+</body>
+</html>
