@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nota Zero · Alexandru Ionuț Chiuță</title>
+<meta name="description" content="O poveste SF despre ce s-a întâmplat înainte de tot — teoria corzilor, membrane cosmice și răspunsul la întrebarea pe care știința o evită.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --void:#030407;
+  --deep:#06080f;
+  --surface:#0b0d18;
+  --surface2:#10121f;
+  --border:rgba(200,169,110,.11);
+  --border2:rgba(200,169,110,.06);
+  --gold:#c8a96e;
+  --gold-dim:rgba(200,169,110,.4);
+  --gold-faint:rgba(200,169,110,.08);
+  --cream:#ede3ce;
+  --cream-dim:rgba(237,227,206,.6);
+  --cream-faint:rgba(237,227,206,.1);
+  --cyan:#00e8ff;
+  --cyan-dim:rgba(0,232,255,.2);
+  --cyan-faint:rgba(0,232,255,.06);
+  --font-size:1.15rem;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--void);
+  color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:var(--font-size);
+  line-height:1.85;
+  overflow-x:hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   READING PROGRESS BAR
+═══════════════════════════════════════════════ */
+#progress-bar{
+  position:fixed;top:0;left:0;
+  height:2px;width:0%;
+  background:linear-gradient(90deg,var(--cyan),var(--gold));
+  z-index:999;
+  transition:width .1s linear;
+}
+
+/* ═══════════════════════════════════════════════
+   TOP NAV
+═══════════════════════════════════════════════ */
+.top-nav{
+  position:fixed;top:2px;left:0;right:0;
+  z-index:100;
+  padding:.9rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(180deg,rgba(3,4,7,.95) 0%,transparent 100%);
+  transition:background .3s;
+}
+.top-nav.scrolled{
+  background:rgba(6,8,15,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-back{
+  font-family:'Space Mono',monospace;
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cream-dim);text-decoration:none;
+  transition:color .2s;
+}
+.nav-back:hover{color:var(--gold);}
+.nav-back::before{content:'← ';}
+
+.nav-controls{display:flex;gap:.8rem;align-items:center;}
+.font-btn{
+  background:transparent;border:1px solid var(--border);
+  color:var(--cream-dim);
+  width:28px;height:28px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:.85rem;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;
+}
+.font-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+.font-label{
+  font-family:'Space Mono',monospace;
+  font-size:.55rem;color:var(--cream-dim);opacity:.5;
+  letter-spacing:.1em;
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+  padding:6rem 2rem 4rem;
+  text-align:center;
+}
+
+#hero-canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+}
+
+.hero-content{
+  position:relative;z-index:2;
+  max-width:800px;
+}
+
+.hero-category{
+  font-family:'Space Mono',monospace;
+  font-size:.62rem;letter-spacing:.35em;
+  color:var(--cyan);text-transform:uppercase;
+  margin-bottom:2rem;opacity:.8;
+  animation:fadeDown .8s ease both;
+}
+
+.hero-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(4rem,13vw,9rem);
+  font-weight:900;
+  line-height:.9;
+  letter-spacing:-.02em;
+  margin-bottom:1rem;
+  animation:fadeUp 1s ease .2s both;
+}
+.hero-title .word-nota{
+  display:block;color:var(--cream);
+}
+.hero-title .word-zero{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1px var(--cyan);
+  text-shadow:0 0 60px rgba(0,232,255,.3);
+}
+
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.2rem;
+  color:var(--cream-dim);
+  margin-bottom:2.5rem;
+  animation:fadeUp .9s ease .4s both;
+}
+
+.hero-quote{
+  font-style:italic;
+  font-size:1rem;
+  color:var(--cream-dim);
+  max-width:48ch;
+  margin:0 auto 3rem;
+  border-left:2px solid var(--cyan-dim);
+  padding-left:1.2rem;
+  text-align:left;
+  animation:fadeUp .9s ease .6s both;
+}
+.hero-quote cite{
+  display:block;margin-top:.5rem;
+  font-family:'Space Mono',monospace;
+  font-size:.58rem;letter-spacing:.1em;
+  color:var(--cyan);opacity:.6;
+  font-style:normal;
+}
+
+.hero-meta{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .9s ease .8s both;
+}
+.hero-meta-item{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;letter-spacing:.12em;
+  color:var(--cream-dim);opacity:.5;
+  text-transform:uppercase;
+}
+.hero-meta-item strong{
+  display:block;
+  color:var(--gold);opacity:1;
+  font-size:.65rem;margin-bottom:.2rem;
+}
+
+.scroll-cue{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:fadeIn 1s ease 1.5s both;
+}
+.scroll-cue span{
+  font-family:'Space Mono',monospace;
+  font-size:.55rem;letter-spacing:.2em;
+  color:var(--cream-dim);opacity:.35;text-transform:uppercase;
+}
+.scroll-cue .arrow{
+  width:1px;height:40px;
+  background:linear-gradient(180deg,transparent,var(--gold-dim));
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{
+  0%,100%{opacity:.3;transform:scaleY(1);}
+  50%{opacity:.8;transform:scaleY(1.2);}
+}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT: STORY
+═══════════════════════════════════════════════ */
+.story-wrap{
+  position:relative;
+  max-width:720px;
+  margin:0 auto;
+  padding:0 2rem 6rem;
+}
+
+/* ─ Chapter block ─ */
+.chapter{
+  padding:4rem 0 2rem;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.chapter.revealed{opacity:1;transform:none;}
+
+.chapter-label{
+  font-family:'Space Mono',monospace;
+  font-size:.58rem;letter-spacing:.3em;
+  color:var(--cyan);text-transform:uppercase;
+  margin-bottom:1.2rem;opacity:.7;
+  display:flex;align-items:center;gap:1rem;
+}
+.chapter-label::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,var(--cyan-dim),transparent);
+}
+
+.chapter-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.3rem,3.5vw,2rem);
+  font-weight:600;
+  line-height:1.2;
+  margin-bottom:2rem;
+  color:var(--cream);
+}
+
+.chapter-body p{
+  margin-bottom:1.4rem;
+  color:var(--cream-dim);
+  hyphens:auto;
+}
+.chapter-body p:first-child::first-letter{
+  font-family:'Cinzel',serif;
+  font-size:3.5rem;font-weight:900;
+  line-height:.8;float:left;
+  margin:.1em .15em 0 0;
+  color:var(--gold);
+}
+.chapter-body em{color:var(--cream);font-style:italic;}
+.chapter-body strong{color:var(--cream);font-weight:600;}
+
+/* dialogue */
+.chapter-body p:has(em:only-child),
+.dialogue{
+  padding-left:1.2rem;
+  border-left:1px solid var(--border);
+  font-style:italic;
+  color:var(--cream-dim);
+}
+
+/* ─ String divider (canvas) ─ */
+.string-divider{
+  width:100%;
+  height:60px;
+  margin:1rem 0;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+.string-divider.revealed{opacity:1;}
+
+/* ─ Pull quote ─ */
+.pull-quote{
+  margin:2.5rem 0;
+  padding:1.5rem 2rem;
+  border:1px solid var(--border);
+  background:var(--cyan-faint);
+  position:relative;
+  overflow:hidden;
+}
+.pull-quote::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:2px;
+  background:linear-gradient(180deg,transparent,var(--cyan),transparent);
+}
+.pull-quote p{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.25rem;line-height:1.6;
+  color:var(--cream);
+  margin:0 !important;
+}
+
+/* ─ Notebook entry ─ */
+.notebook{
+  margin:2.5rem 0;
+  padding:1.5rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  position:relative;
+}
+.notebook::before{
+  content:'BLOCNOTES · ZARA';
+  position:absolute;top:.7rem;right:1rem;
+  font-family:'Space Mono',monospace;
+  font-size:.52rem;letter-spacing:.15em;
+  color:var(--gold);opacity:.4;
+}
+.notebook p{margin:0;color:var(--cream-dim);line-height:1.7;}
+
+/* ─ Science note accordion ─ */
+.science-section{
+  margin-top:5rem;
+  border-top:1px solid var(--border);
+  padding-top:3rem;
+}
+.science-title{
+  font-family:'Cinzel',serif;
+  font-size:1rem;letter-spacing:.1em;
+  color:var(--gold);margin-bottom:2rem;
+  text-transform:uppercase;
+}
+.sci-item{
+  border:1px solid var(--border2);
+  margin-bottom:.8rem;
+  overflow:hidden;
+}
+.sci-header{
+  padding:.9rem 1.2rem;
+  cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'Space Mono',monospace;
+  font-size:.65rem;letter-spacing:.1em;
+  color:var(--cream-dim);
+  text-transform:uppercase;
+  transition:background .2s;
+  user-select:none;
+}
+.sci-header:hover{background:var(--gold-faint);}
+.sci-header.open{color:var(--gold);}
+.sci-arrow{
+  transition:transform .3s;color:var(--gold-dim);
+  font-size:.8rem;
+}
+.sci-header.open .sci-arrow{transform:rotate(180deg);}
+.sci-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s ease,padding .3s;
+  font-size:.95rem;color:var(--cream-dim);
+  line-height:1.7;
+}
+.sci-body.open{
+  max-height:400px;
+  padding:1rem 1.2rem 1.2rem;
+}
+.sci-body strong{color:var(--cyan);}
+
+/* ─ FINE / End marker ─ */
+.story-end{
+  text-align:center;
+  padding:3rem 0 2rem;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.story-end.revealed{opacity:1;transform:none;}
+.end-mark{
+  font-family:'Cinzel',serif;
+  font-size:.75rem;letter-spacing:.4em;
+  color:var(--gold);opacity:.6;
+  text-transform:uppercase;
+}
+.end-divider{
+  width:60px;height:1px;
+  background:var(--gold-dim);
+  margin:1.2rem auto;
+}
+
+/* ─ Share / Nav footer ─ */
+.story-footer{
+  text-align:center;
+  padding:3rem 2rem 5rem;
+  border-top:1px solid var(--border2);
+  max-width:720px;margin:0 auto;
+}
+.footer-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.footer-link{
+  display:inline-block;
+  border:1px solid var(--border);
+  color:var(--cream-dim);
+  padding:.5rem 1.4rem;
+  font-family:'Space Mono',monospace;
+  font-size:.63rem;letter-spacing:.1em;
+  text-decoration:none;text-transform:uppercase;
+  transition:all .25s;
+}
+.footer-link:hover{border-color:var(--gold-dim);color:var(--gold);}
+.footer-link.primary{border-color:var(--gold-dim);color:var(--gold);}
+.footer-link.primary:hover{background:var(--gold);color:var(--void);}
+.footer-copy{
+  font-family:'Space Mono',monospace;
+  font-size:.58rem;color:var(--cream-dim);opacity:.35;
+  letter-spacing:.08em;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:none;}
+}
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-12px);}
+  to{opacity:1;transform:none;}
+}
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media(max-width:600px){
+  .story-wrap{padding:0 1.2rem 4rem;}
+  .chapter-body p:first-child::first-letter{
+    font-size:2.8rem;
+  }
+  .top-nav{padding:.8rem 1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div id="progress-bar"></div>
+
+<!-- TOP NAV -->
+<nav class="top-nav" id="top-nav">
+  <a href="index.html" class="nav-back">Catalog</a>
+  <div class="nav-controls">
+    <span class="font-label">Aa</span>
+    <button class="font-btn" onclick="fontSize(-1)" title="Mai mic">−</button>
+    <button class="font-btn" onclick="fontSize(1)" title="Mai mare">+</button>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<header class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-category">Ficțiune speculativă · Teoria corzilor · 2087</div>
+    <h1 class="hero-title">
+      <span class="word-nota">Nota</span>
+      <span class="word-zero">Zero</span>
+    </h1>
+    <p class="hero-sub">O poveste despre ce s-a întâmplat înainte de tot</p>
+    <blockquote class="hero-quote">
+      „Dacă universul a început dintr-un punct, de unde venea punctul?
+      Și dacă cineva îți spune că știe — nu te-a minți niciodată mai frumos."
+      <cite>— Zara, 15 ani</cite>
+    </blockquote>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Autor</strong>Alexandru Ionuț Chiuță</div>
+      <div class="hero-meta-item"><strong>An</strong>2026</div>
+      <div class="hero-meta-item"><strong>Lectură</strong>~18 minute</div>
+      <div class="hero-meta-item"><strong>Limbă</strong>Română</div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Citește</span>
+    <div class="arrow"></div>
+  </div>
+</header>
+
+<!-- ══════════════ STORY ══════════════ -->
+<main class="story-wrap">
+
+  <!-- ─ CAPITOLUL I ─ -->
+  <article class="chapter" id="cap1">
+    <div class="chapter-label">Partea întâi</div>
+    <h2 class="chapter-title">Întrebarea Greșită</h2>
+    <div class="chapter-body">
+      <p>Zara avea cincisprezece ani și deja obosise să fie cea mai incomodă persoană din orice încăpere.</p>
+      <p>Nu era un titlu pe care și-l dorise. Se întâmplase pur și simplu, pe rând, în fiecare clasă și în fiecare discuție, de fiecare dată când ridica mâna și punea întrebarea pe care toți ceilalți o gândeau dar o înghițeau politicos:</p>
+      <div class="pull-quote"><p>„Dar de unde venea punctul?"</p></div>
+      <p>Profesoara de cosmologie de la Liceul Orbital Kepler-442b o privise de data asta cu o răbdare pe care Zara o recunoștea drept epuizare mascată.</p>
+      <p><em>— Big Bang-ul, Zara, a început dintr-o singularitate de densitate infinită...</em></p>
+      <p><em>— Știu. Dar densitate infinită nu e un răspuns. E o evitare elegantă. Densitate înseamnă masă împărțită la volum. Dacă volumul e zero, rezultatul e infinit matematic. Dar matematic-infinit nu e același lucru cu real. E semnul că ecuația ta a dat de marginea lumii. E eroarea de sistem, nu adevărul.</em></p>
+      <p>Tăcere.</p>
+      <p><em>— Și dacă acel punct n-a existat în spațiu,</em> spuse Zara mai încet, fiindcă știa că vocea ei devenea periculoasă când credea cu adevărat în ceva — <em>dacă spațiul însuși n-a existat înainte de Big Bang — atunci punctul ăla era sprijinit de ce?</em></p>
+      <p>Cineva râse discret în spatele sălii. Zara nu întoarse capul.</p>
+      <p>Profesoara deschise gura, o închise, și spuse în final cu o onestitate pe care Zara o aprecie mai mult decât orice răspuns:</p>
+      <p><em>— Aceasta este întrebarea pe care fizica modernă nu a rezolvat-o încă.</em></p>
+      <p><em>— Atunci de ce o predăm ca și cum ar fi rezolvată?</em></p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div1"></canvas>
+
+  <article class="chapter" id="cap1b">
+    <div class="chapter-label">Interludiu</div>
+    <h2 class="chapter-title">Tatăl</h2>
+    <div class="chapter-body">
+      <p>Tatăl Zarei era altfel.</p>
+      <p>Dr. Emil Voss lucra la Marele Colizor Cuantic de pe Lună — un accelerator de particule de 340 de kilometri săpat în mantaua selenară, proiectat să recreeze condițiile din primele fracțiuni de secundă de după Big Bang. Lumea îl numea simplu: <em>Leagănul</em>.</p>
+      <p>Emil nu evita întrebările Zarei. Le colecționa. Seara, când Zara îl contacta de pe Stația Orbitală L2, el asculta cu blocnotesul în mână.</p>
+      <p><em>— Tată, dacă universul s-a născut dintr-un punct, de ce presupunem că a fost mic?</em></p>
+      <p><em>— Nu presupunem că era mic,</em> spunea Emil. <em>Presupunem că densitatea era infinită. E o diferență enormă.</em></p>
+      <p><em>— Care?</em></p>
+      <p><em>— Mic implică dimensiune. Densitate infinită implică că regulile dimensiunii nu se aplicau. Era un loc unde spațiul însuși nu exista ca noțiune. Nu era mic. Nu era mare. Era în afara acestor categorii.</em></p>
+      <p><em>— Asta e mai înspăimântător, nu mai liniștitor.</em></p>
+      <p><em>— Toate adevărurile reale sunt,</em> spuse Emil zâmbind. <em>Ăsta e semnul că ești pe pista bună.</em></p>
+      <p>Ultima conversație a avut loc pe 14 mai 2087.</p>
+      <p>Pe 15 mai, Emil Voss a intrat în Leagăn pentru un experiment de rutină și nu a mai ieșit.</p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div2"></canvas>
+
+  <!-- ─ CAPITOLUL II ─ -->
+  <article class="chapter" id="cap2">
+    <div class="chapter-label">Partea a doua</div>
+    <h2 class="chapter-title">Muzica Înainte de Sunete</h2>
+    <div class="chapter-body">
+      <p>Nimeni nu îi spuse Zarei că tatăl ei dispăruse. I se spuse că era <em>implicat într-un incident de securitate în curs de investigație</em>, ceea ce însemna același lucru în limbajul corporatist al Agenției Spațiale Mondiale, dar suna mai puțin ca o pierdere și mai mult ca un formular necompletat.</p>
+      <p>Zara luă primul transport spre Lună în acea seară.</p>
+      <p>Nu le spuse nimănui. Puse în rucsac blocnotesul cu întrebări — cincizeci și trei de pagini acoperite cu scris mărunt și diagrame imperfecte — o cantimplă cu apă, un schimb de haine, și singura fotografie fizică pe care o mai deținea: ea și Emil în fața telescopului de acasă, Zara la șapte ani, amândoi cu gâtul întins spre Orion.</p>
+      <p>Sala centrală a Leagănului era imensă și tăcută. Colizorul însuși era invizibil — un inel de magneți superconductori îngropat la treizeci de metri adâncime. Dar în centrul sălii se afla ceva care nu ar fi trebuit să fie acolo.</p>
+      <p>O deschizătură.</p>
+      <p>Nu o gaură. Nu o fisură. Ceva mai precis decât atât — ca și cum cineva tăiase aerul cu o foarfecă de geometrie, lăsând o margine perfect dreaptă prin care se vedea... nu întuneric. Nu lumină. Ceva al treilea, pentru care Zara nu avea cuvânt.</p>
+      <p>Pe marginea deschizăturii era scris ceva cu markerul permanent. Scrisul tatălui ei:</p>
+      <div class="notebook"><p>Nu e o eroare. Intră.</p></div>
+      <p>Zara intră.</p>
+      <p>De cealaltă parte nu era un loc. Era un <strong>sunet</strong>.</p>
+      <p>Nu în sens metaforic — era literalmente un sunet, sau mai degrabă era ceea ce sunetul ar fi dacă ar exista înainte ca aerul sau urechile sau timpanele să fi fost inventate. O vibrație care nu se propaga prin nimic, ci <em>era</em> ceva. Care nu călătorea dintr-un punct în altul, ci exista simultan pretutindeni și nicăieri.</p>
+      <div class="pull-quote"><p>O coardă. O singură coardă, infinit de subțire, vibrând la o frecvență pe care nici un instrument nu o putuse măsura vreodată — pentru că instrumentele sunt construite din aceleași corzi și nu pot sta în afara lor să măsoare.</p></div>
+      <p><em>Asta,</em> gândi Zara, <em>asta e.</em></p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div3"></canvas>
+
+  <!-- ─ CAPITOLUL III ─ -->
+  <article class="chapter" id="cap3">
+    <div class="chapter-label">Partea a treia</div>
+    <h2 class="chapter-title">Membrana</h2>
+    <div class="chapter-body">
+      <p><em>— Ai ajuns mai repede decât mă așteptam.</em></p>
+      <p>Vocea tatălui ei venea din toate direcțiile și din niciuna. Zara se întoarse. Nu era nimeni. Și totuși Emil era acolo — nu ca o persoană cu locație, ci ca o prezență cu intenție. Ca un gând foarte clar într-o cameră altfel goală.</p>
+      <p><em>— Tată. Ce s-a întâmplat?</em></p>
+      <p><em>— Am deschis o fereastră în dimensiunea a cincea,</em> spuse Emil, și tonul lui era cel pe care îl folosea când îi explica Zarei ceva ce considera că va schimba perspectiva ei pentru totdeauna. <em>Și cred că am căzut pe-afară.</em></p>
+      <p><em>— Asta nu e o explicație.</em></p>
+      <p><em>— Ba da. E singura explicație corectă pe care o am. Zara — unde crezi că ești acum?</em></p>
+      <p>Zara se uită în jur. <em>Jur</em> era cuvântul greșit. Nu exista un jur. Existau... straturi. Ca și cum realitatea fusese despicată longitudinal și acum vedea simultan toate secțiunile.</p>
+      <p><em>— Ești în bulk,</em> spuse Emil. <em>Spațiul dintre membrane. Dimensiunea a cincea, sau a șasea, sau a unsprezecea — depinde de cum numeri. Acesta e locul despre care teoria M a vorbit tot timpul. Spațiul de deasupra spațiului.</em></p>
+      <p>Teoria M. Extensia teoriei corzilor. Unsprezece dimensiuni. Șapte dintre ele <em>compactificate</em> — rulate atât de strâns încât de-a lungul întregii istorii a fizicii, nici un instrument nu le putuse detecta. Și patru dimensiuni mari: trei spațiale, una temporală.</p>
+      <p>Universul nostru — o membrană. O <em>brană</em>. Care plutea în ocean de dimensiuni suplimentare, ca o foaie de hârtie plutind prin volumul unei încăperi.</p>
+      <p><em>— Noi suntem pe o foaie de hârtie,</em> spuse Zara încet.</p>
+      <p><em>— Exact.</em></p>
+      <p><em>— Și acel ocean...</em></p>
+      <p><em>— E bulk. Iar celelalte membrane...</em></p>
+      <p>Zara privi în jurul ei — <em>prin</em> ea — și văzu pentru prima dată ceea ce ochii ei nu fuseseră niciodată construiți să vadă: alte membrane. Alte foi. Paralele cu universul ei, separate de distanțe măsurate nu în metri, ci în dimensiuni. Unele goale. Unele pline de structuri pe care nu le putea numi.</p>
+      <div class="pull-quote"><p>Câte configurații posibile? Poate zece la puterea cinci sute. Poate mai multe. Poate că toate configurațiile posibile există simultan, fiecare ca o membrană separată — fiecare un univers complet, invizibil celorlalte, tăcut în propriul lui ocean de dimensiuni.</p></div>
+      <p><em>— Vrei să-ți arăt de unde a venit punctul?</em> întrebă Emil.</p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div4"></canvas>
+
+  <!-- ─ CAPITOLUL IV ─ -->
+  <article class="chapter" id="cap4">
+    <div class="chapter-label">Partea a patra</div>
+    <h2 class="chapter-title">Înainte de Prima Secundă</h2>
+    <div class="chapter-body">
+      <p>Nu se deplasară. Deplasarea implică spațiu, iar spațiul era un concept local, specific membranelor. În <em>bulk</em>, lucrurile nu se mișcau — <em>se rezolvau</em>. Ca o ecuație care găsise brusc toți termenii.</p>
+      <p>Și se rezolvară în fața marelui eveniment.</p>
+      <p>Zara văzu două membrane.</p>
+      <p>Imense dincolo de orice capacitate de percepție — nu mari ca un munte sau ca o galaxie, ci mari ca ideea de spațiu, infinite în propriile lor dimensiuni. Una era universul ei — recunoscut nu vizual, ci visceral, ca o recunoaștere a propriei respirații. Cealaltă era altceva. Altă lume. Altă realitate. Altă foaie.</p>
+      <p>Se apropiau.</p>
+      <p>Lent — dacă <em>lent</em> înseamnă ceva când timpul nu există încă — și inevitabil, ca două suprafețe de apă care se contopesc.</p>
+      <p><em>— Acesta e Big Bang-ul?</em> șopti Zara.</p>
+      <p><em>— Nu un Big Bang. Cel Big Bang. Al nostru. Privești de la distanță ce s-a întâmplat acum treisprezece virgulă opt miliarde de ani.</em></p>
+      <p>Membranele se atinseră.</p>
+      <p>Nu explodară. Nu implodară. <strong>Rezonară.</strong></p>
+      <div class="pull-quote"><p>La punctul de contact, energia celor două suprafețe infinite se transforma. Nu dispărea, nu apărea din nimic. Se transforma — exact cum spusese Einstein că trebuie să se întâmple. Energia celor două membrane devenea la punctul de intersecție exact ceea ce fizica numise cu atâta inexactitate <em>punct de densitate infinită</em>.</p></div>
+      <p>Nu era un punct. Era o linie de contact între două infinități. O margine. O coasere.</p>
+      <p><em>— Nu e un punct,</em> spuse Zara.</p>
+      <p><em>— Nu,</em> confirmă Emil. <em>Niciodată n-a fost. Singularitatea e ceea ce obții când iei ecuațiile relativității și le ceri să descrie un moment la care ele nu se aplică. E ca și cum ai cere unui metru să măsoare temperatura. Instrumentul nu e greșit — e folosit în afara domeniului lui de valabilitate. În realitate, la momentul zero nu era un punct de dimensiune zero. Era linia de contact dintre două universuri-mamă.</em></p>
+      <p>Zara privi linia de contact și înțelese dintr-o dată de ce densitatea fusese <em>infinită</em>: pentru că energia a două membrane infinite convergea spre o singură interfață. Nu volumul era zero. Era că energiile confluau ca niște râuri deversite printr-un singur fir de ață.</p>
+      <p><em>— Și înainte de contact?</em> întrebă ea. <em>Ce era înainte?</em></p>
+      <p><em>— Asta-i întrebarea greșită,</em> spuse Emil. <em>Nu din lașitate — ci pentru că timpul, în sensul în care îl înțelegi tu, nu exista înainte de contact. Timpul e o proprietate a membranei, nu a bulk-ului. A întreba ce era înainte de Big Bang e la fel cu a întreba ce e la nord de Polul Nord. Nu că n-ar exista un răspuns — e că întrebarea presupune o geometrie care nu se aplică acolo.</em></p>
+      <p><em>— Atunci nu e neant,</em> spuse Zara. <em>E altceva.</em></p>
+      <p><em>— E altceva. Ceva pentru care nu avem cuvinte, pentru că cuvintele noastre sunt construite din timp și din spațiu. Dar nu e nimic. Cele două membrane existau. Bulk-ul exista. Vibrau. Și coarda care vibra în ele era înainte de orice sunet, dar era muzica din care s-a construit tot sunetul de după.</em></p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div5"></canvas>
+
+  <!-- ─ CAPITOLUL V ─ -->
+  <article class="chapter" id="cap5">
+    <div class="chapter-label">Partea a cincea</div>
+    <h2 class="chapter-title">Corzile</h2>
+    <div class="chapter-body">
+      <p>Zara văzu corzile.</p>
+      <p>Nu cu ochii — cu ceva mai adânc decât ochii, ceva pe care nu știa că îl are. Și nu <em>văzu</em> în sensul de a primi informație vizuală, ci în sensul că informația devenea dintr-o dată parte din ea, ca o amintire care fusese mereu acolo dar pe care nu o accesase.</p>
+      <p>Corzile erau pretutindeni.</p>
+      <p>Infinit de mici — la scara Planck, 10⁻³⁵ metri. Dimensiunea la care spațiul însuși devine granular, pixelat, discontinuu. Unde metrul și centimetrul și nanometrul se termină și unde singura limbă care mai funcționează e matematica pură.</p>
+      <p>Dar vibrau.</p>
+      <p>Fiecare particulă pe care Zara o știa — electronii, quarcii, neutrinii, fotonii, gluonii — <em>nu era</em> o particulă. Era o coardă vibrând la o anumită frecvență. Diferența dintre un electron și un quark era aceeași cu diferența dintre un do și un re. Nu natură diferită — altă notă.</p>
+      <div class="pull-quote"><p>Gravitonul — particula ipotetică a gravitației, singura forță pe care Modelul Standard nu o putuse include — vibra și el. La propria frecvență. Conectând membrana de bulk și bulk-ul de celelalte membrane. Gravitația nu era o forță ca celelalte. Era o <em>scurgere</em> — singurul cânt care traversa dincolo de membrană.</p></div>
+      <p>De aceea era atât de slabă, gândi Zara. De aceea gravitația e cu patruzeci de ordine de magnitudine mai slabă decât electromagnetismul. Nu pentru că ar fi inferioară — ci pentru că se <em>împarte</em> între dimensiuni. O parte din ea e la noi, pe membrană. Restul... în bulk.</p>
+      <p><em>— Noi suntem ancorați,</em> spuse Zara.</p>
+      <p><em>— Da.</em></p>
+      <p><em>— Iar gravitația e singura care poate ieși.</em></p>
+      <p><em>— Da. Și asta înseamnă că bulk-ul, celelalte membrane — pot comunica cu noi numai prin gravitație. Orice altă forță e insulară. Dar gravitația traversează totul.</em></p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div6"></canvas>
+
+  <!-- ─ CAPITOLUL VI ─ -->
+  <article class="chapter" id="cap6">
+    <div class="chapter-label">Partea a șasea</div>
+    <h2 class="chapter-title">Oglinda Universului</h2>
+    <div class="chapter-body">
+      <p><em>— Tată,</em> spuse Zara. <em>Trebuie să te duc înapoi.</em></p>
+      <p><em>— Știu.</em></p>
+      <p><em>— Dar mai e ceva. Ceva ce nu înțeleg și de care am nevoie să înțeleg înainte de orice altceva.</em></p>
+      <p>Zara se gândi la toate serile petrecute la fereastra stației orbitale, privind Pământul. Albastru și fragil și acoperit de luminițele orașelor care se vedeau chiar și din orbită. Se gândi la știrile pe care le citea în fiecare dimineață: extincții, defrișări, oceane de plastic, orașe cu aer irespirabil, războaie pentru resursele a căror dispariție tot oamenii o grăbeau.</p>
+      <p><em>— De ce?</em> întrebă Zara. <em>De ce le distrugem? Dacă suntem atât de mici — atât de nesemnificativi pe harta cosmică — de ce ne comportăm de parcă planeta e ceva separat de noi? De parcă noi suntem stăpânii și ea e obiectul?</em></p>
+      <p><em>— Ai auzit vreodată de principiul holografic?</em></p>
+      <p><em>— Da. Maldacena. Universul ca hologramă.</em></p>
+      <p><em>— Mai mult decât atât,</em> spuse Emil. <em>Ideea că informația de pe suprafața unei regiuni codifică tot ce se întâmplă în volumul ei. Că nu există interior și exterior ca entități separate — există informație distribuită. Fiecare particulă din univers e în relație de non-localitate cu fiecare altă particulă. Nu metaforic. Matematic.</em></p>
+      <p><em>— Entanglementul cuantic la scară cosmică.</em></p>
+      <p><em>— Exact. Noi — oamenii, atomii noștri — suntem literalmente aceleași corzi care vibrau la momentul Big Bang-ului. Nu descendenți. Nu copii. Aceleași corzi, rearanjate. Materia din corpul tău a fost stea. A fost nor de hidrogen. A fost rază de lumină în primele trei minute de după contact.</em></p>
+      <div class="pull-quote"><p>Tu ești universul privind universul.</p></div>
+      <p>Zara simți ceva cedând în piept — nu dureros, ci ca un nod care se desface.</p>
+      <p><em>— Și totuși îl distrugem.</em></p>
+      <p><em>— Pentru că am uitat,</em> spuse Emil. <em>Nu din rea-credință. Din uitare. Undeva în istoria noastră, am decis că eu e separat de tot. Că persoana mea se termină la suprafața pielii. Că planeta e un decor, nu un partener. Că universul e ceva din afară, nu ceva din care facem parte.</em></p>
+      <p><em>— Și dacă am simți — nu am ști cu mintea, am simți cu toată ființa — că atomii noștri de fier au venit din explozia unei supernove, că apa din celulele noastre a călătorit prin nebuloase, că suntem rude directe ale Big Bang-ului... cred că n-am mai putea arunca un ambalaj pe jos fără să simțim că ne aruncăm pe noi înșine.</em></p>
+      <p><em>— Ăsta e un răspuns frumos,</em> spuse Zara. <em>Dar nu e suficient.</em></p>
+      <p><em>— Nu,</em> confirmă Emil. <em>Nu e. Răspunsul suficient îl dai tu. Tu și generația ta. Noi am construit Leagănul ca să înțelegem de unde venim. Voi trebuie să construiți ceva ca să înțelegeți de ce contează.</em></p>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div7"></canvas>
+
+  <!-- ─ CAPITOLUL VII ─ -->
+  <article class="chapter" id="cap7">
+    <div class="chapter-label">Partea a șaptea</div>
+    <h2 class="chapter-title">Întoarcerea</h2>
+    <div class="chapter-body">
+      <p>Ieșiră împreună prin deschizătură.</p>
+      <p>Emil era fizic, real, prezent — puțin palid și dezorientat, cu ochii lărgiți de ceea ce văzuse, dar intact. Oamenii de la Leagăn îl primiră cu o combinație de ușurare și panică birocratică.</p>
+      <p>Nimeni nu întrebă cum ieșise. Nimeni nu întrebă cum intrase Zara.</p>
+      <p>Sau poate că întrebară și ea nu auzi, pentru că era la fereastră — un mic hublou circular cu vedere spre suprafața Lunii și, dincolo de ea, spre Pământ — și se gândea la corzi.</p>
+      <p>La faptul că Pământul văzut din spațiu nu e o fotografie. E o coardă vibrând. O membrană pe membrană. O notă în simfonia pe care o compun în colaborare, fără să știe, toate membranele din bulk.</p>
+      <p>La faptul că <em>punct de densitate infinită</em> era o minciună spusă cu bune intenții — o simplificare a unui adevăr prea complex pentru cuvintele pe care le aveam la dispoziție. Că adevărul din spatele ei era mai frumos și mai înfricoșător și mai uman: că am ieșit dintr-o <em>atingere</em>. Că universul nostru s-a născut dintr-un contact. Dintr-o relație. Că la originea tuturor lucrurilor nu era singurătatea unui punct izolat, ci întâlnirea a două lumi vaste.</p>
+      <p>La faptul că <em>miliarde de ani</em> calculați nu din orbita Pământului, ci din tiparul fotonilor în radiația cosmică de fond nu erau o trufie omenească — erau o demonstrație că niște primate inteligente, cu instrumente fragile și existențe scurte, reușiseră să citească vârsta universului din lumina primordială. Că asta nu era lipsă de modestie. Era triumful curiozității asupra propriei neputințe. Era cel mai frumos lucru pe care specia lor îl făcuse vreodată.</p>
+      <p>Zara scoase blocnotesul. Deschise la pagina cincizeci și patru — prima pagină goală după cincizeci și trei de pagini de întrebări — și scrise:</p>
+      <div class="notebook">
+        <p>Punctul nu a existat.<br>
+        Existau două lumi vaste care s-au atins.<br>
+        Din acea atingere, a ieșit tot.<br>
+        Inclusiv întrebarea.</p>
+      </div>
+    </div>
+  </article>
+
+  <canvas class="string-divider" id="div8"></canvas>
+
+  <!-- ─ EPILOG ─ -->
+  <article class="chapter" id="epilog">
+    <div class="chapter-label">Epilog · 17 Mai 2087</div>
+    <h2 class="chapter-title">Ora Necunoscută</h2>
+    <div class="chapter-body">
+      <p>Zara nu deveni fizician.</p>
+      <p>Deveni ceva pentru care nu exista un titlu profesional stabilit — un fel de traducător. Cineva care lua matematica teoriei corzilor și o transforma în povești pe care le puteau înțelege oamenii care nu doreau să facă un doctorat, dar care voiau să știe <em>de unde au venit</em> și <em>de ce contează</em>.</p>
+      <p>Scrisa prima carte la șaptesprezece ani. Era subțire — o sută douăzeci de pagini — și se numea <em>Înainte de Prima Secundă</em>. Pe coperta interioară scrisese o singură dedicație:</p>
+      <div class="pull-quote"><p><em>Tuturor celor care au pus întrebarea greșită și nu s-au oprit până au găsit întrebarea corectă.</em></p></div>
+      <p>Cartea se vânduse în patruzeci și trei de limbi. Nu pentru că rezolva misterul universului. Ci pentru că era sinceră cu privire la mister.</p>
+      <p>Și pentru că spunea, în ultima pagină, ceea ce Zara crezuse de la cincisprezece ani și nu se oprise să creadă niciodată:</p>
+      <div class="notebook">
+        <p>Nu știm de unde vine universul. Dar știm că suntem din el. Că fiecare atom din noi a fost stea, nor, lumină, vid. Că nu suntem aruncați în cosmos ca niște străini — suntem cosmosul aruncând o privire înapoi asupra lui însuși.<br><br>
+        Și dacă asta nu e motiv destul să avem grijă unii de alții și de planeta pe care o locuim — atunci poate că întrebările sunt mai importante decât răspunsurile.<br><br>
+        Continuați să întrebați.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─ FIN ─ -->
+  <div class="story-end" id="story-end">
+    <div class="end-divider"></div>
+    <div class="end-mark">— Sfârşit —</div>
+    <div class="end-divider"></div>
+  </div>
+
+  <!-- ─ NOTE ŞTIINŢIFICE ─ -->
+  <section class="science-section chapter" id="science">
+    <div class="science-title">⟐ Note Științifice pentru Cititorul Curios</div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Teoria Corzilor (String Theory)
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        <strong>Originea:</strong> Dezvoltată în anii '60–'80, consolidată în anii '90. <strong>Ideea centrală:</strong> particulele elementare nu sunt puncte fără dimensiune, ci <em>corzi</em> unidimensionale vibrând la frecvențe diferite. Frecvența vibrației determină tipul particulei — electron, quark, foton etc. Teoria necesită matematică în 10 dimensiuni (9 spațiale + 1 temporală). Nu este confirmată experimental în mai 2026, dar rămâne cel mai riguros cadru matematic pentru unificarea gravitației cu celelalte forțe.
+      </div>
+    </div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Teoria M și cele 11 Dimensiuni
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        Propusă de <strong>Edward Witten</strong> în 1995, Teoria M unifică cele 5 versiuni ale teoriei corzilor adăugând o dimensiune suplimentară (11 total). Cele 7 dimensiuni extra sunt <em>compactificate</em> — rulate la scara Planck, invizibile instrumentelor actuale. Teoria introduce <em>membrane</em> (brane) ca obiecte fundamentale cu multiple dimensiuni. Universul nostru ar putea fi o 3-brană (3 dimensiuni spațiale) care plutește în spațiul 11-dimensional numit <em>bulk</em>.
+      </div>
+    </div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Cosmologia Branelor / Ekpyrotică
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        Propusă de <strong>Paul Steinhardt și Neil Turok</strong> (2001), modelul ekpirotic sugerează că Big Bang-ul nu a fost o singularitate izolată, ci <em>coliziunea a două membrane paralele</em> în spațiul multidimensional. Aceasta este baza scenei centrale din poveste. Modelul elimină problema singularității și oferă o alternativă la inflația cosmică standard. Rămâne o teorie speculativă validă în mai 2026.
+      </div>
+    </div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Gravitonul și Gravitația ca Scurgere
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        În teoria corzilor, gravitonul este o <em>coardă închisă</em> (inel) — singura particulă care nu are capetele ancorate de membrană. Prin aceasta poate <em>scăpa</em> în bulk. Aceasta explică de ce gravitația este cu ~40 de ordine de magnitudine mai slabă decât celelalte forțe: ea se distribuie în toate dimensiunile, nu doar în cele 4 ale membranei noastre. Gravitonul rămâne ipotetic în mai 2026, nedetectat direct, dar consistent matematic.
+      </div>
+    </div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Principiul Holografic și AdS/CFT
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        Propus de <strong>Gerard 't Hooft și Leonard Susskind</strong> (~1993–95), confirmat parțial matematic prin corespondența <strong>AdS/CFT a lui Juan Maldacena</strong> (1997): informația dintr-un volum poate fi complet codificată pe suprafața lui. Implicație: universul 3D ar putea fi o „proiecție" a unei realități 2D — sau invers. Rămâne una din ideile cel mai bine susținute matematic în fizica teoretică actuală.
+      </div>
+    </div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Radiația Cosmică de Fond și Vârsta Universului
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        Vârsta universului — <strong>13.787 ± 0.020 miliarde de ani</strong> — nu se calculează din orbita Pământului, ci din <em>radiația cosmică de fond (CMB)</em>: lumina din 380.000 de ani după Big Bang, tiparul ei de temperaturi codificând parametrii cosmologici. Satelitul <strong>Planck (ESA)</strong> a oferit în 2018 cea mai precisă hartă CMB. Metodele independente (dezintegrare radioactivă, distanța stelelor, supernovae de tip Ia) converg spre aceeași valoare.
+      </div>
+    </div>
+
+    <div class="sci-item">
+      <div class="sci-header" onclick="toggleSci(this)">
+        Ce rămâne necunoscut în mai 2026
+        <span class="sci-arrow">▾</span>
+      </div>
+      <div class="sci-body">
+        Teoria corzilor / Teoria M nu au fost confirmate experimental. Dimensiunile suplimentare nu au fost detectate direct. Gravitonul nu a fost observat. Coliziunea branelor rămâne speculativă. Principiul holografic este confirmat matematic dar nu fizic în universul nostru. <strong>Toate acestea sunt starea reală a fizicii în mai 2026 — și este mai interesantă astfel decât dacă ar fi completă.</strong>
+      </div>
+    </div>
+
+  </section>
+
+</main><!-- /story-wrap -->
+
+<!-- FOOTER -->
+<footer class="story-footer">
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">← Catalog</a>
+    <a href="https://www.patreon.com/c/alexio_tf" class="footer-link primary" target="_blank">↗ Patreon</a>
+    <a href="https://alexio.tf" class="footer-link" target="_blank">alexio.tf</a>
+    <a href="captatorii-informatiilor.html" class="footer-link">Altă lucrare →</a>
+  </div>
+  <p class="footer-copy">© Alexandru Ionuț Chiuță · Trade-free · 2026 · Toate drepturile rezervate</p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* ── HERO CANVAS: Vibrating strings ── */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = canvas.parentElement.offsetHeight;
+  }
+
+  const strings = [
+    {freq:.8, amp:.06, phase:0, speed:.4, color:'rgba(0,232,255,', baseW:.4},
+    {freq:1.3,amp:.04, phase:1.2, speed:.6, color:'rgba(0,232,255,', baseW:.25},
+    {freq:.5, amp:.08, phase:2.4, speed:.25, color:'rgba(200,169,110,', baseW:.3},
+    {freq:2.1,amp:.025,phase:.7, speed:.9, color:'rgba(0,232,255,', baseW:.15},
+    {freq:.3, amp:.1, phase:3.1, speed:.15, color:'rgba(200,169,110,', baseW:.2},
+    {freq:1.7,amp:.035,phase:1.8, speed:.7, color:'rgba(0,232,255,', baseW:.2},
+    {freq:.9, amp:.055,phase:4.2, speed:.5, color:'rgba(155,127,232,', baseW:.25},
+    {freq:2.5,amp:.02, phase:.4, speed:1.1, color:'rgba(0,232,255,', baseW:.12},
+  ];
+
+  let t = 0;
+
+  function drawString(s) {
+    const y0 = H * (0.2 + strings.indexOf(s) * 0.085);
+    ctx.beginPath();
+    for(let x = 0; x <= W; x += 2) {
+      const progress = x / W;
+      const y = y0 + Math.sin(progress * s.freq * Math.PI * 6 + t * s.speed + s.phase)
+                    * H * s.amp
+                    * Math.sin(progress * Math.PI); // envelope
+      if(x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    const alpha = 0.1 + 0.1 * Math.sin(t * s.speed * 0.5 + s.phase);
+    ctx.strokeStyle = s.color + alpha + ')';
+    ctx.lineWidth = s.baseW;
+    ctx.stroke();
+
+    // glow
+    ctx.strokeStyle = s.color + (alpha * 0.4) + ')';
+    ctx.lineWidth = s.baseW * 4;
+    ctx.stroke();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    // radial gradient overlay
+    const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.6);
+    grad.addColorStop(0, 'rgba(0,20,40,0.3)');
+    grad.addColorStop(1, 'rgba(3,4,7,0.7)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    strings.forEach(drawString);
+    ctx.restore();
+
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  draw();
+  window.addEventListener('resize', resize);
+})();
+
+/* ── DIVIDER CANVASES: mini string animations ── */
+document.querySelectorAll('.string-divider').forEach((canvas, idx) => {
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth || 600;
+  canvas.height = 60;
+  let t = idx * 1.3;
+
+  const cols = ['rgba(0,232,255,', 'rgba(200,169,110,', 'rgba(155,127,232,'];
+  const configs = [
+    {freq:3, amp:10, speed:.5, col:cols[0], lw:.6},
+    {freq:5, amp:6,  speed:.8, col:cols[1], lw:.4},
+    {freq:2, amp:14, speed:.3, col:cols[2], lw:.3},
+  ];
+
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    configs.forEach(c => {
+      ctx.beginPath();
+      for(let x = 0; x <= W; x += 2) {
+        const y = H/2 + Math.sin(x/W * c.freq * Math.PI * 4 + t * c.speed) * c.amp
+                      * Math.sin(x/W * Math.PI);
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = c.col + '.35)';
+      ctx.lineWidth = c.lw;
+      ctx.stroke();
+      ctx.strokeStyle = c.col + '.08)';
+      ctx.lineWidth = c.lw * 5;
+      ctx.stroke();
+    });
+    t += .008;
+    requestAnimationFrame(draw);
+  }
+
+  new ResizeObserver(() => {
+    canvas.width = canvas.offsetWidth;
+    draw();
+  }).observe(canvas);
+
+  draw();
+});
+
+/* ── READING PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const body = document.body;
+  const html = document.documentElement;
+  const total = Math.max(body.scrollHeight, html.scrollHeight) - window.innerHeight;
+  const pct = (window.scrollY / total) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+
+  // Nav scroll state
+  document.getElementById('top-nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ── SCROLL REVEAL ── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.08, rootMargin: '0px 0px -40px 0px'});
+
+document.querySelectorAll('.chapter, .string-divider, .story-end').forEach(el => {
+  revealObs.observe(el);
+});
+
+/* ── SCIENCE ACCORDION ── */
+function toggleSci(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.sci-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.sci-header').forEach(h => h.classList.remove('open'));
+  if(!isOpen) {
+    body.classList.add('open');
+    header.classList.add('open');
+  }
+}
+
+/* ── FONT SIZE ── */
+let fz = 1.15;
+function fontSize(dir) {
+  fz = Math.max(.9, Math.min(1.5, fz + dir * .08));
+  document.documentElement.style.setProperty('--font-size', fz + 'rem');
+}
+</script>
+</body>
+</html>
