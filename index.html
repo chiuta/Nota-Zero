@@ -80,6 +80,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   color-scheme:dark;
+  --ov:rgba(6,8,15,.98);
   --void:#030407;--deep:#06080f;--surface:#0b0d18;
   --border:rgba(200,169,110,.11);--border2:rgba(200,169,110,.06);
   --gold:#c8a96e;--gold-dim:rgba(200,169,110,.4);--gold-faint:rgba(200,169,110,.08);
@@ -133,8 +134,8 @@ body{
 /* ═══ NAV ══════════════════════════════════════════ */
 .top-nav{position:fixed;top:2px;left:0;right:0;z-index:200;padding:.75rem 1.5rem;
   display:flex;justify-content:space-between;align-items:center;gap:.8rem;
-  background:linear-gradient(180deg,rgba(3,4,7,.97) 0%,transparent 100%);transition:background .3s;}
-.top-nav.scrolled{background:rgba(6,8,15,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  background:linear-gradient(180deg,var(--ov) 0%,transparent 100%);transition:background .3s;}
+.top-nav.scrolled{background:var(--ov);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border2);}
 
 .nav-left{display:flex;align-items:center;gap:1rem;flex-wrap:nowrap;min-width:0;overflow:visible;}
@@ -157,7 +158,7 @@ body{
 .nav-dropdown.open .caret{transform:rotate(180deg);}
 .nav-dd-menu{position:absolute;top:calc(100% + 1rem);left:50%;
   transform:translateX(-50%) translateY(-8px);
-  background:rgba(6,8,15,.98);border:1px solid var(--border);
+  background:var(--ov);border:1px solid var(--border);
   will-change:opacity,transform;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   min-width:240px;padding:.5rem 0;opacity:0;pointer-events:none;
   transition:opacity .2s,transform .2s;z-index:300;}
@@ -221,7 +222,7 @@ body{
 .mobile-menu{
   display:none;
   position:fixed;inset:0;
-  background:rgba(3,4,7,.98);
+  background:var(--ov);
   z-index:600;
   flex-direction:column;
   padding:4.5rem 1.8rem 3rem;
@@ -407,7 +408,7 @@ body{
 .chapter,.science-section{scroll-margin-top:60px;}
 .chapter-label{
   font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.3em;
-  color:var(--cyan);text-transform:uppercase;margin-bottom:1.2rem;opacity:.7;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:1.2rem;opacity:1;
   display:flex;align-items:center;gap:.6rem;
   overflow:hidden;  /* clearfix for float:right TTS button */
 }
@@ -483,13 +484,13 @@ body{
   transition:opacity .8s ease,transform .8s ease;}
 .story-end.revealed{opacity:1;transform:none;}
 .end-mark{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.4em;
-  color:var(--gold);opacity:.6;text-transform:uppercase;}
+  color:var(--gold);opacity:1;text-transform:uppercase;}
 .end-divider{width:60px;height:1px;background:var(--gold-dim);margin:1.2rem auto;}
 .story-footer{text-align:center;padding:2rem 2rem 4rem;border-top:1px solid var(--border2);
   max-width:720px;margin:0 auto;}
 .footer-copy{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--cream-dim);
-  opacity:.3;letter-spacing:.08em;}
-.footer-copy a{color:var(--gold);text-decoration:none;}
+  opacity:1;letter-spacing:.08em;}
+.footer-copy a{color:var(--cream);text-decoration:underline;}
 
 /* ═══ READING GUIDE (fixed at 45vh, no mouse tracking) ═════ */
 #reading-guide{position:fixed;top:45vh;left:0;right:0;height:2px;
@@ -504,7 +505,7 @@ body{
 /* ═══ SCROLL TO TOP ════════════════════════════════ */
 #scroll-top{
   position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;
-  background:rgba(6,8,15,.92);border:1px solid var(--border);color:var(--gold);
+  background:var(--ov);border:1px solid var(--border);color:var(--gold);
   font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
   z-index:150;opacity:0;pointer-events:none;transform:translateY(12px);
   transition:opacity .3s,transform .3s,border-color .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
@@ -554,21 +555,21 @@ body.a11y-shadow .chapter-body p{text-shadow:0 1px 4px rgba(0,0,0,.85);}
 body.a11y-narrow .story-wrap{max-width:520px;}
 body.a11y-underline a{text-decoration:underline!important;text-underline-offset:3px;}
 body.a11y-light{
-  color-scheme:light;--void:#f5efe3;--deep:#ede6d8;--surface:#e8e0d0;
+  color-scheme:light;--ov:rgba(245,239,227,.98);--void:#f5efe3;--deep:#ede6d8;--surface:#e8e0d0;
   --cream:#1a1510;--cream-dim:rgba(26,21,16,.72);--cream-faint:rgba(26,21,16,.08);
   --border:rgba(26,21,16,.15);--border2:rgba(26,21,16,.08);
-  --gold:#8a6a30;--gold-dim:rgba(138,106,48,.5);--gold-faint:rgba(138,106,48,.08);
+  --gold:#7a5c24;--gold-dim:rgba(122,92,36,.5);--gold-faint:rgba(138,106,48,.08);
   --cyan:#006b7a;--cyan-dim:rgba(0,107,122,.2);--cyan-faint:rgba(0,107,122,.06);}
 body.a11y-light #hero-canvas{opacity:.06!important;}
 
 /* ═══ PREFERS COLOR SCHEME: LIGHT (auto, if no saved pref) ═ */
 @media(prefers-color-scheme:light){
   body:not(.a11y-contrast):not(.a11y-sepia):not(.a11y-pref-set) {
-    color-scheme:light;
+    color-scheme:light;--ov:rgba(245,240,232,.98);
     --void:#f5f0e8;--deep:#ede3ce;--surface:#e5d9c0;
     --cream:#1a1510;--cream-dim:rgba(26,21,16,.72);--cream-faint:rgba(26,21,16,.08);
     --border:rgba(26,21,16,.15);--border2:rgba(26,21,16,.08);
-    --gold:#8a6a30;--gold-dim:rgba(138,106,48,.5);--gold-faint:rgba(138,106,48,.08);
+    --gold:#7a5c24;--gold-dim:rgba(122,92,36,.5);--gold-faint:rgba(138,106,48,.08);
     --cyan:#006b7a;--cyan-dim:rgba(0,107,122,.2);--cyan-faint:rgba(0,107,122,.06);
   }
   body:not(.a11y-contrast):not(.a11y-sepia):not(.a11y-pref-set) #hero-canvas{opacity:.08!important;}
@@ -867,7 +868,7 @@ canvas:focus{outline:none;}
 .tts-panel{
   position:fixed;
   bottom:0;left:0;right:0;
-  background:rgba(6,8,15,.97);
+  background:var(--ov);
   border-top:1px solid var(--border);
   contain:layout style;  /* isolate paint from rest of page */
   -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
@@ -924,7 +925,7 @@ canvas:focus{outline:none;}
 }
 .tts-speed:hover{border-color:var(--gold-dim);}
 .tts-voice-select{
-  background:rgba(6,8,15,.9);
+  background:var(--ov);
   border:1px solid var(--border);
   color:var(--cream-dim);
   font-family:'Space Mono',monospace;
@@ -1084,26 +1085,26 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
         </div>
 
         <div class="a11y-section" data-i18n="a11y.sectionText">Text</div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.dyslexia">Font dislexie</span><span class="a11y-desc">Atkinson Hyperlegible</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-dyslexia" onchange="toggleA11y('dyslexia','a11y-dyslexia')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.lettsp">Spațiere litere</span><span class="a11y-desc" data-i18n="a11y.lettspD">Tracking mărit</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lettsp" onchange="toggleA11y('lettsp','a11y-lettsp')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.wordsp">Spațiere cuvinte</span><span class="a11y-desc" data-i18n="a11y.wordspD">Mai mult spațiu</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-wordsp" onchange="toggleA11y('wordsp','a11y-wordsp')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.lineh">Rânduri late</span><span class="a11y-desc" data-i18n="a11y.linehD">Spațiere verticală</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lineh" onchange="toggleA11y('lineh','a11y-lineh')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.parsp">Spațiere paragrafe</span><span class="a11y-desc" data-i18n="a11y.parspD">Margini extra</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-parsp" onchange="toggleA11y('parsp','a11y-parsp')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.shadow">Umbră text</span><span class="a11y-desc" data-i18n="a11y.shadowD">Lizibilitate pe fundal</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-shadow" onchange="toggleA11y('shadow','a11y-shadow')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.narrow">Coloană îngustă</span><span class="a11y-desc" data-i18n="a11y.narrowD">~520px lățime</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-narrow" onchange="toggleA11y('narrow','a11y-narrow')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.underline">Subliniază linkuri</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-underline" onchange="toggleA11y('underline','a11y-underline')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-dyslexia" class="a11y-label" data-i18n="a11y.dyslexia">Font dislexie</span><span class="a11y-desc">Atkinson Hyperlegible</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-dyslexia" aria-labelledby="lbl-tog-dyslexia" onchange="toggleA11y('dyslexia','a11y-dyslexia')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-lettsp" class="a11y-label" data-i18n="a11y.lettsp">Spațiere litere</span><span class="a11y-desc" data-i18n="a11y.lettspD">Tracking mărit</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lettsp" aria-labelledby="lbl-tog-lettsp" onchange="toggleA11y('lettsp','a11y-lettsp')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-wordsp" class="a11y-label" data-i18n="a11y.wordsp">Spațiere cuvinte</span><span class="a11y-desc" data-i18n="a11y.wordspD">Mai mult spațiu</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-wordsp" aria-labelledby="lbl-tog-wordsp" onchange="toggleA11y('wordsp','a11y-wordsp')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-lineh" class="a11y-label" data-i18n="a11y.lineh">Rânduri late</span><span class="a11y-desc" data-i18n="a11y.linehD">Spațiere verticală</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lineh" aria-labelledby="lbl-tog-lineh" onchange="toggleA11y('lineh','a11y-lineh')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-parsp" class="a11y-label" data-i18n="a11y.parsp">Spațiere paragrafe</span><span class="a11y-desc" data-i18n="a11y.parspD">Margini extra</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-parsp" aria-labelledby="lbl-tog-parsp" onchange="toggleA11y('parsp','a11y-parsp')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-shadow" class="a11y-label" data-i18n="a11y.shadow">Umbră text</span><span class="a11y-desc" data-i18n="a11y.shadowD">Lizibilitate pe fundal</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-shadow" aria-labelledby="lbl-tog-shadow" onchange="toggleA11y('shadow','a11y-shadow')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-narrow" class="a11y-label" data-i18n="a11y.narrow">Coloană îngustă</span><span class="a11y-desc" data-i18n="a11y.narrowD">~520px lățime</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-narrow" aria-labelledby="lbl-tog-narrow" onchange="toggleA11y('narrow','a11y-narrow')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-underline" class="a11y-label" data-i18n="a11y.underline">Subliniază linkuri</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-underline" aria-labelledby="lbl-tog-underline" onchange="toggleA11y('underline','a11y-underline')"><span class="a11y-slider"></span></label></div>
 
         <div class="a11y-section" data-i18n="a11y.sectionViz">Vizual</div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.contrast">Contrast ridicat</span><span class="a11y-desc" data-i18n="a11y.contrastD">Alb pur pe negru</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-contrast" onchange="toggleA11y('contrast','a11y-contrast')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.light">Mod luminos</span><span class="a11y-desc" data-i18n="a11y.lightD">Fundal crem</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-light" onchange="toggleA11y('light','a11y-light')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.sepia">Mod sepia</span><span class="a11y-desc" data-i18n="a11y.sepiaD">Ton cald</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-sepia" onchange="toggleA11y('sepia','a11y-sepia')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.motion">Fără animații</span><span class="a11y-desc" data-i18n="a11y.motionD">Oprește efectele</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-motion" onchange="toggleA11y('motion','a11y-no-motion')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.guide">Ghid lectură</span><span class="a11y-desc" data-i18n="a11y.guideD">Linie fixă la 45% ecran</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-guide" onchange="toggleGuide(this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-contrast" class="a11y-label" data-i18n="a11y.contrast">Contrast ridicat</span><span class="a11y-desc" data-i18n="a11y.contrastD">Alb pur pe negru</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-contrast" aria-labelledby="lbl-tog-contrast" onchange="toggleA11y('contrast','a11y-contrast')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-light" class="a11y-label" data-i18n="a11y.light">Mod luminos</span><span class="a11y-desc" data-i18n="a11y.lightD">Fundal crem</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-light" aria-labelledby="lbl-tog-light" onchange="toggleA11y('light','a11y-light')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-sepia" class="a11y-label" data-i18n="a11y.sepia">Mod sepia</span><span class="a11y-desc" data-i18n="a11y.sepiaD">Ton cald</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-sepia" aria-labelledby="lbl-tog-sepia" onchange="toggleA11y('sepia','a11y-sepia')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-motion" class="a11y-label" data-i18n="a11y.motion">Fără animații</span><span class="a11y-desc" data-i18n="a11y.motionD">Oprește efectele</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-motion" aria-labelledby="lbl-tog-motion" onchange="toggleA11y('motion','a11y-no-motion')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-guide" class="a11y-label" data-i18n="a11y.guide">Ghid lectură</span><span class="a11y-desc" data-i18n="a11y.guideD">Linie fixă la 45% ecran</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-guide" aria-labelledby="lbl-tog-guide" onchange="toggleGuide(this.checked)"><span class="a11y-slider"></span></label></div>
 
         <div class="a11y-section" data-i18n="a11y.cbTitle">Daltonism (exclusiv)</div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.proto">Protanopie</span><span class="a11y-desc" data-i18n="a11y.protoD">Deficit roșu</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-p" onchange="setCBFilter('protanopia',this.checked)"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.deuter">Deuteranopie</span><span class="a11y-desc" data-i18n="a11y.deuterD">Deficit verde</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-d" onchange="setCBFilter('deuteranopia',this.checked)"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span class="a11y-label" data-i18n="a11y.tritan">Tritanopie</span><span class="a11y-desc" data-i18n="a11y.tritanD">Deficit albastru</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-t" onchange="setCBFilter('tritanopia',this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-cb-p" class="a11y-label" data-i18n="a11y.proto">Protanopie</span><span class="a11y-desc" data-i18n="a11y.protoD">Deficit roșu</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-p" aria-labelledby="lbl-tog-cb-p" onchange="setCBFilter('protanopia',this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-cb-d" class="a11y-label" data-i18n="a11y.deuter">Deuteranopie</span><span class="a11y-desc" data-i18n="a11y.deuterD">Deficit verde</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-d" aria-labelledby="lbl-tog-cb-d" onchange="setCBFilter('deuteranopia',this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-cb-t" class="a11y-label" data-i18n="a11y.tritan">Tritanopie</span><span class="a11y-desc" data-i18n="a11y.tritanD">Deficit albastru</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-t" aria-labelledby="lbl-tog-cb-t" onchange="setCBFilter('tritanopia',this.checked)"><span class="a11y-slider"></span></label></div>
 
         <div class="dd-div"></div>
         <button type="button" class="a11y-reset" onclick="resetAllPrefs()" data-i18n="a11y.reset">↺ Resetează toate preferințele</button>
@@ -1949,6 +1950,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 </main>
 
 <footer class="story-footer">
+  <p class="footer-copy" style="margin-bottom:.6rem">Ficțiune / speculație · Fiction / speculation · Fiction spéculative. Operă literară; notele științifice au scop explicativ și nu înlocuiesc surse academice.</p>
   <p class="footer-copy">© Alexandru Ionuț Chiuță · <a href="https://alexio.tf" target="_blank" rel="noopener noreferrer">alexio.tf</a> · <a id="footer-brand" href="https://centrulstring.ro" target="_blank" rel="noopener noreferrer">Centrul STRING</a> · Trade-free · 2026</p>
 </footer>
 
@@ -3330,7 +3332,7 @@ initClickToRead();
 @media (max-width:560px){#tf-donate .tf-lbl{display:none}}
 @media print{#tf-donate{display:none}}
 </style>
-<input type="checkbox" id="tf-donate-cb" class="tf-cb" aria-hidden="true">
+<input type="checkbox" id="tf-donate-cb" class="tf-cb" aria-hidden="true" tabindex="-1">
 <div class="tf-panel">
 <span class="tf-lbl">Sprijină:</span>
 <a class="tf-b tf-pat" href="https://www.patreon.com/c/alexio_tf" target="_blank" rel="noopener" aria-label="Sprijină pe Patreon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="15.4" cy="9.4" r="6.6" fill="currentColor"/><rect x="2.4" y="2.4" width="3.7" height="19.2" fill="currentColor"/></svg>Patreon</a>

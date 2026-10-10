@@ -1,5 +1,7 @@
 # Nota Zero
 
+**Ficțiune / speculație.** Operă literară; notele științifice au scop explicativ și nu înlocuiesc surse academice.
+
 Povestire de ficțiune speculativă despre teoria corzilor, citibilă în română, engleză și franceză, cu cititor vocal și opțiuni de accesibilitate.
 
 **Live:** https://chiuta.github.io/Nota-Zero/
@@ -19,6 +21,11 @@ Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o
 - Imprimare (🖨).
 - Panou de accesibilitate (⚙): mărime text (A− / A+), font pentru dislexie (Atkinson Hyperlegible), spațiere litere/cuvinte/rânduri/paragrafe, umbră text, coloană îngustă, subliniere linkuri, contrast ridicat, mod luminos, mod sepia, fără animații, ghid de lectură, moduri pentru daltonism (protanopie, deuteranopie, tritanopie) și „Resetează toate preferințele”.
 - Animație de fundal (canvas) în antet, care poate fi dezactivată din „Fără animații”.
+
+## Alte fișiere
+
+- `index.md` — textul poveștii în format Markdown (versiune în română).
+- `recenzie.html` — „Recenzie exhaustivă” a lucrării, **generată de un model AI (Claude Sonnet 4.6)**, nu critică literară independentă; scorurile (ex. 9,4/10) sunt generate automat și nu au fost validate de un evaluator uman. Nota este afișată în partea de sus a paginii.
 
 ## Manual de utilizare
 
@@ -42,6 +49,10 @@ Descarcă `index.html` și deschide-l în browser; textul, accesibilitatea și i
 ## Licență
 
 CC0 1.0 Universal (domeniu public) — vezi fișierul LICENSE
+
+## Audit
+
+Audit: 2026-10-10 — fără `fetch`/XHR/CDN; singura ieșire către rețea este la click pe linkuri. Corecturi de accesibilitate (etichete pentru comutatoarele din panoul de accesibilitate, contrast în teme luminoase, panouri cu fundal închis în modul luminos).
 
 ## Autor
 

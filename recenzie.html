@@ -104,7 +104,7 @@ body{
 }
 .score-hero-label{
   font-family:'Space Mono',monospace;font-size:.6rem;
-  letter-spacing:.3em;color:var(--cream-d);opacity:.5;
+  letter-spacing:.3em;color:var(--cream-d);opacity:1;
   text-transform:uppercase;margin-top:.4rem;
 }
 .verdict{
@@ -150,14 +150,14 @@ body{
 .sc-label{
   font-family:'Space Mono',monospace;font-size:.5rem;
   letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cream-d);opacity:.6;margin-bottom:.6rem;
+  color:var(--cream-d);opacity:1;margin-bottom:.6rem;
 }
 .sc-bar{height:3px;background:var(--border);margin:.5rem 0 .8rem;position:relative}
 .sc-bar-fill{position:absolute;top:0;left:0;height:100%;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
 .sc-score{
   font-family:'Cinzel',serif;font-size:1.6rem;font-weight:700;
 }
-.sc-note{font-size:.85rem;color:var(--cream-d);opacity:.55;margin-top:.3rem;font-style:italic}
+.sc-note{font-size:.85rem;color:var(--cream-d);opacity:1;margin-top:.3rem;font-style:italic}
 
 /* ─ CHART PANELS ─ */
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:3rem 0}
@@ -182,7 +182,7 @@ body{
 .pull cite{
   display:block;margin-top:.8rem;
   font-family:'Space Mono',monospace;font-size:.52rem;
-  letter-spacing:.12em;color:var(--cyan);opacity:.6;font-style:normal;
+  letter-spacing:.12em;color:var(--cyan);opacity:1;font-style:normal;
 }
 
 /* ─ QUOTE BLOCK ─ */
@@ -193,7 +193,7 @@ body{
   position:relative;
 }
 .notebook::before{content:'✎';position:absolute;top:.8rem;right:1rem;
-  font-family:'Space Mono',monospace;font-size:.5rem;color:var(--gold);opacity:.35}
+  font-family:'Space Mono',monospace;font-size:.5rem;color:var(--gold);opacity:1}
 
 /* ─ CHAPTER ANALYSIS ─ */
 .chapter-list{display:flex;flex-direction:column;gap:1px}
@@ -204,13 +204,13 @@ body{
 }
 .chap-item:hover{background:var(--surface)}
 .chap-name{font-family:'Cinzel',serif;font-size:.9rem;color:var(--cream)}
-.chap-desc{font-size:.82rem;color:var(--cream-d);opacity:.6;margin-top:.2rem;font-style:italic}
+.chap-desc{font-size:.82rem;color:var(--cream-d);opacity:1;margin-top:.2rem;font-style:italic}
 .chap-right{text-align:right}
 .chap-score{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--gold)}
 .chap-tag{
   font-family:'Space Mono',monospace;font-size:.45rem;
   letter-spacing:.15em;text-transform:uppercase;
-  color:var(--cyan);opacity:.65;display:block;margin-top:.2rem;
+  color:var(--cyan);opacity:1;display:block;margin-top:.2rem;
 }
 
 /* ─ TECH GRID ─ */
@@ -226,7 +226,7 @@ body{
   text-transform:uppercase;letter-spacing:.12em;color:var(--gold);
   flex:1;
 }
-.tech-detail{font-size:.88rem;color:var(--cream-d);opacity:.65}
+.tech-detail{font-size:.88rem;color:var(--cream-d);opacity:1}
 .tech-badge{
   font-family:'Space Mono',monospace;font-size:.44rem;
   letter-spacing:.15em;text-transform:uppercase;
@@ -254,7 +254,7 @@ body{
 }
 .final-label{
   font-family:'Space Mono',monospace;font-size:.58rem;
-  letter-spacing:.3em;color:var(--cream-d);opacity:.5;
+  letter-spacing:.3em;color:var(--cream-d);opacity:1;
   text-transform:uppercase;margin:.6rem 0 1.5rem;
 }
 .verdict-tags{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:1.5rem}
@@ -269,9 +269,9 @@ body{
 footer{
   text-align:center;padding:3rem 2rem;border-top:1px solid var(--border2);
   font-family:'Space Mono',monospace;font-size:.52rem;
-  letter-spacing:.1em;color:var(--cream-d);opacity:.3;
+  letter-spacing:.1em;color:var(--cream-d);opacity:1;
 }
-footer a{color:var(--gold);text-decoration:none}
+footer a{color:var(--gold);text-decoration:underline}
 
 @media(max-width:700px){
   .chart-row{grid-template-columns:1fr}
@@ -288,6 +288,7 @@ footer a{color:var(--gold);text-decoration:none}
 <canvas id="starfield" aria-hidden="true"></canvas>
 <div class="hero-inner">
   <div class="hero-eyebrow">Recenzie exhaustivă · literară & tehnică · 2026</div>
+  <p style="font-size:.8rem;line-height:1.5;color:var(--cream-d);max-width:34rem;margin:.6rem auto 1rem;text-align:center">Notă: recenzie generată de un model AI (Claude Sonnet 4.6), nu critică independentă. Scorurile și aprecierile sunt generate automat și nu au fost validate de un evaluator uman.</p>
   <div class="hero-badge">
     <span class="badge-dot"></span>
     Document activ · v14 · Single-file HTML
@@ -595,7 +596,7 @@ scores.forEach(s=>{
   sg.innerHTML+=`<div class="score-cell">
     <div class="sc-label">${s.label}</div>
     <div class="sc-bar"><div class="sc-bar-fill" data-w="${s.score/10*100}%" style="background:${s.color};width:0"></div></div>
-    <div class="sc-score" style="color:${s.color}">${s.score}<span style="font-size:.5em;opacity:.5">/10</span></div>
+    <div class="sc-score" style="color:${s.color}">${s.score}<span style="font-size:.5em;opacity:1">/10</span></div>
     <div class="sc-note">${s.note}</div>
   </div>`;
 });
