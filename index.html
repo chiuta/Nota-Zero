@@ -545,8 +545,6 @@ body.a11y-contrast{--cream:#ffffff;--cream-dim:rgba(255,255,255,.9);
 body.a11y-no-motion *,body.a11y-no-motion *::before,body.a11y-no-motion *::after{
   animation-duration:.001ms!important;animation-iteration-count:1!important;
   transition-duration:.001ms!important;}
-body.a11y-sepia{--void:#1a1410;--deep:#201810;--surface:#251e14;}
-body.a11y-sepia #hero-canvas,body.a11y-sepia .string-divider{filter:sepia(30%) brightness(.8);}
 body.a11y-lineh .chapter-body p{line-height:2.5;}
 body.a11y-lettsp .chapter-body p{letter-spacing:.05em;}
 body.a11y-wordsp .chapter-body p{word-spacing:.28em;}
@@ -561,6 +559,14 @@ body.a11y-light{
   --gold:#7a5c24;--gold-dim:rgba(122,92,36,.5);--gold-faint:rgba(138,106,48,.08);
   --cyan:#006b7a;--cyan-dim:rgba(0,107,122,.2);--cyan-faint:rgba(0,107,122,.06);}
 body.a11y-light #hero-canvas{opacity:.06!important;}
+body.a11y-sepia{
+  color-scheme:light;--ov:rgba(244,232,208,.98);--void:#f4e8d0;--deep:#ebdcbc;--surface:#e0cfa8;
+  --cream:#3b2a14;--cream-dim:rgba(59,42,20,.8);--cream-faint:rgba(59,42,20,.08);
+  --border:rgba(59,42,20,.2);--border2:rgba(59,42,20,.1);
+  --gold:#6e4e14;--gold-dim:rgba(110,78,20,.55);--gold-faint:rgba(110,78,20,.08);
+  --cyan:#00596a;--cyan-dim:rgba(0,89,106,.2);--cyan-faint:rgba(0,89,106,.06);}
+body.a11y-sepia #hero-canvas{opacity:.06!important;}
+body.a11y-sepia .string-divider{filter:sepia(60%);}
 
 /* ═══ PREFERS COLOR SCHEME: LIGHT (auto, if no saved pref) ═ */
 @media(prefers-color-scheme:light){
@@ -1007,7 +1013,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <div id="sr-announce" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
 <div id="reading-guide" aria-hidden="true"></div>
 <button type="button" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Sus" data-i18n-aria="aria.top">↑</button>
-<div id="progress-bar" role="progressbar" aria-label="Progres lectură" data-i18n-aria="aria.progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+<div role="complementary" aria-label="Progres lectură" data-i18n-aria="aria.progress"><div id="progress-bar" role="progressbar" aria-label="Progres lectură" data-i18n-aria="aria.progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
 
 <!-- ══ MOBILE MENU ═══════════════════════════════════ -->
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Meniu">
@@ -3312,7 +3318,7 @@ initClickToRead();
   </div>
 </div>
 <!-- tf-donate: sprijin voluntar (Patreon + Buy Me a Coffee) — self-contained, fără resurse externe, fără JS -->
-<div id="tf-donate" aria-label="Sprijină autorul">
+<div id="tf-donate" role="complementary" aria-label="Sprijină autorul">
 <style>
 #tf-donate{position:fixed;right:14px;bottom:14px;z-index:2147483600;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1}
 #tf-donate *{box-sizing:border-box}
