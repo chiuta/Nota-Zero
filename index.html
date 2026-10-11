@@ -60,7 +60,7 @@
 </style>
 
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src 'self' blob: 'sha256-Sd9lH6MkccglOV7sViI2XgnP4zKJfyX/yFq0E4GdwR0='; connect-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src 'self' blob: 'sha256-ZcMxaGrGBUhEd8nSFu/p76vGzK008D7ZIhf/DRLzXvI='; connect-src 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Nota Zero · Alexandru Ionuț Chiuță</title>
 <meta id="meta-desc" name="description" content="O poveste SF despre ce s-a întâmplat înainte de tot — teoria corzilor, membrane cosmice și răspunsul la întrebarea pe care știința o evită.">
@@ -356,7 +356,7 @@ body{
 .hero-quote{
   font-style:italic;font-size:1rem;color:var(--cream-dim);
   max-width:min(48ch, 100%);
-  margin:0 auto;
+  margin:0 auto 1.8rem;
   border-left:2px solid var(--cyan-dim);padding-left:1.2rem;
   text-align:left;animation:fadeUp .9s ease .6s both;
 }
@@ -2453,10 +2453,12 @@ window.addEventListener('scroll', () => {
     requestAnimationFrame(() => {
       const sy = window.scrollY;
       const total = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
-      const pct = Math.round(sy / total * 100);
+      const pct = total > 0 ? Math.round(sy / total * 100) : 0;
       const pb = document.getElementById('progress-bar');
       pb.style.width = pct + '%';
       pb.setAttribute('aria-valuenow', pct);
+      { const left = Math.max(0, Math.ceil(18 * (1 - pct / 100))); // lectură ≈ 18 min (cf. pagina)
+        pb.setAttribute('aria-valuetext', pct + '% · ' + (currentLang === 'en' ? '~' + left + ' min left' : currentLang === 'fr' ? '~' + left + ' min restantes' : '~' + left + ' min rămase')); }
       document.getElementById('top-nav').classList.toggle('scrolled', sy > 60);
       scrollTopBtn.classList.toggle('visible', sy > 400);
       // Close dropdowns when scrolling on mobile

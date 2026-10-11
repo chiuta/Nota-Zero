@@ -59,6 +59,7 @@ Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ie
 
 ## Istoric / Changelog
 
+- **11 octombrie 2026 (rev. 3):** atribuirea citatului din antet nu mai atinge rândul AUTOR/AN pe desktop (margine sub citat); bara de progres expune și timpul rămas estimat (`aria-valuetext`, ~18 min total, RO/EN/FR) și nu mai produce NaN pe pagini fără derulare. CSP: hash recalculat.
 - **11 octombrie 2026 (rev. 2):** cele 82 de handlere `onclick`/`onchange` inline au fost înlocuite cu un dispatcher delegat (`data-onclick`/`data-onchange`, argumente literale, listă albă de funcții); CSP are acum `script-src` cu hash și fără `'unsafe-inline'`. Mărimea textului (A−/A+) se aplica doar parțial în paragrafele capitolelor la ≥1100 px și pe mobil; acum scalează peste tot. Activarea unei opțiuni (ex. dislexie) nu mai schimbă tema din luminoasă (a sistemului) în întunecată. Nou: „Reia lectura”.
 - **11 octombrie 2026:** modul sepia dădea un fundal închis (rgb(26,20,16)); acum este o temă caldă deschisă (fundal #f4e8d0, text brun #3b2a14). Bara de progres și butoanele de sprijin sunt acum în repere ARIA (`complementary`), deci axe-core raportează 0 violări (regula `region`) la 1280 și 360 px. Neschimbat: 82 de handlere `onclick` inline (CSP păstrează `'unsafe-inline'`). Secțiunea „Ce rămâne necunoscut · Mai 2026” păstrează data ei; nu am găsit o confirmare experimentală nouă a teoriei corzilor, gravitonului sau dimensiunilor extra la această dată.
 
