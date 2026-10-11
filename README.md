@@ -25,7 +25,7 @@ Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o
 ## Alte fișiere
 
 - `index.md` — textul poveștii în format Markdown (versiune în română).
-- `recenzie.html` — „Recenzie exhaustivă” a lucrării, **generată de un model AI (Claude Sonnet 4.6)**, nu critică literară independentă; scorurile (ex. 9,4/10) sunt generate automat și nu au fost validate de un evaluator uman. Nota este afișată în partea de sus a paginii.
+- `recenzie.html` — „Recenzie exhaustivă” a lucrării, **generată de un model AI (Claude Sonnet 4.6)**, nu critică literară independentă; scorurile (ex. 9,4/10) sunt generate automat și nu au fost validate de un evaluator uman. Eticheta „Recenzie generată de AI / AI-generated review” este afișată bilingv (RO/EN) în titlu, în antet, în notă și în subsol.
 
 ## Manual de utilizare
 
