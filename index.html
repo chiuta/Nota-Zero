@@ -60,7 +60,7 @@
 </style>
 
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src 'self' 'unsafe-inline' blob:; connect-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src 'self' blob: 'sha256-Sd9lH6MkccglOV7sViI2XgnP4zKJfyX/yFq0E4GdwR0='; connect-src 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Nota Zero · Alexandru Ionuț Chiuță</title>
 <meta id="meta-desc" name="description" content="O poveste SF despre ce s-a întâmplat înainte de tot — teoria corzilor, membrane cosmice și răspunsul la întrebarea pe care știința o evită.">
@@ -513,6 +513,15 @@ body{
   -webkit-tap-highlight-color:transparent;
 }
 #scroll-top.visible{opacity:1;pointer-events:all;transform:translateY(0);}
+#resume-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:5.2rem;z-index:160;max-width:min(92vw,560px);
+  background:var(--ov);border:1px solid var(--gold-dim);color:var(--cream);padding:.6rem .8rem;display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;
+  font-size:.82rem;line-height:1.4;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+#resume-bar[hidden]{display:none;}
+#resume-bar button{font:inherit;cursor:pointer;min-height:36px;padding:.3rem .8rem;border:1px solid var(--gold-dim);background:transparent;color:var(--gold);}
+#resume-bar button:hover,#resume-bar button:focus-visible{background:var(--gold-faint);}
+#resume-bar .rb-go{border-color:var(--gold);}
+@media print{#resume-bar{display:none!important;}}
+
 #scroll-top:hover{border-color:var(--gold-dim);background:var(--gold-faint);}
 
 /* ═══ SVG CB FILTERS ═══════════════════════════════ */
@@ -695,7 +704,7 @@ canvas:focus{outline:none;}
     margin-bottom:1.2rem;line-height:1.15;
   }
   .chapter-body p{
-    font-size:.98rem;line-height:1.82;
+    font-size:calc(var(--font-size) * .852);line-height:1.82;
     margin-bottom:1.1rem;
   }
   .chapter-body p:first-child::first-letter{
@@ -772,7 +781,7 @@ canvas:focus{outline:none;}
   .top-nav{padding:.55rem .8rem;}
   .nav-brand{font-size:.55rem;}
   .nav-icon-btn{width:30px;height:30px;}
-  .chapter-body p{font-size:.95rem;}
+  .chapter-body p{font-size:calc(var(--font-size) * .826);}
   .tts-voice-select{display:none;}
   .tts-now-reading{display:none;}
 }
@@ -861,7 +870,7 @@ canvas:focus{outline:none;}
 @media(min-width:1100px){
   .story-wrap{max-width:760px;}
   .hero-title{font-size:clamp(5rem,9vw,8rem);}
-  .chapter-body p{font-size:1.18rem;line-height:1.9;}
+  .chapter-body p{font-size:calc(var(--font-size) * 1.026);line-height:1.9;}
   .pull-quote p{font-size:1.3rem;}
   .hero-quote{font-size:1.05rem;}
   .hero-sub{font-size:1.1rem;}
@@ -1012,29 +1021,30 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <a href="#cap1" class="skip-link" data-i18n="skip">Sari la conținut</a>
 <div id="sr-announce" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
 <div id="reading-guide" aria-hidden="true"></div>
-<button type="button" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Sus" data-i18n-aria="aria.top">↑</button>
+<button type="button" id="scroll-top" data-onclick="scrollTop()" aria-label="Sus" data-i18n-aria="aria.top">↑</button>
+<div id="resume-bar" role="region" aria-label="Reia lectura" hidden><span id="resume-text"></span><button type="button" class="rb-go" id="resume-go"></button><button type="button" id="resume-x" aria-label="Închide"></button></div>
 <div role="complementary" aria-label="Progres lectură" data-i18n-aria="aria.progress"><div id="progress-bar" role="progressbar" aria-label="Progres lectură" data-i18n-aria="aria.progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
 
 <!-- ══ MOBILE MENU ═══════════════════════════════════ -->
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Meniu">
-  <button type="button" class="mm-close" onclick="closeMobileMenu()" aria-label="Închide" data-i18n-aria="aria.close">✕</button>
+  <button type="button" class="mm-close" data-onclick="closeMobileMenu()" aria-label="Închide" data-i18n-aria="aria.close">✕</button>
   <div class="mm-lang-row">
-    <button type="button" class="mm-lang-btn" id="mlb-en" onclick="setLang('en');closeMobileMenu()">EN</button>
-    <button type="button" class="mm-lang-btn" id="mlb-fr" onclick="setLang('fr');closeMobileMenu()">FR</button>
-    <button type="button" class="mm-lang-btn" id="mlb-ro" onclick="setLang('ro');closeMobileMenu()">RO</button>
+    <button type="button" class="mm-lang-btn" id="mlb-en" data-onclick="setLang('en');closeMobileMenu()">EN</button>
+    <button type="button" class="mm-lang-btn" id="mlb-fr" data-onclick="setLang('fr');closeMobileMenu()">FR</button>
+    <button type="button" class="mm-lang-btn" id="mlb-ro" data-onclick="setLang('ro');closeMobileMenu()">RO</button>
   </div>
   <p class="mm-section" data-i18n="nav.story">Povestirea</p>
-  <a href="#cap1"   onclick="closeMobileMenu()" data-i18n="ch.1">I · Întrebarea Greșită</a>
-  <a href="#cap1b"  onclick="closeMobileMenu()" data-i18n="ch.1b">Interludiu · Tatăl</a>
-  <a href="#cap2"   onclick="closeMobileMenu()" data-i18n="ch.2">II · Muzica Înainte de Sunete</a>
-  <a href="#cap3"   onclick="closeMobileMenu()" data-i18n="ch.3">III · Membrana</a>
-  <a href="#cap4"   onclick="closeMobileMenu()" data-i18n="ch.4">IV · Înainte de Prima Secundă</a>
-  <a href="#cap5"   onclick="closeMobileMenu()" data-i18n="ch.5">V · Corzile</a>
-  <a href="#cap6"   onclick="closeMobileMenu()" data-i18n="ch.6">VI · Oglinda Universului</a>
-  <a href="#cap7"   onclick="closeMobileMenu()" data-i18n="ch.7">VII · Întoarcerea</a>
-  <a href="#epilog" onclick="closeMobileMenu()" data-i18n="ch.e">Epilog</a>
+  <a href="#cap1"   data-onclick="closeMobileMenu()" data-i18n="ch.1">I · Întrebarea Greșită</a>
+  <a href="#cap1b"  data-onclick="closeMobileMenu()" data-i18n="ch.1b">Interludiu · Tatăl</a>
+  <a href="#cap2"   data-onclick="closeMobileMenu()" data-i18n="ch.2">II · Muzica Înainte de Sunete</a>
+  <a href="#cap3"   data-onclick="closeMobileMenu()" data-i18n="ch.3">III · Membrana</a>
+  <a href="#cap4"   data-onclick="closeMobileMenu()" data-i18n="ch.4">IV · Înainte de Prima Secundă</a>
+  <a href="#cap5"   data-onclick="closeMobileMenu()" data-i18n="ch.5">V · Corzile</a>
+  <a href="#cap6"   data-onclick="closeMobileMenu()" data-i18n="ch.6">VI · Oglinda Universului</a>
+  <a href="#cap7"   data-onclick="closeMobileMenu()" data-i18n="ch.7">VII · Întoarcerea</a>
+  <a href="#epilog" data-onclick="closeMobileMenu()" data-i18n="ch.e">Epilog</a>
   <p class="mm-section" data-i18n="nav.scienceL">Știință</p>
-  <a href="#science" onclick="closeMobileMenu()" data-i18n="nav.sciNotes">⟐ Note Științifice</a>
+  <a href="#science" data-onclick="closeMobileMenu()" data-i18n="nav.sciNotes">⟐ Note Științifice</a>
   <p class="mm-section" data-i18n="aria.links">Links</p>
   <a id="mm-brand" href="https://centrulstring.ro" target="_blank" rel="noopener">Centrul STRING ↗</a>
   <a href="https://chiuta.github.io/" target="_blank" rel="noopener">Alexio ↗</a>
@@ -1048,7 +1058,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     <div class="nav-sep" aria-hidden="true"></div>
     <a href="https://chiuta.github.io/" class="nav-link-plain" data-i18n="nav.alexio">Alexio</a>
     <div class="nav-dropdown" id="dd-cap">
-      <button type="button" class="nav-dd-btn" onclick="toggleDD('dd-cap')" aria-haspopup="true" aria-expanded="false" id="btn-cap">
+      <button type="button" class="nav-dd-btn" data-onclick="toggleDD('dd-cap')" aria-haspopup="true" aria-expanded="false" id="btn-cap">
         <span data-i18n="nav.chapters">Capitole</span><span class="caret" aria-hidden="true">▾</span>
       </button>
       <div class="nav-dd-menu" role="menu" aria-labelledby="btn-cap">
@@ -1071,12 +1081,12 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
   </div>
 
   <div class="nav-right">
-    <button type="button" class="nav-icon-btn" id="tts-btn" onclick="toggleTTS()" title="TTS" aria-label="Citire cu voce" data-i18n-aria="aria.tts" aria-pressed="false">🔊</button>
-    <button type="button" class="nav-icon-btn" onclick="window.print()" title="Print" aria-label="Imprimă" data-i18n-aria="aria.print">🖨</button>
+    <button type="button" class="nav-icon-btn" id="tts-btn" data-onclick="toggleTTS()" title="TTS" aria-label="Citire cu voce" data-i18n-aria="aria.tts" aria-pressed="false">🔊</button>
+    <button type="button" class="nav-icon-btn" data-onclick="printPage()" title="Print" aria-label="Imprimă" data-i18n-aria="aria.print">🖨</button>
 
     <!-- Accessibility dropdown -->
     <div class="nav-dropdown" id="dd-a11y">
-      <button type="button" class="nav-icon-btn" onclick="toggleDD('dd-a11y')" aria-haspopup="true" aria-expanded="false" id="btn-a11y" aria-label="Accesibilitate" data-i18n-aria="aria.a11y">⚙</button>
+      <button type="button" class="nav-icon-btn" data-onclick="toggleDD('dd-a11y')" aria-haspopup="true" aria-expanded="false" id="btn-a11y" aria-label="Accesibilitate" data-i18n-aria="aria.a11y">⚙</button>
       <div class="nav-dd-menu a11y-panel" role="dialog" aria-labelledby="btn-a11y">
 
         <div class="a11y-section" data-i18n="a11y.title">Accesibilitate</div>
@@ -1084,47 +1094,47 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
         <div class="a11y-font-row">
           <div><span class="a11y-label" data-i18n="a11y.fontSize">Mărime text</span></div>
           <div class="a11y-font-btns">
-            <button type="button" class="a11y-font-btn" onclick="fontSize(-1)" aria-label="Micșorează" data-i18n-aria="aria.smaller">A−</button>
+            <button type="button" class="a11y-font-btn" data-onclick="fontSize(-1)" aria-label="Micșorează" data-i18n-aria="aria.smaller">A−</button>
             <span class="a11y-font-val" id="fz-display">100%</span>
-            <button type="button" class="a11y-font-btn" onclick="fontSize(1)"  aria-label="Mărește" data-i18n-aria="aria.larger">A+</button>
+            <button type="button" class="a11y-font-btn" data-onclick="fontSize(1)"  aria-label="Mărește" data-i18n-aria="aria.larger">A+</button>
           </div>
         </div>
 
         <div class="a11y-section" data-i18n="a11y.sectionText">Text</div>
-        <div class="a11y-row"><div><span id="lbl-tog-dyslexia" class="a11y-label" data-i18n="a11y.dyslexia">Font dislexie</span><span class="a11y-desc">Atkinson Hyperlegible</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-dyslexia" aria-labelledby="lbl-tog-dyslexia" onchange="toggleA11y('dyslexia','a11y-dyslexia')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-lettsp" class="a11y-label" data-i18n="a11y.lettsp">Spațiere litere</span><span class="a11y-desc" data-i18n="a11y.lettspD">Tracking mărit</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lettsp" aria-labelledby="lbl-tog-lettsp" onchange="toggleA11y('lettsp','a11y-lettsp')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-wordsp" class="a11y-label" data-i18n="a11y.wordsp">Spațiere cuvinte</span><span class="a11y-desc" data-i18n="a11y.wordspD">Mai mult spațiu</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-wordsp" aria-labelledby="lbl-tog-wordsp" onchange="toggleA11y('wordsp','a11y-wordsp')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-lineh" class="a11y-label" data-i18n="a11y.lineh">Rânduri late</span><span class="a11y-desc" data-i18n="a11y.linehD">Spațiere verticală</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lineh" aria-labelledby="lbl-tog-lineh" onchange="toggleA11y('lineh','a11y-lineh')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-parsp" class="a11y-label" data-i18n="a11y.parsp">Spațiere paragrafe</span><span class="a11y-desc" data-i18n="a11y.parspD">Margini extra</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-parsp" aria-labelledby="lbl-tog-parsp" onchange="toggleA11y('parsp','a11y-parsp')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-shadow" class="a11y-label" data-i18n="a11y.shadow">Umbră text</span><span class="a11y-desc" data-i18n="a11y.shadowD">Lizibilitate pe fundal</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-shadow" aria-labelledby="lbl-tog-shadow" onchange="toggleA11y('shadow','a11y-shadow')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-narrow" class="a11y-label" data-i18n="a11y.narrow">Coloană îngustă</span><span class="a11y-desc" data-i18n="a11y.narrowD">~520px lățime</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-narrow" aria-labelledby="lbl-tog-narrow" onchange="toggleA11y('narrow','a11y-narrow')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-underline" class="a11y-label" data-i18n="a11y.underline">Subliniază linkuri</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-underline" aria-labelledby="lbl-tog-underline" onchange="toggleA11y('underline','a11y-underline')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-dyslexia" class="a11y-label" data-i18n="a11y.dyslexia">Font dislexie</span><span class="a11y-desc">Atkinson Hyperlegible</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-dyslexia" aria-labelledby="lbl-tog-dyslexia" data-onchange="toggleA11y('dyslexia','a11y-dyslexia')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-lettsp" class="a11y-label" data-i18n="a11y.lettsp">Spațiere litere</span><span class="a11y-desc" data-i18n="a11y.lettspD">Tracking mărit</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lettsp" aria-labelledby="lbl-tog-lettsp" data-onchange="toggleA11y('lettsp','a11y-lettsp')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-wordsp" class="a11y-label" data-i18n="a11y.wordsp">Spațiere cuvinte</span><span class="a11y-desc" data-i18n="a11y.wordspD">Mai mult spațiu</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-wordsp" aria-labelledby="lbl-tog-wordsp" data-onchange="toggleA11y('wordsp','a11y-wordsp')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-lineh" class="a11y-label" data-i18n="a11y.lineh">Rânduri late</span><span class="a11y-desc" data-i18n="a11y.linehD">Spațiere verticală</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-lineh" aria-labelledby="lbl-tog-lineh" data-onchange="toggleA11y('lineh','a11y-lineh')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-parsp" class="a11y-label" data-i18n="a11y.parsp">Spațiere paragrafe</span><span class="a11y-desc" data-i18n="a11y.parspD">Margini extra</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-parsp" aria-labelledby="lbl-tog-parsp" data-onchange="toggleA11y('parsp','a11y-parsp')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-shadow" class="a11y-label" data-i18n="a11y.shadow">Umbră text</span><span class="a11y-desc" data-i18n="a11y.shadowD">Lizibilitate pe fundal</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-shadow" aria-labelledby="lbl-tog-shadow" data-onchange="toggleA11y('shadow','a11y-shadow')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-narrow" class="a11y-label" data-i18n="a11y.narrow">Coloană îngustă</span><span class="a11y-desc" data-i18n="a11y.narrowD">~520px lățime</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-narrow" aria-labelledby="lbl-tog-narrow" data-onchange="toggleA11y('narrow','a11y-narrow')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-underline" class="a11y-label" data-i18n="a11y.underline">Subliniază linkuri</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-underline" aria-labelledby="lbl-tog-underline" data-onchange="toggleA11y('underline','a11y-underline')"><span class="a11y-slider"></span></label></div>
 
         <div class="a11y-section" data-i18n="a11y.sectionViz">Vizual</div>
-        <div class="a11y-row"><div><span id="lbl-tog-contrast" class="a11y-label" data-i18n="a11y.contrast">Contrast ridicat</span><span class="a11y-desc" data-i18n="a11y.contrastD">Alb pur pe negru</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-contrast" aria-labelledby="lbl-tog-contrast" onchange="toggleA11y('contrast','a11y-contrast')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-light" class="a11y-label" data-i18n="a11y.light">Mod luminos</span><span class="a11y-desc" data-i18n="a11y.lightD">Fundal crem</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-light" aria-labelledby="lbl-tog-light" onchange="toggleA11y('light','a11y-light')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-sepia" class="a11y-label" data-i18n="a11y.sepia">Mod sepia</span><span class="a11y-desc" data-i18n="a11y.sepiaD">Ton cald</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-sepia" aria-labelledby="lbl-tog-sepia" onchange="toggleA11y('sepia','a11y-sepia')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-motion" class="a11y-label" data-i18n="a11y.motion">Fără animații</span><span class="a11y-desc" data-i18n="a11y.motionD">Oprește efectele</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-motion" aria-labelledby="lbl-tog-motion" onchange="toggleA11y('motion','a11y-no-motion')"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-guide" class="a11y-label" data-i18n="a11y.guide">Ghid lectură</span><span class="a11y-desc" data-i18n="a11y.guideD">Linie fixă la 45% ecran</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-guide" aria-labelledby="lbl-tog-guide" onchange="toggleGuide(this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-contrast" class="a11y-label" data-i18n="a11y.contrast">Contrast ridicat</span><span class="a11y-desc" data-i18n="a11y.contrastD">Alb pur pe negru</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-contrast" aria-labelledby="lbl-tog-contrast" data-onchange="toggleA11y('contrast','a11y-contrast')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-light" class="a11y-label" data-i18n="a11y.light">Mod luminos</span><span class="a11y-desc" data-i18n="a11y.lightD">Fundal crem</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-light" aria-labelledby="lbl-tog-light" data-onchange="toggleA11y('light','a11y-light')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-sepia" class="a11y-label" data-i18n="a11y.sepia">Mod sepia</span><span class="a11y-desc" data-i18n="a11y.sepiaD">Ton cald</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-sepia" aria-labelledby="lbl-tog-sepia" data-onchange="toggleA11y('sepia','a11y-sepia')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-motion" class="a11y-label" data-i18n="a11y.motion">Fără animații</span><span class="a11y-desc" data-i18n="a11y.motionD">Oprește efectele</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-motion" aria-labelledby="lbl-tog-motion" data-onchange="toggleA11y('motion','a11y-no-motion')"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-guide" class="a11y-label" data-i18n="a11y.guide">Ghid lectură</span><span class="a11y-desc" data-i18n="a11y.guideD">Linie fixă la 45% ecran</span></div><label class="a11y-toggle"><input type="checkbox" id="tog-guide" aria-labelledby="lbl-tog-guide" data-onchange="toggleGuide(this.checked)"><span class="a11y-slider"></span></label></div>
 
         <div class="a11y-section" data-i18n="a11y.cbTitle">Daltonism (exclusiv)</div>
-        <div class="a11y-row"><div><span id="lbl-tog-cb-p" class="a11y-label" data-i18n="a11y.proto">Protanopie</span><span class="a11y-desc" data-i18n="a11y.protoD">Deficit roșu</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-p" aria-labelledby="lbl-tog-cb-p" onchange="setCBFilter('protanopia',this.checked)"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-cb-d" class="a11y-label" data-i18n="a11y.deuter">Deuteranopie</span><span class="a11y-desc" data-i18n="a11y.deuterD">Deficit verde</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-d" aria-labelledby="lbl-tog-cb-d" onchange="setCBFilter('deuteranopia',this.checked)"><span class="a11y-slider"></span></label></div>
-        <div class="a11y-row"><div><span id="lbl-tog-cb-t" class="a11y-label" data-i18n="a11y.tritan">Tritanopie</span><span class="a11y-desc" data-i18n="a11y.tritanD">Deficit albastru</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-t" aria-labelledby="lbl-tog-cb-t" onchange="setCBFilter('tritanopia',this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-cb-p" class="a11y-label" data-i18n="a11y.proto">Protanopie</span><span class="a11y-desc" data-i18n="a11y.protoD">Deficit roșu</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-p" aria-labelledby="lbl-tog-cb-p" data-onchange="setCBFilter('protanopia',this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-cb-d" class="a11y-label" data-i18n="a11y.deuter">Deuteranopie</span><span class="a11y-desc" data-i18n="a11y.deuterD">Deficit verde</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-d" aria-labelledby="lbl-tog-cb-d" data-onchange="setCBFilter('deuteranopia',this.checked)"><span class="a11y-slider"></span></label></div>
+        <div class="a11y-row"><div><span id="lbl-tog-cb-t" class="a11y-label" data-i18n="a11y.tritan">Tritanopie</span><span class="a11y-desc" data-i18n="a11y.tritanD">Deficit albastru</span></div><label class="a11y-toggle radio"><input type="checkbox" id="tog-cb-t" aria-labelledby="lbl-tog-cb-t" data-onchange="setCBFilter('tritanopia',this.checked)"><span class="a11y-slider"></span></label></div>
 
         <div class="dd-div"></div>
-        <button type="button" class="a11y-reset" onclick="resetAllPrefs()" data-i18n="a11y.reset">↺ Resetează toate preferințele</button>
+        <button type="button" class="a11y-reset" data-onclick="resetAllPrefs()" data-i18n="a11y.reset">↺ Resetează toate preferințele</button>
         <div style="padding:.4rem 1.2rem .5rem;font-family:'Space Mono',monospace;font-size:.44rem;color:var(--cream-dim);opacity:.35;letter-spacing:.08em;" data-i18n="a11y.saved">Salvate automat</div>
       </div>
     </div><!-- /dd-a11y -->
 
     <div class="nav-lang" role="group" aria-label="Limbă" data-i18n-aria="aria.lang">
-      <button type="button" class="lang-btn" id="lb-en" onclick="setLang('en')" lang="en" aria-pressed="false">EN</button>
-      <button type="button" class="lang-btn" id="lb-fr" onclick="setLang('fr')" lang="fr" aria-pressed="false">FR</button>
-      <button type="button" class="lang-btn active" id="lb-ro" onclick="setLang('ro')" lang="ro" aria-pressed="true">RO</button>
+      <button type="button" class="lang-btn" id="lb-en" data-onclick="setLang('en')" lang="en" aria-pressed="false">EN</button>
+      <button type="button" class="lang-btn" id="lb-fr" data-onclick="setLang('fr')" lang="fr" aria-pressed="false">FR</button>
+      <button type="button" class="lang-btn active" id="lb-ro" data-onclick="setLang('ro')" lang="ro" aria-pressed="true">RO</button>
     </div>
     <a href="https://www.patreon.com/c/alexio_tf" class="nav-patreon" target="_blank" rel="noopener">Patreon ↗</a>
-    <button type="button" class="hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Meniu" aria-expanded="false" data-i18n-aria="aria.menu">☰</button>
+    <button type="button" class="hamburger" id="hamburger" data-onclick="openMobileMenu()" aria-label="Meniu" aria-expanded="false" data-i18n-aria="aria.menu">☰</button>
   </div>
 </nav>
 
@@ -1155,7 +1165,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 1 ──────────── -->
 <article class="chapter revealed" id="cap1">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea întâi<button type="button" class="chapter-tts" onclick="speakChapter('cap1','ro')" aria-label="Ascultă capitolul" data-i18n-aria="aria.listenChap">▶</button></div>
+    <div class="chapter-label">Partea întâi<button type="button" class="chapter-tts" data-onclick="speakChapter('cap1','ro')" aria-label="Ascultă capitolul" data-i18n-aria="aria.listenChap">▶</button></div>
     <h2 class="chapter-title">Întrebarea Greșită</h2>
     <div class="chapter-body">
       <p>Zara avea cincisprezece ani și un blocnotes albastru cu coperta uzată în care colecționa întrebări fără răspuns. Unele aveau două cuvinte. Altele ocupau o pagină întreagă și se terminau cu trei semne de exclamare. Toate aveau în comun că nu le-o pusese nimeni altcineva, și că de fiecare dată când le punea ea, în clasă sau la masă sau la telefon cu tatăl ei, urmau fie o tăcere lungă, fie un zâmbet de genul: <em>ce copil interesant</em>. Zara obosise de zâmbetul ăla.</p>
@@ -1177,7 +1187,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part One<button type="button" class="chapter-tts" onclick="speakChapter('cap1','en')" aria-label="Listen to chapter">▶</button></div>
+    <div class="chapter-label">Part One<button type="button" class="chapter-tts" data-onclick="speakChapter('cap1','en')" aria-label="Listen to chapter">▶</button></div>
     <h2 class="chapter-title">The Wrong Question</h2>
     <div class="chapter-body">
       <p>Zara was fifteen and kept a blue notebook with a worn cover where she collected unanswered questions. Some were two words long. Others ran to a full page and ended with three exclamation marks. What they all had in common was that no one else had asked them, and that every time she did — in class, at dinner, on the phone with her father — she got back either a long silence or a smile that meant: <em>what an interesting child</em>. Zara was tired of that smile.</p>
@@ -1199,7 +1209,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Première partie<button type="button" class="chapter-tts" onclick="speakChapter('cap1','fr')" aria-label="Écouter le chapitre">▶</button></div>
+    <div class="chapter-label">Première partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap1','fr')" aria-label="Écouter le chapitre">▶</button></div>
     <h2 class="chapter-title">La Mauvaise Question</h2>
     <div class="chapter-body">
       <p>Zara avait quinze ans et un carnet bleu à la couverture usée dans lequel elle collectionnait les questions sans réponse. Certaines tenaient en deux mots. D'autres remplissaient une page entière et se terminaient par trois points d'exclamation. Ce qu'elles avaient toutes en commun, c'est que personne d'autre ne les avait posées, et que chaque fois qu'elle le faisait — en classe, à table, au téléphone avec son père — elle récoltait soit un long silence, soit un sourire qui voulait dire : <em>quel enfant intéressant</em>. Zara en avait assez de ce sourire.</p>
@@ -1227,7 +1237,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 1b ──────────── -->
 <article class="chapter revealed" id="cap1b">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Interludiu<button type="button" class="chapter-tts" onclick="speakChapter('cap1b','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Interludiu<button type="button" class="chapter-tts" data-onclick="speakChapter('cap1b','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Tatăl</h2>
     <div class="chapter-body">
       <p>Dr. Emil Voss lucra la Marele Colizor Cuantic de pe Lună — un accelerator de particule de 340 de kilometri săpat în mantaua selenară, proiectat să recreeze condițiile din primele fracțiuni de secundă de după Big Bang. Lumea îl numea simplu: <em>Leagănul</em>. Emil îl numea „cel mai scump experiment de filozofie din istoria omenirii" și râdea la asta de fiecare dată ca și cum era prima dată când îl spunea.</p>
@@ -1248,7 +1258,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Interlude<button type="button" class="chapter-tts" onclick="speakChapter('cap1b','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Interlude<button type="button" class="chapter-tts" data-onclick="speakChapter('cap1b','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">The Father</h2>
     <div class="chapter-body">
       <p>Dr. Emil Voss worked at the Great Quantum Collider on the Moon — a 340-kilometer particle accelerator dug into the lunar mantle, designed to recreate conditions from the first fractions of a second after the Big Bang. The world called it simply: <em>The Cradle</em>. Emil called it "the most expensive philosophy experiment in the history of humanity" and laughed at it every time as if it were the first time he'd said it.</p>
@@ -1269,7 +1279,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Interlude<button type="button" class="chapter-tts" onclick="speakChapter('cap1b','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Interlude<button type="button" class="chapter-tts" data-onclick="speakChapter('cap1b','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">Le Père</h2>
     <div class="chapter-body">
       <p>Le Dr Emil Voss travaillait au Grand Collisionneur Quantique sur la Lune — un accélérateur de particules de 340 kilomètres creusé dans le manteau lunaire, conçu pour recréer les conditions des premières fractions de seconde après le Big Bang. Le monde l'appelait simplement : <em>le Berceau</em>. Emil l'appelait « l'expérience de philosophie la plus chère de l'histoire de l'humanité » et en riait chaque fois comme si c'était la première fois qu'il le disait.</p>
@@ -1296,7 +1306,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 2 ──────────── -->
 <article class="chapter" id="cap2">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea a doua<button type="button" class="chapter-tts" onclick="speakChapter('cap2','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Partea a doua<button type="button" class="chapter-tts" data-onclick="speakChapter('cap2','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Muzica Înainte de Sunete</h2>
     <div class="chapter-body">
       <p>Zara luă primul transport spre Lună în acea seară. Nu le spuse nimănui. Puse în rucsac blocnotesul cu întrebări, o cantimplă cu apă, un schimb de haine, și singura fotografie fizică pe care o mai deținea: ea și Emil în fața telescopului de acasă, Zara la șapte ani, amândoi cu gâtul întins spre Orion. Nimeni nu-i fotografiase cu gâtul drept vreodată.</p>
@@ -1314,7 +1324,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part Two<button type="button" class="chapter-tts" onclick="speakChapter('cap2','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Part Two<button type="button" class="chapter-tts" data-onclick="speakChapter('cap2','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">Music Before Sounds</h2>
     <div class="chapter-body">
       <p>Zara took the first transport to the Moon that evening. She didn't tell anyone. She packed the notebook of questions, a water bottle, a change of clothes, and the only physical photograph she still owned: her and Emil in front of the telescope at home, Zara at seven years old, both stretching their necks toward Orion. Nobody had ever photographed them with their necks straight.</p>
@@ -1332,7 +1342,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Deuxième partie<button type="button" class="chapter-tts" onclick="speakChapter('cap2','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Deuxième partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap2','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">La Musique Avant les Sons</h2>
     <div class="chapter-body">
       <p>Zara prit le premier transport vers la Lune ce soir-là. Elle n'en parla à personne. Elle mit dans son sac le carnet de questions, une gourde, un change de vêtements, et la seule photographie physique qu'elle possédait encore : elle et Emil devant le télescope à la maison, Zara à sept ans, tous deux tendant le cou vers Orion. Personne ne les avait jamais photographiés avec le cou droit.</p>
@@ -1356,7 +1366,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 3 ──────────── -->
 <article class="chapter" id="cap3">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea a treia<button type="button" class="chapter-tts" onclick="speakChapter('cap3','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Partea a treia<button type="button" class="chapter-tts" data-onclick="speakChapter('cap3','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Membrana</h2>
     <div class="chapter-body">
       <p>Vocea tatălui ei venea din toate direcțiile și din niciuna. Zara se întoarse. Nu era nimeni. Și totuși Emil era acolo — nu ca o persoană cu locație, ci ca o prezență cu intenție. Ca un gând foarte clar într-o cameră altfel goală.</p>
@@ -1391,7 +1401,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part Three<button type="button" class="chapter-tts" onclick="speakChapter('cap3','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Part Three<button type="button" class="chapter-tts" data-onclick="speakChapter('cap3','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">The Membrane</h2>
     <div class="chapter-body">
       <p>Her father's voice came from all directions and from none. Zara turned around. There was no one. And yet Emil was there — not as a person with a location, but as a presence with intention. Like a very clear thought in an otherwise empty room.</p>
@@ -1426,7 +1436,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Troisième partie<button type="button" class="chapter-tts" onclick="speakChapter('cap3','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Troisième partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap3','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">La Membrane</h2>
     <div class="chapter-body">
       <p>La voix de son père venait de toutes les directions et d'aucune. Zara se retourna. Il n'y avait personne. Et pourtant Emil était là — non comme une personne avec un emplacement, mais comme une présence avec une intention. Comme une pensée très claire dans une pièce autrement vide.</p>
@@ -1467,7 +1477,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 4 ──────────── -->
 <article class="chapter" id="cap4">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea a patra<button type="button" class="chapter-tts" onclick="speakChapter('cap4','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Partea a patra<button type="button" class="chapter-tts" data-onclick="speakChapter('cap4','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Înainte de Prima Secundă</h2>
     <div class="chapter-body">
       <p>Nu se deplasară. Deplasarea implică spațiu, iar spațiul era un concept local, specific membranelor. În <em>bulk</em>, lucrurile nu se mișcau — <em>se rezolvau</em>. Ca o ecuație care găsise brusc toți termenii necesari.</p>
@@ -1501,7 +1511,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part Four<button type="button" class="chapter-tts" onclick="speakChapter('cap4','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Part Four<button type="button" class="chapter-tts" data-onclick="speakChapter('cap4','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">Before the First Second</h2>
     <div class="chapter-body">
       <p>They didn't move. Moving implies space, and space was a local concept, specific to membranes. In the <em>bulk</em>, things didn't move — they <em>resolved</em>. Like an equation that had suddenly found all its necessary terms.</p>
@@ -1535,7 +1545,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Quatrième partie<button type="button" class="chapter-tts" onclick="speakChapter('cap4','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Quatrième partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap4','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">Avant la Première Seconde</h2>
     <div class="chapter-body">
       <p>Ils ne se déplacèrent pas. Se déplacer implique l'espace, et l'espace était un concept local, propre aux membranes. Dans le <em>bulk</em>, les choses ne bougeaient pas — elles <em>se résolvaient</em>. Comme une équation qui avait soudainement trouvé tous ses termes nécessaires.</p>
@@ -1575,7 +1585,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 5 ──────────── -->
 <article class="chapter" id="cap5">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea a cincea<button type="button" class="chapter-tts" onclick="speakChapter('cap5','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Partea a cincea<button type="button" class="chapter-tts" data-onclick="speakChapter('cap5','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Corzile</h2>
     <div class="chapter-body">
       <p>Zara văzu corzile. Nu cu ochii — cu ceva mai adânc decât ochii, ceva pe care nu știa că îl are. Informația nu venea din afară. Venea din interiorul ei, ca o amintire pe care o știuse mereu dar nu o accesase până acum.</p>
@@ -1599,7 +1609,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part Five<button type="button" class="chapter-tts" onclick="speakChapter('cap5','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Part Five<button type="button" class="chapter-tts" data-onclick="speakChapter('cap5','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">The Strings</h2>
     <div class="chapter-body">
       <p>Zara saw the strings. Not with her eyes — with something deeper than eyes, something she didn't know she had. The information didn't come from outside. It came from within her, like a memory she had always known but hadn't accessed until now.</p>
@@ -1623,7 +1633,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Cinquième partie<button type="button" class="chapter-tts" onclick="speakChapter('cap5','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Cinquième partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap5','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">Les Cordes</h2>
     <div class="chapter-body">
       <p>Zara vit les cordes. Pas avec ses yeux — avec quelque chose de plus profond, quelque chose qu'elle ne savait pas posséder. L'information ne venait pas de l'extérieur. Elle venait de l'intérieur d'elle-même, comme un souvenir qu'elle avait toujours su mais n'avait jamais consulté.</p>
@@ -1653,7 +1663,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 6 ──────────── -->
 <article class="chapter" id="cap6">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea a șasea<button type="button" class="chapter-tts" onclick="speakChapter('cap6','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Partea a șasea<button type="button" class="chapter-tts" data-onclick="speakChapter('cap6','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Oglinda Universului</h2>
     <div class="chapter-body">
       <p><em>— Tată,</em> spuse Zara. <em>Trebuie să te duc înapoi.</em></p>
@@ -1690,7 +1700,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part Six<button type="button" class="chapter-tts" onclick="speakChapter('cap6','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Part Six<button type="button" class="chapter-tts" data-onclick="speakChapter('cap6','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">The Mirror of the Universe</h2>
     <div class="chapter-body">
       <p><em>— Dad,</em> said Zara. <em>I need to take you back.</em></p>
@@ -1727,7 +1737,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Sixième partie<button type="button" class="chapter-tts" onclick="speakChapter('cap6','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Sixième partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap6','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">Le Miroir de l'Univers</h2>
     <div class="chapter-body">
       <p><em>— Papa,</em> dit Zara. <em>Je dois te ramener.</em></p>
@@ -1770,7 +1780,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── CAP 7 ──────────── -->
 <article class="chapter" id="cap7">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Partea a șaptea<button type="button" class="chapter-tts" onclick="speakChapter('cap7','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Partea a șaptea<button type="button" class="chapter-tts" data-onclick="speakChapter('cap7','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Întoarcerea</h2>
     <div class="chapter-body">
       <p>Ieșiră împreună prin deschizătură. Emil era fizic, real, prezent — puțin palid, cu ochii lărgiți de ceea ce văzuse, și cu o tremurătură ușoară în mâini pe care Zara o observă și nu o comentă. Oamenii de la Leagăn — care alergau acum prin sală cu echipamentele de urgență — îl primiră cu o combinație de ușurare și panică birocratică.</p>
@@ -1794,7 +1804,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Part Seven<button type="button" class="chapter-tts" onclick="speakChapter('cap7','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Part Seven<button type="button" class="chapter-tts" data-onclick="speakChapter('cap7','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">The Return</h2>
     <div class="chapter-body">
       <p>They came out together through the opening. Emil was physical, real, present — a little pale, with eyes widened by what he'd seen, and a slight trembling in his hands that Zara noticed and didn't mention. The people from the Cradle — now running through the hall with emergency equipment — received him with a combination of relief and bureaucratic panic.</p>
@@ -1818,7 +1828,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Septième partie<button type="button" class="chapter-tts" onclick="speakChapter('cap7','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Septième partie<button type="button" class="chapter-tts" data-onclick="speakChapter('cap7','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">Le Retour</h2>
     <div class="chapter-body">
       <p>Ils sortirent ensemble par l'ouverture. Emil était physique, réel, présent — un peu pâle, les yeux écarquillés par ce qu'il avait vu, avec un léger tremblement dans les mains que Zara remarqua et ne commenta pas. Les gens du Berceau — qui couraient maintenant dans la salle avec les équipements d'urgence — le reçurent avec une combinaison de soulagement et de panique bureaucratique.</p>
@@ -1848,7 +1858,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ──────────── EPILOG ──────────── -->
 <article class="chapter" id="epilog">
   <div data-lang-block="ro" class="lang-active">
-    <div class="chapter-label">Epilog · 17 Mai 2087<button type="button" class="chapter-tts" onclick="speakChapter('epilog','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
+    <div class="chapter-label">Epilog · 17 Mai 2087<button type="button" class="chapter-tts" data-onclick="speakChapter('epilog','ro')" aria-label="Ascultă" data-i18n-aria="aria.listen">▶</button></div>
     <h2 class="chapter-title">Ora Necunoscută</h2>
     <div class="chapter-body">
       <p>Zara nu deveni fiziciană. Deveni ceva pentru care nu exista un titlu profesional stabilit — un fel de traducătoare. Cineva care lua matematica teoriei corzilor și o transforma în povești pe care le puteau înțelege oamenii care nu doreau să facă un doctorat, dar care voiau să știe <em>de unde au venit</em> și <em>de ce contează</em>. Cineva care credea că a înțelege fizica e un act moral, nu doar intelectual.</p>
@@ -1870,7 +1880,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="en">
-    <div class="chapter-label">Epilogue · May 17, 2087<button type="button" class="chapter-tts" onclick="speakChapter('epilog','en')" aria-label="Listen">▶</button></div>
+    <div class="chapter-label">Epilogue · May 17, 2087<button type="button" class="chapter-tts" data-onclick="speakChapter('epilog','en')" aria-label="Listen">▶</button></div>
     <h2 class="chapter-title">Unknown Hour</h2>
     <div class="chapter-body">
       <p>Zara didn't become a physicist. She became something for which there was no established professional title — a kind of translator. Someone who took the mathematics of string theory and transformed it into stories people who didn't want to do a doctorate could understand, but who wanted to know <em>where they came from</em> and <em>why it matters</em>. Someone who believed that understanding physics is a moral act, not merely an intellectual one.</p>
@@ -1892,7 +1902,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
     </div>
   </div>
   <div data-lang-block="fr">
-    <div class="chapter-label">Épilogue · 17 Mai 2087<button type="button" class="chapter-tts" onclick="speakChapter('epilog','fr')" aria-label="Écouter">▶</button></div>
+    <div class="chapter-label">Épilogue · 17 Mai 2087<button type="button" class="chapter-tts" data-onclick="speakChapter('epilog','fr')" aria-label="Écouter">▶</button></div>
     <h2 class="chapter-title">Heure Inconnue</h2>
     <div class="chapter-body">
       <p>Zara ne devint pas physicienne. Elle devint quelque chose pour lequel il n'existait pas de titre professionnel établi — une sorte de traductrice. Quelqu'un qui prenait les mathématiques de la théorie des cordes et les transformait en histoires que les gens qui ne voulaient pas faire un doctorat pouvaient comprendre, mais qui voulaient savoir <em>d'où ils venaient</em> et <em>pourquoi ça compte</em>. Quelqu'un qui croyait que comprendre la physique est un acte moral, pas seulement intellectuel.</p>
@@ -1925,31 +1935,31 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <section class="science-section chapter" id="science">
   <div class="science-title" data-i18n="sci.title">⟐ Note Științifice</div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.1h">Teoria Corzilor</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.1h">Teoria Corzilor</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.1b"><strong>Dezvoltată în anii '60–'80.</strong> Particulele elementare nu sunt puncte, ci <em>corzi</em> unidimensionale vibrând la frecvențe diferite. Frecvența determină tipul particulei. Necesită 10 dimensiuni. Neconfirmată experimental în mai 2026, dar cel mai riguros cadru matematic pentru unificarea gravitației.</span></div>
   </div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.2h">Teoria M · 11 Dimensiuni</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.2h">Teoria M · 11 Dimensiuni</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.2b"><strong>Edward Witten, 1995.</strong> Unifică cele 5 versiuni ale teoriei corzilor. 7 dimensiuni <em>compactificate</em>, 4 mari. Introduce <em>brane</em> ca obiecte fundamentale. Universul nostru = o 3-brană în <em>bulk</em> 11-dimensional.</span></div>
   </div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.3h">Cosmologia Ekpyrotică · Coliziunea Branelor</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.3h">Cosmologia Ekpyrotică · Coliziunea Branelor</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.3b"><strong>Steinhardt & Turok, 2001.</strong> Big Bang-ul = <em>coliziunea a două membrane paralele</em>. Elimină problema singularității. Big Bang-ul nu e un punct — e o linie de contact între infinități. Teorie speculativă validă în mai 2026.</span></div>
   </div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.4h">Gravitonul · Gravitația ca Scurgere</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.4h">Gravitonul · Gravitația ca Scurgere</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.4b"><em>Coardă închisă</em> — singura care poate <em>scăpa</em> în bulk. De aceea gravitația e cu ~40 ordine de magnitudine mai slabă: se distribuie în toate dimensiunile. Gravitonul rămâne ipotetic, nedetectat direct în mai 2026.</span></div>
   </div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.5h">Principiul Holografic · AdS/CFT</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.5h">Principiul Holografic · AdS/CFT</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.5b"><strong>'t Hooft, Susskind ~1993–95; Maldacena 1997.</strong> Informația dintr-un volum poate fi complet codificată pe suprafața lui. Una din ideile cel mai bine susținute matematic în fizica teoretică. Parțial verificată experimental.</span></div>
   </div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.6h">Radiația CMB · Vârsta Universului</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.6h">Radiația CMB · Vârsta Universului</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.6b">Vârsta: <strong>13.787 ± 0.020 miliarde de ani</strong> — calculată din <em>radiația cosmică de fond (CMB)</em>, nu din orbita Pământului. Satelitul <strong>Planck (ESA) 2018</strong> a oferit cea mai precisă hartă. Metodele independente converg.</span></div>
   </div>
   <div class="sci-item">
-    <div class="sci-header" onclick="toggleSci(this)"><span data-i18n="sci.7h">Ce rămâne necunoscut · Mai 2026</span><span class="sci-arrow">▾</span></div>
+    <div class="sci-header" data-onclick="toggleSci(this)"><span data-i18n="sci.7h">Ce rămâne necunoscut · Mai 2026</span><span class="sci-arrow">▾</span></div>
     <div class="sci-body"><span data-i18n="sci.7b">Teoria corzilor / M neconfirmate experimental. Dimensiunile extra nedetectate. Gravitonul neobservat. Coliziunea branelor speculativă. <strong>Aceasta e starea reală a fizicii — mai interesantă astfel decât dacă ar fi completă.</strong></span></div>
   </div>
 </section>
@@ -1963,11 +1973,43 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <!-- ══ SCRIPTS ════════════════════════════════════════ -->
 <script>
 /* ─────────────────────────────────────────────────────
+   HANDLER DELEGAT (fără atribute on* inline, fără eval/Function):
+   data-onclick / data-onchange conțin apeluri literale dintr-o listă albă
+   ───────────────────────────────────────────────────── */
+(function(){
+  var NAMES={closeMobileMenu:1,toggleSci:1,setLang:1,toggleDD:1,toggleTTS:1,fontSize:1,toggleA11y:1,toggleGuide:1,setCBFilter:1,resetAllPrefs:1,openMobileMenu:1,speakChapter:1,ttsNav:1,ttsPauseResume:1,stopTTS:1,cycleSpeed:1,onVoiceChange:1,scrollTop:1,printPage:1};
+  window.scrollTop=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  window.printPage=function(){window.print();};
+  var ARG=/\s*(?:'([^'\\]*)'|(-?\d+(?:\.\d+)?)|(true|false)|(this\.checked|this\.value|this))\s*(,|$)/y;
+  function run(code,el){
+    String(code).split(';').forEach(function(st){
+      st=st.trim(); if(!st) return;
+      var m=/^([A-Za-z_]\w*)\(([^()]*)\)$/.exec(st);
+      if(!m||!NAMES.hasOwnProperty(m[1])||typeof window[m[1]]!=='function') return;
+      var a=m[2].trim(), args=[], ok=true;
+      if(a){ ARG.lastIndex=0; while(ARG.lastIndex<a.length){ var t=ARG.exec(a); if(!t){ok=false;break;}
+        if(t[1]!==undefined) args.push(t[1]); else if(t[2]!==undefined) args.push(Number(t[2])); else if(t[3]!==undefined) args.push(t[3]==='true');
+        else args.push(t[4]==='this'?el:(t[4]==='this.checked'?el.checked:el.value)); if(!t[5]) break; } }
+      if(ok) window[m[1]].apply(window,args);
+    });
+  }
+  function dispatch(ev){
+    var attr='data-on'+ev.type;
+    for(var el=ev.target; el&&el!==document; el=el.parentElement){
+      if(el.hasAttribute&&el.hasAttribute(attr)) run(el.getAttribute(attr),el);
+    }
+  }
+  document.addEventListener('click',dispatch);
+  document.addEventListener('change',dispatch);
+})();
+
+/* ─────────────────────────────────────────────────────
    TRANSLATIONS
 ───────────────────────────────────────────────────── */
 const T = {
   ro:{
     skip:'Sari la conținut',
+    'resume.t':'Ai rămas la „{t}”.','resume.go':'Continuă lectura','resume.x':'Închide',
     'nav.alexio':'Alexio','nav.chapters':'Capitole','nav.story':'Povestirea',
     'nav.science':'Știință','nav.scienceL':'Știință','nav.sciNotes':'⟐ Note Științifice',
     'ch.1':'I · Întrebarea Greșită','ch.1b':'Interludiu · Tatăl',
@@ -2029,6 +2071,7 @@ const T = {
   },
   en:{
     skip:'Skip to content',
+    'resume.t':'You stopped at “{t}”.','resume.go':'Continue reading','resume.x':'Close',
     'nav.alexio':'Alexio','nav.chapters':'Chapters','nav.story':'The Story',
     'nav.science':'Science','nav.scienceL':'Science','nav.sciNotes':'⟐ Science Notes',
     'ch.1':'I · The Wrong Question','ch.1b':'Interlude · The Father',
@@ -2090,6 +2133,7 @@ const T = {
   },
   fr:{
     skip:'Aller au contenu',
+    'resume.t':'Vous vous êtes arrêté à « {t} ».','resume.go':'Reprendre la lecture','resume.x':'Fermer',
     'nav.alexio':'Alexio','nav.chapters':'Chapitres','nav.story':'L\'histoire',
     'nav.science':'Science','nav.scienceL':'Science','nav.sciNotes':'⟐ Notes Scientifiques',
     'ch.1':'I · La Mauvaise Question','ch.1b':'Interlude · Le Père',
@@ -2253,6 +2297,7 @@ function setLang(lang) {
 
   // Update TTS language if playing
   if (ttsUtterance && ttsPlaying) { stopTTS(); }
+  window.dispatchEvent(new Event('nz-lang-changed'));
 }
 
 setLang(currentLang);
@@ -2523,7 +2568,7 @@ const A11Y = {
 function toggleA11y(key, cls) {
   const on = document.getElementById('tog-' + key).checked;
   document.body.classList.toggle(cls, on);
-  document.body.classList.add('a11y-pref-set'); // disable OS auto-mode once user has set preferences
+  if (key === 'light' || key === 'sepia' || key === 'contrast') document.body.classList.add('a11y-pref-set'); // doar preferințele de culoare dezactivează modul automat al sistemului
   LS.set('nz-a11y-' + key, on ? '1' : '0');
 }
 
@@ -2532,7 +2577,7 @@ Object.keys(A11Y).forEach(key => {
   if (LS.get('nz-a11y-' + key, '0') === '1') {
     const cb = document.getElementById('tog-' + key);
     if (cb) { cb.checked = true; document.body.classList.add(A11Y[key]); }
-    document.body.classList.add('a11y-pref-set');
+    if (key === 'light' || key === 'sepia' || key === 'contrast') document.body.classList.add('a11y-pref-set');
   }
 });
 
@@ -3300,6 +3345,52 @@ setLang = function(lang) {
 // Call init after DOM ready
 initTTS();
 initClickToRead();
+
+/* ─────────────────────────────────────────────────────
+   REIA LECTURA: ultimul capitol atins se păstrează local (nz-pos); la următoarea vizită apare o ofertă de continuare
+───────────────────────────────────────────────────── */
+(function(){
+  var chapters=Array.prototype.slice.call(document.querySelectorAll('article.chapter[id]'));
+  if(!chapters.length) return;
+  var bar=document.getElementById('resume-bar'), txt=document.getElementById('resume-text'), go=document.getElementById('resume-go'), x=document.getElementById('resume-x');
+  var target=null, ticking=false;
+  function titleOf(id){
+    var ch=document.getElementById(id); if(!ch) return '';
+    var h=ch.querySelector('.lang-active .chapter-title')||ch.querySelector('.chapter-title');
+    return h?h.textContent.trim():'';
+  }
+  function render(){
+    if(!target||bar.hidden) return;
+    var L=T[currentLang]||T.ro;
+    txt.textContent=(L['resume.t']||T.ro['resume.t']).replace('{t}',titleOf(target));
+    go.textContent=L['resume.go']||T.ro['resume.go'];
+    x.textContent='✕'; x.setAttribute('aria-label',L['resume.x']||T.ro['resume.x']);
+  }
+  window.addEventListener('nz-lang-changed',render);
+  function current(){
+    var y=window.innerHeight*0.4, cur=null;
+    for(var i=0;i<chapters.length;i++){ if(chapters[i].getBoundingClientRect().top<=y) cur=chapters[i]; }
+    return cur;
+  }
+  window.addEventListener('scroll',function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ ticking=false;
+      if(window.scrollY<400) return;
+      var c=current(); if(c) LS.set('nz-pos',c.id);
+      if(!bar.hidden) bar.hidden=true;
+    });
+  },{passive:true});
+  x.addEventListener('click',function(){ bar.hidden=true; });
+  go.addEventListener('click',function(){
+    var el=document.getElementById(target); bar.hidden=true;
+    if(el) el.scrollIntoView({behavior:document.body.classList.contains('a11y-no-motion')?'auto':'smooth',block:'start'});
+  });
+  setTimeout(function(){
+    var id=LS.get('nz-pos','');
+    if(!id||id==='cap1'||!document.getElementById(id)||window.scrollY>200||location.hash) return;
+    target=id; bar.hidden=false; render();
+  },700);
+})();
 </script>
 
 <!-- ══ TTS PANEL ══════════════════════════════════════════ -->
@@ -3307,12 +3398,12 @@ initClickToRead();
   <div class="tts-progress-bar" id="tts-progress"></div>
   <div class="tts-now-reading" id="tts-now-reading">—</div>
   <div class="tts-controls">
-    <button type="button" class="tts-ctrl-btn" id="tts-prev" onclick="ttsNav(-1)" title="Capitol anterior" aria-label="Capitol anterior" data-i18n-aria="tts.prev">⏮</button>
-    <button type="button" class="tts-ctrl-btn active" id="tts-playpause" onclick="ttsPauseResume()" title="Pauză / Redare" aria-label="Pauză" aria-pressed="false">⏸</button>
-    <button type="button" class="tts-ctrl-btn stop" id="tts-stop" onclick="stopTTS()" title="Oprește" aria-label="Oprește" data-i18n-aria="tts.stop">⏹</button>
-    <button type="button" class="tts-ctrl-btn" id="tts-next" onclick="ttsNav(1)" title="Capitol următor" aria-label="Capitol următor" data-i18n-aria="tts.next">⏭</button>
-    <button type="button" class="tts-speed" id="tts-speed-btn" onclick="cycleSpeed()" title="Viteză" aria-label="Viteză">1×</button>
-    <select class="tts-voice-select" id="tts-voice-select" aria-label="Selectează vocea" onchange="onVoiceChange(this.value)" autocomplete="off">
+    <button type="button" class="tts-ctrl-btn" id="tts-prev" data-onclick="ttsNav(-1)" title="Capitol anterior" aria-label="Capitol anterior" data-i18n-aria="tts.prev">⏮</button>
+    <button type="button" class="tts-ctrl-btn active" id="tts-playpause" data-onclick="ttsPauseResume()" title="Pauză / Redare" aria-label="Pauză" aria-pressed="false">⏸</button>
+    <button type="button" class="tts-ctrl-btn stop" id="tts-stop" data-onclick="stopTTS()" title="Oprește" aria-label="Oprește" data-i18n-aria="tts.stop">⏹</button>
+    <button type="button" class="tts-ctrl-btn" id="tts-next" data-onclick="ttsNav(1)" title="Capitol următor" aria-label="Capitol următor" data-i18n-aria="tts.next">⏭</button>
+    <button type="button" class="tts-speed" id="tts-speed-btn" data-onclick="cycleSpeed()" title="Viteză" aria-label="Viteză">1×</button>
+    <select class="tts-voice-select" id="tts-voice-select" aria-label="Selectează vocea" data-onchange="onVoiceChange(this.value)" autocomplete="off">
       <option value="">— voce —</option>
     </select>
   </div>
