@@ -60,7 +60,9 @@
 </style>
 
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src 'self' blob: 'sha256-ZcMxaGrGBUhEd8nSFu/p76vGzK008D7ZIhf/DRLzXvI='; connect-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; script-src 'self' blob: 'sha256-P6oE0KNAKkp+6j7VywEOsQZN+cMK0703yjZw4PqFlWI='; connect-src 'self'">
+<meta name="application-version" content="1.0.0">
+<meta name="last-updated" content="2026-10-12">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Nota Zero · Alexandru Ionuț Chiuță</title>
 <meta id="meta-desc" name="description" content="O poveste SF despre ce s-a întâmplat înainte de tot — teoria corzilor, membrane cosmice și răspunsul la întrebarea pe care știința o evită.">
@@ -1968,6 +1970,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 <footer class="story-footer">
   <p class="footer-copy" style="margin-bottom:.6rem">Ficțiune / speculație · Fiction / speculation · Fiction spéculative. Operă literară; notele științifice au scop explicativ și nu înlocuiesc surse academice.</p>
   <p class="footer-copy">© Alexandru Ionuț Chiuță · <a href="https://alexio.tf" target="_blank" rel="noopener noreferrer">alexio.tf</a> · <a id="footer-brand" href="https://centrulstring.ro" target="_blank" rel="noopener noreferrer">Centrul STRING</a> · Trade-free · 2026</p>
+  <p class="footer-copy" id="app-version"><span data-i18n="ver.label">Versiune</span> v 1.0.0 · 2026-10-12</p>
 </footer>
 
 <!-- ══ SCRIPTS ════════════════════════════════════════ -->
@@ -2009,6 +2012,7 @@ body.tts-active #scroll-top{bottom:calc(1.2rem + 64px);}
 const T = {
   ro:{
     skip:'Sari la conținut',
+    'ver.label':'Versiune',
     'resume.t':'Ai rămas la „{t}”.','resume.go':'Continuă lectura','resume.x':'Închide',
     'nav.alexio':'Alexio','nav.chapters':'Capitole','nav.story':'Povestirea',
     'nav.science':'Știință','nav.scienceL':'Știință','nav.sciNotes':'⟐ Note Științifice',
@@ -2071,6 +2075,7 @@ const T = {
   },
   en:{
     skip:'Skip to content',
+    'ver.label':'Version',
     'resume.t':'You stopped at “{t}”.','resume.go':'Continue reading','resume.x':'Close',
     'nav.alexio':'Alexio','nav.chapters':'Chapters','nav.story':'The Story',
     'nav.science':'Science','nav.scienceL':'Science','nav.sciNotes':'⟐ Science Notes',
@@ -2133,6 +2138,7 @@ const T = {
   },
   fr:{
     skip:'Aller au contenu',
+    'ver.label':'Version',
     'resume.t':'Vous vous êtes arrêté à « {t} ».','resume.go':'Reprendre la lecture','resume.x':'Fermer',
     'nav.alexio':'Alexio','nav.chapters':'Chapitres','nav.story':'L\'histoire',
     'nav.science':'Science','nav.scienceL':'Science','nav.sciNotes':'⟐ Notes Scientifiques',
