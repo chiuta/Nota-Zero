@@ -12,8 +12,8 @@
     "localStorage"
   ],
   "storageKeys": [],
-  "sizeBytes": 932939,
-  "sha256": "87592efc98c070f34791ac1da4632fd9383202020d7226c3874f9e8f2eb3fb47",
+  "sizeBytes": 908395,
+  "sha256": "a17a4bc4e123cd1db657993e9dd1803fa8c5ce10cf89bfb1637ced671910cdf8",
   "csp": {
     "present": true,
     "directives": {
@@ -39,12 +39,7 @@
     "i18n": [
       "ro",
       "en",
-      "fr",
-      "it",
-      "es",
-      "pt",
-      "hu",
-      "de"
+      "fr"
     ],
     "pwa": {
       "manifest": true,
