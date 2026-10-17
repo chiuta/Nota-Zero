@@ -51,7 +51,7 @@ Descarcă `index.html` și deschide-l în browser; textul, accesibilitatea și i
 
 ## Licență
 
-CC0 1.0 Universal (domeniu public) — vezi fișierul LICENSE
+MIT — vezi fișierul LICENSE
 
 ## Audit
 
@@ -81,4 +81,4 @@ Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf. Pagina trimite c�
 
 ## English summary
 
-Nota Zero is a speculative-fiction short story about string theory by Alexandru Ionuț Chiuță, presented as a single-file reading page in Romanian, English and French (about 18 minutes). It has chapter navigation, scientific notes, browser text-to-speech reading, printing and a wide accessibility panel (dyslexia font, spacing, contrast, sepia, colour-blind modes). Preferences are kept in localStorage; no network requests. CC0.
+Nota Zero is a speculative-fiction short story about string theory by Alexandru Ionuț Chiuță, presented as a single-file reading page in Romanian, English and French (about 18 minutes). It has chapter navigation, scientific notes, browser text-to-speech reading, printing and a wide accessibility panel (dyslexia font, spacing, contrast, sepia, colour-blind modes). Preferences are kept in localStorage; no network requests. MIT licence.
