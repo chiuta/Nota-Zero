@@ -16,7 +16,7 @@ Principiu: nicio aplicație nu trimite și nu primește nimic în fundal. Legăt
 | `fabrica-nota-zero.course.json`, `fabrica-intrebari-nota-zero.csv` | Fabrica | curs JSON sau CSV de întrebări |
 | `akasha-nota-zero.json` | Akasha | import registre (12 înregistrări; fără `meta`, deci nu schimbă preferința „stele”; înregistrările-caiet poartă data importului, iar data din poveste e în titlu) |
 | `clopotel-nota-zero.json` / `.csv` | Clopotel | JSON, CSV sau lipire (9 elemente) |
-| `calmwaves-nota-zero.fff.json`, `calmwaves-coduri-varianta.txt` | CalmWaves | import pachet FFF (8 presetări, ca să rămână loc sub limita de 12; celelalte 4 — Kavya, Leila, Zara, Rin — sunt în fișierul de coduri). **Atenție:** importul de pachet FFF înlocuiește presetările proprii din CalmWaves; exportă-le întâi. Maparea pe texturi e editorială |
+| `calmwaves-nota-zero.fff.json`, `calmwaves-coduri-varianta.txt` | CalmWaves | import pachet FFF (8 presetări, ca să rămână loc sub limita de 12; celelalte 4 — Kavya, Leila, Zara, Rin — sunt în fișierul de coduri). **Atenție:** din CalmWaves 1.1.2 importul îmbină presetările importate cu cele proprii (același nume = înlocuit, plafon 12). Maparea pe texturi e editorială |
 | `asmr-nota-zero.fff.json`, `asmr-linkuri-mix.txt` | ASMR | import pachet FFF (ASMR 1.1.1 îmbină presetările importate cu cele proprii; același nume = înlocuit; plafon 50); `#mix=` cere click pe „Redă mixul” |
 | `borderlessmelodies-genuri-nota-muzicii.json` | BorderlessMelodies | import genuri; doar 12-TET, maqam aproximat |
 | `zicala-nota-zero.txt` | Zicala | import .txt (2 proverbe: akan, māori) |
