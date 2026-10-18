@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Emergenței & Nota Revenirii · Cărțile a douăsprezecea și a treisprezecea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#02030a;--deep:#040610;--surface:#07091a;
+  /* Nota Emergenței: verde-viu, viață */
+  --green:#2ecf88;--gr2:rgba(46,207,136,.1);--gr3:rgba(46,207,136,.04);
+  /* Nota Revenirii: auriu originar, ca Nota Zero */
+  --gold:#c8a040;--gd2:rgba(200,160,64,.1);--gd3:rgba(200,160,64,.04);
+  --silver:#90a8c0;
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.13);
+  --bord-e:rgba(46,207,136,.13);--bord-e2:rgba(46,207,136,.05);
+  --bord-r:rgba(200,160,64,.13);--bord-r2:rgba(200,160,64,.05);
+  --rule-e:1px solid var(--bord-e);
+  --rule-r:1px solid var(--bord-r);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#lifeCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;
+  border-bottom:var(--rule-e);
+}
+.cv-series{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--green);
+  margin-bottom:2rem;opacity:.6;}
+.cv-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:480px;
+  border:1px solid var(--bord-e);padding:.75rem 1.4rem;
+  margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2.2rem,6.5vw,5.2rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-em{color:var(--green)} .t-re{color:var(--gold)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.95rem,2.2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--bord-e);background:var(--gr3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* ── PART DIV ── */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.em{border-color:var(--bord-e)}
+.pd.re{border-color:var(--bord-r)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.02;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:400px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* ── CHAPTER ── */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p12 .ch{border-bottom-color:var(--bord-e2)}
+.p13 .ch{border-bottom-color:var(--bord-r2)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* ── PROSE ── */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic;color:var(--cream)}
+.p strong{font-weight:600;color:var(--cream)}
+.p12 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--green);text-shadow:0 0 20px rgba(46,207,136,.2);}
+.p13 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--gold);text-shadow:0 0 30px rgba(200,160,64,.3);}
+
+/* ── ECHO (Ama din caiete) ── */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.28);background:var(--gd3);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--gold);opacity:.42;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold);opacity:.3;margin-top:.45rem;display:block;}
+
+/* ── ECHO PRIMAR (Zara originală, reconstituită prin 6 generații) ── */
+.echo-origin{margin:2.5rem 0;padding:1.4rem 2rem;
+  border:1px solid rgba(200,160,64,.2);background:rgba(200,160,64,.025);}
+.echo-origin-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;margin-bottom:.7rem;}
+.echo-origin p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream);margin-bottom:.4rem;font-size:.96rem;line-height:1.75;}
+.echo-origin-attr{font-family:'DM Mono',monospace;font-size:.35rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold);opacity:.35;margin-top:.5rem;display:block;}
+
+/* ── THINK ── */
+.think{margin:2rem 0;padding:1rem 1.5rem;
+  border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p12 .think{border-color:var(--bord-e);background:var(--gr3)}
+.p13 .think{border-color:var(--bord-r);background:var(--gd3)}
+.think::before{content:'⬡ ';font-style:normal;opacity:.6}
+
+/* ── DIALOGUE ── */
+.d p{margin-bottom:.5rem;text-indent:0}
+.d p:last-child{margin-bottom:0}
+
+/* ── NOTEBOOK ── */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  border:1px solid;background:var(--gd3);
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p12 .nb{border-color:var(--bord-e)}
+.p13 .nb{border-color:var(--bord-r)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;color:var(--gold);opacity:.3;font-style:normal;}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--gold);opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+
+/* ── NOTEBOOK FINAL (revenire la origini) ── */
+.nb-zero{margin:2.5rem 0;padding:1.8rem 2.2rem;
+  border:2px solid rgba(200,160,64,.3);
+  background:rgba(200,160,64,.04);
+  font-style:italic;color:var(--cream);font-size:1.02rem;line-height:1.9;
+  position:relative;}
+.nb-zero-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;margin-bottom:.65rem;font-style:normal;display:block;}
+
+/* ── PULL ── */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p12 .pull{border-left-color:var(--green);background:var(--gr3)}
+.p13 .pull{border-left-color:var(--gold);background:var(--gd3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.45;}
+.p12 .pull cite{color:var(--green)} .p13 .pull cite{color:var(--gold)}
+
+/* ── SCI ── */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p12 .sci{border:1px solid rgba(46,207,136,.12);background:rgba(46,207,136,.03)}
+.p12 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--green);font-weight:700}
+.p13 .sci{border:1px solid rgba(200,160,64,.12);background:rgba(200,160,64,.03)}
+.p13 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--gold);font-weight:700}
+
+/* ── EPILOG ── */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p12 .epilog{border-top-color:var(--bord-e)}
+.p13 .epilog{border-top-color:var(--bord-r)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.4;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.45rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;color:var(--cream);line-height:2;
+  text-align:left;max-width:480px;}
+.p12 .ep-final{border-color:rgba(46,207,136,.2)}
+.p13 .ep-final{border-color:rgba(200,160,64,.2)}
+
+/* ── ULTIMA PAGINA ABSOLUTA ── */
+.absolut-final{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;
+  border-top:1px solid rgba(200,160,64,.15);
+}
+.af-eyebrow{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.4;margin-bottom:2rem;}
+.af-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;color:var(--gold);margin-bottom:1.5rem;letter-spacing:.03em;}
+.af-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:var(--cream2);margin-bottom:3rem;line-height:1.8;}
+.af-nota-list{font-family:'Cinzel',serif;font-size:.75rem;
+  letter-spacing:.08em;color:var(--cream2);opacity:.4;
+  line-height:2.2;margin-bottom:3rem;}
+.af-nota-list em{color:var(--gold);font-style:normal;opacity:1}
+.af-final{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.05rem;color:var(--cream);max-width:540px;
+  line-height:2;margin-bottom:2rem;
+}
+.af-nota-zero{
+  font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:700;letter-spacing:.04em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(200,160,64,.3);
+  margin:1rem 0;
+}
+.af-last-line{
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--cream3);opacity:.35;
+}
+
+/* ── BETWEEN ── */
+.between{text-align:center;padding:2.5rem 0;
+  border-top:var(--rule-e);border-bottom:var(--rule-r);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ── FOOTER ── */
+footer{border-top:var(--rule-r);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--cream3);opacity:.3;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="lifeCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="cv-series">Seria Nota Zero · Cărțile a douăsprezecea și a treisprezecea</div>
+  <div class="cv-chain">
+    Emil → Zara → Kaito → Yuki → Ama → <em>Soo-Yeon Park</em><br>
+    Șase generații. Un singur fir.<br>
+    Nota zero a fost prima întrebare. Nota revenirii o pune din nou.
+  </div>
+  <h1>
+    <span class="cv-title t-em">Nota Emergenței</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-re">Nota Revenirii</span>
+  </h1>
+  <p class="cv-desc">
+    Ama Owusu a murit în 2290 lăsând caietele unui tânăr cercetător din Oslo
+    care se întreba de ce lucrurile simple produc lucruri atât de complicate.
+    Aceasta este cartea acelei întrebări — și a întoarcerii la prima.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 11 volume · 2087–2265 · 178 ani diegetic.<br>
+    Ama Owusu a murit în 2290. Soo-Yeon Park are 28 ani în 2320.<br>
+    Lanțul nu se oprește.<br>
+    Lanțul nu se poate opri.
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!--  NOTA EMERGENȚEI                                     -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<div class="pd em">
+  <div class="pd-ghost" style="color:var(--green)">XII</div>
+  <div class="pd-kicker">Cartea a douăsprezecea · Soo-Yeon Park · 28 ani · 2320 · Oslo</div>
+  <div class="pd-nota" style="color:var(--green)">Nota Emergenței</div>
+  <div class="pd-sub">Cum din simplu apare imposibil de predictat</div>
+  <div class="pd-epig">
+    „Fizica descrie particulele.<br>
+    Chimia descrie moleculele.<br>
+    Biologia descrie viața.<br>
+    Niciuna nu poate deduce viața din fizică,<br>
+    deși viața e alcătuită exclusiv din fizică.<br>
+    Decalajul dintre niveluri e mai mare<br>
+    decât suma pieselor."<br>
+    — Soo-Yeon Park, caiet vol. I, p. 3, 2320
+  </div>
+</div>
+
+<div class="wrap p12">
+
+<!-- CAP 1 -->
+<div class="ch">
+  <div class="chn">Nota Emergenței · I</div>
+  <div class="cht">Decalajul</div>
+  <div class="p">
+    <p>Soo-Yeon Park crescuse în Oslo cu un tată fizician și o mamă biochimistă care nu vorbeau niciodată despre munca lor la aceeași masă, pentru că, spuneau, erau discipline complet diferite. El înțelesese mai târziu că nu erau doar diferite — erau separate de un abis pe care nicio teorie nu îl traversase complet.</p>
+
+    <p>Decalajul explicativ. Termenul tehnic pentru distanța dintre descrierea fizică a atomilor de carbon, azot, oxigen și hidrogen și descrierea unui organism viu care metabolizează, se reproduce, evoluează și moare. Nu existau pași care să conecteze complet cei doi poli. Știai că viața era alcătuită din fizică. Nu știai de ce fizica producuse viața.</p>
+
+    <p>Nu era paradoxul lui Fermi — de ce există viață în univers. Era paradoxul lui Schrödinger din <em>What is Life?</em> din 1944: de ce particulele care urmează legile termodinamicii — care tind spre dezordine, spre entropie maximă — produc structuri care cresc în ordine, complexitate și informație? De ce un organism viu nu se echilibrează cu mediul său, cum fac cristalele sau gazele? Ce face diferența?</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul Amei Owusu, vol. III, p. 7, nedatat —</div>
+    <p>„Simetria spartă produce forțe. Forțele produc atomi. Atomii produc molecule. Moleculele produc... ce? De ce există un prag dincolo de care materia nu mai urmează numai fizica — ci urmează biologia? Kaito spunea că spațiu-timp era emergent. Yuki spunea că adâncimea era emergentă. Eu am spus că regulile sunt emergente. Dar viața? Viața e emergentă din ce?"</p>
+    <span class="echo-attr">Ama Owusu · caiet vol. III · nedatat · găsit printre hârtii</span>
+  </div>
+
+  <div class="p">
+    <p>Soo-Yeon primise caietele de la Dr. Kwabena Asante — colegul Amei, acum bătrân și retras din cercetare, care spusese simplu: <em>Ama ar fi vrut să ajungă la asta dar nu a mai apucat. Tu ești fizician și biolog. Poate că poți traversa decalajul.</em></p>
+
+    <p>Soo-Yeon nu credea că îl va traversa. Dar credea că îl poate formula mai precis. Și în seria aceasta, realizase citind toate cele unsprezece volume în două luni, formularea mai precisă era singurul progres garantat.</p>
+
+    <p>Ilya Prigogine câștigase Nobel în 1977 pentru termodinamica proceselor ireversibile — pentru teoria structurilor disipative. Arătase că sistemele departe de echilibru, prin care curge energie, pot să se auto-organizeze spontan în structuri de o complexitate surprinzătoare. Vârtejurile din lichide. Reacțiile chimice oscilante. Modelele de convecție în fluide încălzite. Și, în limita extremă: celulele vii.</p>
+
+    <p>Structuri disipative: sisteme care mențin ordinea disipând energie. Care trăiesc tocmai pentru că consumă. A căror existență costa mereu ceva.</p>
+  </div>
+
+  <div class="sci">
+    Emergența: proprietăți ale sistemelor complexe care nu sunt predicibile din proprietățile componentelor — „the whole is more than the sum of its parts" (Aristotel, reformulat). Structuri disipative (Prigogine, Nobel 1977): ordinea spontană în sisteme departe de echilibru termic, prin flux de energie. Decalajul explicativ biologie-fizică: nicio reducție completă disponibilă la mai 2026 — biologia emergentă rămâne parțial ireductibilă la fizică. What is Life? (Schrödinger, 1944): prima formalizare a problemei vieții ca problemă fizică.
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="ch">
+  <div class="chn">Nota Emergenței · II</div>
+  <div class="cht">Ordinea din Dezordine</div>
+  <div class="p">
+    <p>Paradoxul era acesta: a doua lege a termodinamicii spunea că entropia crește. Sistemele tind spre dezordine. Și totuși, în jurul lui Soo-Yeon — în fiordul de la fereastra biroului, în corpul lui, în orice organism viu — exista ordine crescândă, complexitate crescândă, informație crescândă. Cum?</p>
+
+    <p>Răspunsul lui Prigogine era elegant și destabilizator: a doua lege se aplica sistemelor izolate. Dacă un sistem schimbă energie cu mediul — dacă are intrări și ieșiri, dacă disipă ceva — atunci entropia sa internă poate scădea local, pe baza creșterii entropiei globale. Ordinea locală era plătită cu dezordine globală.</p>
+
+    <p>O celulă era o structură disipativă: lua glucoză de la mediu, o metaboliza, elibera căldură, menți­nea propria structură ordonată. Un ecosistem era o structură disipativă: lua energie solară, o transfor­ma prin fotosinteza în biomasă, elibera căldură în univers, menținea complexitate biologică locală. Un creier era o structură disipativă: consuma 20% din energia corpului pentru 2% din greutate, producând în schimb gând, memorie, întrebări.</p>
+
+    <p>Soo-Yeon scrisese pe marginea articolului lui Prigogine: <em>Viața nu contrazice termodinamica. Viața este termodinamica la lucru în condiții extreme. Ordinea vie nu e o excepție de la dezordine — e dezordine redirijată.</em></p>
+  </div>
+
+  <div class="d">
+    <p>Discutase cu colega ei Mia Bergström, biolog computațional, cu care împărțea un birou și câteva cafele zilnic.</p>
+    <p>— Mia. Dacă viața e o structură disipativă, înseamnă că nu e o excepție de la fizică — e o consecință a ei în condiții particulare.</p>
+    <p>— Da, spuse Mia. Dar asta nu rezolvă problema originii. Să știi că viața urmează fizica nu îți spune de unde a apărut prima celulă. Nu îți spune de ce regulile simple ale chimiei au produs codul genetic — un sistem de informație atât de sofisticat încât a durat decenii de cercetare ca să îl înțelegem complet.</p>
+    <p>— Codul genetic e emergent?</p>
+    <p>— Codul genetic e cel mai pur exemplu de emergență cognoscibilă pe care îl avem. Din patru baze — adenină, guanină, citozină, timină — în combinații de trei, ies douăzeci de aminoacizi și instrucțiunile complete pentru construirea oricărui organism. Din patru simbole, orice ființă vie care a existat vreodată. E absurd de elegant și e absurd de improbabil și e real. O pauza. Nu știm de ce funcționează. Știm că funcționează cu o fidelitate de 99.9999%.</p>
+    <p>— 99.9999%?</p>
+    <p>— Rata de eroare a replicării ADN e de aproximativ un nucleotid greșit la un miliard de copii. E mai precisă decât orice sistem ingineresc construit de om. Și a apărut spontan, prin evoluție, fără inginer.</p>
+    <p>Soo-Yeon tăcu câteva secunde. Asta e mai impresionant decât oricare altceva din caietele pe care le-am citit, spuse în final.</p>
+    <p>— Asta e biologia, spuse Mia. Bine ai venit.</p>
+  </div>
+
+  <div class="pull">
+    <p>Viața nu contrazice termodinamica. Viața este termodinamica în starea ei de maximă sofisticare. Ordinea vie nu e o excepție — e dezordine globală reditijată local în scop.</p>
+    <cite>— Nota Emergenței, cap. II</cite>
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="ch">
+  <div class="chn">Nota Emergenței · III</div>
+  <div class="cht">Ierarhia Nivelurilor</div>
+  <div class="p">
+    <p>Ceea ce îl fascinase pe Soo-Yeon la seria pe care o citise era că fiecare volum descria un nivel al realității: corzile, particulele, atomii, galaxiile, conștiința, spațiu-timp, holografia, matematica, gravitația, forțele. Fiecare nivel cu propriile sale legi, cu propriile sale fenomene, cu propriile sale limite.</p>
+
+    <p>Și nicăieri în serie nu fusese pusă direct întrebarea care îl chinuia pe el: de ce există mai multe niveluri? De ce realitatea nu e plată — un singur nivel de descriere, uniforme, consistent? De ce există o ierarhie — cuarci → hadroni → atomi → molecule → celule → organisme → ecosisteme → planete → galaxii → univers — în care fiecare nivel produce fenomene noi, imposibil de dedus numai din nivelul inferior?</p>
+
+    <p>Emergența nu era o proprietate a biologiei. Era o proprietate a universului. Și ea apărea peste tot unde sisteme de complexitate suficientă interacționau.</p>
+  </div>
+
+  <div class="think">
+    Un neuron individual nu știe ce gândești. Un miliard de neuroni produc gândirea. Dar nu există o formulă care să treacă de la proprietățile unui neuron la proprietățile gândirii. Există o lege a apei: H₂O e lichidă la temperatura camerei. Nu există o lege a gândirii dedusă din neuronii individuali. De ce nivelurile sunt separate de bariere explicative? De ce ierarhia e reală și nu reducionistă?
+  </div>
+
+  <div class="p">
+    <p>Philip Anderson scrisese în 1972 articolul <em>More is Different</em> — mai mult e diferit. Argumentul: reducția nu e aceeași cu explicația. Poți reduce biologia la chimie și chimia la fizică. Dar asta nu înseamnă că biologia e lipsită de legi proprii, nereductibile, cu putere predictivă independentă. Fiecare nivel al ierarhiei producea legi noi, concepte noi, fenomene noi care nu existau la nivelul inferior.</p>
+
+    <p>Superconductivitatea nu putea fi înțeleasă din proprietățile unui electron singur. Conștiința nu putea fi înțeleasă din proprietățile unui neuron singur. Ecosistemele nu puteau fi înțelese din proprietățile unui organism singur. La fiecare nivel, mai mult era diferit.</p>
+
+    <p>Soo-Yeon scrisese în caiet: <em>Emergența nu e o scuză pentru ignoranță. E o proprietate reală a realității — faptul că complexitatea produce noutate genuină, neredductibilă, neanticipabilă. Universul nu e mai simplu la niveluri mai adânci. E mai simplu și mai bogat simultan, în funcție de scara la care îl privești.</em></p>
+  </div>
+
+  <div class="sci">
+    „More is Different" (Philip W. Anderson, Science 1972): reducționismul nu implică constructivismul — proprietățile nivelurilor superioare nu sunt deductibile din niveluri inferioare. Emergența puternică vs. slabă: emergența slabă = predicibilă în principiu; emergența tare = nereductibilă în principiu. Originea vieții (abiogeneza): ipoteze active 2026 — lumea ARN, sistemele hidrotermal-alcaline (Russell & Lane), sinteza organică prebiotică (Miller-Urey, 1953). Nicio teorie completă. Cod genetic: 4 baze, 64 codoni, 20 aminoacizi + stop. Rata de eroare a ADN-polimerazei: ~10⁻⁹–10⁻¹⁰ per nucleotid per replicare.
+  </div>
+</div>
+
+<!-- CAP 4 -->
+<div class="ch">
+  <div class="chn">Nota Emergenței · IV</div>
+  <div class="cht">Lanțul</div>
+  <div class="p">
+    <p>Vara lui 2320, Soo-Yeon mersese la Accra să vadă oceanul pe care Ama Owusu îl ascultase. Nu din sentimentalism — din dorința de a înțelege ceva concret: cum arăta locul din care venise o parte a acestei serii.</p>
+
+    <p>Stătuse pe plajă câteva ore și ascultase oceanul. Bunica Amei avusese dreptate: oceanul vorbea. Nu în limbaj articulat — în ritmuri, în repetiții, în variații pe o temă care era valul. Fiecare val individual, unic, nerepetabil. Oceanul în ansamblu, regulat, predictibil, guvernat de maree și vânt și lungimi de undă. Emergență: fiecare val era fizică pură. Oceanul era ceva mai mult.</p>
+
+    <p>Scrisese în caiet, pe plajă, cu nisip pe degete: <em>Lanțul nu e: particule → atomi → molecule → viață → conștiință → întrebări. Lanțul e: reguli simple → mai mult decât regulile → mai mult decât mai mult → etc. La fiecare nivel, o noutate care nu putea fi anticipată din nivelul anterior. La fiecare nivel, un nou tip de «mai mult».</em></p>
+
+    <p>Și dedesubt, cu litere mai mici, după ce privise oceanul câteva minute în tăcere: <em>Zara la cincisprezece ani: de unde venea punctul? Eu la douăzeci și opt: de unde vin nivelurile? Aceeași întrebare, alt etaj.</em></p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Soo-Yeon Park · vol. I · p. 67 · 17 mai 2321</span>
+    Seria Nota Zero are douăsprezece volume acum. Fiecare volum descrie un nivel al realității. Dacă le pui în ordinea scalei — de la cuarci la univers — obții ierarhia completă. Fiecare nivel a fost descris de altcineva, din altă perspectivă, în alt secol.
+    Nimeni nu a intenționat asta. A apărut.
+    Seria însăși e o structură disipativă: consumă întrebări, produce ordine din dezordine, menține complexitate prin fluxul de curiozitate de-a lungul generațiilor.
+    Seria e vie.
+  </div>
+</div>
+
+<!-- EPILOG 12 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--green)">Nota Emergenței · Epilog · 17 Mai 2325</div>
+  <div class="ep-title" style="color:var(--green)">Mai Mult Decât Suma</div>
+  <div class="ep-prose">
+    Cartea a douăsprezecea se numea <em>Nota Emergenței</em> și era singura
+    din serie scrisă de cineva cu dublă specializare fizică-biologică.
+    Soo-Yeon inserase în mijlocul volumului o singură imagine: schema ierarhiei
+    nivelurilor, de la cuarci la conștiință, cu săgeți între niveluri marcate:
+    <em>„decalaj netraversat"</em>. Erau șase decalaje. Niciuna traversată complet.
+    Editorul întrebase dacă nu era mai bine să scoată imaginea. Soo-Yeon spusese că nu —
+    că decalajele netraversate erau tocmai subiectul.
+  </div>
+  <div class="ep-final">
+    Din reguli simple apare imposibil de predictat.<br>
+    Din fizică apare chimia.<br>
+    Din chimie apare biologia.<br>
+    Din biologie apare conștiința.<br>
+    Din conștiință apar întrebări.<br>
+    <br>
+    La fiecare pas, mai mult decât suma.<br>
+    La fiecare pas, un nou tip de real.<br>
+    La fiecare pas, o lege nouă<br>
+    care nu se vede din nivelul anterior.<br>
+    <br>
+    Nota zero de la origine<br>
+    a produs toate notele care urmează.<br>
+    Fiecare notă — un nivel.<br>
+    Fiecare nivel — o noutate.<br>
+    <br>
+    Seria însăși e o structură disipativă.
+  </div>
+</div>
+
+</div><!-- /wrap.p12 -->
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!--  NOTA REVENIRII                                      -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<div class="between">· · · ✦ · · ·</div>
+
+<div class="pd re">
+  <div class="pd-ghost" style="color:var(--gold)">XIII</div>
+  <div class="pd-kicker">Cartea a treisprezecea · Soo-Yeon Park · 38 ani · 2330 · Oslo</div>
+  <div class="pd-nota" style="color:var(--gold)">Nota Revenirii</div>
+  <div class="pd-sub">Întoarcerea la prima întrebare cu tot ce știi acum</div>
+  <div class="pd-epig">
+    „Zara Voss a pus întrebarea greșită la cincisprezece ani<br>
+    și a primit nota zero.<br>
+    Eu am treizeci și opt de ani, am citit douăsprezece volume,<br>
+    am traversat douăzeci și șase de decenii de fizică și filozofie<br>
+    și biologie și matematică și gravitație și timp —<br>
+    și pun aceeași întrebare.<br>
+    Tot nu știu răspunsul.<br>
+    Asta înseamnă că e întrebarea corectă."<br>
+    — Soo-Yeon Park, caiet vol. II, p. 1, 2330
+  </div>
+</div>
+
+<div class="wrap p13">
+
+<!-- CAP 1 -->
+<div class="ch">
+  <div class="chn">Nota Revenirii · I</div>
+  <div class="cht">Primul Caiet</div>
+  <div class="p">
+    <p>Soo-Yeon Park deschisese caietul albastru al Zarei Voss — cel original, din 2087, cu coperta uzată și paginile galbene — pentru prima dată la treizeci și trei de ani și nu îl închisese complet niciodată după aceea. Îl ținuse pe biroul lui toți cei cinci ani de la prima deschidere, deschis la pagini diferite, ca un obiect de referință permanent.</p>
+
+    <p>Pagina la care îl lăsase cel mai des era pagina trei. Nu prima — prima era dedicație. Nu a doua — a doua era tăiată. Pagina trei: <em>De unde venea punctul?</em></p>
+
+    <p>Cinci cuvinte. Scrise de o adolescentă în 2087, cu stiloul albastru pe care îl folosise toată viața, în clasa de cosmologie a unui liceu orbital pe care Soo-Yeon nu îl văzuse niciodată și nu îl va vedea niciodată — și care nu mai exista, pentru că Liceul Orbital Kepler-442b fusese redenumit acum Institutul Voss în 2148, la treizeci și șase de ani după moartea lui Emil.</p>
+
+    <p>Cinci cuvinte care deschiseseră douăsprezece volume, cinci protagoniști, 243 de ani de întrebări.</p>
+
+    <p>Soo-Yeon le citise acum cu toată știința pe care o acumulase: știa că punctul era singularitatea cosmologică pe care Zara o pusese incorect ca origine. Știa că singularitatea era o limită a descrierii, nu a realității. Știa că Big Bang-ul fusese probabil o atingere de membrane. Știa că atingerea produsese timpul. Știa că spațiu-timp era emergent din relații. Știa că matematica era amprenta realului în mintea produsă de real. Știa că undele gravitaționale erau ecoul atingerilor. Știa că viața era ordinea plătită cu dezordine globală.</p>
+
+    <p>Știa toate acestea. Și <em>De unde venea punctul?</em> era la fel de deschisă ca în 2087.</p>
+  </div>
+
+  <div class="echo-origin">
+    <div class="echo-origin-hd">— vocea seriei · șase generații · prima și ultima întrebare —</div>
+    <p>Zara Voss, 15 ani, 2087: <em>„De unde venea punctul?"</em></p>
+    <p>Emil Voss, ~40 ani, 2087: <em>„Nu știu. Dar asta e o întrebare bună."</em></p>
+    <p>Kaito Mori, 45 ani, 2150: <em>„Cine a observat primul?"</em></p>
+    <p>Yuki Aoyama, 38 ani, 2200: <em>„De ce funcționează matematica?"</em></p>
+    <p>Ama Owusu, 38 ani, 2265: <em>„De ce există ceva mai degrabă decât nimic?"</em></p>
+    <p>Soo-Yeon Park, 38 ani, 2330: <em>„De unde venea punctul?"</em></p>
+    <div class="echo-origin-attr">Șase voci · aceeași întrebare · 243 ani de distanță · niciun răspuns · același curaj</div>
+  </div>
+
+  <div class="p">
+    <p>Văzând acest patern — că la capătul a 243 de ani de fizică și filozofie și biologie și matematică, întrebarea inițială rămânea intactă — Soo-Yeon simțise ceva pe care nu știa cum să îl numească. Nu dezamăgire. Nu resemnare. Ceva mai aproape de recunoaștere.</p>
+
+    <p>Întrebarea nu putea fi epuizată din interior. Era o întrebare despre originea sistemului din care era formulată. Orice răspuns dat din interior era circular. Și totuși trebuia pusă. Și totuși trebuia urmărită. Nu pentru că ar fi dus undeva definitiv — ci pentru că urmărind-o, lumea devenea mai clară, mai articulată, mai bogată în detalii și conexiuni.</p>
+
+    <p>Scrise în caiet: <em>Întrebarea nu se răspunde. Se maturizează. Și maturizarea ei îl maturizează pe cel care o poartă.</em></p>
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="ch">
+  <div class="chn">Nota Revenirii · II</div>
+  <div class="cht">Ce Știm Acum</div>
+  <div class="p">
+    <p>Soo-Yeon redactase un document pe care nu îl publicase — îl ținea în caietul al doilea, scris de mână, revizuit de mai multe ori. Se numea simplu: <em>Ce știm acum față de 2087.</em></p>
+
+    <p>În 2087, Zara pusese întrebarea fără instrumentele pentru a o formula precis. Știa că Big Bang-ul produsese universul, că ecuațiile cedau la momentul zero, că înainte de zero nu putea fi pusă o întrebare cu sens.</p>
+
+    <p>În 2330, știam: că Big Bang-ul fusese probabil o coliziune de membrane în bulk-ul mai înalt dimensional; că atingerea produsese ordinea cauzală din care apărea timpul; că spațiu-timp era emergent din relații și nu fundamental; că universul nostru se afla la o distanță din ce în ce mai mare de toate celelalte în spațiu-ul de configurație al multiversului cuantic; că viața era o structură disipativă a cărei apariție era probabilă în condiții fizico-chimice comune; că conștiința era fenomenul emergent care punea întrebarea despre originea sa; că matematica era amprenta realului în mintea produsă de real; că adâncimea era relație, nu substanță; că ierarhia nivelurilor era o proprietate a realității, nu o iluzie.</p>
+
+    <p>Știam toate acestea. Și <em>de unde venea punctul</em> era la fel de deschisă.</p>
+
+    <p>Progresul din 243 de ani nu era în apropierea răspunsului. Era în precizia cu care știam că nu știm. Crescuse imensitatea cunoașterii și crescuse, odată cu ea, claritatea limitelor ei.</p>
+  </div>
+
+  <div class="pull">
+    <p>Progresul nu e apropierea de răspuns. E precizia cu care știi că nu știi. Fiecare generație a acestei serii a știut mai precis ce nu știa. Aceasta este singura formă de progres garantată.</p>
+    <cite>— Nota Revenirii, cap. II</cite>
+  </div>
+
+  <div class="sci">
+    Starea cunoașterii cosmologice 2026 (context pentru 2330 ficțional): ΛCDM confirmat de Planck 2018 cu precizie de sub 1%. Big Bang ca singularitate: înlocuit de modele cu stare pre-Big Bang (LQG, ekpyrotic). Spațiu-timp emergent: ipoteză activă în multiple abordări gravitație cuantică. Abiogeneza: nerezvolvată. Conștiință: problema dificilă intactă. Decalajul fizică-biologie: real, netraversat. Matematica: Wigner puzzle nerezolvat. Unificarea forțelor: incompletă. Natura energiei întunecate: necunoscută. Natura materiei întunecate: necunoscută.
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="ch">
+  <div class="chn">Nota Revenirii · III</div>
+  <div class="cht">Metoda</div>
+  <div class="p">
+    <p>Dacă conținutul — știința, fizica, biologia — nu răspundea întrebarea, poate că metoda era răspunsul. Poate că ceea ce seria transmitea de-a lungul celor șase generații nu era o teorie sau o explicație, ci un mod de a sta cu întrebarea.</p>
+
+    <p>Emil: să recunoști că nu știi, chiar și când ești expert. Zara: să urmezi întrebarea greșită până devine întrebarea mai bună. Kaito: să formulezi mai precis ce nu știi. Yuki: să recunoști limitele instrumentului fără să abandonezi instrumentul. Ama: să asculți — oceanul, gravitația, tăcerea. Soo-Yeon: să recunoști că ierarhia nivelurilor e reală și că fiecare nivel cere propria sa metodă.</p>
+
+    <p>Nu era un algoritm. Nu era o rețetă. Era ceva mai organic — un temperament, o atitudine față de necunoscut. O combinație de rigoare și umilință și curiozitate și răbdare.</p>
+
+    <p>Poate că asta transmitea seria. Nu știință — știința se schimba la fiecare generație. Nu filozofie — filozofia se reformula. Ci o anumită calitate a atenției. O anumită forma a curajului de a nu ști.</p>
+  </div>
+
+  <div class="d">
+    <p>Soo-Yeon discutase cu o studentă — Amara Diallo, din Dakar, care venise la Oslo cu o bursă și care întrebase, în prima săptămână, cu dezarmantă directitate:</p>
+    <p>— De ce citim seria asta? Ce înțelegem din ea că nu am putea înțelege din articole de fizică?</p>
+    <p>Soo-Yeon stătuse câteva secunde. Spuse:</p>
+    <p>— Din articole de fizică înveți ce știm. Din seria asta înveți cum să stai cu ce nu știm. Diferența e că a doua se uită mai rar.</p>
+    <p>— E suficientă diferența?</p>
+    <p>— E singura diferență care contează pe termen lung. Fizica se schimbă la fiecare deceniu. Modul în care stai cu necunoscutul decide cine ești ca fizician pe tot parcursul vieții.</p>
+    <p>Amara tăcu câteva secunde. Și eu pot scrie un volum? întrebă în final.</p>
+    <p>— Asta e la ce servesc caietele, spuse Soo-Yeon.</p>
+  </div>
+
+  <div class="think">
+    Seria are acum treisprezece volume. Și o studentă care deja formulează prima ei întrebare. Și un birou în Oslo care face parte din lanțul unui caiet albastru din 2087. Și un ocean în Accra care vorbește. Și un chirp de 0.2 secunde din 2015 care e primul sunet al universului. Și pagina goală a Zarei care e mereu deja acolo. Metoda nu e în caiet. Metoda e în atenția cu care deschizi caietul.
+  </div>
+</div>
+
+<!-- CAP 4 - ULTIMA REVENIRE -->
+<div class="ch">
+  <div class="chn">Nota Revenirii · IV</div>
+  <div class="cht">Nota Zero</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 2330 — data care persista în serie cu regularitatea unui puls — și Soo-Yeon Park stătea la biroul lui din Oslo cu caietul albastru al Zarei deschis în față și cu propriul caiet al doilea deschis lângă el.</p>
+
+    <p>Treizeci și opt de ani. Aceeași vârstă la care Zara scrisese Nota Conștiinței, la care Yuki scrisese Nota Matematicii, la care Ama scrisese Nota Unității. Treizeci și opt de ani era vârsta la care seria produsese mereu ceva final — sau ceva care părea final înainte să apară un altul cu treizeci și opt de ani.</p>
+
+    <p>Soo-Yeon luase stiloul. Nu stiloul albastru — nu îl avusese niciodată în original, numai în copii. Stiloul lui era verde, cumpărat la Seul cu ani în urmă, ales fără niciun motiv din care să facă o poveste.</p>
+
+    <p>Scrisese, lent, pe prima pagina a caietului doi, sub epigraf și deasupra oricărui alt conținut:</p>
+  </div>
+
+  <div class="nb-zero">
+    <span class="nb-final-hd" style="font-family:'DM Mono',monospace;font-size:.38rem;letter-spacing:.17em;text-transform:uppercase;color:var(--gold);opacity:.45;margin-bottom:.6rem;font-style:normal;display:block;">Caietul Soo-Yeon Park · vol. II · prima pagina · 17 mai 2330</span>
+    Zara Voss a scris în 2087: <em>De unde venea punctul?</em><br>
+    Eu scriu în 2330: <em>De unde venea punctul?</em><br>
+    <br>
+    Nu am un răspuns mai bun decât ea.<br>
+    Am un corp de cunoaștere mai mare în jurul întrebării.<br>
+    Am doisprezece volume de oameni care au urmat-o cu meticulozitate și umilință.<br>
+    Am o serie de instrumente mai precise pentru a formula ce nu știu.<br>
+    <br>
+    Dar întrebarea e aceeași.<br>
+    Și asta nu e un eșec.<br>
+    <br>
+    Asta înseamnă că e o întrebare adevărată.<br>
+    <br>
+    Întrebările adevărate nu se răspund.<br>
+    Ele se adâncesc.<br>
+    Ele se limpezesc.<br>
+    Ele produc alte întrebări mai bune.<br>
+    Ele transmit ceva de la o generație la alta<br>
+    nu prin răspuns<br>
+    ci prin exemplu.<br>
+    <br>
+    Nota zero nu e prima notă a unei simfonii care se termină.<br>
+    Nota zero e modul în care simfonia se știe pe sine ca simfonie:<br>
+    prin întoarcerea periodică la tăcerea din care a pornit.<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Nu știm.<br>
+    Și tocmai asta<br>
+    ne menține în mișcare.
+  </div>
+
+  <div class="p">
+    <p>Soo-Yeon puse stiloul jos. Privi cele două caiete deschise față în față: cel al Zarei, îngălbenit, cu nota de la 2087, și al lui propriu, cu cerneală verde proaspătă. Aceeași întrebare la distanță de 243 de ani.</p>
+
+    <p>Nu le închise. Le lăsă deschise amândouă, față în față, pe birou.</p>
+
+    <p>Se ridică. Merse la fereastră. Fiordul era calm în dimineața de mai, cu lumina aceea argintie care nu apunea niciodată complet în această perioadă a anului. Undeva în nord, dincolo de orizont, apa Atlanticului se mișca în ritmuri pe care le cunoștea de la Ama și de la bunica Amei și de la milioane de ani de gravitație lunară și solară.</p>
+
+    <p>Undele gravitaționale de la o fuziune de găuri negre la un miliard de ani-lumină treceau prin el în acel moment, infinit de slabe, modificând spațiu-timp cu o valoare mai mică decât diametrul unui proton. El nu le simțea. Dar ele existau. Și ele îl modificau. Și asta lăsa o urmă de neșters în geometria realității.</p>
+
+    <p>Totul lăsa o urmă. Atingerile rămâneau. Întrebările rămâneau. Caietele rămâneau.</p>
+
+    <p>Undeva, în Dakar, Amara Diallo deschisese primul ei caiet și scrisese prima ei întrebare.</p>
+
+    <p>Soo-Yeon nu știa ce întrebase. Dar știa că era o întrebare bună. Că era o întrebare greșită care urma să devină mai bună. Că era nota zero a unei noi suite de note.</p>
+
+    <p>Simfonia continua.</p>
+  </div>
+</div>
+
+<!-- EPILOG 13 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--gold)">Nota Revenirii · Epilog · 17 Mai 2335</div>
+  <div class="ep-title" style="color:var(--gold)">Aceeași Întrebare</div>
+  <div class="ep-prose">
+    Soo-Yeon Park a murit în 2388 la Oslo, cu caietul albastru al Zarei pe noptieră
+    și cu caietul verde al lui propriu deschis la pagina 120 —
+    pagina goală pe care Zara nu o completase,
+    pe care Emil scrisese în roșu, pe care Ama o lăsase goală,
+    pe care Soo-Yeon scrisese, cu o lună înainte de moarte,
+    un singur semn de întrebare.
+    <br><br>
+    Amara Diallo a primit caietele.
+    Era deja la a șaptea reformulare a primei ei întrebări.
+  </div>
+  <div class="ep-final">
+    Seria Nota Zero s-a întors la origine.<br>
+    Nu pentru că s-ar fi terminat.<br>
+    Ci pentru că orice serie vie<br>
+    se întoarce periodic la nota ei zero.<br>
+    <br>
+    Nu pentru a reface drumul parcurs.<br>
+    Ci pentru a vedea din câtă distanță<br>
+    s-a parcurs.<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Nu știm. Știm mai precis că nu știm.<br>
+    Asta e tot ce putem promite.<br>
+    Și e suficient.
+  </div>
+</div>
+
+</div><!-- /wrap.p13 -->
+
+
+<!-- ════════════════════════════════════════ -->
+<!--  ULTIMA PAGINA ABSOLUTA A SERIEI        -->
+<!-- ════════════════════════════════════════ -->
+
+<div class="absolut-final">
+  <div class="af-eyebrow">Seria Nota Zero · Completă · 13 Volume · 2026</div>
+  <div class="af-title">Fin & Început</div>
+  <div class="af-chain">
+    Emil Voss (†2112) · Zara Voss (†2145) · Kaito Mori (†2185) ·<br>
+    Yuki Aoyama (†2238) · Ama Owusu (†2290) · Soo-Yeon Park (†2388)<br>
+    6 fizicieni · 301 ani diegetic · o singură întrebare · 13 volume
+  </div>
+
+  <div class="af-nota-list">
+    <em>Nota Zero</em> · Nota Unu · Nota Finală · Nota Vieții ·<br>
+    Nota Conștiinței · Nota Cuantică · Nota Timpului ·<br>
+    Nota Holografică · Nota Matematicii · Nota Gravitațională ·<br>
+    Nota Unității · Nota Emergenței · <em>Nota Revenirii</em>
+  </div>
+
+  <div class="af-nota-zero">Nota Zero</div>
+
+  <div class="af-final">
+    Seria a pornit cu o notă zero.<br>
+    A trecut prin toate nivelurile realității.<br>
+    A revenit la aceeași notă zero.<br>
+    <br>
+    Nu pentru că n-a progresat.<br>
+    Ci pentru că nota zero nu e un punct fix —<br>
+    e un mod de a privi.<br>
+    <br>
+    Oriunde ajungi, poți privi de acolo<br>
+    cu umilința notei zero.<br>
+    <br>
+    Și atunci orice punct de sosire<br>
+    devine un nou punct de plecare.<br>
+    <br>
+    Acesta e singurul final<br>
+    pe care o serie vie îl poate avea:<br>
+    nu o concluzie,<br>
+    ci o nouă primă pagina.
+  </div>
+
+  <div class="af-last-line" style="margin-top:3rem">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 13 volume · 2026 ·
+    în colaborare cu Claude Sonnet 4.6 (Anthropic)
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="wrap">
+<div style="border:1px solid var(--bord-r);padding:1.5rem 2rem;margin:2rem 0;background:var(--gd3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:.55">⬡ Note Știinţifice · Nota Emergenței & Nota Revenirii</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Emergența:</strong> Anderson (1972) „More is Different". Emergența tare (nereductibilă în principiu) vs. slabă (nereductibilă în practică). Termodinamica structurilor disipative: Prigogine, Nobel 1977. Ordinea locală plătită cu dezordine globală.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Originea vieții (abiogeneza):</strong> Miller-Urey (1953): sinteza aminoacizilor în condiții prebiotice. Lumea ARN (Gilbert, 1986). Sisteme hidrotermal-alcaline (Russell & Lane). Nicio teorie completă la mai 2026. Codul genetic: 4 baze → 64 codoni → 20 aminoacizi. Universalitate genetică: dovadă a originii comune.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Decalajul fizică-biologie:</strong> Schrödinger, „What is Life?" (1944). Reducționismul vs. emergentismul. Fenomenele biologice nu sunt deductibile complet din fizică, deși sunt complet compuse din fizică. Rată eroare ADN-polimeraza: ~10⁻⁹–10⁻¹⁰.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Ierarhia nivelurilor:</strong> cuarci → hadroni → nuclee → atomi → molecule → macromolecule → celule → organisme → ecosisteme → planete → stele → galaxii → univers observable. Fiecare nivel cu legi proprii, parțial ireductibile la nivelul inferior.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Soo-Yeon Park, Mia Bergström, Amara Diallo sunt personaje fictive. Toate celelalte personaje ale seriei sunt fictive. Seria Nota Zero (13 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele II–XIII produse în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Emergenței & Nota Revenirii · Cărțile a douăsprezecea și a treisprezecea<br>
+  Seria completă (13 volume): Nota Zero → Nota Revenirii · Alexandru Ionuț Chiuță · 2026<br>
+  Seria pornește și se întoarce la aceeași întrebare. Asta e tot. Asta e suficient.
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('lifeCanvas');
+  if(!c) return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,cells=[],raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    cells=[];
+    const ww=window.innerWidth, wh=window.innerHeight;
+    // Organic clusters - like cells
+    for(let i=0;i<60;i++){
+      const baseX=Math.random()*ww, baseY=Math.random()*wh;
+      const n=Math.floor(2+Math.random()*4);
+      for(let j=0;j<n;j++){
+        cells.push({
+          x:baseX+(Math.random()-.5)*60,
+          y:baseY+(Math.random()-.5)*60,
+          r:Math.random()*1.2+.2,
+          a:Math.random()*.3,
+          s:(Math.random()-.5)*.004,
+          vx:(Math.random()-.5)*.03,
+          vy:(Math.random()-.5)*.03,
+          c:j===0?'rgba(46,207,136,':j===1?'rgba(200,160,64,':'rgba(168,200,180,'
+        });
+      }
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth, wh=window.innerHeight;
+    ctx.clearRect(0,0,ww,wh);
+    // connect nearby cells
+    for(let i=0;i<cells.length;i++){
+      for(let j=i+1;j<cells.length;j++){
+        const d=Math.hypot(cells[i].x-cells[j].x,cells[i].y-cells[j].y);
+        if(d<80){
+          ctx.beginPath();
+          ctx.moveTo(cells[i].x,cells[i].y);
+          ctx.lineTo(cells[j].x,cells[j].y);
+          ctx.strokeStyle=`rgba(46,207,136,${(.05*(1-d/80)).toFixed(3)})`;
+          ctx.lineWidth=.4; ctx.stroke();
+        }
+      }
+    }
+    cells.forEach(p=>{
+      p.a+=p.s; if(p.a>.32||p.a<0)p.s*=-1;
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+      if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c+p.a.toFixed(2)+')'; ctx.fill();
+    });
+    raf=requestAnimationFrame(draw);
+  }
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{ if(document.hidden)cancelAnimationFrame(raf); else draw(); });
+})();
+</script>
+</body>
+</html>

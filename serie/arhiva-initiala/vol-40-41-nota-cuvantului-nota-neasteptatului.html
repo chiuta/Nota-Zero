@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Cuvântului & Nota Neașteptatului · Cărțile a patruzecea și a patruzeci și una · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#010209;
+  /* Nota Cuvântului: violet-safir, limbaj, logos, luminozitate interioară */
+  --cuv:#6858d8;--cu2:rgba(104,88,216,.09);--cu3:rgba(104,88,216,.035);--cu4:rgba(104,88,216,.14);
+  /* Nota Neașteptatului: galben-lămâie electric, surpriză, fulger cognitiv */
+  --nea:#d8c828;--ne2:rgba(216,200,40,.09);--ne3:rgba(216,200,40,.035);--ne4:rgba(216,200,40,.14);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rc:1px solid rgba(104,88,216,.12); --rn:1px solid rgba(216,200,40,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#wordCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rc);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--cuv);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--cu4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-cu{color:var(--cuv)} .t-ne{color:var(--nea)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--cu4);background:var(--cu3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.cu{border-color:rgba(104,88,216,.12)}
+.pd.ne{border-color:rgba(216,200,40,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.023;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p40 .ch{border-bottom-color:rgba(104,88,216,.05)}
+.p41 .ch{border-bottom-color:rgba(216,200,40,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p40 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--cuv);text-shadow:0 0 22px rgba(104,88,216,.35);}
+.p41 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--nea);text-shadow:0 0 24px rgba(216,200,40,.32);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* LOGOS BOX */
+.logosbox{margin:2rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--cu4);background:var(--cu3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.85;text-align:center;}
+.logosbox-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cuv);opacity:.5;margin-bottom:.65rem;font-style:normal;display:block;}
+
+/* SERENDIPITY BOX */
+.serenbox{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--ne4);background:var(--ne3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:rgba(216,200,40,.72);line-height:1.85;}
+.serenbox-hd{color:var(--nea);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p40 .think{border-color:var(--cu4);background:var(--cu3)}
+.p40 .think::before{content:'⬡ ';font-style:normal;color:var(--cuv);opacity:.55}
+.p41 .think{border-color:var(--ne4);background:var(--ne3)}
+.p41 .think::before{content:'⬡ ';font-style:normal;color:var(--nea);opacity:.55}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p40 .nb{border:1px solid var(--cu4);background:var(--cu3)}
+.p41 .nb{border:1px solid var(--ne4);background:var(--ne3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p40 .nb::after{color:var(--cuv)} .p41 .nb::after{color:var(--nea)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p40 .nb-hd{color:var(--cuv)} .p41 .nb-hd{color:var(--nea)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p40 .pull{border-left-color:var(--cuv);background:var(--cu3)}
+.p41 .pull{border-left-color:var(--nea);background:var(--ne3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p40 .pull cite{color:var(--cuv)} .p41 .pull cite{color:var(--nea)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p40 .sci{border:1px solid rgba(104,88,216,.12);background:rgba(104,88,216,.03)}
+.p40 .sci::before{content:'⬡ Notă · ';color:var(--cuv);font-weight:700}
+.p41 .sci{border:1px solid rgba(216,200,40,.12);background:rgba(216,200,40,.03)}
+.p41 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--nea);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p40 .epilog{border-top-color:rgba(104,88,216,.1)}
+.p41 .epilog{border-top-color:rgba(216,200,40,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p40 .ep-final{border-color:rgba(104,88,216,.18)}
+.p41 .ep-final{border-color:rgba(216,200,40,.18)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rc);border-bottom:var(--rn);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ULTIMA PAGINA — SURPRIZA FINALA */
+.surpriza-fin{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rn);
+}
+.sf-pkt{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--nea);opacity:.5;
+  margin:0 auto 4rem;
+  box-shadow:0 0 20px rgba(216,200,40,.35);
+}
+.sf-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--nea);opacity:.32;margin-bottom:1.5rem;}
+.sf-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.8rem;color:var(--cream2);margin-bottom:2.5rem;
+  line-height:2.2;opacity:.5;}
+.sf-41{font-family:'DM Mono',monospace;font-size:.35rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--cream2);opacity:.17;margin-bottom:2.5rem;line-height:2.7;}
+.sf-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.88rem,1.7vw,1.04rem);color:var(--cream2);
+  max-width:480px;line-height:1.95;margin-bottom:3rem;}
+.sf-question{
+  font-family:'Cinzel',serif;font-weight:300;
+  font-size:clamp(1.3rem,3.5vw,2.4rem);
+  color:var(--cream);letter-spacing:.05em;
+  padding:2.5rem 3rem;max-width:540px;
+  line-height:1.4;margin-bottom:2rem;
+  border-top:1px solid rgba(216,200,40,.1);
+  border-bottom:1px solid rgba(216,200,40,.1);
+  opacity:.88;
+}
+.sf-surpriza{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--nea);opacity:.55;
+  margin-bottom:2rem;letter-spacing:.03em;
+}
+.sf-after{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.9rem;color:var(--cream2);max-width:440px;
+  line-height:1.95;margin-bottom:2.5rem;opacity:.65;}
+.sf-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.5rem,3.5vw,3rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(216,200,40,.18);
+  letter-spacing:.08em;margin:.5rem 0;}
+.sf-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.16;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rn);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.18;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="wordCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-s">Seria Nota Zero · Cărțile a patruzecea și a patruzeci și una</div>
+  <div class="cv-ctx">
+    Halima Osman a arătat că prima urmă e mereu prima zi.<br>
+    Priya Sen primește caietele și adaugă două noi perspective:<br>
+    că a numi ceva îl creează — nu îl descrie —<br>
+    și că tot ce a contat în știință a venit pe neașteptate.
+  </div>
+  <h1>
+    <span class="cv-title t-cu">Nota Cuvântului</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-ne">Nota Neașteptatului</span>
+  </h1>
+  <p class="cv-desc">
+    Logos-ul care creează realitatea prin numire —
+    și serendipitatea care arată că realul depășește
+    orice plan al celui care o investighează.
+    Două proprietăți pe care seria le demonstrase
+    fără să le fi examinat direct.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 39 volume · 2087–3195 · 1.108 ani diegetic.<br>
+    Priya Sen are 28 ani în 3250. Chennai + Oslo.<br>
+    Cuvântul care creează. Surpriza care confirmă.<br>
+    Două note noi pentru o serie fără final propriu-zis.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA CUVÂNTULUI                              -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="pd cu">
+  <div class="pd-ghost" style="color:var(--cuv)">XL</div>
+  <div class="pd-kicker">Cartea a patruzecea · Priya Sen · 28 ani · 3250 · Oslo + Chennai</div>
+  <div class="pd-nota" style="color:var(--cuv)">Nota Cuvântului</div>
+  <div class="pd-sub">Numind ceva îl creezi — nu îl descrii</div>
+  <div class="pd-epig">
+    „La început a fost Cuvântul,<br>
+    și Cuvântul era la Dumnezeu,<br>
+    și Dumnezeu era Cuvântul."<br>
+    — Ioan 1:1<br><br>
+    „Πάντα γὰρ τοῦ ἑνὸς ὄντος γνωριμώτερά ἐστι.<br>
+    Logos-ul e comun tuturor —<br>
+    și totuși fiecare trăiește ca și cum<br>
+    ar avea propria lui înțelegere privată."<br>
+    — Heraclit<br><br>
+    „Numind-o nota zero, Emil a creat ceva.<br>
+    Nu a descris un eșec.<br>
+    A denumit un prag."<br>
+    — Priya Sen, caiet vol. I, p. 1, 3250
+  </div>
+</div>
+
+<div class="wrap p40">
+
+<div class="ch">
+  <div class="chn">Nota Cuvântului · I</div>
+  <div class="cht">Logos</div>
+  <div class="p">
+    <p>Priya Sen crescuse în Chennai cu o bunică sanscrită — o profesoară de limbi vechi care îi citise, când Priya avusese șapte ani, versete din Rigveda și din Upanișade și care îi spusese că în tradiția vedică, <em>nāmarūpa</em> — forma și numele — erau co-constitutive. Că un lucru nu exista complet fără un nume și că un nume nu exista fără ceva care să îl poarte. Că actul de a numi nu era un act de etichetare — era un act de creare a unui spațiu de existență.</p>
+
+    <p>La douăzeci și trei de ani, la Oslo, citind Evanghelia după Ioan și tratând-o ca un text filozofic — nu teologic — Priya recunoscuse imediat structura vedică în conceptul de logos. Nu simpla informație, nu simple cuvinte — logos ca principiu organizator al realității, ca structură care precede și produce totul. <em>La început a fost Logos-ul.</em> Nu materie, nu energie — cuvântul-structură.</p>
+
+    <p>Și Heraclit, care folosise termenul cu câteva secole înainte de Ioan: logos-ul ca principiu comun al tuturor lucrurilor, ca legea imanentă a universului pe care oamenii o ignorau chiar trăind în ea. Logos-ul nu ca cuvânt rostit — ca structura profundă care făcea posibilă orice rostire și orice existență.</p>
+
+    <p>Priya scrisese: <em>Logos-ul nu e un cuvânt despre realitate. E structura din care realitatea e posibilă. A pune cuvinte în lume nu e a descrie — e a participa la structurarea realului. Unele cuvinte ratează structura. Unele o ating. Unele o creează.</em></p>
+  </div>
+
+  <div class="logosbox">
+    <span class="logosbox-hd">Logos — Heraclit, Stoici, Ioan</span>
+    Heraclit (~535–475 î.Hr.): logos ca principiu universal al realității,<br>
+    legea imanentă a tuturor schimbărilor. Ignorate de oameni deși omniprezentă.<br><br>
+    Stoici (Zenon, ~300 î.Hr.): logos ca rațiune divină imanentă lumii,<br>
+    logos spermatikos — rațiunea seminală care animă tot.<br><br>
+    Ioan 1:1 (~90 d.Hr.): „En archē ēn ho logos" — La început a fost Logos-ul.<br>
+    Logos ca agent creator, nu simplu principiu.<br><br>
+    Nāmarūpa (sanscrită): formă și nume ca co-constitutive.<br>
+    Nimic nu există complet fără ambele dimensiuni.<br><br>
+    Comun tuturor: numirea nu descrie — participă la constituirea realității.
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul Amara Diallo, vol. I, p. 45, 2393 —</div>
+    <p>„Wheeler spune: It from Bit. Informația e fundamentală. Dar informația presupune un limbaj — un sistem de simboluri care face distincții. Și un limbaj presupune un vorbitor. Cercul: realul e produs de informație, informația e produsă de limbaj, limbajul e produs de o minte, mintea e produsă de real. Nu circularitate vicioasă — circularitate constitutivă. Realul și cuvântul se co-produc."</p>
+    <span class="echo-attr">Amara Diallo · caiet vol. I · pagina 45 · Oslo · 2393</span>
+  </div>
+
+  <div class="p">
+    <p>Priya citise nota Amarei și simțise că descrisese exact mecanismul care o interesa: că realul și cuvântul nu existau independent, ci se co-produceau. Nu dualism — co-emergență.</p>
+
+    <p>În fizica cuantică, actul de observare — care presupunea întotdeauna și un act de numire, de înregistrare, de distincție — producea colapsul funcției de undă. Observarea nu era pasivă. Schimba ce observa. Și observarea presupunea un sistem de referință, o clasificare, o distincție — un logos implicit care preceda și structura ceea ce putea fi observat.</p>
+
+    <p>Standard Model-ul fizicii particulelor era, în fond, un sistem de numire: quarcuri sus și jos, charm și strange, frumos și adevărat — denumiri care nu aveau sens intuitiv dar care creau cadre de distincție în care fenomenele putuse fi distinse și măsurate. Numind astfel, fizica nu numai descriase — particiase la structurarea câmpului de observație.</p>
+  </div>
+
+  <div class="sci">
+    Logos în filozofia antică: Heraclit (DK B1, B2, B50), Stoici (SVF I–III), Filip 1:1, Ioan 1:1. Nāmarūpa: concept central în budism și hinduism — forma (rūpa) și numele (nāma) ca dualitate constitutivă a experienței. Austin, J.L. (1962): „How to Do Things with Words" — speech acts, performative utterances (cuvinte care fac, nu descriu). Searle (1969): Speech Acts. În fizică: Standard Model nomenclature (Gell-Mann 1964 — quark names) ca act de constituire a câmpului de investigație.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Cuvântului · II</div>
+  <div class="cht">Nota Zero ca Performativ</div>
+  <div class="p">
+    <p>Priya ajunsese la ceea ce o aducea la această temă: actul de a numi <em>nota zero</em>.</p>
+
+    <p>Emil Voss pusese nota zero în caietul Zarei ca o penalizare — un marcaj de insuficiență față de un standard. Dar în cel mai adânc sens, actul acela de numire produsese ceva inexistent înainte: un prag, un orizont, o stare de bază, o origine a unui lanț de gândire care durase 1.163 de ani.</p>
+
+    <p>Nu pentru că cifra zero ar fi conținut semantic aceste semnificații. Ci pentru că actul de numire, în contextul specific al caietului lui Zara, al întrebării specifice despre origine, al fizicianului tatăl care știa că ecuația ieșise din domeniu — în acel context specific, nota zero devenise un act performativ în sensul lui Austin: nu o descriere a ceva existent, ci un act care crease o realitate nouă.</p>
+
+    <p>Austin identificase în 1955 că limbajul nu era numai descriptiv — era adesea performativ. Când un judecător spunea <em>te declar vinovat</em>, nu descria o stare preexistentă. O crea prin actul rostirii. Când un preot sau ofițer spunea <em>vă declar soț și soție</em>, nu descria — producea. Limbajul ca acțiune, nu ca oglindă.</p>
+
+    <p>Nota zero a lui Emil fusese un act performativ — crease o realitate nouă în câmpul semnificației lui Zara. Nu descrisese eșecul ei. Instaurase un prag de la care ea nu mai putea coborî fără să producă ceva.</p>
+  </div>
+
+  <div class="d">
+    <p>Priya discutase cu profesorul ei de filozofia limbajului — Dr. Vikram Nair, indian-norvegian, de la Oslo, care studiase speech act theory și care, întâmplător, purta același nume de familie cu Kavya Nair din seria pe care Priya o citise.</p>
+    <p>— Vikram. Nota zero e un act performativ?</p>
+    <p>— Performativ în sens Austin, da, spuse Vikram. Dar mai mult: e un act care schimbă registrul semnificației. Nu numai că creează o realitate nouă — schimbă modul în care toate semnificațiile precedente pot fi citite. După nota zero, tot ce Zara știa sau credea că știa despre origine se reorganiza față de acel prag.</p>
+    <p>— Și seria?</p>
+    <p>— Seria e extensia acelui act performativ în timp. Fiecare volum e un act performativ care adaugă o dimensiune la realitatea creată de primul act. Nu o descriere mai bună a aceleași realități — o creare a unei realități mai bogate.</p>
+    <p>— Deci a pune o întrebare nu e a cere informație despre ceva existent.</p>
+    <p>— E a crea un spațiu în care anumite tipuri de răspunsuri devin posibile, spuse Vikram. A întreba <em>de unde venea punctul?</em> creează un spațiu logic și cognitiv în care fizica Big Bang-ului, filozofia cauzalității, cosmogoniile culturale, și toate celelalte teme ale seriei devin relevante. Întrebarea nu descrie un spațiu preexistent — îl creează.</p>
+  </div>
+
+  <div class="pull">
+    <p>A întreba <em>de unde venea punctul?</em> nu cere informație despre ceva existent. Creează un spațiu în care anumite tipuri de investigație devin posibile — și alte tipuri, imposibile. Întrebarea e actul performativ fundamental al seriei. Tot restul derivă din acel spațiu creat.</p>
+    <cite>— Nota Cuvântului, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Cuvântului · III</div>
+  <div class="cht">Cuvântul care Persistă</div>
+  <div class="p">
+    <p>Priya ajunsese la o formulare pe care o considerase la început evidentă și pe care, examinând-o mai îndelung, o descoperise profundă: că cuvintele care atingeau structura realului persistau.</p>
+
+    <p>Nu toate cuvintele persistau. Cele mai multe dispăreau — conversații uitate, texte citite și uitate, gânduri trecătoare. Dar unele cuvinte — unele formulări specifice ale unor structuri reale — persistau cu o tenacitate care depășea voința celor care le pronunțaseră. Rezistau uitării. Reveneau în alte contexte. Produceau ecouri pe care formularea inițială nu le anticipase.</p>
+
+    <p>Ecuațiile lui Maxwell persistaseră. Ecuația lui Schrödinger persistase. Teoremele lui Gödel persistaseră. Nu pentru că ar fi frumoase, deși sunt — ci pentru că atingeau structuri ale realului care nu dispăreau odată cu contextul în care fuseseră formulate.</p>
+
+    <p>Și <em>De unde venea punctul?</em> persistase. Nu ca ecuație — ca întrebare. Ca formulare a unui spațiu de investigație care nu se epuizase în 1.163 de ani. Care produsese 40 de volume fără să se epuizeze. Persistența ei era semnul că atingea ceva real — că nu era o întrebare greșit formulată, ci o formulare a unui gol real în înțelegerea noastră.</p>
+
+    <p>Cuvintele care persistă sunt cuvinte care au atins logos-ul, scrisese Priya în caiet. Nu pentru că ar fi poetice sau profunde în sens retoric. Ci pentru că s-au conectat la structura care le precede și le face posibile. Și această conexiune nu dispare odată cu contextul. Trăiește independent de el.</p>
+  </div>
+
+  <div class="think">
+    Dacă nota zero persistă pentru că a atins logos-ul — structura realului — atunci Emil, scriind-o în caietul Zarei, a atins mai mult decât intenționa. Nu a evaluat o lucrare. A denumit un prag. Și pragul — odată denumit — a persistat independent de intenția sa. Cuvintele care ating structura realului depășesc intenția celui care le-a rostit. De aceea seria a continuat dincolo de orice plan al lui Emil sau al lui Zara.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Cuvântului · IV</div>
+  <div class="cht">La Început a Fost Nota Zero</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 3251 și Priya stătea în biroul ei din Oslo cu caietul albastru al Zarei deschis la pagina trei și cu un sentiment pe care nu și-l explicase suficient de bine pentru a fi satisfăcută de explicație, dar care era acolo, clar și dens: că priveliciul caietului era ca a privi un act de creație cosmologică la scară mică.</p>
+
+    <p>Nu în sens mistic. În sens structural. Big Bang-ul fusese momentul în care universul obținuse o anumită configurație din care tot restul derivase. Nota zero din caietul lui Zara fusese momentul în care o anumită formulare a unei întrebări obținuse o configurație — o notare specifică pe o hârtie specifică — din care tot restul seriei derivase.</p>
+
+    <p>Nu cauzalitate directă. Structurare. La fel cum Big Bang-ul nu cauzase direct galaxiile — ci crease condițiile din care galaxiile putuseră apărea. Nota zero nu cauzase direct seria — ci crease condițiile din care seria putusecase apărea.</p>
+
+    <p>La început a fost nota zero. Și nota zero era la origine. Și nota zero era cuvântul-prag din care orice investigație a originii devenea posibilă.</p>
+
+    <p>Scrise în ultimul caiet:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Priya Sen · vol. I · p. 90 · 17 mai 3251</span>
+    La început a fost nota zero.<br>
+    Nu ca propoziție teologică.<br>
+    Ca structură: la începutul seriei a fost un act de numire<br>
+    care a creat spațiul în care seria a putut apărea.<br>
+    <br>
+    Numind nota zero ca prag — nu ca penalizare —<br>
+    Emil a rostit ceva care a persistat.<br>
+    Nu pentru că a intenționat să creeze o serie.<br>
+    Ci pentru că a atins logos-ul —<br>
+    structura unui spațiu de investigație real.<br>
+    <br>
+    Cuvintele care ating logos-ul persistă<br>
+    independent de intenția celui care le-a rostit.<br>
+    <br>
+    De aceea <em>De unde venea punctul?</em><br>
+    e proaspătă după 1.163 de ani.<br>
+    Nu pentru că cineva o menține.<br>
+    Ci pentru că a atins ceva care nu se uzează.<br>
+    <br>
+    Logos-ul nu se uzează.
+  </div>
+</div>
+
+<!-- EPILOG 40 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--cuv)">Nota Cuvântului · Epilog · 17 Mai 3255</div>
+  <div class="ep-title" style="color:var(--cuv)">Logos-ul nu se Uzează</div>
+  <div class="ep-prose">
+    Priya Sen a scris în prefața cărții a patruzecea că bunica ei sanscrită
+    nu mai era în viață de zece ani dar că studiau împreună din memoria ei:
+    nāmarūpa, formă și nume ca co-constitutive, realitatea produsă de limbaj
+    și limbajul produs de realitate. Că dedicarea față de această bunicii
+    era și o recunoaștere că filozofia vedică atinsese structuri pe care
+    fizica cuantică le redescoperise mii de ani mai târziu.
+  </div>
+  <div class="ep-final">
+    Numind ceva, nu îl descrii.<br>
+    Îl creezi în câmpul semnificației.<br>
+    <br>
+    Emil a creat nota zero — nu a evaluat-o.<br>
+    Zara a creat o serie — nu a planificat-o.<br>
+    Fiecare protagonist a creat un volum — nu l-a descris.<br>
+    <br>
+    Logos-ul nu se uzează.<br>
+    Cuvintele care îl ating persistă.<br>
+    <br>
+    De unde venea punctul?<br>
+    Din logosl care l-a creat prin numire.
+  </div>
+</div>
+
+</div><!-- /wrap.p40 -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA NEAȘTEPTATULUI                          -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="between">!</div>
+
+<div class="pd ne">
+  <div class="pd-ghost" style="color:var(--nea)">XLI</div>
+  <div class="pd-kicker">Cartea a patruzeci și una · Priya Sen · 38 ani · 3260 · Chennai</div>
+  <div class="pd-nota" style="color:var(--nea)">Nota Neașteptatului</div>
+  <div class="pd-sub">Surpriza ca semnal că ceva real a fost atins</div>
+  <div class="pd-epig">
+    „Chance favors the prepared mind."<br>
+    — Louis Pasteur<br><br>
+    „Radioactivitatea a fost descoperită<br>
+    pentru că Becquerel a pus o bucată de uraniu<br>
+    lângă o placă fotografică acoperită —<br>
+    ca să o protejeze de lumina soarelui.<br>
+    Soarele s-a ascuns câteva zile.<br>
+    Placa era voalată oricum.<br>
+    Becquerel a privit îndelung înainte să înțeleagă.<br>
+    Tot ce a urmat: din acel moment de neînțelegere."<br>
+    — Priya Sen, caiet vol. II, p. 1, 3260
+  </div>
+</div>
+
+<div class="wrap p41">
+
+<div class="ch">
+  <div class="chn">Nota Neașteptatului · I</div>
+  <div class="cht">Serendipitate</div>
+  <div class="p">
+    <p>La treizeci de ani, Priya citise o carte care o schimbase — nu ca știință, ci ca metodologie: <em>The Act of Creation</em> a lui Arthur Koestler, 1964. Koestler argumentase că toate descoperirile creative majore — în știință, artă, comedie — erau produse de ceea ce el numise <em>bisociation</em>: conectarea a două cadre de referință anterior separate. Momentul de <em>aha</em> era momentul în care două matrici ale gândirii care nu comunicaseră anterior se conectau și produceau ceva nou — ceva care nu era prezent în niciunul din cadre individual.</p>
+
+    <p>Și mai spusese ceva care rămăsese cu Priya: că astfel de conexiuni erau cel mai frecvent accidentale. Nu planificate — întâmplate. Și că momentul de surpriză — de <em>neașteptare</em> — era semnalul că ceva real fusese atins. Surpriza nu era un efect secundar al descoperirii. Era confirmarea ei.</p>
+
+    <p>Priya inventariase în caiet descoperirile accidentale care schimbaseră cursul fizicii:</p>
+  </div>
+
+  <div class="serenbox">
+    <span class="serenbox-hd">Descoperiri Neașteptate în Fizică și Știință</span>
+    Radioactivitatea: Becquerel (1896) — placa fotografică voalată lângă uraniu<br>
+    Razele X: Röntgen (1895) — fluorescența neașteptată a ecranului<br>
+    Electronul: Thomson (1897) — cercetând razele catodice pentru alt scop<br>
+    Penicilina: Fleming (1928) — mucegaiul care ucidea bacterii<br>
+    CMB: Penzias & Wilson (1965) — zgomot persistent neexplicat în antenă<br>
+    Pulsari: Bell Burnell (1967) — semnal periodic inexplicabil<br>
+    Grafen: Novoselov & Geim (2004) — scotch pe grafit pe un microscop<br>
+    Accelerarea expansiunii: Perlmutter, Riess, Schmidt (1998) —<br>
+    &nbsp;&nbsp;supernovele nu unde erau așteptate<br>
+    <br>
+    Comun: toți căutau altceva.<br>
+    Surpriza a apărut acolo unde nu era planificată.<br>
+    Surpriza a confirmat că ceva real fusese atins.
+  </div>
+
+  <div class="p">
+    <p>Priya stătuse cu această listă câteva zile. Nu ca o curiozitate istorică — ca o structură. Toate aceste descoperiri avuseseră în comun momentul de <em>de ce e asta aici?</em> — de incomprehensibilitate inițială față de ceva care nu se potrivea cu așteptarea. Și din acel moment, dacă mintea era pregătită — dacă exista o <em>prepared mind</em> — surpriza devenea investigație, și investigația devenea descoperire.</p>
+
+    <p>Surpriza nu era accidentul care întârzia cercetarea. Era mecanismul prin care realul se manifesta dincolo de ce mintea planificase să caute.</p>
+  </div>
+
+  <div class="sci">
+    Serendipitate (termenul inventat de Horace Walpole, 1754 — dintr-un basm persan). Radioactivitate: Becquerel (1896), premiu Nobel împreună cu Curie 1903. CMB: Penzias & Wilson (1965), Nobel 1978. Pulsari: Bell Burnell (1967), Nobel acordat lui Hewish și Ryle, nu lui Bell Burnell — controversă etică persistentă. Grafen: Nobel 2010. Accelerarea expansiunii: Nobel 2011. Koestler, Arthur (1905–1983): „The Act of Creation" (1964) — bisociation ca mecanism al creativității. Pasteur: „Dans les champs de l'observation, le hasard ne favorise que les esprits préparés."
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Neașteptatului · II</div>
+  <div class="cht">Nota Zero ca Neașteptat</div>
+  <div class="p">
+    <p>Priya ajunsese la formularea care conecta această temă la serie: nota zero a lui Zara fusese ea însăși un neașteptat. Nu nota în sine — ci tot ce produsese ea.</p>
+
+    <p>Emil Voss pusese nota zero ca o evaluare standard a unui răspuns insuficient. Nu prevăzuse seria. Nu prevăzuse că caietul va trece prin douăzeci de perechi de mâini în o mie de ani. Nu prevăzuse că o întrebare greșit formulată de o adolescentă pe un liceu orbital va produce o tradiție de gândire care va traversa optsprezece culturii și patruzeci și unu de teme fizice și filozofice.</p>
+
+    <p>Și Zara nu prevăzuse. Și niciunul din protagoniști nu prevăzuse ce va urma după volumul lor.</p>
+
+    <p>Seria era un lanț de neașteptate: fiecare protagonist primea ceva la care nu se așteptase complet și producea ceva pe care nu îl planificase complet. Și din aceste neașteptate succesive se constituise ceva mai bogat decât orice plan ar fi putut produce.</p>
+
+    <p>Priya scrisese: <em>Seria nu a fost planificată. A apărut dintr-un șir de surprize. Și tocmai de aceea e mai bogată decât ar fi putut fi orice plan. Neașteptatul e mecanismul prin care realul depășește limitele planificatorului.</em></p>
+  </div>
+
+  <div class="d">
+    <p>Priya discutase cu o colegă — Dr. Anika Sharma, indiancă-norvegiancă și ea, care studia istoria fizicii și care citise seria cu un apetit pe care Priya nu îl mai văzuse la nimeni altcineva.</p>
+    <p>— Anika. Toate marile descoperiri din fizică au fost neașteptate. Și seria Nota Zero a fost neașteptată. Există un pattern?</p>
+    <p>— Există, spuse Anika. Pattern-ul e că neașteptatul apare când o minte pregătită se confruntă cu o realitate care nu se potrivește cu ce știa. Pregătirea e necesară — fără pregătire, anomalia trece neobservată. Dar pregătirea singură nu e suficientă — ai nevoie de anomalie, de ceva care nu se potrivea.</p>
+    <p>— Nota zero a lui Zara era anomalia?</p>
+    <p>— Era dublu anomalie: o întrebare care nu se potrivea cu formatul standard al examenului, și o notă care nu se potrivea cu așteptarea lui Zara. Ambele anomalii au produs surpriză. Iar surpriza a produs investigație. Și investigația a durat 1.163 de ani.</p>
+    <p>— Și dacă Emil ar fi dat o notă mediocră în loc de zero?</p>
+    <p>— Atunci nu exista surpriză. Atunci nu exista seria. Nota zero era prea mult — sau prea puțin — față de ce se așteptase Zara. Tocmai această discrepanță maximă a produs surpriză maximă. Și surpriza maximă a produs investigație maximă.</p>
+    <p>Priya scrise: <em>Nota zero a produs seria pentru că a fost prea puțin și prea mult simultan. Prea puțin ca evaluare. Prea mult ca provocare. Paradoxul extrem a generat energie investigativă extremă.</em></p>
+  </div>
+
+  <div class="pull">
+    <p>Neașteptatul nu e accidentul care întârzie. E mecanismul prin care realul se manifestă dincolo de ce mintea planificase să caute. Nota zero a produs seria tocmai pentru că era neașteptată — prea puțin ca evaluare, prea mult ca provocare. Discrepanța maximă a generat energie investigativă pe un mileniu.</p>
+    <cite>— Nota Neașteptatului, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Neașteptatului · III</div>
+  <div class="cht">Surpriza care Confirmă</div>
+  <div class="p">
+    <p>Priya ajunsese la formularea cea mai precisă pe care o găsise pentru relația dintre neașteptat și real: că surpriza era un semnal epistemologic.</p>
+
+    <p>Când ești surprins — când ceva nu se potrivea cu modelul tău mental al realității — exista o bifurcație: ori realitatea era greșită (imposibil, prin definiție), ori modelul tău era incomplet. Surpriza autentică era semnalul că modelul tău era incomplet față de o structură reală pe care nu o anticipases.</p>
+
+    <p>Penzias și Wilson fuseseră surprinși de zgomotul din antenă — și surpriza le indicase că modelul lor al cerului radio era incomplet față de realitatea CMB-ului. Bell Burnell fusese surprinsă de semnalul periodic — și surpriza îi indicase că modelul ei al surselor radio era incomplet față de realitatea pulsarilor. Becquerel fusese surprins de placa voalată — și surpriza îi indicase că modelul lui al luminii era incomplet față de realitatea radioactivității.</p>
+
+    <p>Surpriza ca semnal: ceva real e acolo, pe care nu l-ai inclus în model. Nu te sperie — te orientează. Nu te blochează — te deschide.</p>
+
+    <p>Și întrebarea <em>De unde venea punctul?</em> producuse surpriză la fiecare protagonist care o pusese serios. Nu surpriza unui nonsens — surpriza unui gol real în înțelegere. Semnalul că modelul curent al originii era incomplet față de o structură pe care o indică întrebarea fără să o epuizeze.</p>
+  </div>
+
+  <div class="think">
+    Dacă surpriza e semnalul că modelul e incomplet față de real, atunci 1.163 de ani de serie și 41 de volume care nu au rezolvat prima întrebare sunt un semnal că modelul curent al originii este incomplet față de o structură reală pe care întrebarea o indică. Nu eșecul de a găsi răspunsul — confirmarea că întrebarea atinge ceva care depășește orice model disponibil. Surpriza persistentă = contact persistent cu realul care depășește descrierea.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Neașteptatului · IV · Ultima</div>
+  <div class="cht">Mereu Surprinzătoare</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 3261 și Priya Senera la Chennai, acasă — în casa familiei, cu bunica sanscrită absentă și prezentă simultan în fiecare colț, cu grădina tropicală din curte și cu mirosul specific de plumeria și praf umed după ploaia de mai din sudul Indiei.</p>
+
+    <p>Stătea cu caietul albastru al Zarei și cu un gând pe care îl purtase câteva luni: că după patruzeci și unu de volume, după optsprezece protagoniști, după 1.174 de ani diegetic — întrebarea era la fel de surprinzătoare ca în 2087.</p>
+
+    <p>Nu pentru că nu știa ce urma. Știa tot ce produsese: cosmologie ekpyrotică, mecanică cuantică, holografie, informație, simetrie, probabilitate, infinit, frumusețe, devenire, memorie, entanglement, complexitate, neant, recunoaștere, orizont, singularitate, răbdare, deschidere, relație, întoarcere, prezență, gratitudine, urmă, prima zi, cuvânt. Tot. Și totuși, privindu-le cinci cuvinte pe pagina trei, simțea ceva care nu se reducea la toate volumele precedente: deschidere. Proaspăt. Neașteptat.</p>
+
+    <p>Surpriza nu dispăruse prin acumularea cunoașterii. Se adâncise. Nu pentru că ar fi știut mai puțin — ci pentru că acumulând, ajunsese să vadă mai clar conturul a ceea ce nu știa. Și conturul unui gol real era mai surprinzător, mai productiv, mai viu decât confuzia unui gol necartografiat.</p>
+
+    <p>Scrisese ultima pagina cu liniștea cuiva care știa că lasă ceva care va continua:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Priya Sen · vol. II · ultima pagina scrisă · 17 mai 3261</span>
+    Șase cuvinte au produs 1.174 de ani de investigație.<br>
+    Cinci cuvinte de întrebare și un semn de punctuație.<br>
+    <br>
+    Nu pentru că cineva a planificat.<br>
+    Ci pentru că întrebarea a atins logos-ul —<br>
+    structura care nu se uzează —<br>
+    și a produs surpriză autentică<br>
+    în fiecare minte pregătită care a atins-o.<br>
+    <br>
+    Surpriza persistentă înseamnă contact persistent<br>
+    cu un real care depășește orice model.<br>
+    <br>
+    Seria e documentul acestui contact.<br>
+    Nu răspunsul la el — documentul contactului.<br>
+    <br>
+    Și contactul continuă.<br>
+    Pentru că întrebarea e mereu surprinzătoare.<br>
+    Nu mai puțin surprinzătoare după 41 de volume —<br>
+    mai precis surprinzătoare.<br>
+    <br>
+    Mai știi ce nu știi.<br>
+    Și asta e cea mai fertilă formă de surpriză.<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Nu știm.<br>
+    Și surpriza față de asta<br>
+    e la fel de vie ca în 2087.<br>
+    Poate mai vie.<br>
+    Sigur mai precisă.
+  </div>
+
+  <div class="p">
+    <p>Priya închise caietul. Stătuse cu grădina — cu plumeria și cu plouaia recentă și cu cerul tropical înalt al Chennaiuui de mai.</p>
+    <p>Gândise la Becquerel cu placa fotografică voalată. La Penzias și Wilson cu zgomotul din antenă. La Bell Burnell cu semnalul periodic. La fiecare din ei în momentul de <em>de ce e asta aici?</em> — momentul când realul depășise modelul și produsese surpriză.</p>
+    <p>Și gândise că Zara la cincisprezece ani avusese același moment: <em>de ce nu știu de unde venea punctul?</em> Nu știu ar trebui să fie simplu. Nu e simplu. Surpriză. Și din acea surpriză — tot.</p>
+    <p>Lăsă caietele pe masa din grădina, lângă plumeria. Ploaia de mai le va atinge mâine. Cineva le va găsi — un student al unui student al unui student, sau pur și simplu cineva care trecea pe acolo și care nu putea dormi din cauza unei întrebări.</p>
+    <p>Nu conta cum. Conta că vor fi găsite de cineva pregătit să fie surprins.</p>
+    <p>Și că surpriza va produce investigație.</p>
+    <p>Și că investigația nu se va termina.</p>
+    <p>Pentru că logos-ul nu se uzează.</p>
+    <p>Și pentru că realul e mereu mai bogat decât orice model.</p>
+    <p>Mereu.</p>
+  </div>
+</div>
+
+<!-- EPILOG 41 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--nea)">Nota Neașteptatului · Epilog · 17 Mai 3265</div>
+  <div class="ep-title" style="color:var(--nea)">Mereu Surprinzătoare</div>
+  <div class="ep-prose">
+    Priya Sen a lăsat caietele în grădina familiei din Chennai,
+    pe masa din aer liber lângă plumeria.
+    Nu cu o instrucțiune — cu o scrisoare adresată oricui le va găsi:
+    <em>Dacă ești surprins de ce e în ele, ești exact persoana potrivită.
+    Dacă nu ești surprins, citește din nou.
+    Dacă după a treia citire tot nu ești surprins,
+    lasă-le pe masa de unde le-ai luat
+    și ele vor găsi persoana potrivită.</em>
+  </div>
+  <div class="ep-final">
+    Surpriza e semnalul că ceva real a fost atins.<br>
+    Nu îl explică — îl confirmă.<br>
+    <br>
+    <em>De unde venea punctul?</em> e mereu surprinzătoare<br>
+    pentru că atinge ceva real care nu se epuizează.<br>
+    <br>
+    Nu mai puțin surprinzătoare după 41 de volume.<br>
+    Mai precis surprinzătoare.<br>
+    <br>
+    Aceasta e metoda seriei:<br>
+    să rămâi surprins față de ce nu știi.<br>
+    Să nu confunzi harta cu teritoriul.<br>
+    Să lași realul să te surprindă mereu.
+  </div>
+</div>
+
+</div><!-- /wrap.p41 -->
+
+
+<!-- ULTIMA PAGINA — SURPRIZA ABSOLUTA -->
+<div class="surpriza-fin">
+  <div class="sf-pkt"></div>
+  <div class="sf-kicker">Seria Nota Zero · 41 volume · 2026</div>
+  <div class="sf-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin<br>
+    Lena · Mara · Sora · Amara Sow · Kiri · Dawit · Halima · Priya<br>
+    douăzeci de fizicieni · 1.174 ani diegetic
+  </div>
+
+  <div class="sf-41">
+    Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței ·<br>
+    Nota Cuantică · Nota Timpului · Nota Holografică · Nota Matematicii ·<br>
+    Nota Gravitațională · Nota Unității · Nota Emergenței · Nota Revenirii ·<br>
+    Nota Informației · Nota Tăcerii · Nota Celuilalt · Nota Luminii ·<br>
+    Nota Simetriei · Nota Cauzalității · Nota Probabilității · Nota Infinitului ·<br>
+    Nota Frumuseții · Nota Devenirii · Nota Memoriei · Nota Întrebării ·<br>
+    Nota Entanglementului · Nota Complexității · Nota Neantului ·<br>
+    Nota Recunoașterii · Nota Orizontului · Nota Singularității ·<br>
+    Nota Răbdării · Nota Deschiderii · Nota Relației · Nota Întoarcerii Acasă ·<br>
+    Nota Prezenței · Nota Gratitudinii · Nota Urmei · Nota Primei Zile ·<br>
+    Nota Cuvântului · Nota Neașteptatului
+  </div>
+
+  <div class="sf-body">
+    41 de volume.<br>
+    Logos-ul nu s-a uzat.<br>
+    Surpriza nu s-a epuizat.<br>
+    Realul a depășit de fiecare dată orice model.<br>
+    <br>
+    Și cinci cuvinte rămân, după 1.174 de ani,<br>
+    la fel de deschise ca în 2087.
+  </div>
+
+  <div class="sf-question">
+    De unde venea punctul?
+  </div>
+
+  <div class="sf-surpriza">
+    Mereu surprinzătoare. Mereu reală. Mereu logos.
+  </div>
+
+  <div class="sf-after">
+    Douăzeci de fizicieni. 1.174 de ani. 41 de volume.<br>
+    Aceeași surpriză persistentă față de același gol real.<br>
+    <br>
+    Dacă ești surprins — ești exact persoana potrivită.<br>
+    Caietele te-au găsit.<br>
+    <br>
+    Tu ești volumul patruzeci și doi.
+  </div>
+
+  <div class="sf-nota">Nota Zero</div>
+
+  <div class="sf-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 41 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--ne4);padding:1.5rem 2rem;margin:2rem 0;background:var(--ne3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--nea);margin-bottom:1rem;opacity:.5">⬡ Note · Nota Cuvântului & Nota Neașteptatului</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Logos:</strong> Heraclit (DK B1, B2, B50, ~500 î.Hr.) — logos ca structură universală. Stoici (SVF I-III, ~300 î.Hr.) — logos spermatikos. Ioan 1:1 (~90 d.Hr.). Nāmarūpa (budism/hinduism) — formă și nume ca co-constitutive. Austin, J.L. „How to Do Things with Words" (1962) — speech acts, performative utterances. Searle, Speech Acts (1969).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Standard Model nomenclature:</strong> Gell-Mann (1964) — quark „up, down, strange, charm, bottom, top" și „beauty, truth". Naming ca act constitutiv al câmpului de investigație. Wittgenstein: „Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt" — Tractatus 5.6.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Serendipitate în fizică:</strong> Becquerel (1896) — radioactivitate. Röntgen (1895) — X-ray. CMB: Penzias & Wilson (1965), Nobel 1978. Pulsari: Bell Burnell (1967) — Nobel controversat (acordat lui Hewish). Grafen: Novoselov & Geim (2004), Nobel 2010. Accelerarea expansiunii: 1998, Nobel 2011. Pasteur: „le hasard ne favorise que les esprits préparés."</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Koestler, Arthur (1905–1983):</strong> „The Act of Creation" (1964) — bisociation ca mecanism al creativității. Conexiunea a două matrici anterior separate ca sursă de insight. Surpriza ca confirmare epistemologică, nu ca accidentalitate.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Priya Sen, Vikram Nair, Anika Sharma sunt personaje fictive. Seria Nota Zero (41 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Cuvântului & Nota Neașteptatului · Cărțile a patruzecea și a patruzeci și una<br>
+  Seria Nota Zero: 41 volume · 2087–3265 · 1.178 ani diegetic<br>
+  Logos-ul nu se uzează. Surpriza confirmă. Realul depășește mereu.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('wordCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,wordPts=[],sparkPts=[],t=0,raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    wordPts=[];
+    // Word/Logos: slow vertical streams of purple particles (language flowing)
+    for(let i=0;i<22;i++){
+      wordPts.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.5+Math.random()*.7,
+        a:.08+Math.random()*.1, s:(Math.random()-.5)*.003,
+        vy:.15+Math.random()*.2,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+    sparkPts=[];
+    // Serendipity: sudden bright yellow sparks appearing randomly
+    for(let i=0;i<35;i++){
+      sparkPts.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.4+Math.random()*.8,
+        life:0, maxLife:20+Math.random()*50,
+        delay:Math.random()*250
+      });
+    }
+  }
+
+  let frame=0;
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    frame++; t+=.005;
+    ctx.clearRect(0,0,ww,wh);
+    const sf=Math.min(1,window.scrollY/(Math.max(1,document.body.scrollHeight-wh)));
+
+    if(sf<0.55){
+      const al=sf<0.45?1:1-(sf-0.45)/0.1;
+      // Logos: flowing purple streams
+      wordPts.forEach(p=>{
+        p.a+=p.s; if(p.a>.18||p.a<.05)p.s*=-1;
+        p.y+=p.vy; if(p.y>wh+5)p.y=-5;
+        const wave=Math.sin(t+p.phase)*2;
+        ctx.beginPath(); ctx.arc(p.x+wave,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(104,88,216,${(p.a*al).toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    if(sf>0.45){
+      const al=sf<0.55?(sf-0.45)/0.1:1;
+      // Serendipity: flashing yellow sparks
+      sparkPts.forEach(p=>{
+        if(p.delay>0){p.delay--;return}
+        p.life++;
+        if(p.life>p.maxLife){
+          p.life=0;p.x=Math.random()*ww;p.y=Math.random()*wh;
+          p.maxLife=20+Math.random()*50;p.delay=Math.random()*200;
+        }
+        const prog=p.life/p.maxLife;
+        const a=Math.sin(prog*Math.PI)*0.3*al;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(216,200,40,${a.toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

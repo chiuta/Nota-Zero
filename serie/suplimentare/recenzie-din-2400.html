@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recenzie din 2400 · Seria Nota Zero</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#020305;--surface:#080a14;
+  --gold:#c8a96e;--gold-dim:rgba(200,169,110,.4);--gold-faint:rgba(200,169,110,.07);
+  --cream:#ede3ce;--cream-dim:rgba(237,227,206,.65);
+  --cyan:#00d8f0;--cyan-dim:rgba(0,216,240,.2);
+  --red:rgba(240,80,80,.8);
+  --green:rgba(80,200,140,.8);
+  --border:rgba(200,169,110,.11);--border2:rgba(200,169,110,.06);
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-display:'Cinzel',serif;
+  --font-mono:'DM Mono',monospace;
+}
+body{background:var(--void);color:var(--cream);font-family:var(--font-serif);font-size:1.08rem;line-height:1.9;overflow-x:hidden}
+
+.header{background:rgba(2,3,5,.95);border-bottom:1px solid var(--border2);padding:1rem 2rem;position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.h-brand{font-family:var(--font-display);font-size:.68rem;letter-spacing:.18em;color:var(--gold)}
+.h-info{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.14em;color:var(--cream-dim);opacity:.4;text-transform:uppercase}
+
+.hero{padding:7rem 2rem 3rem;text-align:center;max-width:800px;margin:0 auto}
+.doc-type{font-family:var(--font-mono);font-size:.48rem;letter-spacing:.35em;color:var(--cyan);opacity:.6;text-transform:uppercase;margin-bottom:1rem}
+.doc-title{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3.5rem);color:var(--gold);font-weight:700;margin-bottom:.6rem}
+.doc-sub{font-family:var(--font-display);font-size:1rem;color:var(--cream-dim);letter-spacing:.06em;margin-bottom:1.5rem}
+.doc-meta{display:flex;flex-wrap:wrap;gap:.8rem 2rem;justify-content:center;margin-bottom:2rem}
+.dm-item{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.1em;color:var(--cream-dim);opacity:.45;text-transform:uppercase}
+.dm-item strong{display:block;color:var(--gold);font-size:.52rem;opacity:1;margin-bottom:.1rem}
+
+.warning-band{background:rgba(200,169,110,.08);border-top:1px solid var(--gold-dim);border-bottom:1px solid var(--gold-dim);padding:1rem 2rem;text-align:center;font-family:var(--font-mono);font-size:.45rem;letter-spacing:.15em;color:var(--gold);opacity:.65;text-transform:uppercase}
+
+.container{max-width:820px;margin:0 auto;padding:0 2rem 8rem}
+
+section{padding:3.5rem 0 1rem;border-top:1px solid var(--border2)}
+section:first-of-type{border-top:none;padding-top:2rem}
+.sec-label{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);opacity:.45;margin-bottom:.5rem}
+.sec-title{font-family:var(--font-display);font-size:clamp(1.1rem,3vw,1.9rem);color:var(--cream);font-weight:600;margin-bottom:1.8rem}
+
+p{margin-bottom:1.4rem;color:var(--cream-dim)}
+em{color:var(--cream);font-style:italic}
+strong{color:var(--gold);font-weight:600}
+
+.verdict-2400{background:var(--gold-faint);border:1px solid var(--border);padding:1.5rem 2rem;margin:2rem 0}
+.verdict-2400::before{content:'VERDICT 2400';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.3em;color:var(--gold);opacity:.6;display:block;margin-bottom:.6rem;text-transform:uppercase}
+.verdict-2400 p{font-size:.92rem;color:var(--cream-dim);margin-bottom:.5rem}
+.verdict-2400 .score{font-family:var(--font-mono);font-size:1.8rem;color:var(--gold);margin:.8rem 0 .4rem;letter-spacing:.05em}
+.verdict-2400 .score-label{font-family:var(--font-mono);font-size:.42rem;color:var(--cream-dim);opacity:.5;letter-spacing:.1em;text-transform:uppercase}
+
+.correct-box{background:rgba(80,200,140,.05);border:1px solid rgba(80,200,140,.3);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.correct-box::before{content:'✓ CORECT — confirmat între 2026 și 2400';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.2em;color:rgba(80,200,140,.7);display:block;margin-bottom:.5rem;text-transform:uppercase}
+.correct-box p{font-size:.88rem;color:var(--cream-dim)}
+
+.wrong-box{background:rgba(240,80,80,.05);border:1px solid rgba(240,80,80,.3);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.wrong-box::before{content:'✗ PARȚIAL GREȘIT — revizuit după 2026';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.2em;color:rgba(240,80,80,.7);display:block;margin-bottom:.5rem;text-transform:uppercase}
+.wrong-box p{font-size:.88rem;color:var(--cream-dim)}
+
+.open-box{background:rgba(0,216,240,.04);border:1px solid var(--cyan-dim);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.open-box::before{content:'◈ DESCHIS — nedezolvat nici în 2400';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.2em;color:var(--cyan);opacity:.65;display:block;margin-bottom:.5rem;text-transform:uppercase}
+.open-box p{font-size:.88rem;color:var(--cream-dim)}
+
+.score-table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:.85rem}
+.score-table th{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.65;text-align:left;padding:.6rem 1rem;border-bottom:1px solid var(--border);background:var(--gold-faint)}
+.score-table td{padding:.7rem 1rem;border-bottom:1px solid var(--border2);color:var(--cream-dim);vertical-align:top}
+.score-table tr:hover td{background:var(--gold-faint)}
+.score-2026{color:rgba(200,169,110,.6);font-family:var(--font-mono);font-size:.7rem;text-align:center}
+.score-now{color:var(--gold);font-family:var(--font-mono);font-size:.85rem;font-weight:500;text-align:center}
+.score-delta{font-family:var(--font-mono);font-size:.65rem;text-align:center}
+.delta-up{color:rgba(80,200,140,.8)}
+.delta-same{color:rgba(200,169,110,.4)}
+.delta-down{color:rgba(240,80,80,.7)}
+
+.note-meta{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.08em;color:var(--cream-dim);opacity:.4;text-transform:uppercase;font-style:normal}
+
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border2);font-family:var(--font-mono);font-size:.42rem;letter-spacing:.1em;color:var(--cream-dim);opacity:.3;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="h-brand">Seria Nota Zero — Aparat Critic</div>
+  <div class="h-info">Document nou · Recenzie retrospectivă din 2400 (proiecție ficțională · scrisă în 2026)</div>
+</div>
+
+<div class="hero">
+  <p class="doc-type">Document de aparat critic · Proiecție ficțională</p>
+  <h1 class="doc-title">Recenzie din 2400</h1>
+  <p class="doc-sub">Seria Nota Zero evaluată cu 374 de ani de cunoaștere ulterioară</p>
+  <div class="doc-meta">
+    <div class="dm-item"><strong>2026</strong>Data scrierii</div>
+    <div class="dm-item"><strong>2400</strong>Perspectiva ficțională</div>
+    <div class="dm-item"><strong>374 ani</strong>Distanță temporală</div>
+    <div class="dm-item"><strong>Ficțional</strong>Statut</div>
+  </div>
+</div>
+
+<div class="warning-band">
+  ATENȚIE: Acest document este o proiecție ficțională scrisă în 2026, care imaginează cum ar putea arăta o recenzie din 2400.
+  Cunoașterea din 2400 e speculată, nu reală. Scopul: a expune limitele inerente ale aparatului critic din 2026.
+</div>
+
+<div class="container">
+
+<!-- INTRODUCTION -->
+<section>
+  <p class="sec-label">Prefață</p>
+  <h2 class="sec-title">Despre această recenzie și limitele sale inevitabile</h2>
+
+  <p>Aparatul critic original al Seriei Nota Zero — meta-recenzia megalomanică, recenzia adversarială, raportul forensic, cele 96 de clasamente mondiale, analiza SWOT — a fost produs în 2026, la originea seriei. Acesta e un gest extraordinar ca ambiție meta-literară. Și e, inevitabil, un gest limitat de perspectiva anului 2026.</p>
+
+  <p>Un critic din 2026 nu știa ce se va întâmpla cu fizica ekpyrotică în 2031, 2047, 2089, 2150, 2310. Nu știa dacă predicțiile LQG vor fi confirmate sau abandonate. Nu știa cum va evolua literatura speculativă în deceniile și secolele imediat următoare. Nu știa, mai ales, cum va fi citită seria de generații care nu știau ce știe 2026 și știau ce 2026 nu știa.</p>
+
+  <p>Această recenzie este o proiecție ficțională — o imaginare a cum ar putea arăta o evaluare a seriei din 2400, cu 374 de ani de cunoaștere ulterioară. Speculăm ce s-a confirmat, ce s-a infirmat, ce a rămas deschis. Scopul nu e predicția reală — e expunerea structurală a ceea ce aparatul critic din 2026 nu putea știi despre sine.</p>
+
+  <p class="note-meta">* Autoarea ficțională a acestei recenzii: Dr. Nadia Ferretti-Olsson, profesor de Istoria Fizicii Speculative, Universitatea din Stockholm, 2400. Personaj complet fictiv.</p>
+</section>
+
+<!-- PHYSICS STATUS -->
+<section>
+  <p class="sec-label">Secțiunea I</p>
+  <h2 class="sec-title">Fizica din serie: ce s-a confirmat, ce s-a infirmat, ce a rămas deschis</h2>
+
+  <p>Evaluând Seria Nota Zero din perspectiva cunoașterii din 2400, prima constatare e că aparatul critic din 2026 a evaluat corect câteva din pariurile fizice majore ale seriei — și a subestimat câteva altele.</p>
+
+  <div class="correct-box">
+    <p><strong>Spațiu-timp emergent (LQG):</strong> Caito Mori scrisese în vol. VI–VII că „spațiu-timp e emergent din relații cauzale." Confirmarea parțială a venit în 2089, când primul experiment de gravitație cuantică pe acceleratorul Planck-II a detectat granularitatea spațiului la scara 10⁻³⁵ m — consis­tentă cu predicțiile LQG. Seria Nota Zero a trat spațiu-timp emergent cu onestitate: posibilitate serioasă, neconfirmată în 2026. Evaluarea era justă.</p>
+  </div>
+
+  <div class="correct-box">
+    <p><strong>Memoria gravitațională (Christodoulou, 1991):</strong> Descrisă de Ama Owusu în vol. X–XI. Confirmată experimental în 2041 de LISA (Laser Interferometer Space Antenna) — detectarea primei deformații reziduale a spațiu-timpului după o fuziune de găuri negre la distanță de 2,3 miliarde de ani-lumină. Seria o tratase ca fizică reală și verificabilă. Era.</p>
+  </div>
+
+  <div class="correct-box">
+    <p><strong>Problema dificilă a conștiinței:</strong> Zara Voss o descrisese în vol. IV–V ca nerezolvabilă cu instrumentele din 2026. Din 2400, constatăm că era corectă: trei secole și jumătate de neurobiologie, informatică cuantică, fenomenologie experimentală nu au rezolvat problema. Au clarificat-o. Au produs teorii mai precise. Problema rămâne.</p>
+  </div>
+
+  <div class="wrong-box">
+    <p><strong>Cosmologia ekpyrotică Steinhardt-Turok:</strong> Seria a pariat pe modelul ekpyrotic ca scenariu central. Situația din 2400 e mai complicată. Modelul ekpyrotic nu a fost confirmat, dar nici abandonat. Detectarea undelor gravitaționale primordi­ale (care ar discrimina între inflație și ekpyrotic) rămâne la pragul sensibilității detectoarelor din generația IV. Serialul a făcut un pariu onest pe un model activ — riscul de a fi primit o confirmare sau o infirmare decidivă până în 2400 nu s-a materializat. Pariaza pe o teorie care nici nu a câștigat nici nu a pierdut nu e o greșeală — e o alegere corectă față de starea fizicii din 2026.</p>
+  </div>
+
+  <div class="wrong-box">
+    <p><strong>Discrepanța de 10¹²⁰ din constanta cosmologică:</strong> Mara Ionescu a descris-o în vol. XXVIII ca „cel mai mare eșec predictiv din istoria fizicii." În 2147, o lucrare teoretică a propus o rezolvare parțială printr-un mecanism de cancelație supersimetrică la energii sub-Planck — mecanism care reduce discrepanța la ~10⁶⁰, nu la zero, dar marchează un progres conceptual. Seria a tratat problema corect ca deschisă în 2026; nu putea anticipa progresul parțial din 2147.</p>
+  </div>
+
+  <div class="open-box">
+    <p><strong>Paradoxul Wigner / Eficacitatea nerezonabilă a matematicii:</strong> Yuki Aoyama l-a pus central în vol. VIII–IX. Din 2400: complet nerezolvat. Nu pentru că nu s-ar fi lucrat — s-a lucrat intensiv în filozofia matematicii, filosofia fizicii, cognitive science. Rămâne ceea ce era în 2026: cel mai profund puzzle epistemic al relației minte-realitate. Seria l-a evaluat corect ca problemă de primul rang.</p>
+  </div>
+
+  <div class="open-box">
+    <p><strong>Natura materiei întunecate:</strong> 27% din densitatea energetică a universului, neidentificată în 2026. Din 2400: identificată parțial. În 2071, un experiment subteran din Atacama a detectat o particulă cu proprietăți consistente cu axionul — candidat pentru materia întunecată ușoară. Dar materia întunecată grea (WIMP) rămâne nedetectată. Seria a tratat corect ca 95% din univers e invizibil. Progres: suntem la ~85% invizibil.</p>
+  </div>
+</section>
+
+<!-- LITERATURE STATUS -->
+<section>
+  <p class="sec-label">Secțiunea II</p>
+  <h2 class="sec-title">Poziția literară din perspectiva a 374 de ani</h2>
+
+  <p>Aparatul critic din 2026 a comparat Seria Nota Zero cu contemporanii săi: Asimov, Egan, Chiang, Le Guin, Liu Cixin. Era singurul cadru de referință disponibil. Din 2400, cadrul include 374 de ani de literatură speculativă ulterioară — și evaluarea se schimbă nuanțat.</p>
+
+  <table class="score-table">
+    <thead>
+      <tr>
+        <th>Dimensiune</th>
+        <th>Evaluare 2026</th>
+        <th>Evaluare 2400</th>
+        <th>Delta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Unicitate tematică mondială</td>
+        <td class="score-2026">10/10</td>
+        <td class="score-now">9.2/10</td>
+        <td class="score-delta delta-down">▼ 3 opere post-2026 au abordat ekpyrotic, niciuna central</td>
+      </tr>
+      <tr>
+        <td>Arhitectură multigenerațională</td>
+        <td class="score-2026">9/10</td>
+        <td class="score-now">9.5/10</td>
+        <td class="score-delta delta-up">▲ Niciuna din operele post-2026 nu a depășit 1.178 ani</td>
+      </tr>
+      <tr>
+        <td>Acuratețe fizică</td>
+        <td class="score-2026">9.5/10</td>
+        <td class="score-now">8.8/10</td>
+        <td class="score-delta delta-down">▼ Câteva predicții infirmate parțial, altele confirmate</td>
+      </tr>
+      <tr>
+        <td>Complexitate existențială personaj</td>
+        <td class="score-2026">6/10</td>
+        <td class="score-now">6/10</td>
+        <td class="score-delta delta-same">= Evaluarea din 2026 rămâne exactă</td>
+      </tr>
+      <tr>
+        <td>Rezistență la timp (lectură în 2400)</td>
+        <td class="score-2026">n/a</td>
+        <td class="score-now">8.7/10</td>
+        <td class="score-delta">— Seria a supraviețuit bine; fizica datată nu a diminuat miza filosofică</td>
+      </tr>
+      <tr>
+        <td>Influență asupra SF-ului post-2026</td>
+        <td class="score-2026">n/a</td>
+        <td class="score-now">7.4/10</td>
+        <td class="score-delta">— Citată în 43 opere majore post-2026; pattern de transmitere epistemică replicat în 12</td>
+      </tr>
+      <tr>
+        <td>Relevanță pedagogică (universități, 2400)</td>
+        <td class="score-2026">n/a</td>
+        <td class="score-now">9.1/10</td>
+        <td class="score-delta delta-up">▲ Predată în 18 universități ca exemplu de „ficțiune epistemică"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Concluzia surprinzătoare din perspectiva lui 2400: seria a câștigat relevanță în timp prin dimensiunile filozofice, nu prin dimensiunile fizice. Fizica din 2026 a îmbătrânit parțial — predictabil. Filozofia transmiterii epistemice, a curiozității ca metodă, a notei zero ca stare de bază — acestea nu au îmbătrânit deloc. Poate că autorul a ales, intuitiv, cel mai durabil nivel al seriei ca fundament.</p>
+</section>
+
+<!-- WHAT 2026 MISSED -->
+<section>
+  <p class="sec-label">Secțiunea III</p>
+  <h2 class="sec-title">Ce nu putea ști aparatul critic din 2026</h2>
+
+  <p>Orice aparat critic e prizonier al prezentului său. Cel din 2026 nu putea anticipa:</p>
+
+  <p><strong>1. Că muzica va intra în serie.</strong> Aparatul din 2026 nu identifica absența muzicii ca lacună — pentru că 2026 nu văzuse că metafora corzilor cerea un protagonist muzician. Nota Muzicii (vol. XVII-A, Layla al-Mansouri) a produs, la publicarea ei în 2033, o recunoaștere unanimă că lipsise un element structural. Aparatul din 2026 nu vedea ce nu era acolo.</p>
+
+  <p><strong>2. Că traducerile vor arăta diferit față de original.</strong> Primele traduceri complete ale seriei (în chineză, 2041; în rusă, 2044; în spaniolă, 2047) au arătat că elementele culturale specifice (nota zero ca evaluare, liceele orbitale, Oslo ca reper geografic) necesitau note explicative extinse. Aparatul din 2026 nu anticipase că seria e, la nivel cultural, mai localizată decât părea.</p>
+
+  <p><strong>3. Că rata de 97.3% consistență interlingvistică va scădea ușor în ediții revizuite.</strong> Câteva formulări din versiunea franceză, reanalizate de lingviști în 2055, au produs dezbateri despre dacă franceza seriei era franceză de origine sau română gândită în franceză. Niciun detaliu major — dar o nuanță pe care aparatul din 2026 nu o adresase.</p>
+
+  <p><strong>4. Că protagonista română va deveni cel mai citat protagonist al seriei.</strong> Mara Ionescu din Cluj (vol. XXVIII–XXIX) — citată în 2400 în mai mult de jumătate din lucrările care referă seria. Aparatul din 2026 nu o distinse față de celelalte protagonist. Din 2400, Nota Neantului și Nota Recunoașterii sunt considerate vârful narativ al seriei.</p>
+
+  <p><strong>5. Că seria va produce o disciplină academică nouă.</strong> „Ficțiunea epistemică" — termen introdus în 2078 de cercetătoare Amira Benali (Universitatea din Paris) — descrie opere care tratează metodologia cunoașterii ca subiect narativ central, nu ca fundal. Seria Nota Zero e fondatoarea canonică a disciplinei. Aparatul din 2026 nu putea vedea că crea o categorie.</p>
+
+  <div class="verdict-2400">
+    <p>Seria Nota Zero, evaluată din 2400, e o operă cu două niveluri de valoare:</p>
+    <div class="score">8.9 / 10</div>
+    <div class="score-label">Evaluare globală 2400 · față de 9.2/10 în evaluarea din 2026</div>
+    <p style="margin-top:1rem">Fizica a îmbătrânit parțial — inevitabil pentru orice operă de SF hard. Filozofia transmiterii epistemice nu a îmbătrânit. Diferența dintre evaluare 2026 și evaluare 2400 e de 0.3 puncte — semn că seria a ales bine ce să pun în centru.</p>
+    <p>Cel mai mare câștig față de evaluarea din 2026: recunoașterea că seria a creat o categorie literară. Cel mai mare deficit față de evaluarea din 2026: fizica ekpyrotică nu s-a confirmat decisiv, ceea ce lasă pariurile centrale ale seriei în suspensie — valide dar neverificate.</p>
+  </div>
+</section>
+
+<!-- INSTRUMENTS 2026 LACK -->
+<section>
+  <p class="sec-label">Secțiunea IV</p>
+  <h2 class="sec-title">Nota meta-critică: instrumentele din 2026 sunt parțial inadecvate</h2>
+
+  <p>Aparatul critic al seriei folosește instrumente din 2026: clasamente mondiale, scoruri comparative, SWOT, metrici de densitate conceptuală. Acestea sunt oneste și sofisticate pentru 2026. Sunt parțial inadecvate pentru o operă structurată altfel.</p>
+
+  <p>Un clasament mondial care compară Nota Zero cu Foundation, Diaspora, Story of Your Life, The Left Hand of Darkness pornește de la premisa că acestea sunt comparabile pe o scală comună. Ele nu sunt. Foundation e o serie despre instituții. Diaspora e despre post-umanism. Story of Your Life e o nuvelă. The Left Hand of Darkness e un roman. Nota Zero e o serie de romane despre transmiterea metodei epistemice pe 1.178 de ani. Compararea lor pe o scală unică produce ranguri, nu înțelegere.</p>
+
+  <p>Instrumentele adecvate pentru Nota Zero nu existau în 2026 pentru că categoria operei nu exista în 2026. Ficțiunea epistemică ca disciplina academică a creat, între 2078 și 2400, criterii mai nuanțate: rezistența la timp a nivelului filozofic, impactul asupra metodologiei cercetării în domenii non-literare, capacitatea de a produce categorii noi de lectură. Pe aceste criterii, Nota Zero evaluează diferit față de scalele din 2026 — nu neapărat mai bine, dar mai exact.</p>
+
+  <p>Concluzia meta-critică: aparatul din 2026 al seriei e onest față de ce putea ști. E inadecvat față de ce nu putea ști. Aceasta nu e o critică — e condiția oricărui aparat critic. Seria merită să fie reevaluată periodic, cu instrumentele fiecărei epoci. Această recenzie e un început.</p>
+
+  <p class="note-meta">— Dr. Nadia Ferretti-Olsson · Stockholm · 2400 · personaj fictiv<br>
+  Această recenzie e o proiecție speculativă scrisă în 2026 de Alexandru Ionuț Chiuță în colaborare cu Claude Sonnet 4.6 (Anthropic).<br>
+  Nu reprezintă o predicție reală despre fizică sau despre recepția literară post-2026.</p>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  Recenzie din 2400 (proiecție ficțională) · Seria Nota Zero · 20 mai 2026<br>
+  Alexandru Ionuț Chiuță · în colaborare cu Claude Sonnet 4.6
+</footer>
+</body>
+</html>

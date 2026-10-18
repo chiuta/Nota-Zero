@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghid Implementare Complet · Seria Nota Zero</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#020305;--surface:#0a0c16;
+  --gold:#c8a96e;--gold-dim:rgba(200,169,110,.4);--gold-faint:rgba(200,169,110,.07);
+  --cream:#ede3ce;--cream-dim:rgba(237,227,206,.65);
+  --cyan:#00d8f0;--cyan-dim:rgba(0,216,240,.2);
+  --red:rgba(240,80,80,.8);--green:rgba(80,200,140,.8);
+  --border:rgba(200,169,110,.11);--border2:rgba(200,169,110,.06);
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-display:'Cinzel',serif;
+  --font-mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--cream);font-family:var(--font-serif);font-size:1rem;line-height:1.85;overflow-x:hidden}
+
+.header{background:rgba(2,3,5,.95);border-bottom:1px solid var(--border2);padding:.8rem 2rem;position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.h-brand{font-family:var(--font-display);font-size:.7rem;letter-spacing:.18em;color:var(--gold)}
+.h-info{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.12em;color:var(--cream-dim);opacity:.4;text-transform:uppercase}
+
+.hero{text-align:center;padding:5.5rem 2rem 2rem;max-width:860px;margin:0 auto}
+.hero-kicker{font-family:var(--font-mono);font-size:.48rem;letter-spacing:.35em;color:var(--cyan);opacity:.55;text-transform:uppercase;margin-bottom:.8rem}
+.hero-title{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3.5rem);color:var(--gold);font-weight:700;margin-bottom:.5rem}
+.hero-sub{font-family:var(--font-serif);font-style:italic;color:var(--cream-dim);font-size:1.05rem;margin-bottom:1.5rem}
+.stats{display:flex;flex-wrap:wrap;gap:.6rem 2rem;justify-content:center;margin-bottom:1.5rem}
+.stat{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.1em;color:var(--cream-dim);opacity:.45;text-transform:uppercase;text-align:center}
+.stat strong{display:block;color:var(--gold);font-size:.6rem;opacity:1;margin-bottom:.1rem}
+
+.container{max-width:960px;margin:0 auto;padding:0 2rem 8rem}
+
+/* OVERVIEW GRID */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:2rem 0 3rem}
+.ov-card{background:var(--surface);border:1px solid var(--border2);padding:1.2rem;text-align:center}
+.ov-num{font-family:var(--font-display);font-size:2.5rem;color:var(--gold);font-weight:700;line-height:1}
+.ov-label{font-family:var(--font-mono);font-size:.4rem;letter-spacing:.15em;color:var(--cream-dim);opacity:.5;text-transform:uppercase;margin-top:.3rem}
+.ov-status{display:inline-block;margin-top:.5rem;font-family:var(--font-mono);font-size:.38rem;letter-spacing:.1em;padding:.15rem .5rem;border:1px solid;text-transform:uppercase}
+.status-done{color:rgba(80,200,140,.9);border-color:rgba(80,200,140,.35);background:rgba(80,200,140,.05)}
+.status-partial{color:var(--gold);border-color:var(--gold-dim);background:var(--gold-faint)}
+.status-pending{color:var(--cyan);border-color:var(--cyan-dim);background:rgba(0,216,240,.04)}
+
+section{padding:3rem 0 1rem;border-top:1px solid var(--border2)}
+section:first-of-type{border-top:none}
+.sec-label{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);opacity:.45;margin-bottom:.4rem}
+.sec-title{font-family:var(--font-display);font-size:clamp(1.1rem,3vw,1.8rem);color:var(--cream);font-weight:600;margin-bottom:1.5rem}
+
+/* ITEM TABLE */
+.impl-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.82rem}
+.impl-table th{font-family:var(--font-mono);font-size:.4rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.65;text-align:left;padding:.55rem 1rem;border-bottom:1px solid var(--border);background:var(--gold-faint)}
+.impl-table td{padding:.65rem 1rem;border-bottom:1px solid var(--border2);color:var(--cream-dim);vertical-align:top;line-height:1.5}
+.impl-table tr:hover td{background:var(--gold-faint)}
+.item-num{font-family:var(--font-mono);font-size:.65rem;color:var(--gold-dim);font-weight:500}
+.item-vol{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.08em;color:var(--cyan);opacity:.6;text-transform:uppercase;white-space:nowrap}
+.status-badge{font-family:var(--font-mono);font-size:.38rem;letter-spacing:.08em;padding:.12rem .4rem;border:1px solid;text-transform:uppercase;white-space:nowrap}
+.sb-done{color:rgba(80,200,140,.9);border-color:rgba(80,200,140,.35)}
+.sb-prose{color:var(--gold);border-color:var(--gold-dim)}
+.sb-spec{color:var(--cyan);border-color:var(--cyan-dim)}
+.sb-pend{color:rgba(200,169,110,.5);border-color:rgba(200,169,110,.2)}
+.item-desc{color:var(--cream-dim)}
+.item-note{font-size:.75rem;color:var(--cream-dim);opacity:.55;margin-top:.2rem;font-style:italic}
+
+p{margin-bottom:1.2rem;color:var(--cream-dim)}
+
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border2);font-family:var(--font-mono);font-size:.42rem;letter-spacing:.1em;color:var(--cream-dim);opacity:.3;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="h-brand">Seria Nota Zero — Ghid Implementare Complet</div>
+  <div class="h-info">Toate recomandările · 20 mai 2026</div>
+</div>
+
+<div class="hero">
+  <p class="hero-kicker">Document de implementare · Alexandru Ionuț Chiuță</p>
+  <h1 class="hero-title">Ghid Complet de Implementare</h1>
+  <p class="hero-sub">Toate recomandările pentru perfecțiunea Seriei Nota Zero — statusul fiecăreia</p>
+  <div class="stats">
+    <div class="stat"><strong>95+</strong>Recomandări totale</div>
+    <div class="stat"><strong>3</strong>Documente noi produse</div>
+    <div class="stat"><strong>10</strong>Scene scrise complet</div>
+    <div class="stat"><strong>1</strong>Volum nou complet</div>
+    <div class="stat"><strong>~80</strong>De implementat în volume</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- STATUS OVERVIEW -->
+<div class="overview-grid">
+  <div class="ov-card">
+    <div class="ov-num">1</div>
+    <div class="ov-label">Volum nou complet</div>
+    <div class="ov-status status-done">✓ Produs</div>
+  </div>
+  <div class="ov-card">
+    <div class="ov-num">10</div>
+    <div class="ov-label">Scene cheie ca proze</div>
+    <div class="ov-status status-done">✓ Produse</div>
+  </div>
+  <div class="ov-card">
+    <div class="ov-num">2</div>
+    <div class="ov-label">Documente aparat</div>
+    <div class="ov-status status-done">✓ Produse</div>
+  </div>
+  <div class="ov-card">
+    <div class="ov-num">~80</div>
+    <div class="ov-label">Adăugiri în volume</div>
+    <div class="ov-status status-pending">→ De implementat</div>
+  </div>
+</div>
+
+<!-- ═══════════════ SECTION 1 ═══════════════ -->
+<section>
+  <p class="sec-label">Categoria I</p>
+  <h2 class="sec-title">Documente noi — produse complet</h2>
+
+  <table class="impl-table">
+    <thead><tr><th>#</th><th>Document</th><th>Status</th><th>Fișier</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="item-num">N1</td>
+        <td><span class="item-desc"><strong>Nota Muzicii</strong> — Vol. XVII-A — Layla al-Mansouri, Baghdad/Oslo, 2481–2491. Primul protagonist arab. Musician + fizician. Închide metafora corzilor. Conține: vis, bucurie, violență minimă, greșeala publicată, spațiu public.</span></td>
+        <td><span class="status-badge sb-done">✓ Complet</span></td>
+        <td class="item-vol">nota-muzicii.html</td>
+      </tr>
+      <tr>
+        <td class="item-num">N2</td>
+        <td><span class="item-desc"><strong>Recenzie din 2400</strong> — Proiecție ficțională. Evaluează fizica confirmată vs. infirmată. Produce tabelul comparativ 2026 vs. 2400. Expune limitele aparatului critic original.</span></td>
+        <td><span class="status-badge sb-done">✓ Complet</span></td>
+        <td class="item-vol">recenzie-din-2400.html</td>
+      </tr>
+      <tr>
+        <td class="item-num">N3</td>
+        <td><span class="item-desc"><strong>Scene cheie</strong> — 10 scene noi ca proze complete: mama Zarei, Emil greșind, transmitere amânată (Soo-Yeon 10 ani), spațiu public anonim, violență minimă, degradare fizică caiete, eroare publicată, final definitiv, data 17 mai explicată, antagonistul obosit.</span></td>
+        <td><span class="status-badge sb-done">✓ Complet</span></td>
+        <td class="item-vol">scene-cheie.html</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SECTION 2 ═══════════════ -->
+<section>
+  <p class="sec-label">Categoria II</p>
+  <h2 class="sec-title">Adăugiri structurale — de implementat în volume</h2>
+
+  <table class="impl-table">
+    <thead><tr><th>#</th><th>Volum</th><th>Adăugire</th><th>Status</th></tr></thead>
+    <tbody>
+
+      <tr><td class="item-num">V01</td><td class="item-vol">Vol. I</td>
+        <td><span class="item-desc">Scena cu mama Zarei (Elena Voss) — inserare capitol 3</span><div class="item-note">Proза completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V02</td><td class="item-vol">Vol. I</td>
+        <td><span class="item-desc">Consecința fizică a traversării bulk-ului — Zara revine cu anomalie senzorială durând luni</span><div class="item-note">De scris: 300–500 cuvinte. Inserare după scena din bulk.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V03</td><td class="item-vol">Vol. I</td>
+        <td><span class="item-desc">Zara face o afirmație fizică greșită (nu numai o întrebare greșită) și cineva o corectează elegant</span><div class="item-note">De scris: scenă în clasa de cosmologie, o afirmație specifică și incorectă.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V04</td><td class="item-vol">Vol. II–III</td>
+        <td><span class="item-desc">Emil greșind față de Zara (nu în fizică — în relație)</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V05</td><td class="item-vol">Vol. II–III</td>
+        <td><span class="item-desc">Emil la 70 de ani — corpul îmbătrânit prezent în scenă (tremur ușor, voce mai lentă, uitare mică)</span><div class="item-note">De adăugat 1-2 paragrafe la conversațiile existente.</div></td>
+        <td><span class="status-badge sb-pend">De adăugat</span></td>
+      </tr>
+      <tr><td class="item-num">V06</td><td class="item-vol">Vol. IV–V</td>
+        <td><span class="item-desc">Un student care corectează Zara și are dreptate. Zara acceptă public.</span><div class="item-note">De scris: 400–600 cuvinte. Scenă de seminar sau consultație.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V07</td><td class="item-vol">Vol. IV–V</td>
+        <td><span class="item-desc">Editorul manuscrisului ca prim cititor exterior ne-fizician — reacție autentică</span><div class="item-note">De scris: 200–300 cuvinte. O conversație scurtă cu editorul.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V08</td><td class="item-vol">Vol. IV–V</td>
+        <td><span class="item-desc">Doliul pentru Emil tratat corporal — Zara nu poate scrie, citi, întreba</span><div class="item-note">De scris: 600–800 cuvinte. Capitol separat de doliu neproductiv.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V09</td><td class="item-vol">Vol. VI–VII</td>
+        <td><span class="item-desc">Kaito ezitând să preia caietele — 6 luni fără să le deschidă</span><div class="item-note">De scris: 300–500 cuvinte. Deschidere capitol 1.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V10</td><td class="item-vol">Vol. VI–VII</td>
+        <td><span class="item-desc">Kaito în Japonia — cel puțin o scenă specifică japoneză, nu numai Oslo</span><div class="item-note">De scris: 400–600 cuvinte. Scenă la Tokyo sau Kyoto cu unghi epistemologic specific.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V11</td><td class="item-vol">Vol. VIII–IX</td>
+        <td><span class="item-desc">Yuki — conversație cu un matematician pur care dezaprobă formularea Wigner</span><div class="item-note">De scris: 500–700 cuvinte. Dezacord real, nerezolvat.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V12</td><td class="item-vol">Vol. VIII–IX</td>
+        <td><span class="item-desc">Scenă în care Wigner se întâmplă în fața ochilor — nu o conversație despre paradox, ci o experiență directă</span><div class="item-note">De scris: 400–600 cuvinte. Yuki calculează și găsește că matematica prezice ceva care există.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V13</td><td class="item-vol">Vol. X–XI</td>
+        <td><span class="item-desc">Ama Owusu — voce stilistică distinctă față de ceilalți protagoniști (sintagme scurte, parabolice, sintaxă Akan)</span><div class="item-note">De revizuit proza existentă pentru a diferenția vocea.</div></td>
+        <td><span class="status-badge sb-pend">De revizuit</span></td>
+      </tr>
+      <tr><td class="item-num">V14</td><td class="item-vol">Vol. X–XI</td>
+        <td><span class="item-desc">Ama nu înțelege ceva din caietele lui Yuki — incompatibilitate culturală, nu de inteligență</span><div class="item-note">De scris: 300–400 cuvinte. Pasaj specific care rezistă lecturii Amei.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V15</td><td class="item-vol">Vol. XII–XIII</td>
+        <td><span class="item-desc">Soo-Yeon — transmitere amânată 10 ani. Nu deschide caietele.</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V16</td><td class="item-vol">Vol. XII–XIII</td>
+        <td><span class="item-desc">Soo-Yeon găsește o contradicție reală între Kaito și Ama, o rezolvă sau o lasă nerezolvată</span><div class="item-note">De scris: 400–500 cuvinte. Contradicție specifică, nu aparentă.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V17</td><td class="item-vol">Vol. XIV–XV</td>
+        <td><span class="item-desc">Nota Tăcerii — structură formală mai scurtă și mai rară. Capitole cu densitate redusă.</span><div class="item-note">De revizuit structura volumului — scurtat, mai tăcut formal.</div></td>
+        <td><span class="status-badge sb-pend">De revizuit</span></td>
+      </tr>
+      <tr><td class="item-num">V18</td><td class="item-vol">Vol. XVI–XVII</td>
+        <td><span class="item-desc">Ji-Ho și Einar (profesorul bolnav) — scenă extinsă la 3× lungimea actuală</span><div class="item-note">De extins: scena existentă e perfectă dar prea scurtă. Cel mai bun moment din serie.</div></td>
+        <td><span class="status-badge sb-pend">De extins</span></td>
+      </tr>
+      <tr><td class="item-num">V19</td><td class="item-vol">Vol. XVIII–XIX</td>
+        <td><span class="item-desc">Kavya la piața de pești din Kozhikode — scenă de spațiu public anonim</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V20</td><td class="item-vol">Vol. XVIII–XIX</td>
+        <td><span class="item-desc">Karma vs. cauzalitate — Kavya simte dezacordul profund, nu îl rezolvă elegant</span><div class="item-note">De intensificat tensiunea în capitolul existent despre cauzalitate.</div></td>
+        <td><span class="status-badge sb-pend">De intensificat</span></td>
+      </tr>
+      <tr><td class="item-num">V21</td><td class="item-vol">Vol. XX–XXI</td>
+        <td><span class="item-desc">Leila — accidentul de stradă și corpul în contact cu pericolul</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V22</td><td class="item-vol">Vol. XXII–XXIII</td>
+        <td><span class="item-desc">Nadia — o experiență estetică ne-fizică (muzică, pictură) care conduce la întrebarea fizică prin similitudine structurală</span><div class="item-note">De scris: 400–500 cuvinte. Tatăl arhitect — scenă extinsă.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V23</td><td class="item-vol">Vol. XXII–XXIII</td>
+        <td><span class="item-desc">Teoria Standard a fizicii particulelor ca exemplu de ecuație adevărată și urâtă — tensiunea cu Dirac</span><div class="item-note">De adăugat: 300–400 cuvinte în capitolul despre frumusețe.</div></td>
+        <td><span class="status-badge sb-pend">De adăugat</span></td>
+      </tr>
+      <tr><td class="item-num">V24</td><td class="item-vol">Vol. XXIV–XXV</td>
+        <td><span class="item-desc">Rin — teza temporară că seria e solipsistă, trăită luni de zile</span><div class="item-note">De scris: 500–600 cuvinte. Rin la capătul cunoașterii disponibile.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V25</td><td class="item-vol">Vol. XXVI–XXVII</td>
+        <td><span class="item-desc">Lena — fizicianul sceptic complet care dezaprobă seria cu argumente</span><div class="item-note">Proză completă disponibilă în scene-cheie.html (Dr. Ingrid Larsen)</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V26</td><td class="item-vol">Vol. XXVIII–XXIX</td>
+        <td><span class="item-desc">Mara — relația reală cu tatăl fizician, cu fricțiunile ei specifice</span><div class="item-note">De scris: 600–800 cuvinte. Capitolul tatei extins.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V27</td><td class="item-vol">Vol. XXVIII–XXIX</td>
+        <td><span class="item-desc">Cluj — detalii geografice și culturale specifice, inconfundabile</span><div class="item-note">De adăugat în scena Apusenilor: 2–3 detalii geografice precise.</div></td>
+        <td><span class="status-badge sb-pend">De adăugat</span></td>
+      </tr>
+      <tr><td class="item-num">V28</td><td class="item-vol">Vol. XXX–XXXI</td>
+        <td><span class="item-desc">Sora Kim — anxietatea transmiterii caietelor, aproape nu le transmite</span><div class="item-note">De scris: 400–500 cuvinte. Sora singură cu caietele, tentată să le țină.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V29</td><td class="item-vol">Vol. XXXI</td>
+        <td><span class="item-desc">Data de 17 mai explicată — Sora descoperă coincidența și o înțelege</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V30</td><td class="item-vol">Vol. XXXII–XXXIII</td>
+        <td><span class="item-desc">Nota Răbdării — ritm editorial mai lent. Capitole mai rare, mai spațiate.</span><div class="item-note">De revizuit editorial: spațiere mai mare între secțiuni.</div></td>
+        <td><span class="status-badge sb-pend">De revizuit</span></td>
+      </tr>
+      <tr><td class="item-num">V31</td><td class="item-vol">Vol. XXXIV–XXXV</td>
+        <td><span class="item-desc">Kiri — harta vizuală a relațiilor din serie (whakapapa aplicat ca vizualizare)</span><div class="item-note">De creat: o diagramă relațională, nu cronologică, inclusă în caiet.</div></td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">V32</td><td class="item-vol">Vol. XXXVI–XXXVII</td>
+        <td><span class="item-desc">Dawit — un moment de ingratitudine înainte de gratitudine autentică</span><div class="item-note">De scris: 300–400 cuvinte. Dawit obosit de caiete, fără să vrea să continue.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V33</td><td class="item-vol">Vol. XXXIX</td>
+        <td><span class="item-desc">Degradarea fizică a caietelor — pagina 47 incompletă, cerneala dispărută</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+      <tr><td class="item-num">V34</td><td class="item-vol">Vol. XL–XLI</td>
+        <td><span class="item-desc">Priya nu poate citi un cuvânt/sintagmă din caietul Zarei — derivă lingvistică de 1.178 ani</span><div class="item-note">De scris: 200–300 cuvinte. Un termen din 2087 absent din vocabularul lui 3265.</div></td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">V35</td><td class="item-vol">Vol. XLI</td>
+        <td><span class="item-desc">Finalul definitiv al seriei — ultima scenă cu ploaia de mai din Chennai</span><div class="item-note">Proză completă disponibilă în scene-cheie.html</div></td>
+        <td><span class="status-badge sb-prose">Proză gata</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SECTION 3 ═══════════════ -->
+<section>
+  <p class="sec-label">Categoria III</p>
+  <h2 class="sec-title">Inovații formale — implementare editorială</h2>
+
+  <table class="impl-table">
+    <thead><tr><th>#</th><th>Inovație</th><th>Nivel de implementare</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="item-num">F01</td>
+        <td><span class="item-desc"><strong>Vol. XVII-A — Nota Muzicii</strong> — volum nou complet. Protagonist arab-muzician. Layla al-Mansouri. Baghdad + Oslo.</span></td>
+        <td class="item-vol">Complet produs</td>
+        <td><span class="status-badge sb-done">✓ Gata</span></td>
+      </tr>
+      <tr><td class="item-num">F02</td>
+        <td><span class="item-desc"><strong>Un volum scurt</strong> (20–25 pag.) — Nota Tăcerii (Vol. XV). Teme tăcerii cere formă comprimată.</span></td>
+        <td class="item-vol">Editorial</td>
+        <td><span class="status-badge sb-pend">De revizuit</span></td>
+      </tr>
+      <tr><td class="item-num">F03</td>
+        <td><span class="item-desc"><strong>Un volum lung</strong> (300–350 pag.) — Vol. I (Nota Zero) sau Vol. XL–XLI. Zgomota e scale. Vol. I e fondator.</span></td>
+        <td class="item-vol">Editorial</td>
+        <td><span class="status-badge sb-pend">De extins</span></td>
+      </tr>
+      <tr><td class="item-num">F04</td>
+        <td><span class="item-desc"><strong>Un volum epistolar</strong> — inserabil oriunde ca vol. nou. Scrisori între protagoniști din generații diferite prin caiete.</span></td>
+        <td class="item-vol">De scris: ~8.000 cuvinte</td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">F05</td>
+        <td><span class="item-desc"><strong>Un volum la persoana a doua</strong> (tu). De ales protagonistul potrivit. Kandidat: Rin Nakamura sau Halima Osman.</span></td>
+        <td class="item-vol">De scris: 1 volum</td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">F06</td>
+        <td><span class="item-desc"><strong>Trilingvismul real</strong> — în loc de text repetat × 3, versiuni separate cu mici diferențe intraductibile. Minim 3 diferențe semnificative per volum.</span></td>
+        <td class="item-vol">Editorial major</td>
+        <td><span class="status-badge sb-pend">De restructurat</span></td>
+      </tr>
+      <tr><td class="item-num">F07</td>
+        <td><span class="item-desc"><strong>Eroarea neanunțată</strong> — o afirmație fizică greșită în cuprins (nu o greșeală intenționată semnalată ca în Vol. I). Cititorul competent o recunoaște.</span></td>
+        <td class="item-vol">De ales volumul</td>
+        <td><span class="status-badge sb-pend">De implementat</span></td>
+      </tr>
+      <tr><td class="item-num">F08</td>
+        <td><span class="item-desc"><strong>Voci stilistice distincte</strong> per cultură. Ama Owusu: sintagme mai scurte, parabolice. Kiri Māhoe: non-linear, cu revizitări. Priya Sen: mai densă filozofic.</span></td>
+        <td class="item-vol">De revizuit 5–6 volume</td>
+        <td><span class="status-badge sb-pend">De revizuit</span></td>
+      </tr>
+      <tr><td class="item-num">F09</td>
+        <td><span class="item-desc"><strong>Imaginea lui Zara din Vol. I</strong> — un desen simplu din caiet, transmis prin toate 40 de volume, interpretat diferit de fiecare protagonist.</span></td>
+        <td class="item-vol">Grafic + editorial</td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">F10</td>
+        <td><span class="item-desc"><strong>Index de întrebări</strong> — nu alfabetic, ci ordonat după gradul de răspuns (de la cele mai soluționate la cele permanent deschise).</span></td>
+        <td class="item-vol">Document aparat</td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SECTION 4 ═══════════════ -->
+<section>
+  <p class="sec-label">Categoria IV</p>
+  <h2 class="sec-title">Aparat critic — documente noi și revizuiri</h2>
+
+  <table class="impl-table">
+    <thead><tr><th>#</th><th>Document</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="item-num">A01</td>
+        <td><span class="item-desc"><strong>Recenzie din 2400</strong> — Proiecție ficțională. Evaluare cu 374 ani de cunoaștere ulterioară.</span><div class="item-note">Produs complet în recenzie-din-2400.html</div></td>
+        <td><span class="status-badge sb-done">✓ Gata</span></td>
+      </tr>
+      <tr><td class="item-num">A02</td>
+        <td><span class="item-desc"><strong>Nota meta-critică</strong> — Recunoaștere că instrumentele de evaluare din 2026 sunt parțial inadecvate. Propunere de criterii noi pentru „ficțiunea epistemică".</span><div class="item-note">Conținut parțial integrat în Recenzie din 2400. De separat ca document distinct.</div></td>
+        <td><span class="status-badge sb-partial">Parțial</span></td>
+      </tr>
+      <tr><td class="item-num">A03</td>
+        <td><span class="item-desc"><strong>Evaluare fizică din perspectiva fizicianului profesionist</strong> — Nu a literaturii. Volum cu volum, acuratețe fizică cu observații specifice.</span><div class="item-note">De scris ca document separat. Format tabelar.</div></td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">A04</td>
+        <td><span class="item-desc"><strong>Harta fizică a transmiterii caietelor</strong> — Traseul geografic: Oslo → Liceul Orbital → Baza Artemis VII → Oslo → Accra → Oslo → Seoul → ... Hartă SVG sau descriere detaliată.</span><div class="item-note">De creat: document geografic interactiv.</div></td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">A05</td>
+        <td><span class="item-desc"><strong>Recenzia cititorului nespecialist</strong> — O recenzie de la un cititor fără background fizic. Ce a rămas, ce nu a înțeles, ce l-a emoționat.</span><div class="item-note">De scris: 1.500–2.000 cuvinte. Voce complet diferită de restul aparatului.</div></td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+      <tr><td class="item-num">A06</td>
+        <td><span class="item-desc"><strong>Injectarea injustiției epistemice</strong> sistematice — Un caz per volum, specific, cu an și nume. Wu, Bell Burnell, Meitner, Payne-Gaposchkin, Lederberg, al-Kindi.</span><div class="item-note">De adăugat în notele de subsol ale volumelor XVII-A (al-Kindi gata), plus celelalte.</div></td>
+        <td><span class="status-badge sb-partial">Parțial (Vol. XVII-A)</span></td>
+      </tr>
+      <tr><td class="item-num">A07</td>
+        <td><span class="item-desc"><strong>Erata aparată</strong> — Nota de subsol din Vol. XXXIX (Halima) care corectează o eroare de dată sau atribuire din volumele anterioare.</span><div class="item-note">De ales eroarea și de scris nota de subsol corespunzătoare.</div></td>
+        <td><span class="status-badge sb-pend">De implementat</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SECTION 5 ═══════════════ -->
+<section>
+  <p class="sec-label">Categoria V</p>
+  <h2 class="sec-title">World-building — adăugiri globale</h2>
+
+  <table class="impl-table">
+    <thead><tr><th>#</th><th>Element</th><th>Implementare</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="item-num">W01</td>
+        <td><span class="item-desc"><strong>Oslo care se schimbă</strong> — 3 versiuni: Oslo 2150 (modern), Oslo 2570 (schimbat), Oslo 2900 (reconstruit după criză climatică). Câte 1 detaliu specific per epocă.</span></td>
+        <td class="item-vol">Adăugat în vol. VI-VII, XX-XXI, XXX-XXXI</td>
+        <td><span class="status-badge sb-pend">De adăugat</span></td>
+      </tr>
+      <tr><td class="item-num">W02</td>
+        <td><span class="item-desc"><strong>Context social-politic al epocilor</strong> — Minim 1 referință per grupă de 5 volume la structuri externe (conflict, schimbare politică, catastrofă ecologică, descoperire majoră).</span></td>
+        <td class="item-vol">Editorial transversal</td>
+        <td><span class="status-badge sb-pend">De adăugat</span></td>
+      </tr>
+      <tr><td class="item-num">W03</td>
+        <td><span class="item-desc"><strong>Limbajul pe 1.178 ani</strong> — Priya nu poate citi un termen din 2087 (scenă scrisă). Vol. XX: Leila întâlnește o expresie din 2097 care e arhaică.</span></td>
+        <td class="item-vol">2 scene specifice</td>
+        <td><span class="status-badge sb-prose">Parțial (Priya gata)</span></td>
+      </tr>
+      <tr><td class="item-num">W04</td>
+        <td><span class="item-desc"><strong>Seria ca obiect în lumea sa</strong> — La vol. XXX+, seria Nota Zero e studiată, comentată, controversată în lumea ficțiunii. Protagonist care primește caietele dintr-o arhivă universitară.</span></td>
+        <td class="item-vol">De scris: 1 scenă nouă</td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">W05</td>
+        <td><span class="item-desc"><strong>Caietele aproape pierdute</strong> — O scenă în care caietele sunt în pericol real și sunt recuperate, poate parțial deteriorate.</span></td>
+        <td class="item-vol">De ales volumul și scena</td>
+        <td><span class="status-badge sb-pend">De scris</span></td>
+      </tr>
+      <tr><td class="item-num">W06</td>
+        <td><span class="item-desc"><strong>Latinoamerica</strong> — Un protagonist din America de Sud. Propus: vol. XXIII-A sau XXIV-A, între Nadia și Rin. Perspectivă din cosmologia andină sau tradiția matematică Mesoamericană.</span></td>
+        <td class="item-vol">Volum nou de creat</td>
+        <td><span class="status-badge sb-pend">De creat</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ SECTION 6 ═══════════════ -->
+<section>
+  <p class="sec-label">Categoria VI</p>
+  <h2 class="sec-title">Prioritizare — ordinea de implementare recomandată</h2>
+
+  <p>Dacă implementarea se face progresiv, ordinea recomandată după impact:</p>
+
+  <table class="impl-table">
+    <thead><tr><th>Prioritate</th><th>Acțiune</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr><td class="item-num">1</td>
+        <td><span class="item-desc">Inserare scene-cheie.html în volumele respective (proze gata, inserare editorială)</span></td>
+        <td><span class="status-badge sb-done">Imediat — proze gata</span></td>
+      </tr>
+      <tr><td class="item-num">2</td>
+        <td><span class="item-desc">Extinderea scenei Ji-Ho + Einar (Vol. XVI–XVII) la 3× lungimea actuală</span></td>
+        <td><span class="status-badge sb-pend">Înalt — cel mai bun moment</span></td>
+      </tr>
+      <tr><td class="item-num">3</td>
+        <td><span class="item-desc">Voce stilistică distinctă pentru Ama Owusu (Vol. X–XI) — revizuire proze</span></td>
+        <td><span class="status-badge sb-pend">Înalt — diversitate reală</span></td>
+      </tr>
+      <tr><td class="item-num">4</td>
+        <td><span class="item-desc">Scena doliului lui Zara pentru Emil (Vol. IV–V) — capitol nou</span></td>
+        <td><span class="status-badge sb-pend">Înalt — deficit emoțional major</span></td>
+      </tr>
+      <tr><td class="item-num">5</td>
+        <td><span class="item-desc">Index de întrebări — document aparat nou</span></td>
+        <td><span class="status-badge sb-pend">Mediu — aparat critic</span></td>
+      </tr>
+      <tr><td class="item-num">6</td>
+        <td><span class="item-desc">Trilingvism real — revizuire editorială majoră (prioritate scăzută dacă resursele sunt limitate)</span></td>
+        <td><span class="status-badge sb-pend">Scăzut — efort maxim</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  Ghid Implementare Complet · Seria Nota Zero · 20 mai 2026<br>
+  Alexandru Ionuț Chiuță · în colaborare cu Claude Sonnet 4.6
+</footer>
+</body>
+</html>

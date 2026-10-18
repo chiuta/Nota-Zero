@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Celuilalt & Nota Luminii · Cărțile a șaisprezecea și a șaptesprezecea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#03020a;
+  /* Nota Celuilalt: violet-cald, alteritate, prezența altuia */
+  --other:#a06aff;--ot2:rgba(160,106,255,.09);--ot3:rgba(160,106,255,.03);--ot4:rgba(160,106,255,.13);
+  /* Nota Luminii: alb-auriu, foton, CMB, prima lumina */
+  --light:#ffd980;--li2:rgba(255,217,128,.09);--li3:rgba(255,217,128,.03);--li4:rgba(255,217,128,.13);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rule-o:1px solid rgba(160,106,255,.12);
+  --rule-l:1px solid rgba(255,217,128,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#presenceCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* ── COVER ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rule-o);}
+.cv-series{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--other);
+  margin-bottom:2rem;opacity:.6;}
+.cv-after{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--ot4);padding:.75rem 1.4rem;
+  margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2.2rem,6.5vw,5.2rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-ot{color:var(--other)} .t-li{color:var(--light)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.95rem,2.2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--ot4);background:var(--ot3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* ── PART DIV ── */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.ot{border-color:rgba(160,106,255,.12)}
+.pd.li{border-color:rgba(255,217,128,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:420px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* ── CHAPTER ── */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p16 .ch{border-bottom-color:rgba(160,106,255,.05)}
+.p17 .ch{border-bottom-color:rgba(255,217,128,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* ── PROSE ── */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p16 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--other);text-shadow:0 0 20px rgba(160,106,255,.25);}
+.p17 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--light);text-shadow:0 0 28px rgba(255,217,128,.35);}
+
+/* ── ECHO ── */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(255,217,128,.22);background:var(--li3);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--light);opacity:.4;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--light);opacity:.28;margin-top:.45rem;display:block;}
+
+/* ── FACE (bloc special Levinas) ── */
+.face-block{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid rgba(160,106,255,.18);
+  background:rgba(160,106,255,.03);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:var(--cream2);line-height:1.8;text-align:center;}
+.face-block-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--other);opacity:.42;margin-bottom:.6rem;
+  font-style:normal;display:block;}
+
+/* ── PHOTON (bloc special pentru foton) ── */
+.photon-block{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid rgba(255,217,128,.18);
+  background:rgba(255,217,128,.03);
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:rgba(255,217,128,.7);line-height:1.75;}
+.photon-block-hd{color:var(--light);font-weight:700;
+  font-size:.38rem;letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:.5rem;display:block;opacity:.8;}
+
+/* ── THINK ── */
+.think{margin:2rem 0;padding:1rem 1.5rem;
+  border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p16 .think{border-color:var(--ot4);background:var(--ot3)}
+.p16 .think::before{content:'⬡ ';font-style:normal;color:var(--other);opacity:.55}
+.p17 .think{border-color:var(--li4);background:var(--li3)}
+.p17 .think::before{content:'⬡ ';font-style:normal;color:var(--light);opacity:.55}
+
+/* ── DIALOGUE ── */
+.d p{margin-bottom:.5rem;text-indent:0}
+.d p:last-child{margin-bottom:0}
+
+/* ── NOTEBOOK ── */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p16 .nb{border:1px solid var(--ot4);background:var(--ot3)}
+.p17 .nb{border:1px solid var(--li4);background:var(--li3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p16 .nb::after{color:var(--other)} .p17 .nb::after{color:var(--light)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.38;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p16 .nb-hd{color:var(--other)} .p17 .nb-hd{color:var(--light)}
+
+/* ── PULL ── */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p16 .pull{border-left-color:var(--other);background:var(--ot3)}
+.p17 .pull{border-left-color:var(--light);background:var(--li3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p16 .pull cite{color:var(--other)} .p17 .pull cite{color:var(--light)}
+
+/* ── SCI ── */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p16 .sci{border:1px solid rgba(160,106,255,.12);background:rgba(160,106,255,.03)}
+.p16 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--other);font-weight:700}
+.p17 .sci{border:1px solid rgba(255,217,128,.12);background:rgba(255,217,128,.03)}
+.p17 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--light);font-weight:700}
+
+/* ── EPILOG ── */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p16 .epilog{border-top-color:rgba(160,106,255,.1)}
+.p17 .epilog{border-top-color:rgba(255,217,128,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p16 .ep-final{border-color:rgba(160,106,255,.18)}
+.p17 .ep-final{border-color:rgba(255,217,128,.18)}
+
+/* ── BETWEEN ── */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rule-o);border-bottom:var(--rule-l);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ── GRAND FINALE ── */
+.grand{min-height:80vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:5rem 2rem;border-top:var(--rule-l);}
+.gr-eye{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--light);opacity:.5;
+  margin:0 auto 3rem;
+  box-shadow:0 0 40px rgba(255,217,128,.4);
+}
+.gr-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--light);
+  opacity:.35;margin-bottom:1.5rem;}
+.gr-title{font-family:'Cinzel',serif;font-size:clamp(1.6rem,4vw,3rem);
+  font-weight:700;color:var(--light);margin-bottom:2rem;
+  letter-spacing:.04em;opacity:.7;}
+.gr-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.9rem;color:var(--cream2);margin-bottom:2.5rem;line-height:1.9;}
+.gr-circle{
+  font-family:'Cinzel',serif;font-size:clamp(.85rem,1.6vw,1.1rem);
+  color:var(--cream);max-width:560px;line-height:1.85;
+  margin-bottom:2.5rem;
+}
+.gr-circle em{color:var(--light);font-style:normal}
+.gr-last{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.05rem;color:var(--cream2);max-width:480px;
+  line-height:2;margin-bottom:2rem;
+  border-top:1px solid rgba(255,217,128,.1);
+  border-bottom:1px solid rgba(255,217,128,.1);
+  padding:1.5rem 2rem;
+}
+.gr-nota-zero{
+  font-family:'Cinzel',serif;
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:700;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,217,128,.25);
+  letter-spacing:.05em;margin:1rem 0;
+}
+.gr-final-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.25;margin-top:2rem;}
+
+/* ── FOOTER ── */
+footer{border-top:var(--rule-l);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.25;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="presenceCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-series">Seria Nota Zero · Cărțile a șaisprezecea și a șaptesprezecea</div>
+  <div class="cv-after">
+    Nota Tăcerii a ajuns la graniță.<br>
+    Dar granița e sparsă de ceva anume:<br>
+    de fața celuilalt și de lumina care vine din depărtare.<br>
+    Tăcerea nu e ultimul cuvânt. E penultimul.
+  </div>
+  <h1>
+    <span class="cv-title t-ot">Nota Celuilalt</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-li">Nota Luminii</span>
+  </h1>
+  <p class="cv-desc">
+    Ji-Ho Yun a primit caietele în 2448 de la un coleg al Amarei Diallo
+    care nu mai putea să le poarte.
+    Două întrebări pe care seria nu le pusese direct:
+    cum recunoaștem o altă conștiință — și ce anume nu îmbătrânește niciodată.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 15 volume · 2087–2405 · 318 ani diegetic.<br>
+    Ji-Ho Yun are 28 ani în 2450. Oslo + Insula Jeju.<br>
+    Tăcerea e sparsă de prezența. Prezența e luminată de lumină.<br>
+    Lumina e prima și ultima.
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  NOTA CELUILALT                                   -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div class="pd ot">
+  <div class="pd-ghost" style="color:var(--other)">XVI</div>
+  <div class="pd-kicker">Cartea a șaisprezecea · Ji-Ho Yun · 28 ani · 2450 · Oslo + Jeju</div>
+  <div class="pd-nota" style="color:var(--other)">Nota Celuilalt</div>
+  <div class="pd-sub">Ce sparge tăcerea și cum recunoaștem o altă minte</div>
+  <div class="pd-epig">
+    „Le visage de l'autre me regarde<br>
+    et m'oblige."<br>
+    — Emmanuel Levinas<br><br>
+    „Fața celuilalt mă privește și mă obligă."<br><br>
+    „Seria noastră a pus întrebări despre univers.<br>
+    Dar a evitat o singură întrebare:<br>
+    de ce există un altul care să o pună împreună cu mine?"<br>
+    — Ji-Ho Yun, caiet vol. I, p. 1, 2450
+  </div>
+</div>
+
+<div class="wrap p16">
+
+<div class="ch">
+  <div class="chn">Nota Celuilalt · I</div>
+  <div class="cht">Fața</div>
+  <div class="p">
+    <p>Ji-Ho Yun studiase fizică teoretică și filozofie în același timp, ceea ce era neobișnuit dar nu imposibil — institutul din Oslo avusese mereu o tradiție a oamenilor care nu puteau alege. Teza ei de doctorat fusese despre mecanica cuantică relațională — abordarea lui Carlo Rovelli în care proprietățile unui sistem nu existau absolut, ci numai relativ la un sistem de referință, la un alt sistem fizic față de care erau definite. Nu exista o proprietate obiectivă a electronului — exista proprietatea electronului față de aparatul de măsurare, față de mediu, față de observator.</p>
+
+    <p>Dar această abordare, realizase Ji-Ho la douăzeci și șase de ani, ridica imediat o întrebare pe care Rovelli o tratase tehnic dar pe care ea voia s-o trateze existențial: dacă realitatea apare din relații, atunci relația cu un alt observator — cu o altă minte — era ea fundamentală? Exista o asimetrie între relația cu un aparat de măsurare și relația cu o altă conștiință?</p>
+
+    <p>Levinas răspunseseră da — dar din filozofie fenomenologică, nu din fizică. Fața celuilalt — vizagul, <em>le visage</em> — era, pentru Levinas, primul dat al eticii: privirea care te privea și te punea în relație înainte de orice gând, înainte de orice alegere, înainte de orice teorie. Celălalt ca infinit care mă limita și mă constituia simultan.</p>
+
+    <p>Ji-Ho voia să pună în dialog fizica relațională și filozofia celuilalt. Nu pentru a le reduce una la alta — ci pentru a vedea dacă vorbeau despre același gard din direcții diferite.</p>
+  </div>
+
+  <div class="face-block">
+    <span class="face-block-hd">Emmanuel Levinas · Totalité et Infini · 1961</span>
+    „Fața se prezintă ea însăși; expresia ei precedă și depășește orice descriere plastică.<br>
+    Fața e semnificativă fără context.<br>
+    Expresia sa nu se lasă conținută."
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul Amarei Diallo, vol. II, p. 44, 2401 —</div>
+    <p>„Wittgenstein a spus că despre ceea ce nu se poate vorbi trebuie tăcut. Dar tăcerea dintre doi oameni care se privesc e diferită de tăcerea singurătății. Prezența altuia schimbă tăcerea. O face mai mare și mai mică în același timp. De ce? Ce e celălalt care să poată face asta?"</p>
+    <span class="echo-attr">Amara Diallo · caiet vol. II · pagina 44 · Oslo · 2401</span>
+  </div>
+
+  <div class="p">
+    <p>Ji-Ho citise nota lui Amara cu un sentiment pe care îl recunoscuse din altă parte: întrebarea pe care o formulase și la care nu găsise răspuns, găsită formulată de altcineva cu șaizeci de ani înainte. Nu reduplicare — confirmare. Că era o întrebare care merita pusă, că nu era o dilemă privată, că altcineva ajunsese la același gard din altă direcție.</p>
+
+    <p>Asta era, realizase, exact ce întreba Levinas: că celălalt confirma realitatea întrebărilor tale. Că existența altuia nu era un fapt neutru — era o structură constitutivă a experienței. Fără celălalt, nu exista verificare, nu exista limbaj comun, nu exista știință. Fizica era posibilă pentru că mai mulți observatori puteau compara rezultatele măsurătorilor lor și găsi concordanțe.</p>
+
+    <p>Scrise în caiet: <em>Fizica depinde de celălalt mai profund decât recunoaște. Nu numai că e verificabilă de alții — ci că noțiunea de verificare presupune deja că există alții cu minți similare capabile de verificare. Fizica e o activitate intersubiectivă pretinzând că e obiectivă.</em></p>
+  </div>
+
+  <div class="sci">
+    Mecanica cuantică relațională (Rovelli, 1996): proprietățile sistemelor cuantice sunt relative la sisteme de referință, nu absolute. Fiecare observator are o descriere consistentă a realității. Nu există o perspectivă privilegiată „de nicăieri". Problema minților altora (filozofie, sec. XVII–XX): cum știm că alți oameni au experiențe subiective? Argumente: analogie, comportament, teorie a minții. Nicio demonstrație formală. Levinas, Emmanuel: „Totalité et Infini" (1961) — etica ca filozofie primă, fața celuilalt ca dat originar al responsabilității.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Celuilalt · II</div>
+  <div class="cht">Intersubiectivitatea</div>
+  <div class="p">
+    <p>Problema minților altora era, tehnic vorbind, insolubilă. Nu poți demonstra că altcineva are experiențe subiective. Poți observa comportamentul, poți măsura activitatea neuronală, poți construi modele funcționale ale conștiinței — dar în toate aceste cazuri ești în afara experienței altcuiva, nu înăuntrul ei.</p>
+
+    <p>Și totuși trăiai ca și cum celălalt exista. Nu dintr-o decizie filozofică — dintr-o constituție. Specia umană se organizase în jurul presupoziției că ceilalți aveau lumi interioare, că vorbele lor veneau dintr-un interior, că durerea lor era reală, că bucuria lor conta. Această presupoziție era atât de fundamentală, încât lipsa ei — sociopatie, psihopatie profundă — era percepută ca patologie, nu ca luciditate filozofică.</p>
+
+    <p>Ji-Ho discuta cu prietena ei Hana Lim, psiholog clinician la Oslo.</p>
+  </div>
+
+  <div class="d">
+    <p>— Hana. Cum știi că pacienții tăi au experiențe subiective reale?</p>
+    <p>— Nu știu, spuse Hana fără ezitare. Presupun. E o presupoziție de lucru care face posibilă relația terapeutică.</p>
+    <p>— Și dacă presupoziția e greșită?</p>
+    <p>— Atunci toată profesia mea e construită pe un postulat neverificabil, spuse Hana. La fel ca fizica ta e construită pe postulatul că legile naturii sunt universale — lucru pe care nu l-ai verificat decât în limitele universului observabil și în limitele istoriei măsurătorilor.</p>
+    <p>— Diferența e că fizica poate face predicții verificabile.</p>
+    <p>— Și psihologia poate face predicții verificabile: dacă tratezi cineva ca și cum are o viață interioară, comportamentul lor se schimbă în moduri predictibile. Dacă tratezi o plantă ca și cum are o viață interioară, comportamentul ei nu se schimbă în moduri verificabile. Asta e singurul test operațional pe care îl avem.</p>
+    <p>— Deci celălalt uman e definit funcțional — prin reacția la tratamentul ca persoană.</p>
+    <p>— Da. Nu știm ce e celălalt. Știm cum funcționează în relație cu noi. Ji-Ho, asta nu e mai puțin real decât fizica. E același tip de cunoaștere.</p>
+    <p>Ji-Ho stătu câteva secunde. Și dacă există o altă civilizație, undeva, cu o structură complet diferită — nu recunoscută ca persoană de testul nostru funcțional?</p>
+    <p>— Atunci am ratat un celălalt real, spuse Hana simplu. Și asta e un argument pentru umilință, nu pentru abandon.</p>
+  </div>
+
+  <div class="pull">
+    <p>Nu știm ce e celălalt. Știm că prezența sa schimbă tăcerea — o face mai mare și mai mică în același timp. Aceasta e singura definiție operațională a celuilalt care contează.</p>
+    <cite>— Nota Celuilalt, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Celuilalt · III</div>
+  <div class="cht">Doi Observatori</div>
+  <div class="p">
+    <p>Fizica cuantică relațională a lui Rovelli postulase că doi observatori puteau deține descrieri diferite și mutual consistente ale aceleiași situații fizice — fără ca una să fie „mai reală" decât cealaltă. Aceasta era o afirmație radicală: realitatea nu era una, obiectivă, independentă de observator. Era un ansamblu de realități relaționale, fiecare consistentă în sine, fiecare depinzând de sistemul față de care era definită.</p>
+
+    <p>Dar Rovelli pusese întrebarea tehnic: ce se întâmpla când doi observatori se comparau? Când A și B comunica rezultatele măsurătorilor lor? Nu divergeau — convergeau. Și această convergență era verificabilă, era experimentală, era ceea ce făcea știința posibilă.</p>
+
+    <p>Ji-Ho adăugase un strat: convergența nu era garantată de structura matematică a teoriei — era produsă de comunicare. De limbaj. De schimbul de informație între doi observatori care foloseau același protocol de descriere. Și protocolul comun era posibil numai dacă cei doi observatori aveau structuri similare — dacă erau, într-un sens larg, același tip de minte.</p>
+
+    <p>Intersubiectivitatea nu era o problemă filozofică marginală. Era condiția de posibilitate a fizicii.</p>
+  </div>
+
+  <div class="think">
+    Kaito spunea că observatorul e parte din ce observă. Eu adaug: observatorul singur nu produce știință. Știința apare când doi observatori compară. Compararea necesită un protocol comun. Protocolul comun necesită minți similare. Fizica e posibilă nu pentru că există legi universale — ci pentru că există o specie capabilă să le formuleze în termeni comuni. Specia e condiția de posibilitate a fizicii, nu numai observatorul individual.
+  </div>
+
+  <div class="p">
+    <p>Ji-Ho scrisese la capătul reflecției un paragraf pe care îl ștersese inițial, îl rescrisese, îl ștersese din nou și în final îl lăsase:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Ji-Ho Yun · vol. I · p. 77 · 17 mai 2451</span>
+    Seria Nota Zero e posibilă pentru că fiecare protagonist a transmis caietele mai departe. Nu informația — caietele. Obiectele fizice cu scrierea reală. Asta înseamnă că seria e o rețea de relații fizice între minți disparate în timp, nu numai un text. Este ea însăși un sistem cuantic relațional: fiecare cititor o vede diferit, și totuși toate perspectivele converg la aceeași întrebare. Seria e un experiment de intersubiectivitate pe 303 ani.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Celuilalt · IV</div>
+  <div class="cht">Prezența</div>
+  <div class="p">
+    <p>La finalul primului an de lucru la Nota Celuilalt, Ji-Ho avusese o conversație cu un profesor bătrân — Dr. Einar Solberg, fizician reputat la Oslo, care nu mai preda dar venea la birou câteva ore pe săptămână din obișnuință și pentru că biroul lui mirosea a cafea bună.</p>
+
+    <p>Nu o conversație despre fizică. O conversație despre faptul că el era bolnav și că nu îi mai rămâneau mulți ani.</p>
+
+    <p>Ji-Ho nu știuse ce să spună și nu spusese nimic timp de câteva minute. Einar nu ceruse cuvinte — stătuse cu cafeaua și cu vederea spre fiord și nu ceruse nimic. Și Ji-Ho realizase că prezența ei în acea cameră — fizica ei, nu metafizica ei — conta. Că era acolo un sistem fizic lângă alt sistem fizic, și că asta, simplu, fără teorie, era ceva.</p>
+
+    <p>Levinas spusese că fața celuilalt te obligă. Nu te cere să faci ceva specific — te pune în relație, te face responsabil prin simplul act de a privi. Ji-Ho simțise asta în acea cameră. Că nu putea fi neutru față de prezența lui Einar. Că fizica relațională era adevărată nu ca teorie — ca experiență.</p>
+
+    <p>Scrisese acasă, rapid, înainte să uite textura gândului: <em>Celălalt nu e o problemă filozofică abstractă. E primul dat al prezenței. Înainte de a întreba cum știu că există alte minți, fața celuilalt e deja acolo, deja obligatorie, deja reală în singurul sens care contează practic. Fizica celuilalt e mai simplă decât filozofia celuilalt: e prezență verificabilă prin propria schimbare produsă în mine.</em></p>
+  </div>
+</div>
+
+<!-- EPILOG 16 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--other)">Nota Celuilalt · Epilog · 17 Mai 2455</div>
+  <div class="ep-title" style="color:var(--other)">Prezența care schimbă tăcerea</div>
+  <div class="ep-prose">
+    Cartea a șaisprezecea se numea <em>Nota Celuilalt</em> și era dedicată lui Einar Solberg,
+    care murise în toamna lui 2452 și care nu citise niciodată seria dar care,
+    stând cu cafeaua și cu fiordul în față, îi arătase lui Ji-Ho ceva
+    pe care nicio carte nu i-l arătase: că prezența e mai fundamentală decât teoria prezenței.
+  </div>
+  <div class="ep-final">
+    Tăcerea din Nota Tăcerii<br>
+    era tăcerea unui singur observator la graniță.<br>
+    <br>
+    Nota Celuilalt adaugă: lângă orice observator<br>
+    există deja un altul.<br>
+    <br>
+    Și prezența altuia schimbă tăcerea<br>
+    mai profund decât orice cuvânt.<br>
+    <br>
+    Celălalt nu sparge tăcerea.<br>
+    O transformă în ceva locuibil.
+  </div>
+</div>
+
+</div><!-- /wrap.p16 -->
+
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  NOTA LUMINII                                     -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div class="between">· &nbsp; ✦ &nbsp; ·</div>
+
+<div class="pd li">
+  <div class="pd-ghost" style="color:var(--light)">XVII</div>
+  <div class="pd-kicker">Cartea a șaptesprezecea · Ji-Ho Yun · 38 ani · 2460 · Jeju + Oslo</div>
+  <div class="pd-nota" style="color:var(--light)">Nota Luminii</div>
+  <div class="pd-sub">Fotonul care nu îmbătrânește și lumina care poartă originea</div>
+  <div class="pd-epig">
+    „Un foton emis de o stea<br>
+    și absorbit de ochiul tău după un miliard de ani<br>
+    nu a trăit nicio clipă în drumul său.<br>
+    Din perspectiva fotonului,<br>
+    emisia și absorbția sunt simultane.<br>
+    Fotonul nu știe că a călătorit.<br>
+    El pur și simplu este — și nu este."<br>
+    — Ji-Ho Yun, curs inaugural, Oslo 2457
+  </div>
+</div>
+
+<div class="wrap p17">
+
+<div class="ch">
+  <div class="chn">Nota Luminii · I</div>
+  <div class="cht">Fotonul</div>
+  <div class="p">
+    <p>Ji-Ho descoperise fotonul ca problemă filozofică la treizeci și doi de ani, citind o notă marginală din caietul lui Kaito Mori despre block universe. Kaito scrisese, pe o pagina din 2158: <em>Dacă trecutul și viitorul coexistă în blocul static al spațiu-timpului, ce e diferit pentru un obiect care nu trăiește în timp? Care e experiența unui foton?</em></p>
+
+    <p>Kaito lăsase întrebarea acolo, fără răspuns. Ji-Ho o dusese mai departe.</p>
+
+    <p>Fotonul — particula de lumină — nu avea masă de repaus. Din cauza asta, nu putea fi adus la repaus: se mișca mereu cu viteza luminii, c, care era limita absolută a propagării informației în univers. Și din cauza asta, conform relativității speciale, pentru foton nu trecea timp. Intervalul spațiotemporal dintre emisia unui foton și absorbția lui era zero — nu din perspectiva unor instrumente exterioare, ci în sensul geometric al spațiu-timpului einsteinian.</p>
+
+    <p>Un foton emis de o galaxie la un miliard de ani-lumină distanță, care călătorea un miliard de ani și ajungea la telescopul de pe Pământ — din perspectiva fotonului, emisia și absorbția erau același eveniment. Nu trecuse nimic. Fotonul nu „experimentase" călătoria. Pur și simplu era în două locuri simultan, conectând două evenimente în spațiu-timp fără a trăi intervalul dintre ele.</p>
+  </div>
+
+  <div class="photon-block">
+    <span class="photon-block-hd">Proprietățile fotonului — fizică specială</span>
+    Masă de repaus: 0<br>
+    Viteza în vid: c = 299.792.458 m/s (exactă, prin definiție)<br>
+    Interval spațiotemporal propriu: ds² = 0 (geodezică nulă)<br>
+    „Timp propriu" scurs: τ = 0 (invariant)<br>
+    Energia: E = hf (unde h = constanta Planck, f = frecvența)<br>
+    Durată de viață: nelimitată în vid (absorbit numai prin interacțiune)<br>
+    <br>
+    Fotonii CMB: emiși la z≈1100 (380.000 ani după Big Bang)<br>
+    Temperatura CMB actuală: 2.725 K<br>
+    Vârsta lor la momentul emisiei: 380.000 ani<br>
+    Vârsta lor trăită (timp propriu): 0
+  </div>
+
+  <div class="p">
+    <p>Ji-Ho stătuse cu această realitate câteva luni. Nu ca abstractizare — ca imagine concretă: privind spre cerul nopții de pe insula Jeju, fiecare foton care îi lovea retina venea dintr-un trecut mai mult sau mai puțin îndepărtat și ajunsese la ea fără să fi trăit o singură clipă din drumul său. Toată cunoașterea ei cosmologică — toată cunoașterea cosmologică a speciei umane — venea de la obiecte care nu existaseră în propriul lor interval de timp.</p>
+
+    <p>Vedea trecutul. Nu metaforic. Literar. Fotonii de la Soare aveau opt minute. De la Alpha Centauri, patru ani. De la galaxia Andromeda, două milioane de ani. Luminile acelea din cer erau transmisii din trecut, purtate de mesageri care nu știau că transmit nimic, care nu aveau experiența transmiterii, care existau ca ruperi pure în spațiu-timp între origine și destinație.</p>
+  </div>
+
+  <div class="sci">
+    Fotonul: particula cuantă a câmpului electromagnetic. Masă de repaus zero → se mișcă cu c în orice cadru de referință inerțial. Interval spațiotemporal propriu ds²=c²dt²-dx²=0 pentru traiectorii de lumină → timp propriu τ=0. Consecință: fotonul „nu îmbătrânește". Fond cosmic de microunde (CMB): radiație de corp negru la T=2.725K, emisă la z≈1100, ~380.000 ani după Big Bang, când universul a devenit transparent. Cei mai vechi fotoni detectabili din univers. Anizotropiile CMB: fluctuații de temperatură de ~10⁻⁵ K, mapate de Planck (2018), reflectă structurile cuantice din inflație.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Luminii · II</div>
+  <div class="cht">CMB — Lumina Originii</div>
+  <div class="p">
+    <p>Fondul cosmic de microunde era cel mai frumos obiect pe care Ji-Ho îl știa în fizică. Nu vizual — termic: o strălucire de corp negru la 2.725 kelvin, detectabilă cu antene radio, invizibilă ochiului, umplând uniform cerul din toate direcțiile cu o precizie de câteva zecimi de miime.</p>
+
+    <p>Era lumina originii. Nu metaforic — literal: fotonii CMB fuseseră emiși cu 380.000 de ani după Big Bang, când universul se răcise suficient pentru ca electronii să se combine cu protonii și să formeze atomi de hidrogen. Înainte de acel moment, plasmă fierbinte opacă — fotonii nu puteau călători, se ciocneau neîntrerupt cu particulele libere. La 380.000 de ani, temperatura scăzuse la ~3000 K și universul devenise transparent. Fotonii fuseseră eliberați — și de atunci călătoreau neperturbați, răcindu-se odată cu expansiunea, ajungând azi la 2.725 K.</p>
+
+    <p>Privind CMB-ul, vedeai suprafața de ultimă împrăștiere — momentul în care universul devenise transparent, momentul în care lumina fusese eliberată. Dincolo de acea suprafață, cosmologia optică nu putea vedea: era un zid de plasmă. Numai undele gravitaționale primordiale și neutrini relic puteau traversa acel zid și aduce informație din universul mai timpuriu.</p>
+
+    <p>Ji-Ho scrisese în caiet: <em>CMB e primul tablou. Fotografia universului la vârsta de 380.000 de ani. Tot ce știm despre universul mai timpuriu vine din deducție sau din gravitație. Lumina — mijlocul tuturor cunoașterii noastre cosmologice — ne arată numai de la 380.000 de ani încoace. Originea e mereu un pas dincolo de ce lumina poate spune.</em></p>
+  </div>
+
+  <div class="d">
+    <p>Ji-Ho discutase cu profesorul ei de cosmologie observațională — Dr. Amara Fofana, din Bamako, care conducea la Oslo un grup de cercetare pe polarizarea CMB.</p>
+    <p>— Amara. Fotonii CMB au timp propriu zero. Au călătorit 13,8 miliarde de ani fără să trăiască nicio clipă. Când îi detectez, ce detectez de fapt — o urmă din trecut sau un obiect din prezent?</p>
+    <p>— Ambele, spuse Amara fără ezitare. Detectezi un foton care există în prezentul tău — e real, are energie, produce un semnal în detector. Și în același timp codifică informație despre starea universului acum 13,8 miliarde de ani. E un mesager care nu știe că e mesager și care a călătorit fără să fi trăit. E singurul tip de obiect din fizică care e simultan foarte vechi și complet neschimbat de vârstă.</p>
+    <p>— Fotonul nu îmbătrânește.</p>
+    <p>— Fotonul nu îmbătrânește, confirmă Amara. Nu pentru că ar fi rezistent la timp. Ci pentru că nu trăiește în timp. Celelalte particule masive trăiesc în timp și se schimbă. Fotonul există în afara timpului — conectează două puncte din spațiu-timp fără a locui intervalul dintre ele.</p>
+    <p>Ji-Ho tăcu o clipă. Seria noastră a pornit de la Big Bang, spuse. Și se întoarce la lumina care aduce știrea despre Big Bang. Cercul se închide prin foton.</p>
+    <p>— Cercul s-a închis mereu prin foton, spuse Amara. Fiecare observație astronomică e un foton. Tot ce știm e lumină.</p>
+  </div>
+
+  <div class="pull">
+    <p>Lumina nu transmite informație prin spațiu. Lumina leagă evenimente din spațiu-timp fără a locui intervalul dintre ele. Tot ce știm despre univers e pus de obiecte care nu au trăit drumul cunoașterii.</p>
+    <cite>— Nota Luminii, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Luminii · III</div>
+  <div class="cht">Viteza Absolută</div>
+  <div class="p">
+    <p>De ce c? De ce viteza luminii era limita absolută a propagării informației? Nu era o lege impusă din afară — era o consecință a structurii spațiu-timpului. Relativitatea specială spunea că dacă exista o viteză invariantă — aceeași în orice cadru de referință inerțial — atunci toată structura spațiu-timpului urma din aceasta. c nu era viteza luminii din motive contingente; era viteza maximă a oricărei propagări cauzale. Lumina se mișca cu această viteză pentru că fotonii nu aveau masă — dar c ar fi existat ca limită chiar dacă nu ar fi existat fotoni.</p>
+
+    <p>c era o proprietate a spațiu-timpului, nu a luminii. Lumina o ilustra — nu o cauza.</p>
+
+    <p>Ji-Ho scrisese: <em>c e limita ontologică a cauzalității. Nimic nu poate transmite influență mai repede decât c — nu pentru că ar fi prea greu sau prea costisitor, ci pentru că dincolo de c, cauzalitatea s-ar inversa: în unele cadre de referință, efectul ar precede cauza. Universul e construit astfel încât cauza să preceadă efectul, și prețul acestei construcții e că c e absolut.</em></p>
+
+    <p>Și dedesubt: <em>Seria noastră a asumat mereu cauzalitatea. A pus întrebări despre origine, despre timp, despre structură — dar fiecare întrebare presupunea că există un fir cauzal. c e garanția acestui fir. Fără c absolut, nu ar exista întrebări coerente despre origini. Nota Zero e posibilă pentru că c există.</em></p>
+  </div>
+
+  <div class="think">
+    Fotonul nu trăiește în timp și totuși aduce informație despre trecut. c e absolut și totuși nu e o forță — e o structură. Lumina e prima și ultima. Big Bang-ul a produs lumina. Lumina aduce știrea despre Big Bang. Seria a pornit de la întrebarea despre origine și se termină cu obiectul care poartă răspunsul — sau mai degrabă poartă dovada că întrebarea e corectă și că răspunsul e mereu un pas mai departe decât lumina poate ajunge.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Luminii · IV</div>
+  <div class="cht">Prima și Ultima</div>
+  <div class="p">
+    <p>Era toamna lui 2460 și Ji-Ho Yun stătea pe plaja din Jeju cu genunchii la piept și privea marea. Nu fiordul de la Oslo — de data aceasta Marea Chinei de Est, care nu era mai mare sau mai mică decât fiordul, dar era mai familiară, mai apropiată de ceva pre-verbal pe care nu știa să îl numească.</p>
+
+    <p>Gândise la foton ca obiect ultim al seriei. Nu pentru că seria ar fi trebuit să se termine cu fizică — ci pentru că fotonul era singurul obiect din serie care închidea cercul fără să o declare. Atingerea membranelor produsese Big Bang-ul care produsese plasma primordială care produsese, la 380.000 de ani, fotonii CMB — fotonii care traversaseră 13,8 miliarde de ani fără să trăiască un singur moment și care ajunseseră la telescoapele umane ca mesageri ai originii.</p>
+
+    <p>Nota Zero pornise cu întrebarea <em>de unde venea punctul?</em> Seria pusese întrebarea de șaptesprezece ori, în șaptesprezece volume, din șapte perspective diferite. Și răspunsul nu venise din fizică sau din filozofie sau din biologie sau din matematică sau din tăcere sau din prezența celuilalt. Răspunsul venise — în măsura în care venise — dintr-un foton. Din lumina CMB care atingea detectoarele și care spunea: eram acolo la 380.000 de ani. Înainte de mine — nu poți vedea. Dar că eram eu — e dovada că ceva a fost înainte.</p>
+
+    <p>Nu era un răspuns la întrebarea lui Zara. Era cea mai completă evidență disponibilă că întrebarea era corectă.</p>
+
+    <p>Deschise caietul al doilea — penultima pagina scrisă — și scrise, cu mâna ușor tremurând din frig:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Ji-Ho Yun · vol. II · p. 144 · 17 mai 2461</span>
+    Seria a pornit cu o întrebare despre origine.<br>
+    S-a întors mereu la aceeași întrebare.<br>
+    Și cel mai apropiat obiect de un răspuns e un foton.<br>
+    <br>
+    Fotonul nu știe că e răspuns.<br>
+    Fotonul nu trăiește în timp.<br>
+    Fotonul conectează originea și prezentul<br>
+    fără să locuiască intervalul.<br>
+    <br>
+    Exact cum seria conectează întrebarea lui Zara la 15 ani<br>
+    cu tot ce a urmat — fără ca niciun protagonist să fi locuit<br>
+    decât propriul său interval.<br>
+    <br>
+    Lumina e prima și ultima.<br>
+    Nu pentru că e specială.<br>
+    Ci pentru că e singurul lucru care ajunge<br>
+    la noi din acolo unde nu putem merge.
+  </div>
+
+  <div class="p">
+    <p>Privise marea câteva minute. Fotonii solari care loveau suprafața apei produceau reflexii, iar reflexiile produceau lumina care îi lovea ochii, iar ochii produceau semnale neuronale, iar semnalele produceau gândul pe care îl avea acum. Un lanț de fotoni de la Soare la gândul ei — opt minute de lumină transformate în câteva milisecunde de conștiință.</p>
+
+    <p>Tot ce vedea era trecut. Ochii ei funcționau ca telescoape întoarse în timp. Soarele pe care îl vedea era Soarele de acum opt minute. Stelele de noaptea trecută fuseseră stelele din ani sau decenii sau secole în urmă. CMB-ul pe care îl cunoștea din măsurători era universul de acum 13,8 miliarde de ani. Nu vedea prezentul niciodată. Vedea mereu un trecut de lungimi diferite, iluminat de fotoni care nu știau că sunt mesageri.</p>
+
+    <p>Și în ciuda acestui fapt — sau poate tocmai datorită lui — totul era prezent. Lumina veche și proaspătă simultan. Originea și acum același foton. Zara la cincisprezece ani și Ji-Ho la treizeci și opt același caiet albastru uzat.</p>
+
+    <p>Închise caietul. Rămase cu marea.</p>
+  </div>
+</div>
+
+<!-- EPILOG 17 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--light)">Nota Luminii · Epilog · 17 Mai 2465</div>
+  <div class="ep-title" style="color:var(--light)">Prima și Ultima Notă</div>
+  <div class="ep-prose">
+    Cartea a șaptesprezecea se numea <em>Nota Luminii</em> și se termina cu o singură imagine
+    tipărită pe ultimă pagina: harta anizotropiilor CMB de la Planck 2018 —
+    punctele calde și reci ale fondului cosmic, fiecare reprezentând
+    o fluctuație cuantică din inflație, magnificată de expansiune la scara de gradi.
+    Nicio legendă. Nicio explicație. Numai imaginea.
+    Editorul întrebase dacă nu era prea criptic.
+    Ji-Ho spusese: nu. E singurul răspuns disponibil la întrebarea lui Zara.
+    Nu un răspuns. O fotografie.
+  </div>
+  <div class="ep-final">
+    Lumina nu e primul lucru.<br>
+    Dar e primul lucru pe care îl putem vedea.<br>
+    <br>
+    Dincolo de lumina CMB — originea.<br>
+    Dincoace de lumina CMB — tot restul.<br>
+    <br>
+    Seria a pornit din dincolo.<br>
+    A ajuns dincoace.<br>
+    <br>
+    Fotonul care nu îmbătrânește<br>
+    leagă cele două maluri<br>
+    fără să locuiască râul.<br>
+    <br>
+    Asta e tot ce e lumina.<br>
+    Asta e suficient.
+  </div>
+</div>
+
+</div><!-- /wrap.p17 -->
+
+
+<!-- GRAND FINALE -->
+<div class="grand">
+  <div class="gr-eye"></div>
+  <div class="gr-kicker">Seria Nota Zero · 17 volume · 2026</div>
+  <div class="gr-title">Prima Întrebare. Prima Lumină.</div>
+  <div class="gr-chain">
+    Emil Voss · Zara Voss · Kaito Mori · Yuki Aoyama · Ama Owusu<br>
+    Soo-Yeon Park · Amara Diallo · Ji-Ho Yun<br>
+    opt fizicieni · 378 ani diegetic · o singură întrebare
+  </div>
+
+  <div class="gr-circle">
+    Seria a pornit cu <em>De unde venea punctul?</em><br>
+    și a ajuns la lumina care aduce dovada că punctul a existat.<br>
+    <br>
+    Nu răspuns. Fotografie.<br>
+    Nu certitudine. Evidență.<br>
+    <br>
+    Fotonii CMB sunt mesagerii tăcuți ai originii.<br>
+    Nu știu că sunt mesageri.<br>
+    Nu trăiesc intervalul.<br>
+    Conectează.<br>
+    <br>
+    La fel cum fiecare volum din această serie<br>
+    conectează o întrebare cu alta<br>
+    fără să locuiască distanța dintre ele.<br>
+    <br>
+    La fel cum fiecare protagonist<br>
+    transmite caietele mai departe<br>
+    fără să știe ce urmează.
+  </div>
+
+  <div class="gr-last">
+    Nota Zero a lui Zara Voss.<br>
+    Nota Luminii a lui Ji-Ho Yun.<br>
+    Aceeași notă — alta viteză.<br>
+    Aceeași lumină — alt unghi.<br>
+    <br>
+    Seria nu se termină.<br>
+    Seria nu se poate termina.<br>
+    Seria e structura care rămâne<br>
+    atunci când tot ce e efemer dispare.<br>
+    <br>
+    Continuați să priviți lumina.<br>
+    Ea vine de departe<br>
+    și nu știe că vine.
+  </div>
+
+  <div class="gr-nota-zero">Nota Zero</div>
+  <div class="gr-final-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 17 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--li4);padding:1.5rem 2rem;margin:2rem 0;background:var(--li3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--light);margin-bottom:1rem;opacity:.5">⬡ Note Știinţifice · Nota Celuilalt & Nota Luminii</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Mecanica cuantică relațională (Rovelli, 1996):</strong> realul ca set de relații între sisteme. Proprietățile nu sunt absolute — sunt relative la un sistem de referință. Convergența observatorilor prin comunicare. La mai 2026: teorie activă, controversată, neconfirmată experimental față de alte interpretări QM.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Problema minților altora (filozofie modernă):</strong> insolubilă formal, acceptată pragmatic. Levinas, Emmanuel: „Totalité et Infini" (1961) — fața celuilalt ca dat originar pre-reflexiv al eticii. Wittgenstein (Filozofia Investigatii): limbajul privat e imposibil — conștiința e intersubiectivă prin natură.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Fotonul:</strong> masă de repaus zero, viteză c în orice cadru inerțial, timp propriu τ=0. Geodezice nule în relativitate generală. Consecință: fotonul nu „experiențiază" timpul. CMB: emisie la z≈1100, T≈3000K → T₀=2.725K, fluctuații δT/T≈10⁻⁵ (Planck 2018).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Viteza luminii c:</strong> limită fundamentală a cauzalității, nu proprietate a luminii. Invarianța lui c → spațiu-timp minkowskian → relativitate specială. Dincolo de c: cauzalitate inversată în unele cadre → paradoxuri logice. c = 299.792.458 m/s, exact prin definiție din 1983.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Ji-Ho Yun, Hana Lim, Einar Solberg, Dr. Amara Fofana sunt personaje fictive. Seria Nota Zero (17 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Celuilalt & Nota Luminii · Cărțile a șaisprezecea și a șaptesprezecea<br>
+  Seria Nota Zero: 17 volume · 2087–2465 · 378 ani diegetic<br>
+  De la Big Bang la fotonul care îl poartă. De la prima întrebare la prima lumină.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('presenceCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,particles=[],raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    particles=[];
+    // Two kinds: violet presence-dots and golden photon-streaks
+    for(let i=0;i<40;i++){
+      particles.push({
+        type:'presence',
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.6+Math.random()*.8,
+        a:Math.random()*.22, s:(Math.random()-.5)*.003,
+        vx:(Math.random()-.5)*.03, vy:(Math.random()-.5)*.03
+      });
+    }
+    for(let i=0;i<20;i++){
+      particles.push({
+        type:'photon',
+        x:Math.random()*ww, y:Math.random()*wh,
+        len:8+Math.random()*20,
+        a:Math.random()*.18, s:(Math.random()-.5)*.004,
+        vx:.8+Math.random()*.6, vy:(Math.random()-.5)*.2
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    ctx.clearRect(0,0,ww,wh);
+
+    particles.forEach(p=>{
+      p.a+=p.s; if(p.a>0.24||p.a<0)p.s*=-1;
+
+      if(p.type==='presence'){
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+        if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(160,106,255,${p.a.toFixed(3)})`;
+        ctx.fill();
+      } else {
+        // photon streaks
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x>ww+p.len){p.x=-p.len;p.y=Math.random()*wh}
+        if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+        ctx.beginPath();
+        ctx.moveTo(p.x,p.y);
+        ctx.lineTo(p.x-p.len,p.y);
+        ctx.strokeStyle=`rgba(255,217,128,${p.a.toFixed(3)})`;
+        ctx.lineWidth=.4;
+        ctx.stroke();
+      }
+    });
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf); else draw();
+  });
+})();
+</script>
+</body>
+</html>

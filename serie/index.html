@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ro"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nota Zero — Seria completă · Alexandru Ionuț Chiuță</title>
+<style>
+:root{ --void:#030407;
+  --void:#030407; --deep:#06080f; --surface:#0d0f1c;
+  --gold:#c8a96e; --gold-dim:rgba(200,169,110,.38); --gold-faint:rgba(200,169,110,.07);
+  --cream:#ede3ce; --cream-dim:rgba(237,227,206,.62);
+  --cyan:#00e8ff; --cyan-dim:rgba(0,232,255,.18);
+  --border:rgba(200,169,110,.13); --border2:rgba(200,169,110,.07);
+  --ak:rgba(80,160,90,.6); --ak-dim:rgba(80,160,90,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--void); color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.17rem; line-height:1.92;
+  max-width:800px; margin:0 auto;
+  padding:4.5rem 2.5rem 9rem;
+}
+/* NAV */
+.nav{
+  font-family:'Space Mono',monospace; font-size:.58rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:3rem;
+  display:flex; gap:1.5rem; flex-wrap:wrap;
+}
+.nav a{color:var(--gold-dim);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:1px;}
+.nav a:hover{color:var(--gold); border-color:var(--gold);}
+/* HEADER */
+.vol-badge{
+  font-family:'Space Mono',monospace; font-size:.56rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--cyan); opacity:.65; margin-bottom:1.4rem;
+}
+h1{
+  font-size:clamp(2rem,5.5vw,3.4rem); font-weight:300;
+  line-height:1.12; margin-bottom:.7rem;
+}
+h1 strong{font-weight:600;}
+h1 em{font-style:italic; color:var(--cream-dim); font-weight:300;}
+.subtitlu{font-size:.98rem; color:var(--cream-dim); font-style:italic; margin-bottom:.5rem;}
+.meta{
+  font-family:'Space Mono',monospace; font-size:.56rem;
+  letter-spacing:.11em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:4.5rem;
+  padding-bottom:2rem; border-bottom:1px solid var(--border);
+}
+/* SECȚIUNI */
+.sec{
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin:4.5rem 0 1.8rem;
+  padding-bottom:.6rem; border-bottom:1px solid var(--border2);
+}
+h3{font-size:1.12rem; font-weight:600; margin:3rem 0 1rem;}
+/* PROZĂ */
+p{margin-bottom:1.45rem; text-align:justify; hyphens:auto;}
+p:last-child{margin-bottom:0;}
+em{font-style:italic;}
+strong{color:var(--cream);}
+/* DIALOG */
+.d{margin:1.8rem 0;}
+.d p{margin-bottom:.65rem; text-align:left;}
+.d p::before{content:'— ';}
+/* BLOCNOTES */
+.bn{
+  border:1px solid var(--border); border-left:2px solid var(--gold);
+  padding:1.3rem 1.7rem; background:var(--gold-faint);
+  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
+}
+.bn p{margin-bottom:.85rem; text-align:left;}
+.bn p:last-child{margin-bottom:0;}
+.bn-src{
+  font-family:'Space Mono',monospace; font-size:.54rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold-dim); margin-top:1rem;
+  font-style:normal; display:block; padding-top:.6rem;
+  border-top:1px solid var(--border2);
+}
+/* STRAT BRUT */
+.brut{
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  line-height:2.15; color:rgba(237,227,206,.5);
+  background:rgba(200,169,110,.035); border:1px solid var(--border);
+  padding:1.3rem 1.7rem; margin:2.2rem 0;
+}
+.brut-lbl{
+  font-size:.53rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block; opacity:.65;
+}
+.brut-a{opacity:.32; text-decoration:line-through;}
+.brut-p{color:var(--cyan); opacity:.45;}
+/* AKAN */
+.akan{
+  border:1px solid var(--ak-dim); border-left:2px solid var(--ak);
+  padding:1.3rem 1.7rem; background:rgba(80,160,90,.04);
+  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
+}
+.akan p{margin-bottom:.85rem; text-align:left;}
+.akan p:last-child{margin-bottom:0;}
+.akan-src{
+  font-family:'Space Mono',monospace; font-size:.54rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ak); margin-top:1rem; font-style:normal;
+  display:block; padding-top:.6rem; border-top:1px solid var(--ak-dim);
+}
+.akan-badge{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--ak); border:1px solid var(--ak-dim);
+  padding:.3rem .7rem; display:inline-block; margin-bottom:2rem;
+}
+/* NOTE ȘTIINȚIFICE */
+.ns{
+  border-top:1px solid var(--border); margin:2.5rem 0;
+  padding-top:1.3rem; font-size:.81rem;
+  color:var(--cream-dim); line-height:1.72;
+}
+.ns-lbl{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.55rem; display:block;
+}
+/* ECUAȚIE */
+.eq{
+  font-family:'Space Mono',monospace; font-size:.76rem;
+  border-left:2px solid var(--cyan-dim);
+  padding:.85rem 1.3rem; margin:1.8rem 0;
+  color:rgba(0,232,255,.68); background:rgba(0,232,255,.028);
+  line-height:2.1;
+}
+/* SEPARATORI */
+hr.sep{border:none; border-top:1px solid var(--border); margin:3.5rem 0;}
+.pauza{text-align:center; color:var(--border); margin:3rem 0; letter-spacing:.6rem; font-size:1.2rem;}
+/* PAGINA GOALĂ YUKI */
+.pg-goala{
+  border:1px dashed rgba(200,169,110,.18);
+  height:220px; margin:3.5rem 0;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold-dim); font-family:'Space Mono',monospace;
+  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
+  flex-direction:column; gap:.8rem;
+}
+/* BOX FINAL */
+.final{
+  border:1px solid rgba(200,169,110,.28);
+  padding:3rem 2.5rem; margin:4rem 0; text-align:center;
+}
+.final p{font-size:1.32rem; font-style:italic; line-height:2.15; color:var(--cream-dim); margin-bottom:1rem;}
+.final p:last-child{margin:0; font-size:.85rem; font-style:normal; color:var(--gold-dim); font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase;}
+/* EMAIL */
+.email{
+  background:rgba(200,169,110,.05); border:1px solid var(--border);
+  padding:1.5rem 2rem; margin:2.2rem 0;
+  font-family:'Space Mono',monospace; font-size:.76rem;
+  line-height:2.1; color:var(--cream-dim);
+}
+/* NOTA ARHIVISTICĂ */
+.nota-arh{
+  background:rgba(6,8,15,.8); border:1px solid var(--border);
+  padding:1.8rem 2.2rem; margin:3rem 0;
+}
+.nota-arh-lbl{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block;
+}
+.nota-arh p{font-size:.85rem; color:var(--cream-dim); margin-bottom:.7rem; line-height:1.72;}
+/* FOOTER */
+footer{
+  margin-top:7rem; padding-top:2.5rem;
+  border-top:1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  color:var(--gold-dim); letter-spacing:.1em;
+  text-align:center; line-height:2.1;
+}
+@media(max-width:600px){
+  body{padding:3rem 1.4rem 6rem;}
+  h1{font-size:clamp(1.7rem,6vw,2.4rem);}
+}
+</style>
+<style>
+.hero{min-height:45vh;display:flex;flex-direction:column;justify-content:flex-end;margin-bottom:5rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+.hero-sub{font-size:1.1rem;color:var(--cream-dim);font-style:italic;margin:.8rem 0 .4rem;}
+.intro{border-left:2px solid var(--gold-dim);padding:1.4rem 2rem;margin:3rem 0;font-style:italic;color:var(--cream-dim);background:var(--gold-faint);}
+.sec{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);margin:2.5rem 0 .8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border2);}
+a.v{display:flex;align-items:baseline;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--border2);text-decoration:none;color:var(--cream);}
+a.v:hover{padding-left:.5rem;color:var(--gold);}
+.vnr{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--gold-dim);min-width:85px;flex-shrink:0;}
+a.v:hover .vnr{color:var(--gold);}
+.vtit{font-size:.97rem;}
+.vtit em{font-style:italic;color:var(--cream-dim);}
+.vmeta{font-family:'Space Mono',monospace;font-size:.53rem;color:var(--gold-dim);margin-left:auto;white-space:nowrap;}
+</style>
+</head><body>
+<div class="hero">
+<div class="vol-badge">Ficțiune epistemică · Fizică cuantică · Filozofie</div>
+<h1><strong>Nota Zero</strong></h1>
+<p class="hero-sub">De unde vine punctul? O întrebare pusă în 2087 și transmisă 1173 de ani.</p>
+<div class="meta">Alexandru Ionuț Chiuță · 41 volume · 19 protagoniști · 2087–3260 · texte complete integrate</div>
+</div>
+
+<div class="intro">
+„De unde vine punctul din care a început totul? Fizica tace. Dar dacă cineva îți spune că știe — nu te-a mințit niciodată mai frumos." — Zara Voss, 15 ani, 2087
+</div>
+
+<div class="sec">Volumele I–V · Zara Voss · 2087–2145</div>
+<a class="v" href="vol-01-05-zara.html"><span class="vnr">Vol. I–V</span><span class="vtit">Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței<br><em>Zara Voss — Emil la Leagăn · materia întunecată · teoria corzilor · fine-tuning</em></span><span class="vmeta">2087–2145 · Oslo</span></a>
+
+<div class="sec">Volumele VI–VII · Kaito Mori · 2150–2185</div>
+<a class="v" href="vol-06-07-kaito.html"><span class="vnr">Vol. VI–VII</span><span class="vtit">Nota Cuantică · Nota Timpului<br><em>Kaito Mori — problema măsurătorii · ma · natura timpului</em></span><span class="vmeta">2150–2185 · Oslo</span></a>
+
+<div class="sec">Volumele VIII–IX · Yuki Aoyama · 2190–2238</div>
+<a class="v" href="vol-08-09-yuki.html"><span class="vnr">Vol. VIII–IX</span><span class="vtit">Nota Holografică · Nota Matematicii<br><em>Yuki Aoyama — principiul holografic · pagina 67 goală · eficacitatea matematicii</em></span><span class="vmeta">2190–2238 · Oslo</span></a>
+
+<div class="sec">Volumele X–XI · Ama Owusu · 2255–2265</div>
+<a class="v" href="vol-10-11-ama.html"><span class="vnr">Vol. X–XI</span><span class="vtit">Nota Gravitațională · Nota Unității<br><em>Ama Owusu — GW150914 · sunsum · okra · sankofa · Agoo fără Amee</em></span><span class="vmeta">2255–2265 · Accra+Oslo</span></a>
+
+<div class="sec">Volumele XII–XIII · Soo-Yeon Park · 2320–2330</div>
+<a class="v" href="vol-12-13-soo-yeon.html"><span class="vnr">Vol. XII–XIII</span><span class="vtit">Nota Emergenței · Nota Revenirii<br><em>Soo-Yeon Park — emergența · B-bine omma · metoda ca transmisie</em></span><span class="vmeta">2320–2330 · Oslo</span></a>
+
+<div class="sec">Volumele XIV–XV · Amara Diallo · 2390–2400</div>
+<a class="v" href="vol-14-15-amara.html"><span class="vnr">Vol. XIV–XV</span><span class="vtit">Nota Informației · Nota Tăcerii<br><em>Amara Diallo — It from Bit · limbajul ca condiție de posibilitate</em></span><span class="vmeta">2390–2400 · Dakar+Oslo</span></a>
+
+<div class="sec">Volumele XVI–XVII · Ji-Ho Yun · 2450–2460</div>
+<a class="v" href="vol-16-17-ji-ho.html"><span class="vnr">Vol. XVI–XVII</span><span class="vtit">Nota Celuilalt · Nota Luminii<br><em>Ji-Ho Yun — alteritatea ca fundament · haenyeo · whakapapa avant la lettre</em></span><span class="vmeta">2450–2460 · Oslo+Jeju</span></a>
+
+<div class="sec">Volumele XVIII–XIX · Kavya Nair · 2510–2520</div>
+<a class="v" href="vol-18-19-kavya.html"><span class="vnr">Vol. XVIII–XIX</span><span class="vtit">Nota Simetriei · Nota Cauzalității<br><em>Kavya Nair — karma și Bell · zece reformulări în 433 de ani</em></span><span class="vmeta">2510–2520 · Kerala+Oslo</span></a>
+
+<div class="sec">Volumele XX–XXI · Leila Nkosi · 2570–2580</div>
+<a class="v" href="vol-20-21-leila.html"><span class="vnr">Vol. XX–XXI</span><span class="vtit">Nota Probabilității · Nota Infinitului<br><em>Leila Nkosi — probabilismul fundamental · regula Born nededusă</em></span><span class="vmeta">2570–2580 · Durban+Oslo</span></a>
+
+<div class="sec">Volumele XXII–XXIII · Nadia Osei · 2630–2640</div>
+<a class="v" href="vol-22-23-nadia.html"><span class="vnr">Vol. XXII–XXIII</span><span class="vtit">Nota Frumuseții · Nota Devenirii<br><em>Nadia Osei — frumusețea ca indicator epistemic · Accra după Ama</em></span><span class="vmeta">2630–2640 · Accra+Oslo</span></a>
+
+<div class="sec">Volumele XXIV–XXV · Rin Nakamura · 2700–2710</div>
+<a class="v" href="vol-24-25-rin.html"><span class="vnr">Vol. XXIV–XXV</span><span class="vtit">Nota Memoriei · Nota Întrebării<br><em>Rin Nakamura — cerneala estompată · memoria ca proprietate fizică</em></span><span class="vmeta">2700–2710 · Kyoto+Oslo</span></a>
+
+<div class="sec">Volumele XXVI–XXVII · Lena Solberg · 2760–2770</div>
+<a class="v" href="vol-26-27-lena.html"><span class="vnr">Vol. XXVI–XXVII</span><span class="vtit">Nota Entanglementului · Nota Complexității<br><em>Lena Solberg — ceaiul · mesteacănii · corelația preexistentă</em></span><span class="vmeta">2760–2770 · Oslo+Budapest</span></a>
+
+<div class="sec">Volumele XXVIII–XXIX · Mara Ionescu · 2830–2840</div>
+<a class="v" href="vol-28-29-mara.html"><span class="vnr">Vol. XXVIII–XXIX</span><span class="vtit">Nota Neantului · Nota Recunoașterii<br><em>Mara Ionescu — piatra din Apuseni · neantul ca energie de punct zero</em></span><span class="vmeta">2830–2840 · Cluj+Oslo</span></a>
+
+<div class="sec">Volumele XXX–XXXI · Sora Kim · 2900–2910</div>
+<a class="v" href="vol-30-31-sora.html"><span class="vnr">Vol. XXX–XXXI</span><span class="vtit">Nota Orizontului · Nota Singularității<br><em>Sora Kim — Emil ca traversator de orizont · a locui la limita instrumentelor</em></span><span class="vmeta">2900–2910 · Seoul+Oslo</span></a>
+
+<div class="sec">Volumele XXXII–XXXIII · Amara Sow · 2970–2980</div>
+<a class="v" href="vol-32-33-amara-sow.html"><span class="vnr">Vol. XXXII–XXXIII</span><span class="vtit">Nota Răbdării · Nota Deschiderii<br><em>Amara Sow — răbdarea ca metodă · a nu ceda nici spre rezolvare, nici spre abandon</em></span><span class="vmeta">2970–2980 · Dakar+Oslo</span></a>
+
+<div class="sec">Volumele XXXIV–XXXV · Kiri Māhoe · 3040–3050</div>
+<a class="v" href="vol-34-35-kiri.html"><span class="vnr">Vol. XXXIV–XXXV</span><span class="vtit">Nota Relației · Nota Întoarcerii Acasă<br><em>Kiri Māhoe — whakapapa · Ko tēnei taku reo · relația precede termenii</em></span><span class="vmeta">3040–3050 · Auckland+Oslo</span></a>
+
+<div class="sec">Volumele XXXVI–XXXVII · Dawit Haile · 3110–3120</div>
+<a class="v" href="vol-36-37-dawit.html"><span class="vnr">Vol. XXXVI–XXXVII</span><span class="vtit">Nota Prezenței · Nota Gratitudinii<br><em>Dawit Haile — cafeaua s-a răcit · nota zero aparține lui acum</em></span><span class="vmeta">3110–3120 · Addis Abeba+Oslo</span></a>
+
+<div class="sec">Volumele XXXVIII–XXXIX · Halima Osman · 3180–3190</div>
+<a class="v" href="vol-38-39-halima.html"><span class="vnr">Vol. XXXVIII–XXXIX</span><span class="vtit">Nota Urmei · Nota Primei Zile<br><em>Halima Osman — fosila de trilobit · urma ca structură a cunoașterii cosmologice</em></span><span class="vmeta">3180–3190 · Mogadishu+Oslo</span></a>
+
+<div class="sec">Volumele XL–XLI · Priya Sen · 3250–3260 · ultimul protagonist</div>
+<a class="v" href="vol-40-41-priya.html"><span class="vnr">Vol. XL–XLI</span><span class="vtit">Nota Cuvântului · Nota Neașteptatului<br><em>Priya Sen — logos · nāmarūpa · actul performativ · emailul · ningea la Oslo</em></span><span class="vmeta">3250–3260 · Chennai+Oslo</span></a>
+
+<div class="sec">Aparat critic</div>
+<a class="v" href="aparat-critic.html"><span class="vnr">Aparat</span><span class="vtit">Cei 19 protagoniști · 18 reformulări · harta completă · Nota autorului</span><span class="vmeta">2087–3260</span></a>
+
+<div class="sec">Materiale suplimentare</div>
+<a class="v" href="../carte/Nota-Zero-carte-completa-ro.pdf"><span class="vnr">PDF</span><span class="vtit">Cartea completă în română · 478 de pagini, format A5</span><span class="vmeta">carte</span></a>
+<a class="v" href="suplimentare/nota-muzicii.html"><span class="vnr">Vol. XVII-A</span><span class="vtit">Nota Muzicii<br><em>Layla al-Mansouri — Baghdad / Oslo · 2481–2491 · volum suplimentar</em></span><span class="vmeta">suplimentar</span></a>
+<a class="v" href="suplimentare/scene-cheie.html"><span class="vnr">Scene</span><span class="vtit">Zece scene în proză, de inserat în volume</span><span class="vmeta">suplimentar</span></a>
+<a class="v" href="suplimentare/recenzie-din-2400.html"><span class="vnr">Aparat</span><span class="vtit">Recenzie ficțională din anul 2400</span><span class="vmeta">suplimentar</span></a>
+<a class="v" href="suplimentare/ghid-implementare.html"><span class="vnr">Ghid</span><span class="vtit">Ghidul de implementare al recomandărilor</span><span class="vmeta">suplimentar</span></a>
+<a class="v" href="arhiva-initiala/INDEX.html"><span class="vnr">Arhivă</span><span class="vtit">Seria inițială (41 de volume pe teme) și cele 10 analize critice</span><span class="vmeta">arhivă</span></a>
+
+<footer>Nota Zero · seria completă · Alexandru Ionuț Chiuță · 2026 · texte complete cu implementările I–V integrate</footer>
+</body></html>

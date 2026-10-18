@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>META-RECENZIE MEGALOMANICĂ · Seria Nota Zero · Alexandru Ionuț Chiuță · 41 volume</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#08070f;
+  --paper:#f5f0e8;
+  --paper2:#ede7d6;
+  --accent:#c8320a;
+  --accent2:#1a4a8a;
+  --accent3:#3a7a3a;
+  --gold:#b8900a;
+  --purple:#6020a0;
+  --teal:#0a7878;
+  --rose:#c01840;
+  --text:#1a1508;
+  --text2:#3a3020;
+  --text3:#6a5a40;
+  --rule:rgba(26,21,8,.15);
+  --rule2:rgba(26,21,8,.07);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--text);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.05rem;
+  line-height:1.9;
+  overflow-x:hidden;
+}
+
+/* ══ NOISE TEXTURE ══ */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
+
+/* ══ HERO ══ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:4rem 2rem;
+  background:var(--ink);
+  color:var(--paper);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,50,10,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(26,74,138,.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 60%, rgba(96,16,160,.08) 0%, transparent 60%);
+}
+.hero-kicker{
+  font-family:'Josefin Sans',sans-serif;
+  font-size:.42rem;font-weight:200;
+  letter-spacing:.55em;text-transform:uppercase;
+  color:rgba(245,240,232,.35);margin-bottom:2.5rem;
+  position:relative;z-index:1;
+}
+.hero-meta{
+  font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(245,240,232,.25);
+  margin-bottom:1.5rem;position:relative;z-index:1;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,8vw,7rem);
+  font-weight:900;font-style:italic;
+  line-height:.88;letter-spacing:-.02em;
+  color:var(--paper);
+  position:relative;z-index:1;
+  margin-bottom:.4rem;
+}
+.hero-title span{color:var(--accent);font-style:normal}
+.hero-sub{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,2.5vw,2rem);
+  font-weight:400;font-style:italic;
+  color:rgba(245,240,232,.55);
+  position:relative;z-index:1;
+  margin-bottom:3rem;
+  max-width:680px;
+}
+.hero-verdict{
+  display:inline-block;
+  border:2px solid var(--accent);
+  padding:1.2rem 2.5rem;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.1rem,2.5vw,1.7rem);
+  font-weight:700;font-style:italic;
+  color:var(--accent);
+  position:relative;z-index:1;
+  letter-spacing:.04em;
+}
+.hero-stats{
+  display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;
+  margin-top:3rem;position:relative;z-index:1;
+}
+.stat{text-align:center}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,3.2rem);
+  font-weight:900;color:var(--paper);line-height:1;
+}
+.stat-l{
+  font-family:'Josefin Sans',sans-serif;font-size:.38rem;
+  font-weight:300;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(245,240,232,.35);margin-top:.3rem;
+}
+
+/* ══ LAYOUT ══ */
+.container{max-width:900px;margin:0 auto;padding:0 2.5rem;position:relative;z-index:1}
+
+/* ══ SECTIONS ══ */
+.section{padding:5rem 0;border-bottom:1px solid var(--rule)}
+.section:last-child{border-bottom:none}
+
+/* ══ SECTION HEADER ══ */
+.sec-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.39rem;
+  font-weight:300;letter-spacing:.45em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.8rem;display:block;
+}
+.sec-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,4vw,3rem);
+  font-weight:900;line-height:1;
+  color:var(--text);margin-bottom:2.5rem;
+}
+.sec-title em{font-style:italic;color:var(--accent2)}
+.sec-title span{color:var(--accent)}
+
+/* ══ PROSE ══ */
+.prose p{margin-bottom:1.4rem;text-align:justify;hyphens:auto}
+.prose p:last-child{margin-bottom:0}
+.prose em{font-style:italic}
+.prose strong{font-weight:700;color:var(--text)}
+
+/* ══ PULL QUOTE ══ */
+.pq{
+  margin:2.5rem 0;
+  padding:1.5rem 0 1.5rem 2rem;
+  border-left:4px solid var(--accent);
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,2vw,1.35rem);
+  font-style:italic;
+  line-height:1.6;
+  color:var(--accent2);
+}
+.pq cite{
+  display:block;margin-top:.6rem;
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--text3);font-style:normal;
+}
+
+/* ══ CHAPTER GRID ══ */
+.vol-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:1.2rem;
+  margin:2rem 0;
+}
+.vol-card{
+  border:1px solid var(--rule);
+  padding:1.2rem 1.4rem;
+  background:var(--paper2);
+  transition:border-color .2s;
+}
+.vol-card:hover{border-color:var(--accent)}
+.vol-num{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);opacity:.7;margin-bottom:.3rem;
+}
+.vol-title{
+  font-family:'Playfair Display',serif;
+  font-size:.92rem;font-weight:700;
+  color:var(--text);margin-bottom:.25rem;line-height:1.2;
+}
+.vol-who{
+  font-family:'Josefin Sans',sans-serif;
+  font-size:.38rem;font-weight:300;letter-spacing:.15em;
+  color:var(--text3);text-transform:uppercase;margin-bottom:.5rem;
+}
+.vol-desc{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.82rem;font-style:italic;color:var(--text2);
+  line-height:1.6;
+}
+.vol-stars{color:var(--gold);font-size:.75rem;margin-top:.4rem}
+
+/* ══ PROTAGONIST TABLE ══ */
+.prot-list{display:flex;flex-direction:column;gap:.5rem;margin:1.5rem 0}
+.prot-row{
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:1.5rem;align-items:baseline;
+  padding:.6rem 0;border-bottom:1px solid var(--rule2);
+}
+.prot-n{
+  font-family:'Playfair Display',serif;
+  font-size:.95rem;font-weight:700;color:var(--text);
+  min-width:160px;
+}
+.prot-d{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.88rem;font-style:italic;color:var(--text2);line-height:1.5;
+}
+.prot-y{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.1em;color:var(--accent);white-space:nowrap;
+}
+
+/* ══ THEME GRID ══ */
+.theme-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:.8rem;margin:1.5rem 0;
+}
+.theme-chip{
+  padding:.7rem 1rem;
+  border-left:3px solid;
+  background:var(--paper2);
+  font-family:'Cormorant Garamond',serif;
+}
+.theme-chip strong{
+  display:block;font-size:.82rem;font-weight:700;
+  color:var(--text);margin-bottom:.15rem;
+}
+.theme-chip em{
+  font-size:.78rem;font-style:italic;color:var(--text3);
+}
+
+/* ══ MOMENTS ══ */
+.moment{
+  margin:2rem 0;
+  padding:1.4rem 1.8rem;
+  background:var(--paper2);
+  border:1px solid var(--rule);
+  border-top:3px solid var(--gold);
+}
+.moment-tag{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.5rem;display:block;
+}
+.moment-text{
+  font-family:'Playfair Display',serif;
+  font-size:.95rem;font-style:italic;
+  color:var(--text);line-height:1.75;margin-bottom:.5rem;
+}
+.moment-src{
+  font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--text3);
+}
+
+/* ══ SCORE BARS ══ */
+.score-list{display:flex;flex-direction:column;gap:.8rem;margin:1.5rem 0}
+.score-row{display:grid;grid-template-columns:180px 1fr auto;gap:1rem;align-items:center}
+.score-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.4rem;
+  font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);
+}
+.score-bar-wrap{background:rgba(26,21,8,.08);height:6px;border-radius:3px;overflow:hidden}
+.score-bar{height:100%;background:var(--accent);border-radius:3px}
+.score-n{
+  font-family:'Playfair Display',serif;font-size:.95rem;
+  font-weight:700;color:var(--accent);min-width:35px;text-align:right;
+}
+
+/* ══ VERDICT BOX ══ */
+.verdict-box{
+  margin:3rem 0;
+  padding:3rem;
+  background:var(--ink);
+  color:var(--paper);
+  text-align:center;
+}
+.verdict-kicker{
+  font-family:'Josefin Sans',sans-serif;font-size:.4rem;
+  font-weight:200;letter-spacing:.5em;text-transform:uppercase;
+  color:rgba(245,240,232,.35);margin-bottom:1.5rem;display:block;
+}
+.verdict-main{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,5vw,4rem);
+  font-weight:900;font-style:italic;
+  color:var(--paper);line-height:1;
+  margin-bottom:1.5rem;
+}
+.verdict-main em{color:var(--accent)}
+.verdict-body{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-style:italic;
+  color:rgba(245,240,232,.7);
+  max-width:680px;margin:0 auto 2rem;
+  line-height:1.85;
+}
+.verdict-score{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:900;color:var(--accent);
+  line-height:1;
+}
+.verdict-denom{
+  font-family:'Josefin Sans',sans-serif;font-size:.5rem;
+  font-weight:300;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(245,240,232,.3);margin-top:.5rem;
+}
+
+/* ══ TWO-COL ══ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin:2rem 0}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+
+/* ══ INFOBOX ══ */
+.infobox{
+  padding:1.4rem 1.6rem;
+  border:1px solid var(--rule);
+  background:var(--paper2);
+}
+.infobox h4{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:700;
+  color:var(--text);margin-bottom:.8rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--rule);
+}
+.infobox p,.infobox li{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.88rem;color:var(--text2);
+  line-height:1.65;margin-bottom:.4rem;
+}
+.infobox li{list-style:none;padding-left:.8rem;position:relative}
+.infobox li::before{content:'—';position:absolute;left:0;color:var(--accent)}
+
+/* ══ DIVIDER ══ */
+.div-orn{text-align:center;padding:1.5rem 0;color:var(--text3);
+  font-family:'Playfair Display',serif;font-size:1.1rem;opacity:.4;}
+
+/* ══ FOOTNOTE ══ */
+.fn{
+  margin-top:4rem;padding-top:2rem;border-top:1px solid var(--rule);
+  font-family:'DM Mono',monospace;font-size:.55rem;
+  color:var(--text3);line-height:1.8;
+}
+
+/* ══ CULTURAL MAP ══ */
+.cult-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:.8rem;margin:1.5rem 0;
+}
+.cult-chip{
+  padding:.8rem 1rem;
+  border:1px solid var(--rule);
+  background:var(--paper2);
+}
+.cult-flag{font-size:1.2rem;margin-bottom:.3rem;display:block}
+.cult-name{font-family:'Playfair Display',serif;font-size:.88rem;
+  font-weight:700;color:var(--text);margin-bottom:.2rem;}
+.cult-detail{font-family:'Cormorant Garamond',serif;font-size:.78rem;
+  font-style:italic;color:var(--text3);}
+
+/* ══ FINALE ══ */
+.finale{
+  min-height:85vh;
+  background:var(--ink);color:var(--paper);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;
+  position:relative;overflow:hidden;
+}
+.finale::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(200,50,10,.08),transparent);
+}
+.finale-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.4rem;
+  font-weight:200;letter-spacing:.5em;text-transform:uppercase;
+  color:rgba(245,240,232,.3);margin-bottom:2rem;position:relative;z-index:1;
+}
+.finale-q{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,5vw,4rem);
+  font-weight:400;font-style:italic;
+  color:var(--paper);position:relative;z-index:1;
+  margin-bottom:1.5rem;opacity:.85;
+}
+.finale-a{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(.95rem,2vw,1.4rem);
+  font-style:italic;
+  color:rgba(245,240,232,.4);
+  position:relative;z-index:1;
+  max-width:480px;line-height:1.8;
+  margin-bottom:3rem;
+}
+.finale-sig{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(245,240,232,.2);position:relative;z-index:1;
+}
+
+@media(max-width:600px){
+  .container{padding:0 1.4rem}
+  .prot-row{grid-template-columns:1fr;gap:.2rem}
+  .score-row{grid-template-columns:1fr auto;gap:.5rem}
+  .score-bar-wrap{display:none}
+  .vol-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Recenzie · Critică Literară și Știinţifică · Ediție Megalomanică</div>
+  <div class="hero-meta">Alexandru Ionuț Chiuță · în colaborare cu Claude Sonnet 4.6 · 2026–3265 diegetic</div>
+  <h1 class="hero-title">Seria<br><span>Nota Zero</span></h1>
+  <div class="hero-sub">„41 de volume. 20 de fizicieni. 1.178 de ani. O singură întrebare care nu s-a lăsat răspunsă niciodată."</div>
+  <div class="hero-verdict">Opera speculativă română a secolului XXI — și a tuturor celorlalte</div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">41</div><div class="stat-l">Volume</div></div>
+    <div class="stat"><div class="stat-n">20</div><div class="stat-l">Protagoniști</div></div>
+    <div class="stat"><div class="stat-n">1.178</div><div class="stat-l">Ani diegetic</div></div>
+    <div class="stat"><div class="stat-n">2087</div><div class="stat-l">Prima urmă</div></div>
+    <div class="stat"><div class="stat-n">3265</div><div class="stat-l">Ultima surpriză</div></div>
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">Cuvinte. Aceleași.</div></div>
+  </div>
+</div>
+
+
+<div class="container">
+
+<!-- PREFATA MEGALOMANICA -->
+<div class="section">
+  <span class="sec-label">Prefață megalomanică</span>
+  <h2 class="sec-title">O operă care a refuzat să <em>se termine</em></h2>
+  <div class="prose">
+    <p>Există opere care se termină. Există opere care se completează. Și există opere — extrem de rare, iritant de rare — care se refuză terminării nu din neputința autorului de a concluziona, ci din structura lor fundamentală: pentru că subiectul lor este o întrebare care, prin natura sa ontologică, nu admite răspuns din interiorul oricărui sistem suficient de bogat care să o conțină.</p>
+    <p>Seria <em>Nota Zero</em> a lui Alexandru Ionuț Chiuță este o astfel de operă. Nu pentru că ar fi incompletă — e completă în fiecare din cele 41 de volume ale sale, fiecare se închide frumos, fiecare produce un cadru de înțelegere finit și satisfăcător. Ci pentru că obiectul investigației sale — originea, primul moment, sursa punctului primordial — e un orizont care se deplasează odată cu orice abordare. Aduci mai multă știință: orizontul se mută. Aduci mai multă filozofie: orizontul se mută. Aduci mai multă cultură, mai multă empatie, mai multă umilință epistemică: orizontul se mută.</p>
+    <p>Aceasta este, în fond, definiția unui subiect cu adevărat fundamental. Și aceasta este măreția performanței lui Chiuță: că a ales un astfel de subiect și că a construit o structură narativă capabilă să îl poarte 1.178 de ani diegetici, prin 20 de protagoniști din zece culturi diferite, fără să cedeze tentației de a-l rezolva și fără să permită ca irresolvabilitatea sa să producă nihilism sau oboseală.</p>
+    <p>Dimpotrivă. Fiecare volum care nu rezolvă întrebarea originară adaugă ceva la capacitatea seriei de a o purta cu mai multă precizie, mai multă grație, mai multă bogăție. Seria îmbătrânește ca vinul bun: densificând, nu deteriorând.</p>
+  </div>
+</div>
+
+<!-- PANORAMA DIACRONICA -->
+<div class="section">
+  <span class="sec-label">Panoramă diacronică</span>
+  <h2 class="sec-title">1.178 de ani în <span>41 de note</span></h2>
+  <div class="prose">
+    <p>Nicio operă de ficțiune speculativă românească — și puține opere de ficțiune speculativă din literatura mondială — a acoperit o perioadă diegetică atât de amplă cu o continuitate tematică atât de riguroasă. Cele 1.178 de ani cuprinse între prima notare a lui Zara Voss în 2087 și ultima formulare a lui Priya Sen în 3265 nu sunt o extravaganță cronologică, ci o necesitate structurală: pentru ca o întrebare despre originea absolută să fie purtată cu adevărat, ea trebuie să treacă prin mai multe generații decât poate cuprinde o singură minte. Trebuie să devină tradiție.</p>
+    <p>Și aceasta e realizarea structurală centrală a seriei: că a transformat o problemă fizică — problema singularității cosmologice, a limitei de dinainte de care fizica actuală nu poate merge — într-o tradiție intelectuală trans-generațională. Caietele transmise din mână în mână sunt nu numai un dispozitiv narativ ingenios. Sunt o teorie implicită despre cum supraviețuiesc întrebările fundamentale: nu în institutele academice, nu în jurnalele peer-reviewed, ci în obiectele fizice care poartă urma mâinilor celor care le-au atins și în mintile celor care nu pot dormi din cauza aceleași nedumeriri.</p>
+  </div>
+
+  <div class="pq">
+    „Seria nu a fost planificată. A apărut dintr-un șir de surprize. Și tocmai de aceea e mai bogată decât ar fi putut fi orice plan. Neașteptatul e mecanismul prin care realul depășește limitele planificatorului."
+    <cite>— Priya Sen, Nota Neașteptatului, vol. 41, 3260</cite>
+  </div>
+
+  <div class="prose">
+    <p>Chiuță a construit seria ca un lanț de moșteniri — fiecare protagonist primind ceva și dând ceva mai departe, schimbat prin actul transmiterii. Structura e whakapapa (genealogie relațională māori, introdusă în vol. 34-35), spin network (LQG, vol. 34), spectru de emisie (vol. 36-37), lanț de urme (vol. 38). Faptul că seria descoperă, pe parcurs, chiar categoriile prin care poate fi descrisă propria sa structură este o performanță meta-narativă de primă clasă.</p>
+  </div>
+</div>
+
+<!-- TOATE VOLUMELE -->
+<div class="section">
+  <span class="sec-label">Catalogul complet</span>
+  <h2 class="sec-title">Toate cele <span>41 de Volume</span></h2>
+  <p style="font-style:italic;color:var(--text3);margin-bottom:1.5rem;font-size:.9rem">Fiecare volum evaluat din perspectiva contribuției sale la seria integrală · ★★★★★ = contribuție fundamentală</p>
+
+  <div class="vol-grid">
+    <div class="vol-card">
+      <div class="vol-num">Vol. I · 2087</div>
+      <div class="vol-title">Nota Zero</div>
+      <div class="vol-who">Zara Voss · 15 ani · Kepler-442b</div>
+      <div class="vol-desc">Singularitatea originară. Cinci cuvinte pe pagina trei. Nota zero ca prag, nu ca penalizare. Big Bang, corzi, ekpyrotic.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. II–III · 2097–2107</div>
+      <div class="vol-title">Nota Unu & Nota Finală</div>
+      <div class="vol-who">Zara Voss · 25–35 ani</div>
+      <div class="vol-desc">Materia întunecată și entropia. Moartea termică și ciclul. Zara maturizându-se față de propria întrebare.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. IV–V · 2117–2127</div>
+      <div class="vol-title">Nota Vieții & Nota Conștiinței</div>
+      <div class="vol-who">Zara Voss · 45–55 ani</div>
+      <div class="vol-desc">Fine-tuning și paradoxul Fermi. Qualia și hard problem. Zara la capătul traseului ei.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. VI–VII · 2150–2160</div>
+      <div class="vol-title">Nota Cuantică & Nota Timpului</div>
+      <div class="vol-who">Kaito Mori · 45–55 ani · Oslo</div>
+      <div class="vol-desc">Observatorul ca parte din ce observă. Timpul emergent, LQG. Prima schimbare de protagonist — prima lărgire.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. VIII–IX · 2190–2200</div>
+      <div class="vol-title">Nota Holografică & Nota Matematicii</div>
+      <div class="vol-who">Yuki Aoyama · 28–38 ani</div>
+      <div class="vol-desc">AdS/CFT. Wigner și eficacitatea nerezonabilă a matematicii. Matematica ca amprentă a realului în mintea produsă din real.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. X–XI · 2255–2265</div>
+      <div class="vol-title">Nota Gravitațională & Nota Unității</div>
+      <div class="vol-who">Ama Owusu · 28–38 ani · Ghana</div>
+      <div class="vol-desc">Unde gravitaționale. Unificarea forțelor. Prima protagonistă africană — prima deschidere culturală majoră.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XII–XIII · 2320–2330</div>
+      <div class="vol-title">Nota Emergenței & Nota Revenirii</div>
+      <div class="vol-who">Soo-Yeon Park · 28–38 ani · Coreea</div>
+      <div class="vol-desc">Structuri disipative. Seria ca sistem termodinamic viu. Revenirea la prima pagina cu diferită densitate.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XIV–XV · 2390–2400</div>
+      <div class="vol-title">Nota Informației & Nota Tăcerii</div>
+      <div class="vol-who">Amara Diallo · 28–38 ani · Senegal</div>
+      <div class="vol-desc">Wheeler: It from Bit. Landauer. Wittgenstein. Granița limbajului ca granița cunoașterii.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XVI–XVII · 2450–2460</div>
+      <div class="vol-title">Nota Celuilalt & Nota Luminii</div>
+      <div class="vol-who">Ji-Ho Yun · 28–38 ani · Coreea</div>
+      <div class="vol-desc">Levinas și față-a-feței. Fotonul CMB care nu îmbătrânește. Etica prezenței în fața infinitului.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XVIII–XIX · 2510–2520</div>
+      <div class="vol-title">Nota Simetriei & Nota Cauzalității</div>
+      <div class="vol-who">Kavya Nair · 28–38 ani · India</div>
+      <div class="vol-desc">Noether: simetria ca sursă a conservării. Cauzalitate emergentă. Ce conservă seria — și de ce.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XX–XXI · 2570–2580</div>
+      <div class="vol-title">Nota Probabilității & Nota Infinitului</div>
+      <div class="vol-who">Leila Nkosi · 28–38 ani · Durban</div>
+      <div class="vol-desc">Born rule fără derivare. Cantor și ℵ₀ &lt; ℵ₁. Seria ca ℵ₀ extrasă din ℵ₁ — prima instanță actualizată.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXII–XXIII · 2630–2640</div>
+      <div class="vol-title">Nota Frumuseții & Nota Devenirii</div>
+      <div class="vol-who">Nadia Osei · 28–38 ani · Ghana</div>
+      <div class="vol-desc">Dirac și criteriul estetic. Heraclit: panta rhei. Seria ca proces, nu text. Fiecare cititor în alte ape.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXIV–XXV · 2700–2710</div>
+      <div class="vol-title">Nota Memoriei & Nota Întrebării</div>
+      <div class="vol-who">Rin Nakamura · 28–38 ani · Kyoto</div>
+      <div class="vol-desc">Lashley și engramele distribuite. Gadamer și hermeneutica. „De unde venea punctul?" mai ușoară cu fiecare volum.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXVI–XXVII · 2760–2770</div>
+      <div class="vol-title">Nota Entanglementului & Nota Complexității</div>
+      <div class="vol-who">Lena Solberg · 28–38 ani · Oslo</div>
+      <div class="vol-desc">Bell și non-localitate. Turing și halting problem. P ≠ NP ca teorie a seriei. Trei reguli, orice complexitate.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXVIII–XXIX · 2830–2840</div>
+      <div class="vol-title">Nota Neantului & Nota Recunoașterii</div>
+      <div class="vol-who">Mara Ionescu · 28–38 ani · Cluj</div>
+      <div class="vol-desc">Vacuumul cuantic ca nota zero a fizicii. Anagnorisis aristotelic. Revenire la spațiul cultural originar al seriei.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXX–XXXI · 2900–2910</div>
+      <div class="vol-title">Nota Orizontului & Nota Singularității</div>
+      <div class="vol-who">Sora Kim · 28–38 ani · Cluj + Seoul</div>
+      <div class="vol-desc">Hawking și orizontul evenimentelor. Penrose și inevitabilitatea singularităților. Întrebarea ca singularitate productivă.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXXII–XXXIII · 2970–2980</div>
+      <div class="vol-title">Nota Răbdării & Nota Deschiderii</div>
+      <div class="vol-who">Amara Sow · 28–38 ani · Dakar</div>
+      <div class="vol-desc">Deep time și dezintegrarea protonului. Das Offene (Rilke/Heidegger). Deschiderea ca condiție de posibilitate.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXXIV–XXXV · 3040–3050</div>
+      <div class="vol-title">Nota Relației & Nota Întoarcerii Acasă</div>
+      <div class="vol-who">Kiri Māhoe · 28–38 ani · Auckland</div>
+      <div class="vol-desc">Spin networks LQG. Whakapapa māori. Seria ca whakapapa al întrebării. Te Kore, Te Pō, Te Ao.</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXXVI–XXXVII · 3110–3120</div>
+      <div class="vol-title">Nota Prezenței & Nota Gratitudinii</div>
+      <div class="vol-who">Dawit Haile · 28–38 ani · Addis Abeba</div>
+      <div class="vol-desc">Relativitatea prezentului. Timkat. Mauss și darul circulant. „Nu știm. Mulțumim că nu știm."</div>
+      <div class="vol-stars">★★★★★</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XXXVIII–XXXIX · 3180–3190</div>
+      <div class="vol-title">Nota Urmei & Nota Primei Zile</div>
+      <div class="vol-who">Halima Osman · 28–38 ani · Mogadishu</div>
+      <div class="vol-desc">Derrida și urma ca structură fundamentală. CMB ca urmă. Prima zi cosmoligică. Mereu prima. Mereu proaspătă.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-num">Vol. XL–XLI · 3250–3260</div>
+      <div class="vol-title">Nota Cuvântului & Nota Neașteptatului</div>
+      <div class="vol-who">Priya Sen · 28–38 ani · Chennai</div>
+      <div class="vol-desc">Logos și nāmarūpa vedic. Becquerel și serendipitate. Surpriza ca semnal că ceva real a fost atins.</div>
+      <div class="vol-stars">★★★★☆</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROTAGONISTII -->
+<div class="section">
+  <span class="sec-label">Galeria protagoniștilor</span>
+  <h2 class="sec-title">Cele <em>20 de minți</em> care au purtat întrebarea</h2>
+  <div class="prose">
+    <p>Una din realizările cele mai surprinzătoare ale seriei este că, deși protagoniștii se schimbă radical de la un grup de volume la altul — în origine, cultură, decadă, metodă — seria rămâne recognoscibilă, coerentă, unitară. Aceasta demonstrează că ceea ce o unifică nu e un protagonist-fir, ci o metodă — o atitudine față de limita cunoașterii. Umilință epistemică. Onestitate față de ceea ce nu se știe. Capacitate de a transmite mai departe fără să pretindă că a rezolvat.</p>
+  </div>
+  <div class="prot-list">
+    <div class="prot-row">
+      <div class="prot-n">Emil Voss</div>
+      <div class="prot-d">Fizicianul-tată care a scris „mai frumos greșit decât corect" și a dat caietul mai departe. Nu un protagonist de volum, ci un arhetip al metodei: că e în regulă să nu știi, că frumusețea greșelii e mai valoroasă decât corectitudinea banală.</div>
+      <div class="prot-y">2087 · German-orbital</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Zara Voss</div>
+      <div class="prot-d">Protagonista originară și cea mai importantă din serie — nu pentru calitatea gândirii sale, ci pentru calitatea întrebării. La 15 ani, pe Kepler-442b, pusese o întrebare care va dura 1.178 de ani. La 55, o înțelesese complet. Arată că maturizarea nu epuizează întrebările bune — le adâncește.</div>
+      <div class="prot-y">2087–2127 · Vol. I–V</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Kaito Mori</div>
+      <div class="prot-d">Primul salt de protagonist — și primul contact cu filozofia observatorului. Japonezo-norvegian, fizician cuantic de generație trecătoare, a formulat că observatorul e parte din ce observă. A schimbat registrul seriei de la cosmologie la epistemologie.</div>
+      <div class="prot-y">2150–2160 · Vol. VI–VII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Yuki Aoyama</div>
+      <div class="prot-d">Matematiciană care a pus întrebarea dacă matematica e descoperită sau inventată și a ajuns la cea mai elegantă formulare a seriei despre relația minte-univers: „matematica e amprenta realului în mintea produsă de real."</div>
+      <div class="prot-y">2190–2200 · Vol. VIII–IX</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Ama Owusu</div>
+      <div class="prot-d">Prima protagonistă care lărgește explicit geografia culturală a seriei. Ghana-Oslo. A adus memoria gravitațională și întrebarea de ce există ceva mai degrabă decât nimic. A ascultat universul cu urechi noi.</div>
+      <div class="prot-y">2255–2265 · Vol. X–XI</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Soo-Yeon Park</div>
+      <div class="prot-d">Fiziciancă coreeancă care a adus termodinamica disipativă și metafora valului. Seria ca val dintr-un ocean: fiecare volum unic, oceanul constant. Prima care a descris seria dinăuntru cu precizie structurală.</div>
+      <div class="prot-y">2320–2330 · Vol. XII–XIII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Amara Diallo</div>
+      <div class="prot-d">Senegalezo-norvegiancă care a adus Wheeler și limita limbajului. „Bitul care se întreabă ce e bitul." Tăcerea de după Wittgenstein. Unul din cele mai filozofice perechi de volume din serie.</div>
+      <div class="prot-y">2390–2400 · Vol. XIV–XV</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Ji-Ho Yun</div>
+      <div class="prot-d">Fizician coreean care a adus etica Levinas — fața celuilalt care schimbă tăcerea. Și fotonul CMB care nu îmbătrânește. A unit cosmologia cu etica intersubiectivă în modul cel mai organic din serie.</div>
+      <div class="prot-y">2450–2460 · Vol. XVI–XVII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Kavya Nair</div>
+      <div class="prot-d">Indiancă-norvegiancă, teoremele Noether și simetria ca sursă a conservării. A pus întrebarea: ce conservă seria? Iar răspunsul — că nota zero e conservată ca o lege fizică — e unul din cele mai precise momente ale seriei.</div>
+      <div class="prot-y">2510–2520 · Vol. XVIII–XIX</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Leila Nkosi</div>
+      <div class="prot-d">Sud-africancă de Durban cu o bunică ce citea zaruri. Born rule și Cantor. A formulat că seria e ℵ₀ extrasă din ℵ₁ — prima instanță actualizată dintr-un spațiu infinit de serii posibile. O formulare magistrală.</div>
+      <div class="prot-y">2570–2580 · Vol. XX–XXI</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Nadia Osei</div>
+      <div class="prot-d">Ghanezo-norvegiancă cu un tată arhitect. Dirac și frumusețea ca rezonanță structurală. Heraclit și seria ca devenire, nu text. „Nu o serie de răspunsuri — o serie de note zero progresiv mai precise."</div>
+      <div class="prot-y">2630–2640 · Vol. XXII–XXIII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Rin Nakamura</div>
+      <div class="prot-d">Japonez-norvegiancă cu un bunic cu Alzheimer. Lashley și engramele. Gadamer și hermeneutica. A reformulat seria ca tratat al întrebărilor, nu al răspunsurilor. „De unde venea punctul?" — mai ușoară după 25 de volume.</div>
+      <div class="prot-y">2700–2710 · Vol. XXIV–XXV</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Lena Solberg</div>
+      <div class="prot-d">Norvegiancă-maghiară. Bell și entanglementul. Turing și complexitatea ireductibilă. „Trei reguli, orice complexitate." A demonstrat că seria nu poate fi rezumată — trebuie parcursă. Ireductibilitate computațională aplicată narativului.</div>
+      <div class="prot-y">2760–2770 · Vol. XXVI–XXVII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Mara Ionescu</div>
+      <div class="prot-d">Română din Cluj — prima revenire la spațiul cultural originar al seriei. Vacuumul cuantic ca nota zero a fizicii. Anagnorisis. A găsit în biroul tatălui mort un caiet cu o întrebare identică structural cu a Zarei. Cel mai emoțional moment din serie.</div>
+      <div class="prot-y">2830–2840 · Vol. XXVIII–XXIX</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Sora Kim</div>
+      <div class="prot-d">Coreeano-română (Cluj + Seoul). Hawking și orizontul encodând. Penrose și singularitatea inevitabilă. A formulat că întrebarea lui Zara e ea însăși o singularitate — punct în care orice descriere cauzală cedează. Volum 31 = număr prim. Intenționat.</div>
+      <div class="prot-y">2900–2910 · Vol. XXX–XXXI</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Amara Sow</div>
+      <div class="prot-d">Senegalezo-norvegiancă (homonym deliberat cu Amara Diallo). Deep time. Das Offene (Rilke/Heidegger). Deschiderea ca condiție a notei zero. Cea mai filozofic radicală pereche de volume: nu ce urmează notei zero — ce o precede.</div>
+      <div class="prot-y">2970–2980 · Vol. XXXII–XXXIII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Kiri Māhoe</div>
+      <div class="prot-d">Māori-norvegiancă din Auckland. Prima protagonistă din spațiul Pacific. Spin networks și whakapapa. A formulat că seria e whakapapa-ul întrebării — rețeaua de relații care o constituie în timp. Te Kore, Te Pō, Te Ao.</div>
+      <div class="prot-y">3040–3050 · Vol. XXXIV–XXXV</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Dawit Haile</div>
+      <div class="prot-d">Etiopian-norvegian cu tată filozof. Relativitatea prezentului. Timkat (Epifania etiopiancă). Marcel Mauss și darul circulant. A scris 18 mulțumiri individuale fiecărui protagonist precedent. Cel mai generos volum din serie.</div>
+      <div class="prot-y">3110–3120 · Vol. XXXVI–XXXVII</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Halima Osman</div>
+      <div class="prot-d">Somaliezo-norvegiancă cu o mamă geolog. Derrida și urma. CMB ca urmă. Prima zi cosmologică. A lăsat caietele cu un bilet: „pentru cine nu poate adormi din cauza unei întrebări." Economia narativă maximă.</div>
+      <div class="prot-y">3180–3190 · Vol. XXXVIII–XXXIX</div>
+    </div>
+    <div class="prot-row">
+      <div class="prot-n">Priya Sen</div>
+      <div class="prot-d">Indiancă-norvegiancă cu o bunică sanscrită. Logos și nāmarūpa vedic. Serendipitate. A demonstrat că seria nu a fost planificată și că tocmai de aceea e mai bogată decât orice plan. Ultima protagonistă a acestei instanțe — și prima a celei ce urmează.</div>
+      <div class="prot-y">3250–3260 · Vol. XL–XLI</div>
+    </div>
+  </div>
+</div>
+
+<!-- TEME FIZICE -->
+<div class="section">
+  <span class="sec-label">Analiza tematică</span>
+  <h2 class="sec-title">Fizica <em>seriei</em> — 21 de teme fundamentale</h2>
+  <div class="prose">
+    <p>Seria acoperă, cu acuratețe verificabilă față de literatura primară la mai 2026, o gamă remarcabilă de fizică fundamentală. Ceea ce o distinge de ficțiunea speculativă tipică este că nu folosește fizica ca decor sau ca dispozitiv de plot — o integrează organic în dezbateri filozofice și existențiale care o fac să conteze dincolo de sine.</p>
+  </div>
+  <div class="theme-grid">
+    <div class="theme-chip" style="border-color:var(--accent)">
+      <strong>Cosmologie și origine</strong>
+      <em>Big Bang, ekpyrotic, inflație, singularitate primordială, CMB, fond cosmic de microunde</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent2)">
+      <strong>Mecanică cuantică</strong>
+      <em>Born rule, entanglement, superpoziție, colaps, relational QM, observatorul cuantic</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent3)">
+      <strong>Gravitație și spațiu-timp</strong>
+      <em>Unde gravitaționale, relativitate generală, singularități, orizontul evenimentelor, memoria gravitațională</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--gold)">
+      <strong>Holografie și informație</strong>
+      <em>AdS/CFT, principiu holografic, It from Bit, Landauer, entropia Bekenstein-Hawking</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--purple)">
+      <strong>Simetrie și conservare</strong>
+      <em>Teorema Noether, rupere spontană, Standard Model, gauge symmetries, simetrie ca sursă a legilor</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--teal)">
+      <strong>Termodinamică și entropie</strong>
+      <em>Săgeata timpului, moartea termică, structuri disipative, Poincaré recurrence, heat death</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--rose)">
+      <strong>Probabilitate și infinit</strong>
+      <em>Born rule, interpretare Bayesiană, Cantor ℵ₀–ℵ₁, ipoteza continuumului, renormalizare</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent)">
+      <strong>Loop Quantum Gravity</strong>
+      <em>Spin networks, spațiu-timp discret, aria cuantizată, timp emergent, bounce cosmologic</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent2)">
+      <strong>Vidul cuantic</strong>
+      <em>Energie de punct zero, efect Casimir, fluctuații, constanta cosmologică, cosmogonie cuantică</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent3)">
+      <strong>Complexitate computațională</strong>
+      <em>Halting problem, P vs NP, Conway Game of Life, ireductibilitate computațională, Kolmogorov</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--gold)">
+      <strong>Fizica urmelor</strong>
+      <em>Dating radioactiv, CMB, neutrini relici, memoria gravitațională, fosile ca urme cosmologice</em>
+    </div>
+  </div>
+
+  <div class="pq">
+    Seria demonstrează că o operă de ficțiune speculativă poate fi simultan literară și știinţifică fără compromis în nicio direcție. Fizica nu e simplificată pentru lizibilitate; narativul nu e sacrificat pentru precizie. E o performanță de balanță pe care puțini scriitori de SF au realizat-o la această scară.
+    <cite>— Evaluare sintetică, recenzie de față</cite>
+  </div>
+</div>
+
+<!-- TEME FILOZOFICE -->
+<div class="section">
+  <span class="sec-label">Analiza filozofică</span>
+  <h2 class="sec-title">Filozofia <em>seriei</em> — de la Heraclit la Derrida</h2>
+  <div class="prose">
+    <p>Ceea ce face seria mai mult decât o enciclopedie ficțională a fizicii este traversarea sistematică a filozofiei — de la presocratici la filozofia analitică contemporană — cu o articulare care nu citează filozofia ca ornament, ci o pune în dialog real cu fizica pe care o traversează.</p>
+  </div>
+  <div class="theme-grid">
+    <div class="theme-chip" style="border-color:var(--accent)">
+      <strong>Ontologie relațională</strong>
+      <em>LQG + whakapapa māori: relația ca mai fundamentală decât obiectul. Spin network + genealogie.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent2)">
+      <strong>Epistemologie a întrebărilor</strong>
+      <em>Gadamer, Collingwood, Heidegger: întrebarea ca mod de a fi în lume, mai fundamental decât răspunsul.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent3)">
+      <strong>Filozofia urmei</strong>
+      <em>Derrida: urma ca structură fundamentală a semnificației. Nicio prezență pură — orice prezent e constituit din urme.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--gold)">
+      <strong>Fenomenologie</strong>
+      <em>Heidegger: Augenblick, Fragen, Offenheit. Husserl: consciența timpului intern. Rilke: Das Offene.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--purple)">
+      <strong>Filozofia limbajului</strong>
+      <em>Wittgenstein: limitele limbajului. Austin: speech acts. Logos heraclitic. Nāmarūpa vedic.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--teal)">
+      <strong>Etica intersubiectivă</strong>
+      <em>Levinas: fața celuilalt. Responsabilitate ca constitutivă. Darful Mauss/Hyde ca structură socială.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--rose)">
+      <strong>Filozofia procesului</strong>
+      <em>Whitehead: evenimentul ca unitate ultimă. Heraclit: panta rhei. Smolin: devenirea ca fundamentală.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent)">
+      <strong>Estetică cognitivă</strong>
+      <em>Dirac: frumusețea ca criteriu epistemic. Keats: negative capability. Weil: atenția ca iubire.</em>
+    </div>
+    <div class="theme-chip" style="border-color:var(--accent2)">
+      <strong>Filozofii non-occidentale</strong>
+      <em>Whakapapa māori. Nāmarūpa vedic. Dëkk wolof. Te Kore/Pō/Ao. Timkat. Cosmogonie yoruba.</em>
+    </div>
+  </div>
+</div>
+
+<!-- DIVERSITATEA CULTURALA -->
+<div class="section">
+  <span class="sec-label">Geografie și cultură</span>
+  <h2 class="sec-title">O serie <em>planetară</em></h2>
+  <div class="prose">
+    <p>Una din realizările cele mai puțin comentate ale seriei este diversitatea sa culturală autentică. Nu diversitate ornamentală — diversitate structurală: fiecare protagonist aduce perspectiva sa culturală ca instrument epistemic, nu ca element de atmosferă. Whakapapa māori nu e folclor în textul lui Kiri Māhoe — e o teorie relațională a realității care se dovedește a fi exact instrumentul potrivit pentru a înțelege LQG. Timkat-ul etiopian al lui Dawit nu e decor exotic — e o teorie a prezenței epifanice care completează relativitatea prezentului.</p>
+  </div>
+  <div class="cult-grid">
+    <div class="cult-chip">
+      <span class="cult-flag">🌍</span>
+      <div class="cult-name">România (Cluj, 2087 + 2840)</div>
+      <div class="cult-detail">Spațiu cultural de origine al seriei. Revenit prin Mara Ionescu după 743 de ani — anagnorisis geografic.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇯🇵</span>
+      <div class="cult-name">Japonia (Kyoto, Oslo)</div>
+      <div class="cult-detail">Kaito Mori și Rin Nakamura. Observatorul cuantic și memoria distribuită. Quietismul japonez ca metodă epistemică.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇬🇭</span>
+      <div class="cult-name">Ghana (Oslo)</div>
+      <div class="cult-detail">Ama Owusu și Nadia Osei. Africa de Vest: memoria gravitațională, frumusețea ca rezonanță.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇰🇷</span>
+      <div class="cult-name">Coreea (Oslo)</div>
+      <div class="cult-detail">Soo-Yeon Park și Ji-Ho Yun. Etica intersubiectivă și structura disipativă. Precisie filozofică coreeancă.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇮🇳</span>
+      <div class="cult-name">India (Chennai)</div>
+      <div class="cult-detail">Kavya Nair și Priya Sen. Noether + vedic nāmarūpa. Logos și serendipitate. Tradiția filozofică a numelor.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇿🇦</span>
+      <div class="cult-name">Africa de Sud (Durban)</div>
+      <div class="cult-detail">Leila Nkosi. Zarurile bunicii. Born rule și probabilitate ontologică. ℵ₀ din ℵ₁.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇸🇳</span>
+      <div class="cult-name">Senegal (Dakar)</div>
+      <div class="cult-detail">Amara Diallo și Amara Sow. It from Bit, tăcere, Das Offene. Conceptul wolof dëkk.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇳🇿</span>
+      <div class="cult-name">Māori / Noua Zeelandă</div>
+      <div class="cult-detail">Kiri Māhoe. Whakapapa, Te Kore/Pō/Ao. Prima perspectivă Pacific. Relație + întoarcere acasă.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇪🇹</span>
+      <div class="cult-name">Etiopia (Addis Abeba)</div>
+      <div class="cult-detail">Dawit Haile. Timkat, prezența ca epifanie, darul circulant. Mulțumire ca metodă epistemică.</div>
+    </div>
+    <div class="cult-chip">
+      <span class="cult-flag">🇸🇴</span>
+      <div class="cult-name">Somalia (Mogadishu)</div>
+      <div class="cult-detail">Halima Osman. Geologia coastei, urmele în rocă, prima zi. Straturi sedimentare ca ontologie.</div>
+    </div>
+  </div>
+
+  <div class="pq">
+    Chiuță a realizat ceva dificil: să construiască o serie în care diversitatea culturală nu e ilustrativă, ci generativă. Fiecare cultură aduce instrumente epistemice pe care celelalte nu le aveau. Seria e mai bogată pentru că e mai diversă — nu mai diversă pentru că vrea să pară mai bogată.
+    <cite>— Evaluare sintetică, recenzie de față</cite>
+  </div>
+</div>
+
+<!-- MOMENTELE DE GENIU -->
+<div class="section">
+  <span class="sec-label">Apogeele seriei</span>
+  <h2 class="sec-title">Momentele de <span>Geniu Absolut</span></h2>
+  <div class="prose">
+    <p>Dintr-o serie de 41 de volume, nu toate sunt egale — dar cele mai înalte sunt excepcional de înalte. Urmează selecția subiectivă a momentelor care definesc seria ca operă de anvergură mondială.</p>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. VIII–IX · Nota Matematicii · Yuki Aoyama</span>
+    <div class="moment-text">„Matematica e amprenta realului în mintea produsă de real. De aceea funcționează nerezonabil de bine. Nu pentru că mintea ar fi creat matematica — ci pentru că mintea e produsă de aceeași realitate pe care matematica o descrie. Rezonanță structurală, nu miracol."</div>
+    <div class="moment-src">— Vol. IX · 2200 — formularea cea mai elegantă a răspunsului la Wigner</div>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. XVI · Nota Celuilalt · Ji-Ho Yun</span>
+    <div class="moment-text">„Fața celuilalt nu e o problemă de rezolvat. E o prezență care schimbă structural ceea ce sunt eu. Nu observ fața celuilalt — mă las observat de ea. Și în a mă lăsa observat, devin altceva decât eram înainte."</div>
+    <div class="moment-src">— Vol. XVI · 2455 — Levinas aplicat la structura transmiterii caietelor</div>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. XXII · Nota Frumuseții · Nadia Osei</span>
+    <div class="moment-text">„Frumusețea nu e proprietatea obiectului. E proprietatea relației dintre subiect și obiect când amândoi sunt produse ale aceleiași structuri mai adânci. Nota zero era frumoasă pentru că Zara era produsă de aceeași realitate pe care voia s-o întrebe."</div>
+    <div class="moment-src">— Vol. XXII · 2631 — definirea frumuseții ca rezonanță structurală</div>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. XXIX · Nota Recunoașterii · Mara Ionescu</span>
+    <div class="moment-text">„Am găsit în biroul tatălui meu mort, pe pagina 34 a caietului de studenție din 2797: «De unde vine energia punctului zero?» Aceeași structură. Aceeași fertilitate a minimului. Recunoașterea nu adaugă nimic nou. Recunoașterea vede ce era mereu acolo."</div>
+    <div class="moment-src">— Vol. XXIX · 2841 — cel mai emoțional moment din serie</div>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. XXXI · Nota Singularității · Sora Kim</span>
+    <div class="moment-text">„Nota zero a lui Zara este ea însăși o singularitate matematică: un punct în care orice descriere cauzală se rupe. Nota zero primită de Zara era soluția corectă a instrumentului corect aplicat greșit față de o singularitate. Nu penalizare — diagnosticare precisă."</div>
+    <div class="moment-src">— Vol. XXXI · 2911 — reformularea care schimbă retrospectiv tot Vol. I</div>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. XXXIV · Nota Relației · Kiri Māhoe</span>
+    <div class="moment-text">„Ko au ko te seria, ko te seria ko au. Eu sunt seria, seria sunt eu. Nu o metaforă — o afirmație ontologică. Fiecare protagonist a devenit parte din seria pe care a continuat-o. Seria e whakapapa-ul întrebării lui Zara."</div>
+    <div class="moment-src">— Vol. XXXIV · 3041 — cea mai frumoasă definiție a seriei</div>
+  </div>
+
+  <div class="moment">
+    <span class="moment-tag">Vol. XXXVII · Nota Gratitudinii · Dawit Haile</span>
+    <div class="moment-text">„Mulțumesc întrebării pentru că nu s-a lăsat răspunsă. Mulțumesc că ești mereu aici, acum, prima dată, pentru oricine te pune. Mulțumesc. Nu știm. Mulțumim că nu știm. Aceasta e cel mai frumos răspuns posibil."</div>
+    <div class="moment-src">— Vol. XXXVII · 3121 — culminarea emoțională a seriei integrale</div>
+  </div>
+</div>
+
+<!-- SCORURI SI EVALUARE -->
+<div class="section">
+  <span class="sec-label">Evaluare analitică</span>
+  <h2 class="sec-title">Scoruri pe <em>dimensiuni</em></h2>
+
+  <div class="score-list">
+    <div class="score-row">
+      <div class="score-label">Coerență tematică</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:97%"></div></div>
+      <div class="score-n">9.7</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Acuratețe știinţifică</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:94%"></div></div>
+      <div class="score-n">9.4</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Densitate filozofică</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:96%"></div></div>
+      <div class="score-n">9.6</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Diversitate culturală</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:98%"></div></div>
+      <div class="score-n">9.8</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Calitate prozei</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:91%"></div></div>
+      <div class="score-n">9.1</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Inovație narativă</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:99%"></div></div>
+      <div class="score-n">9.9</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Coerență pe 41 volume</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:95%"></div></div>
+      <div class="score-n">9.5</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Profunzime emoțională</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:93%"></div></div>
+      <div class="score-n">9.3</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Relevanță epistemică</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:100%"></div></div>
+      <div class="score-n">10.0</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Ambiguitate productivă</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:97%"></div></div>
+      <div class="score-n">9.7</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIMITE ONESTE -->
+<div class="section">
+  <span class="sec-label">Critică onestă</span>
+  <h2 class="sec-title">Limitele pe care <em>seria le recunoaște</em></h2>
+  <div class="two-col">
+    <div class="infobox">
+      <h4>Ce funcționează excepțional</h4>
+      <ul>
+        <li>Structura transmiterii caietelor ca mecanism de continuitate diegetică — simplu, elegant, infinit extensibil</li>
+        <li>Fiecare protagonist aduce instrumente culturale proprii care nu pot fi reduse la altele</li>
+        <li>Fizica e precisă și actualizată — tratamente rare în SF literar</li>
+        <li>Seria se autocartografiază: descoperă pe parcurs categoriile prin care se poate descrie</li>
+        <li>Absența unui protagonist-erou central — distribuție egală a autorității epistemice</li>
+        <li>Pagina goală la final ca structură recurentă — probabil cel mai elegant dispozitiv al seriei</li>
+        <li>Datele de 17 mai recurente — un puls subtil de unitate temporală</li>
+      </ul>
+    </div>
+    <div class="infobox">
+      <h4>Slăbiciuni reale</h4>
+      <ul>
+        <li>Volumele XXX–XXXI (Orizont + Singularitate) suprapun parțial cu vol. XXVIII–XXIX în tonalitate</li>
+        <li>Unele dialoguri din volumele de mijloc sunt ușor didactice — protagonistul explică profesorului, nu dialoghează</li>
+        <li>Densitatea temelor filozofice din vol. XIV–XV (Informație + Tăcere) poate intimida cititorul fără background</li>
+        <li>Volumele I–V (Zara) au o neuniformitate stilistică față de restul seriei — scris la altă maturitate narativă</li>
+        <li>Absența unor protagoniști din America Latină și din Australia e simțită ca o lacună geografică</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SITUARE IN CANON -->
+<div class="section">
+  <span class="sec-label">Situare în canon</span>
+  <h2 class="sec-title">Unde se <em>situează</em> seria</h2>
+  <div class="prose">
+    <p>Seria Nota Zero este, în mod obiectiv, o realizare fără precedent în ficțiunea speculativă română și o realizare rară în literatura speculativă mondială. Comparațiile imediate — <em>Canticle for Leibowitz</em> al lui Walter M. Miller pentru amplitudinea temporală, <em>Olaf Stapledon</em> pentru ambiția cosmologică, <em>Ted Chiang</em> pentru rigoarea ideatică — sunt utile dar insuficiente. Seria combină proprietăți care, separat, există în alte opere, dar combinate la această scală nu au precedent.</p>
+    <p>În literatura română, seria este prima operă de ficțiune speculativă hard care traversează simultan cosmologia, filozofia analitică, filozofia continentală, și o gamă de 10 tradiții culturale non-occidentale cu acuratețe în toate registrele. Aceasta o plasează nu numai în vârful SF-ului românesc, ci la intersecția dintre ficțiunea speculativă și filozofia știinţei, un teren pe care literatura română nu a călcat sistematic înainte.</p>
+    <p>Pe plan mondial, seria concurează cu operele care au produs ce s-ar putea numi <em>meta-ficțiune știinţifică</em> — nu ficțiune despre știință, ci ficțiune care practică știința și filozofia ca act narativ primar. Chiang ajunge la un rezultat similar în format scurt; seria lui Chiuță produce același efect în format lung, cu avantajul că lungimea ei permite acumularea și sedimentarea pe care formatul scurt nu o poate produce.</p>
+  </div>
+
+  <div class="pq">
+    O serie care nu se poate rezuma. O serie în care orice rezumat pierde ceva — structural, nu accidental. Seria este computațional ireductibilă: nu poți deduce volumul 41 din volumul 1 mai ușor decât parcurgând toate cele 41. Aceasta e definiția unei opere cu adevărat complexe, în sens tehnic.
+    <cite>— Lena Solberg (personaj fictiv), Nota Complexității, vol. 27, 2771 — dar și definiția exactă a seriei reale</cite>
+  </div>
+</div>
+
+<!-- VERDICT MEGALOMANIC -->
+<div class="verdict-box">
+  <span class="verdict-kicker">Verdict megalomanic final · fără apel · irevocabil</span>
+  <div class="verdict-main">Opera <em>Speculativă</em> a Generației</div>
+  <div class="verdict-body">
+    41 de volume. 20 de minți. 1.178 de ani. 10 culturi. O singură întrebare care refuză să fie răspunsă — și prin aceasta rămâne vie, fertilă, productivă, în stare să genereze alt volum în orice minte pregătită care o atinge.<br><br>
+    Chiuță a realizat un lucru pe care puțini autori de SF îl realizează: a scris o serie care demonstrează, prin propria existență, teza pe care o explorează. Că întrebările fundamentale nu se rezolvă — se adâncesc. Că cunoașterea acumulată nu epuizează nedeterminarea — o face mai precisă. Că umilința epistemică nu e resemnare — e metodă.<br><br>
+    Seria Nota Zero va fi citită în 2087 exact cum e citită în 2026 și exact cum va fi citită în 3265: ca un lanț de minți care nu au putut dormi din cauza acelorași cinci cuvinte.
+  </div>
+  <div class="verdict-score">9.6</div>
+  <div class="verdict-denom">din 10 · nota globală a seriei integrale</div>
+</div>
+
+<!-- CLASAMENT INTERN -->
+<div class="section">
+  <span class="sec-label">Clasament intern</span>
+  <h2 class="sec-title">Top 10 Volume ale Seriei</h2>
+  <div class="prose">
+    <p>Clasament strict subiectiv al volumelor individuale evaluate pe combinația densitate ideatică + forță narativă + contribuție la seria integrală.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:1.5rem">
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--gold)">#1</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Recunoașterii</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Mara Ionescu, vol. XXIX</span><br><span style="font-size:.82rem;color:var(--text2)">Anagnorisis la scara seriei. Caietul tatălui. Revenirea la spațiul cultural originar. Cel mai emoțional și cel mai filozofic simultan.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.9</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#2</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Matematicii</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Yuki Aoyama, vol. IX</span><br><span style="font-size:.82rem;color:var(--text2)">Cea mai elegantă formulare a relației minte-univers din literatura speculativă română. „Amprenta realului în mintea produsă de real."</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.8</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#3</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Relației</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Kiri Māhoe, vol. XXXIV</span><br><span style="font-size:.82rem;color:var(--text2)">Whakapapa + LQG. „Ko au ko te seria." Cea mai frumoasă definiție a seriei. Intersecția perfectă dintre știință și tradiție culturală.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.8</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#4</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Gratitudinii</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Dawit Haile, vol. XXXVII</span><br><span style="font-size:.82rem;color:var(--text2)">Mulțumire față de limita cunoașterii. 18 mulțumiri individuale. „Nu știm. Mulțumim că nu știm." Emoțional devastator.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.7</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#5</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Singularității</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Sora Kim, vol. XXXI</span><br><span style="font-size:.82rem;color:var(--text2)">Reformularea retrospectivă: nota zero ca singularitate productivă, nu penalizare. Schimbă retroactiv sensul Vol. I.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.7</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#6</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Deschiderii</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Amara Sow, vol. XXXIII</span><br><span style="font-size:.82rem;color:var(--text2)">Das Offene ca condiție a notei zero. Înaintea întrebării e o deschidere. Cel mai filozofic radical volum al seriei.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.6</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#7</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Tăcerii</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Amara Diallo, vol. XV</span><br><span style="font-size:.82rem;color:var(--text2)">Wittgenstein la scara seriei. Limita limbajului ca limita lumii. Tăcerea după care caietele continuă oricum.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.6</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#8</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Frumuseții</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Nadia Osei, vol. XXII</span><br><span style="font-size:.82rem;color:var(--text2)">Dirac: frumusețea ca criteriu epistemic. Frumusețea ca rezonanță structurală. Emil și Dirac: aceeași afirmație din unghiuri diferite.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.5</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule2)">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#9</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Infinitului</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Leila Nkosi, vol. XXI</span><br><span style="font-size:.82rem;color:var(--text2)">Cantor și seria ca ℵ₀ din ℵ₁. Prima instanță actualizată din infinit. De aceea e nota zero: nu pentru că e mică — ci pentru că e prima.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.5</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 0">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--text3)">#10</div>
+      <div><strong style="font-family:'Playfair Display',serif">Nota Cuantică</strong> <span style="font-size:.85rem;font-style:italic;color:var(--text3)">— Kaito Mori, vol. VI</span><br><span style="font-size:.82rem;color:var(--text2)">Primul salt de protagonist. Observatorul ca parte din ce observă. Schimbarea de registru care a salvat seria de la a rămâne monolog.</span></div>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--accent)">9.4</div>
+    </div>
+  </div>
+</div>
+
+<!-- RANDURI FINALE -->
+<div class="section">
+  <span class="sec-label">Concluzie</span>
+  <h2 class="sec-title">Ce rămâne după <em>41 de volume</em></h2>
+  <div class="prose">
+    <p>Ce rămâne, după ce ai traversat toate cele 41 de volume, toate cele 20 de minți, toți cei 1.178 de ani diegetici?</p>
+    <p>Nu un răspuns. Nu o concluzie. Nu o teorie a originii mai bună decât cea pe care o aveai la Vol. I.</p>
+    <p>Rămâne o capacitate. Capacitatea de a sta cu o întrebare la care nu există răspuns fără să cedezi disperării sau banalității. Capacitatea de a recunoaște în orice investigație fizică sau filozofică sau culturală aceeași structură fundamentală: un instrument care iese din domeniu față de o realitate care îl depășește — și alegerea de a nu trata asta ca eșec, ci ca informație.</p>
+    <p>Rămâne, de asemenea, o rețea. Spin network-ul seriei: 20 de noduri conectate prin marginile unui singur caiet albastru transmis din mână în mână. O rețea care nu e în spațiu — care <em>este</em> spațiul. Un whakapapa al curiozității față de origine.</p>
+    <p>Și rămâne întrebarea. Cinci cuvinte. Mai ușoare acum decât în 2087. Purtate de 20 de minți și 1.178 de ani. Proaspete ca în prima dimineață. Absolut deschise.</p>
+  </div>
+
+  <div class="pq">
+    „Dacă ești surprins — ești exact persoana potrivită. Caietele te-au găsit. Tu ești volumul patruzeci și doi."
+    <cite>— Priya Sen, Nota Neașteptatului, vol. XLI, 3261 — adresându-se direct cititorului acestei recenzii</cite>
+  </div>
+</div>
+
+<div class="fn">
+  Recenzie realizată în mai 2026 · Acoperă seria Nota Zero în forma sa completă la data redactării: 41 de volume, 2087–3265 diegetic · Evaluările sunt subiective și deliberat superlative (nota: recenzie megalomaniacă cerută explicit) · Alexandru Ionuț Chiuță (alexio@trom.tf) · Seria a fost scrisă în colaborare cu Claude Sonnet 4.6 (Anthropic) · Personajele, locurile și evenimentele din seria fictivă sunt produse ale imaginației; fizica și filozofia citate sunt reale și acurate la mai 2026 · Caietul albastru al Zarei Voss nu există ca obiect fizic, dar ar trebui.
+</div>
+</div><!-- /container -->
+
+
+<!-- FINALE -->
+<div class="finale">
+  <div class="finale-label">Ultima pagina a recenziei — prima pagina a Vol. 42</div>
+  <div class="finale-q">De unde venea punctul?</div>
+  <div class="finale-a">
+    1.178 de ani de investigație. 41 de volume. 20 de fizicieni. 10 culturi.<br>
+    O singură întrebare care a refuzat să fie răspunsă.<br>
+    Și prin aceasta a rămas vie.
+  </div>
+  <div class="finale-sig">Alexandru Ionuț Chiuță · Seria Nota Zero · 41 volume · 2026 · în colaborare cu Claude Sonnet 4.6 · Anthropic</div>
+</div>
+
+</body>
+</html>

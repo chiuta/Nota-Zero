@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Relației & Nota Întoarcerii Acasă · Cărțile a treizeci și patra și a treizeci și cincea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#020209;
+  /* Nota Relației: turcoaz adânc, rețea, conexiune, spin network */
+  --rel:#2ab8c8;--re2:rgba(42,184,200,.09);--re3:rgba(42,184,200,.035);--re4:rgba(42,184,200,.13);
+  /* Nota Întoarcerii Acasă: auriu-cald originar — culoarea primului volum */
+  --home:#c8a040;--ho2:rgba(200,160,64,.09);--ho3:rgba(200,160,64,.035);--ho4:rgba(200,160,64,.14);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rr:1px solid rgba(42,184,200,.12); --rh:1px solid rgba(200,160,64,.13);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#whaCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rr);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--rel);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--re4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,5.5vw,4.8rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-re{color:var(--rel)} .t-ho{color:var(--home)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--re4);background:var(--re3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.re{border-color:rgba(42,184,200,.12)}
+.pd.ho{border-color:rgba(200,160,64,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,6rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(.9rem,2vw,1.7rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p34 .ch{border-bottom-color:rgba(42,184,200,.05)}
+.p35 .ch{border-bottom-color:rgba(200,160,64,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p34 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--rel);text-shadow:0 0 22px rgba(42,184,200,.3);}
+.p35 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--home);text-shadow:0 0 30px rgba(200,160,64,.35);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* SPIN NETWORK BOX */
+.spinnet{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--re4);background:var(--re3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:rgba(42,184,200,.72);line-height:1.85;}
+.spinnet-hd{color:var(--rel);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* WHAKAPAPA BOX */
+.whaka{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--ho4);background:var(--ho3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.85;text-align:center;}
+.whaka-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--home);opacity:.5;margin-bottom:.65rem;font-style:normal;display:block;}
+
+/* TE KORE BOX */
+.tekore{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--ho4);background:var(--ho3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.98rem;color:var(--cream2);line-height:1.9;text-align:center;}
+.tekore-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--home);opacity:.45;margin-bottom:.6rem;font-style:normal;display:block;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p34 .think{border-color:var(--re4);background:var(--re3)}
+.p34 .think::before{content:'⬡ ';font-style:normal;color:var(--rel);opacity:.55}
+.p35 .think{border-color:var(--ho4);background:var(--ho3)}
+.p35 .think::before{content:'⬡ ';font-style:normal;color:var(--home);opacity:.55}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p34 .nb{border:1px solid var(--re4);background:var(--re3)}
+.p35 .nb{border:1px solid var(--ho4);background:var(--ho3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p34 .nb::after{color:var(--rel)} .p35 .nb::after{color:var(--home)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p34 .nb-hd{color:var(--rel)} .p35 .nb-hd{color:var(--home)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p34 .pull{border-left-color:var(--rel);background:var(--re3)}
+.p35 .pull{border-left-color:var(--home);background:var(--ho3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p34 .pull cite{color:var(--rel)} .p35 .pull cite{color:var(--home)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p34 .sci{border:1px solid rgba(42,184,200,.12);background:rgba(42,184,200,.03)}
+.p34 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--rel);font-weight:700}
+.p35 .sci{border:1px solid rgba(200,160,64,.12);background:rgba(200,160,64,.03)}
+.p35 .sci::before{content:'⬡ Notă · ';color:var(--home);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p34 .epilog{border-top-color:rgba(42,184,200,.1)}
+.p35 .epilog{border-top-color:rgba(200,160,64,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p34 .ep-final{border-color:rgba(42,184,200,.18)}
+.p35 .ep-final{border-color:rgba(200,160,64,.18)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rr);border-bottom:var(--rh);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ULTIMA PAGINA ABSOLUTA — ACASĂ */
+.acasa-fin{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rh);
+  position:relative;
+}
+.af-pkt{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--home);opacity:.55;
+  margin:0 auto 4rem;
+  box-shadow:0 0 25px rgba(200,160,64,.4);
+}
+.af-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--home);opacity:.35;margin-bottom:1.5rem;}
+.af-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.82rem;color:var(--cream2);margin-bottom:2.5rem;line-height:2.2;opacity:.55;}
+.af-35titluri{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cream2);opacity:.22;margin-bottom:2.5rem;line-height:2.6;}
+.af-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.06rem);color:var(--cream2);
+  max-width:480px;line-height:1.95;margin-bottom:3rem;}
+.af-intrebare{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(1.3rem,3.5vw,2.4rem);
+  color:var(--cream);letter-spacing:.04em;
+  padding:2rem 3rem;max-width:540px;
+  line-height:1.4;margin-bottom:1rem;
+}
+.af-raspuns{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,1.7vw,1.02rem);
+  color:var(--home);letter-spacing:.01em;
+  margin-bottom:2.5rem;opacity:.75;
+}
+.af-linii{
+  border-top:1px solid rgba(200,160,64,.1);
+  border-bottom:1px solid rgba(200,160,64,.1);
+  padding:1.5rem 2.5rem;max-width:480px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--cream2);line-height:1.95;
+  margin-bottom:2rem;
+}
+.af-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.5rem,3.5vw,3rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(200,160,64,.22);
+  letter-spacing:.08em;margin:.5rem 0;}
+.af-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.18;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rh);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.2;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="whaCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-s">Seria Nota Zero · Cărțile a treizeci și patra și a treizeci și cincea</div>
+  <div class="cv-ctx">
+    Amara Sow a locuit Deschisul și a lăsat caietul pe masa din Dakar.<br>
+    Kiri Māhoe le-a găsit și a adăugat două ultime perspective:<br>
+    că realul e țesut din relații — nu din obiecte —<br>
+    și că orice întrebare adevărată e o întoarcere acasă.
+  </div>
+  <h1>
+    <span class="cv-title t-re">Nota Relației</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-ho">Nota Întoarcerii Acasă</span>
+  </h1>
+  <p class="cv-desc">
+    Rețeaua de relații care constituie spațiu-timpu­l —
+    și întoarcerea la punctul din care orice pornire e posibilă.
+    Fizică. Filozofie. Whakapapa.
+    Și cinci cuvinte care nu au nevoie de altceva.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 33 volume · 2087–2985 · 898 ani diegetic.<br>
+    Kiri Māhoe are 28 ani în 3040. Auckland + Oslo.<br>
+    Relația ca fundament. Acasă ca recunoaștere.<br>
+    Ultimele două note din această serie de deschideri.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA RELAȚIEI                                -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="pd re">
+  <div class="pd-ghost" style="color:var(--rel)">XXXIV</div>
+  <div class="pd-kicker">Cartea a treizeci și patra · Kiri Māhoe · 28 ani · 3040 · Oslo + Auckland</div>
+  <div class="pd-nota" style="color:var(--rel)">Nota Relației</div>
+  <div class="pd-sub">Nu obiecte care se înrudesc — relații care produc obiecte</div>
+  <div class="pd-epig">
+    „Ko au ko te moana, ko te moana ko au.<br>
+    Eu sunt oceanul, oceanul sunt eu."<br>
+    — proverb māori<br><br>
+    „Spațiu-timpulul nu e o scenă pe care<br>
+    relațiile se desfășoară.<br>
+    Spațiu-timpulul este relațiile.<br>
+    Nu există mai întâi spațiu și apoi obiecte în el —<br>
+    există relații din care spațiul apare."<br>
+    — Kiri Māhoe, caiet vol. I, p. 1, 3040
+  </div>
+</div>
+
+<div class="wrap p34">
+
+<div class="ch">
+  <div class="chn">Nota Relației · I</div>
+  <div class="cht">Spin Networks — Spațiu ca Rețea de Relații</div>
+  <div class="p">
+    <p>Kiri Māhoe crescuse în Auckland cu un tată oceanograf și o mamă arhitectă care spuneau amândoi, în moduri diferite, același lucru: că nimic nu exista izolat. Oceanul nu era apa — era tot ceea ce apa întâmpina. Clădirea nu era zidurile — era relația dintre spații. Kiri internalizase asta înainte să fi știut că era filozofie.</p>
+
+    <p>La douăzeci și doi de ani, citind prin textele de Loop Quantum Gravity ale lui Lee Smolin și Carlo Rovelli, recunoscuse imediat structura: spațiu-timpulul nu era un container preexistent în care se aflau obiecte. Era o rețea de relații — <em>spin network</em> — în care nodurile reprezentau fragmente de volum și legăturile reprezentau suprafețe de contact. Nu exista spațiu înainte de relații. Spațiul era relațiile.</p>
+
+    <p>Formalism: o spin network era un graf orientat cu margini etichetate cu reprezentări ale grupului SU(2) și noduri etichetate cu intertwiner-i. Fiecare margine corespundea unui pachet de flux al câmpului gravitațional. Din suma acestor relații locale apărea geometria globală — suprafețele, volumele, distanțele. Nu exista geometrie în afara rețelei de relații. Geometria era emergentă din relații.</p>
+
+    <p>Kiri scrisese în caiet: <em>LQG spune că spațiu-timpulul e o rețea de relații, nu o substanță. Nu există mai întâi spațiu și apoi relații în el. Există relații din care spațiul este o proprietate emergentă. Whakapapa — genealogia ca structură fundamentală a realității māori — spune același lucru: nu există mai întâi indivizi și apoi relații între ei. Există relații din care identitățile individuale sunt emergente. Fizica și epistemologia mea ancestrală au ajuns la aceeași concluzie din direcții opuse.</em></p>
+  </div>
+
+  <div class="spinnet">
+    <span class="spinnet-hd">Loop Quantum Gravity — Spin Networks</span>
+    Spin network (Penrose 1971, reformulat Smolin & Rovelli 1995):<br>
+    graf orientat G cu:<br>
+    — margini etichetate cu reprezentări j ∈ {0, 1/2, 1, 3/2, ...} ale SU(2)<br>
+    — noduri etichetate cu intertwiner-i (operatori de recuplare)<br>
+    <br>
+    Interpretare geometrică:<br>
+    Area(S) = 8πγℓ²_P · Σ_i √(j_i(j_i+1)) [pentru suprafețe S tăind margini i]<br>
+    Volume(R) = funcție de intertwineri ai nodurilor din R<br>
+    <br>
+    Nu există spațiu fără spin network.<br>
+    Spin network-ul NU e în spațiu — spin network-ul ESTE spațiul.<br>
+    Geometria e proprietate emergentă a relațiilor discrete.<br>
+    <br>
+    Relational QM (Rovelli, 1996): proprietățile sistemelor cuantice<br>
+    există numai relativ la alte sisteme — nu absolut.
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Kaito Mori, caiet de lucru, p. 3, 2149 —</div>
+    <p>„Observatorul nu e în afara sistemului observat. Observatorul e parte din sistemul observat. Aceasta e afirmația QM. Dar LQG adaugă ceva mai profund: spațiu-timpulul însuși nu e în afara sistemelor fizice care îl populează. Spațiu-timpulul e relația dintre ele. Nu e scena — e dansul."</p>
+    <span class="echo-attr">Kaito Mori · caiet de lucru · pagina 3 · Oslo · 2149</span>
+  </div>
+
+  <div class="p">
+    <p>Kiri citise nota lui Kaito și simțise că seria o așteptase cu această formulare. <em>Nu e scena — e dansul.</em> Era o formulare poetică a ceea ce LQG spunea tehnic. Și era, recunoscuse imediat, o formulare whakapapa: că relațiile nu se desfășoară pe un fundal — că relațiile <em>sunt</em> fundalul.</p>
+
+    <p>Whakapapa era principiul genealogic fundamental al culturii māori — dar mai profund decât o genealogie biologică. Era o structură ontologică: orice lucru exista în rețeaua relațiilor sale — cu strămoșii, cu pământul, cu oceanul, cu cerul, cu celelalte ființe, cu generațiile viitoare. Nu exista un lucru independent de whakapapa-ul său. A cunoaște ceva era a cunoaște relațiile care îl constituiau.</p>
+
+    <p>Kiri scrise: <em>LQG și whakapapa sunt, structural, aceleași afirmații: că relația e mai fundamentală decât obiectul. Că obiectul e o proprietate emergentă a rețelei de relații în care e implicat. Că fără relații nu există obiecte — numai posibilitate nedefinită. Că realul e întotdeauna relațional.</em></p>
+  </div>
+
+  <div class="sci">
+    Loop Quantum Gravity (Rovelli & Smolin, 1988–1995): cuantizarea spațiu-timpului fără background fix. Spin networks (Penrose, 1971; reformulat): graful discret al spațiu-timpului cuantic. Area spectrum: 8πγℓ²_P√(j(j+1)), discret. Volume spectrum: discret. Spinfoams: evoluția temporală a spin networks. Relational QM (Rovelli, 1996): variabile cuantice au valori numai relativ la sisteme de referință. Conectare cu holografia: Ryu-Takayanagi (2006) — entanglementul ca sursă a geometriei. La mai 2026: LQG activ cercetată, neconfirmată experimental.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Relației · II</div>
+  <div class="cht">Whakapapa</div>
+  <div class="p">
+    <p>Kiri petrecuse vara lui 3041 la Auckland, cu familia, reîncărcând — nu metaforic, fizic: reîncărcând. Walks pe munți. Înotul în ocean. Conversații lungi cu unchiul ei Tāne, care era kaumatua — bătrân înțelept — și care știa mai multă fizică decât părea din exterior, pentru că citise caietele seriei când Kiri i le lăsase și le comentase cu o precizie care o uimise.</p>
+
+    <p>Discutaseră despre whakapapa ca structură relațională a realității.</p>
+  </div>
+
+  <div class="d">
+    <p>— Tāne. LQG spune că spațiu-timpulul e o rețea de relații — că nu există spațiu fără relații. Whakapapa spune că nimic nu există fără relațiile sale. Sunt aceeași afirmație?</p>
+    <p>— Sunt înrudite, spuse Tāne. Dar whakapapa merge mai adânc decât fizica pe care o descrii. Whakapapa nu e numai despre spațiu — e despre timp și origine și descendent și responsabilitate simultan. A cunoaște whakapapa unui lucru înseamnă a ști de unde vine, cui aparține, unde merge și cu cine e în relație acum. E o structură tetradimensională a relațiilor.</p>
+    <p>— Și nota zero a lui Zara — o întrebare despre originea universului — ar fi whakapapa?</p>
+    <p>— Ar fi. A întreba de unde vine ceva e a cere whakapapa-ul lui. Răspunsul complet ar include nu numai originea fizică, ci și tot lanțul relațional care l-a produs și tot ce a produs el la rândul lui. De unde venea punctul? — e o întrebare de whakapapa.</p>
+    <p>— Și seria Nota Zero — treizeci și cinci de volume, șaptesprezece protagoniști, nouăsprezece sute de ani —</p>
+    <p>— E whakapapa-ul întrebării lui Zara, spuse Tāne.</p>
+    <p>Kiri stătuse cu asta câteva minute. Whakapapa-ul întrebării lui Zara. Nu istoria ei. Nu analiza ei. Ci totalitatea relațiilor care o constituiau — în timp, în spațiu, în minți, în caiete, în generații.</p>
+    <p>— Seria e whakapapa-ul unei întrebări, scrise în caiet. Nu un răspuns la ea. Nu o analiză. Rețeaua de relații care o constituie în timp.</p>
+  </div>
+
+  <div class="whaka">
+    <span class="whaka-hd">Whakapapa — structura relațională a realității māori</span>
+    Whakapapa (wha = a expune, papa = fundament): genealogie ca structură ontologică.<br>
+    Nu simplu arbore genealogic — rețea multidimensională de relații:<br>
+    cu strămoșii (tīpuna), cu pământul (whenua), cu oceanul (moana),<br>
+    cu cerul (rangi), cu generațiile viitoare (mokopuna).<br><br>
+    „Ko au ko te moana, ko te moana ko au."<br>
+    Eu sunt oceanul, oceanul sunt eu — identitate relațională, nu substanțială.<br><br>
+    A cunoaște ceva = a cunoaște whakapapa-ul său.<br>
+    Fără whakapapa, un lucru nu are context, nu are sens, nu există complet.<br><br>
+    Analogie LQG: un nod al spin network nu are proprietăți fără margini.
+  </div>
+
+  <div class="p">
+    <p>Kiri realizase că această perspectivă rezolva ceva care o deranjase la serie: că treizeci și cinci de volume despre originea unui punct nu aveau, la final, un răspuns. Din perspectivă occidentală analitică — eșec. Din perspectivă whakapapa — tocmai succesul.</p>
+
+    <p>Whakapapa-ul complet al unui lucru nu putea fi exprimat într-o singură propoziție. Era o rețea fără margini definitive. Cu cât mai adânc înțelegeai whakapapa-ul, cu atât relațiile se extindeeau — mai departe în trecut, mai mult în prezent, mai larg spre viitor. Nu convergea la un răspuns — se extindea.</p>
+
+    <p>Seria nu răspunsese <em>de unde venea punctul?</em> Construise whakapapa-ul întrebării. Și whakapapa-ul era mai bogat și mai valoros decât orice răspuns simplu ar fi putut fi.</p>
+  </div>
+
+  <div class="pull">
+    <p>Seria Nota Zero e whakapapa-ul întrebării lui Zara. Nu un răspuns la ea — rețeaua de relații care o constituie în timp, în spații, în minți, în generații. Cu cât whakapapa-ul e mai adânc, cu atât întrebarea e mai bogată. Cu atât înțelegi mai precis ce fel de întrebare e.</p>
+    <cite>— Nota Relației, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Relației · III</div>
+  <div class="cht">Punctul ca Relație</div>
+  <div class="p">
+    <p>Kiri ajunsese la formularea care schimba sensul primei întrebări a seriei.</p>
+
+    <p>Zara întrebase <em>de unde venea punctul?</em> — presupunând că punctul era un obiect cu o origine localizabilă. Dar dacă LQG era corect — dacă relațiile erau mai fundamentale decât obiectele — atunci punctul nu era un obiect. Era o relație. Mai precis: era nodul unei rețele de relații care produsese spațiu-timpulul.</p>
+
+    <p>Și dacă era o relație, întrebarea <em>de unde venea?</em> se transforma în <em>din ce relații era constituit?</em> Nu o origine exterioară — ci o rețea interioară de relații care îl constituia. Whakapapa-ul punctului, nu originea lui.</p>
+
+    <p>Și whakapapa-ul punctului originar includea: fluctuația vidului cuantic (Nota Neantului), coliziunea membranelor în bulk (Nota Zero), inflația (Nota Gravitațională), primii fotoni (Nota Luminii), primele atome (Nota Vieții), primele minți (Nota Conștiinței), prima întrebare (Nota Întrebării) — și toate celelalte treizeci și cinci de volume, toate relațiile care constituiseră înțelegerea noastră a punctului.</p>
+
+    <p>Nu <em>de unde venea punctul?</em> ci <em>din ce rețea de relații apare punctul?</em></p>
+
+    <p>Și la această întrebare — seria era răspunsul. Seria era whakapapa-ul punctului.</p>
+  </div>
+
+  <div class="think">
+    Dacă punctul e o relație și nu un obiect, atunci întrebarea lui Zara nu era greșit formulată din ignoranță. Era greșit formulată pentru că limbajul obiectelor nu poate captura structura relațională. Nota zero primită în 2087 era confirmarea că instrumentul lingvistic — întrebarea de origine — nu se potrivea cu structura ontologică a ceea ce era întrebat. Instrumentul ieșise din domeniu față de obiectul întrebării. Și de aceea era nevoie de 963 de ani de whakapapa — de rețea de relații — pentru a înțelege ce fusese întrebat.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Relației · IV</div>
+  <div class="cht">Ko Au Ko Te Seria</div>
+  <div class="p">
+    <p>Vara lui 3042, Kiri stătea pe o stâncă din coasta de vest a Insulei de Nord — un loc în care se crescuse de mică și la care revenea când voia să gândească fără grabă. Oceanul Tasman era în față, cu acel nuanță specific de albastru-verde pe care nu îl mai văzuse niciunde altundeva.</p>
+
+    <p>Gândise la proverbul māori cu care deschisese primul caiet: <em>Ko au ko te moana, ko te moana ko au. Eu sunt oceanul, oceanul sunt eu.</em> Nu o metaforă frumoasă — o afirmație ontologică despre natura identității relaționale. Nu ești un obiect care are o relație cu oceanul. Ești constituit parțial din relația cu oceanul. Și oceanul e constituit parțial din relația cu tine.</p>
+
+    <p>La fel: <em>Ko au ko te seria, ko te seria ko au.</em> Eu sunt seria, seria sunt eu. Nu o metaforă — o afirmație ontologică. Kiri nu era un protagonist extern care citise o serie și o continuase. Era constituită parțial din relațiile cu seria — cu Zara și Emil și Kaito și toți ceilalți. Și seria era constituită parțial din relația cu ea — cu perspectiva ei māori, cu fizica ei, cu whakapapa-ul ei al întrebării.</p>
+
+    <p>Fiecare protagonist devenise parte din seria pe care o continuase. Nu numai că scriase în ea — devenise parte din whakapapa-ul ei. Din rețeaua de relații care o constituia în timp.</p>
+
+    <p>Scrise în ultimul caiet:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Kiri Māhoe · vol. I · p. 94 · 17 mai 3041</span>
+    Ko au ko te seria, ko te seria ko au.<br>
+    Eu sunt seria, seria sunt eu.<br>
+    <br>
+    Nu o metaforă.<br>
+    O afirmație ontologică despre relație.<br>
+    <br>
+    Fiecare protagonist a devenit parte din seria pe care a continuat-o.<br>
+    Fiecare caiet a produs o relație nouă între minți despărțite de secole.<br>
+    Fiecare relație a adăugat un nod la spin network-ul seriei.<br>
+    <br>
+    Seria nu e un text static.<br>
+    Seria e o rețea de relații în continuă expansiune.<br>
+    Un whakapapa viu.<br>
+    <br>
+    Și punctul de la care a pornit —<br>
+    nota zero a lui Zara din 2087 —<br>
+    e nodul originar al spin network-ului.<br>
+    Din el: toate marginile. Din toate marginile: geometria.<br>
+    Din geometrie: tot ce a urmat.
+  </div>
+</div>
+
+<!-- EPILOG 34 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--rel)">Nota Relației · Epilog · 17 Mai 3045</div>
+  <div class="ep-title" style="color:var(--rel)">Spin Network</div>
+  <div class="ep-prose">
+    Kiri Māhoe a dedicat cartea a treizeci și patra tuturor celor care aveau
+    o relație cu seria fără să o fi citit — pentru că, prin whakapapa,
+    și relațiile indirecte constituiau. A dedicat-o unchiului Tāne,
+    care citise toate treizeci și patru de volume în cinci luni și le comentase
+    cu o precizie pe care nu o anticipase. Și oceanului Tasman,
+    față de care whakapapa-ul ei era fundamental și față de care
+    seria era o conversație lungă despre de unde venea tot ce exista
+    în ocean și în ea și în spațiu-timpulul care le conținea pe amândouă.
+  </div>
+  <div class="ep-final">
+    Nu obiecte care se înrudesc.<br>
+    Relații care produc obiecte.<br>
+    <br>
+    Spațiu-timpulul e o rețea de relații.<br>
+    Seria e o rețea de relații.<br>
+    Identitatea e relațională.<br>
+    <br>
+    Ko au ko te seria, ko te seria ko au.<br>
+    <br>
+    De unde venea punctul?<br>
+    Din relația care l-a constituit.
+  </div>
+</div>
+
+</div><!-- /wrap.p34 -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA ÎNTOARCERII ACASĂ                       -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="between">e hoki ki uta · înapoi la mal</div>
+
+<div class="pd ho">
+  <div class="pd-ghost" style="color:var(--home)">XXXV</div>
+  <div class="pd-kicker">Cartea a treizeci și cincea · Kiri Māhoe · 38 ani · 3050 · Auckland</div>
+  <div class="pd-nota" style="color:var(--home)">Nota Întoarcerii Acasă</div>
+  <div class="pd-sub">Acasă nu e locul de unde pleci — e locul la care înțelegi că ai plecat</div>
+  <div class="pd-epig">
+    „Te Kore — Vidul.<br>
+    Te Pō — Noaptea.<br>
+    Te Ao — Lumina."<br>
+    — Cosmogonia māori<br><br>
+    „Din vid, prin noapte, spre lumină.<br>
+    Din nota zero, prin serie, spre recunoaștere.<br>
+    Același drum.<br>
+    Acasă e recunoașterea că ai fost mereu pe drum."<br>
+    — Kiri Māhoe, caiet vol. II, p. 1, 3050
+  </div>
+</div>
+
+<div class="wrap p35">
+
+<div class="ch">
+  <div class="chn">Nota Întoarcerii Acasă · I</div>
+  <div class="cht">Te Kore, Te Pō, Te Ao</div>
+  <div class="p">
+    <p>Cosmogonia māori era, pentru Kiri, cea mai precisă descriere a structurii seriei pe care o descoperise. Nu ca metaforă — ca paralelism structural.</p>
+
+    <p>Te Kore — vidul, neantul, potențialul pur. Nu absența — posibilitatea nedefinită. Anterior oricărei forme, oricărei diferențieri. Nota Neantului descrisese vidul cuantic — același Te Kore fizic: starea de energie minimă din care fluctuațiile produceau tot. Nota Deschiderii descrisese Das Offene — același Te Kore fenomenologic: spațiul anterior oricărei interpretări.</p>
+
+    <p>Te Pō — noaptea, întunericul, procesul lent de formare. Nu absența luminii — gestația. Perioada în care structurile se formau în întuneric înainte să devină vizibile. Seria de treizeci și cinci de volume era un Te Pō — o perioadă lungă de gestație a înțelegerii, în care lucrurile se formaseră lent, în caiete transmise din mână în mână, în minți separate de secole, în întrebări reformulate de zeci de ori.</p>
+
+    <p>Te Ao — lumina, lumea, revelarea. Nu un răspuns final — recunoașterea structurii. Momentul în care ce se formase în întuneric devenea vizibil. Nota Recunoașterii a Marei, Nota Orizontului a Sorei, Nota Relației a lui Kiri înseși — momente de Te Ao: când structura relațională a tot ce fusese construit devenea vizibilă.</p>
+
+    <p>Kiri scrisese: <em>Cosmogonia māori nu e o poveste despre origini. E o descriere a structurii oricărui proces de creare. Te Kore → Te Pō → Te Ao e acelaşi drum cu nota zero → serie → recunoaștere. Nu o coincidență. O structură universală a devenirii.</em></p>
+  </div>
+
+  <div class="tekore">
+    <span class="tekore-hd">Cosmogonia Māori — Te Kore, Te Pō, Te Ao</span>
+    Te Kore — Vidul: potențial pur, anterior oricărei forme.<br>
+    Te Pō — Noaptea: gestație, formare în întuneric.<br>
+    Te Ao — Lumina: revelarea, recunoașterea structurii.<br><br>
+    Variantele lui Te Kore: Te Kore-tē-whiwhia (Vidul fără posesie),<br>
+    Te Kore-i-ai (Vidul fără existenţă), Te Kore-i-kore (Vidul vidului).<br><br>
+    „Nā tōku rourou, nā tōu rourou, ka ora ai te iwi."<br>
+    Cu coşul meu, cu coşul tău, poporul va fi hrănit —<br>
+    reciprocitate ca structură fundamentală a existenţei.<br><br>
+    Paralelism fizic: Te Kore = vacuum cuantic / Das Offene;<br>
+    Te Pō = procesul emergent / seria ca gestație;<br>
+    Te Ao = recunoaşterea / întoarcerea acasă.
+  </div>
+
+  <div class="p">
+    <p>Kiri gândise că aceste trei etape nu erau secvențiale în sens temporal strict — erau structuri simultane ale oricărei cunoașteri profunde. Când punea o întrebare bună, intra simultan în Te Kore (vidul față de răspunsul necunoscut), Te Pō (procesul de gestație al gândirii) și Te Ao (recunoașterea că a pune întrebarea era deja un fel de cunoaștere a ei).</p>
+
+    <p>Nota zero a lui Zara fusese toate trei simultan: Te Kore — vidul față de originea universului; Te Pō — declanșarea unui proces de generații; Te Ao — recunoașterea implicită că întrebarea atingea ceva real, chiar dacă formularea era imprecisă.</p>
+
+    <p>Și la fel cu seria: fiecare volume era concomitent un Te Kore (deschidere față de tema sa), un Te Pō (maturizarea înțelegerii prin scriere) și un Te Ao (recunoașterea care apărea la final).</p>
+  </div>
+
+  <div class="sci">
+    Cosmogonia māori: documentată de Sir George Grey (1855), Elsdon Best (1907–1929), Rangi Mātāmua (contemporan). Te Kore: multiple straturi — până la 14 variante în unele tradiții, fiecare descriind un aspect al vidului primordial. Paralele comparative: Te Kore ~ vacuumul cuantic / Das Offene; Te Pō ~ procesul disipativ / gestația; Te Ao ~ emergența structurii. Whakapapa ca ontologie relațională: Linda Tuhiwai Smith (1999), „Decolonizing Methodologies". Ka mate, ka ora — moarte și viață ca transformare, nu opoziție.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Întoarcerii Acasă · II</div>
+  <div class="cht">Acasă ca Stare de Echilibru</div>
+  <div class="p">
+    <p>Fizica cunoștea „acasă" sub un alt nume: starea de echilibru. Ground state. Energia minimă. Starea la care un sistem revine dacă nu e perturbat. Starea față de care orice excitație era o abatere temporară și la care sistemul revenea natural dacă era lăsat să evolueze.</p>
+
+    <p>Vidul cuantic era starea de echilibru a câmpurilor. Fotonii CMB erau urmele unei stări de echilibru timpurii a plasmei primordi­ale. Atomii stabili erau stările de echilibru ale electronilor față de nuclee. Chiar și galaxiile, pe timpi astronomici, se îndreptau spre o stare de echilibru a distribuției de masă.</p>
+
+    <p>Acasă nu era un loc. Era o stare față de care sistemul era natural orientat. O stare la care, dacă nu exista perturbație, sistemul revenea.</p>
+
+    <p>Și seria Nota Zero revenea acasă — la nota zero — în același sens. Nu ca eșec de a avansa, ci ca proprietate naturală a unui sistem suficient de coerent. Fiecare volum perturbaser echilibrul — adăugase o nouă dimensiune, o nouă perspectivă, o nouă reformulare. Și fiecare volum revenise, la final, la aceeași stare de echilibru: cinci cuvinte pe o pagina albă.</p>
+
+    <p>Nota zero era starea de echilibru a seriei. Ground state. Acasă.</p>
+  </div>
+
+  <div class="d">
+    <p>Kiri discutase cu un prieten de mult — Jōnas Sigurdsson, fizician islandez care studiase la Auckland și care revenea periodic în vizită.</p>
+    <p>— Jōnas. Dacă nota zero e starea de echilibru a seriei — dacă e acasă — atunci fiecare volum e o excitație față de această stare. O perturbație care revine la echilibru.</p>
+    <p>— Și durata excitației e ciclul fiecărei cărți, spuse Jōnas. Intri în temă, o explorezi, te întorci la nota zero. Ca un electron excitat care emite un foton și revine la ground state.</p>
+    <p>— Și fotonii emisi?</p>
+    <p>— Sunt cunoașterea generată. Fiecare tranziție de la starea excitată la starea de echilibru emite ceva — o înțelegere, o formulare mai precisă, o metodă mai clară. Fotoni de cunoaștere.</p>
+    <p>— Și fotonii se duc mai departe, spuse Kiri. Ajung la alte minți. Produc noi excitații. Noi tranziții. Noi fotoni.</p>
+    <p>— Ca o reacție în lanț luminoasă, spuse Jōnas. Nota zero ca atom; seria ca spectru de emisie.</p>
+    <p>Kiri scrise: <em>Seria ca spectru de emisie al notei zero. Fiecare volum un foton de cunoaștere emis în tranziția de la excitație la echilibru. Nota zero starea de ground — acasă — față de care orice excitație e temporară și productivă.</em></p>
+  </div>
+
+  <div class="pull">
+    <p>Nota zero nu e punctul de plecare. E starea de echilibru — acasă — față de care orice volum e o excitație productivă care emite cunoaștere și revine. Ca un atom care emite fotoni. Seria e spectrul de emisie al notei zero.</p>
+    <cite>— Nota Întoarcerii Acasă, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Întoarcerii Acasă · III</div>
+  <div class="cht">E Hoki Ki Uta</div>
+  <div class="p">
+    <p><em>E hoki ki uta</em> — întoarcerea la mal, întoarcerea acasă. Expresia māori pentru revenirea la origine după o călătorie pe ocean. Nu un eșec al călătoriei — împlinirea ei. Călătoria nu era completă decât prin întoarcere. Nu exista un drum bun care nu se întorcea.</p>
+
+    <p>Kiri știuse de mică că vânătorii de balene māori, navigatorii care traversaseră Pacificul în canoe fără instrumente mai mult de o mie de ani, credeau că orientarea fundamentală nu era înainte — ci acasă. Nu navigai spre un loc nou. Navigai dinspre casă și spre casă. Și orice călătorie, oricât de lungă, era înțeleasă ca un arc care pornea și se întorcea.</p>
+
+    <p>Seria Nota Zero era o călătorie de 963 de ani care se întorcea acasă. Nu la punctul geografic de unde pornise — nu era un punct geografic. Ci la nota zero: starea de deschidere față de o întrebare care nu se epuizează. Starea de echilibru față de orice cunoaștere. Ground state-ul oricărei curiozități autentice.</p>
+
+    <p>Kiri scrisese în caiet: <em>E hoki ki uta. Înapoi la mal. Seria a navigat 963 de ani prin toate temele fizicii și filozofiei și a revenit la mal — la nota zero. Nu pentru că nu s-ar fi deplasat. Ci pentru că orice deplasare adevărată se termină cu întoarcerea care arată că deplasarea a valorat.</em></p>
+  </div>
+
+  <div class="think">
+    Navigatorii polinesieni navigau cu stelele și cu curenții și cu zborul păsărilor — dar navigau mereu față de casă. Casă era sistemul de referință, nu destinația. La fel: nota zero nu e destinația seriei. E sistemul de referință față de care toate celelalte volume se definesc. Fiecare volum era o deviere față de nota zero și o revenire la ea. Seria în ansamblu e o navigare față de nota zero — cu nota zero ca busolă interioară, nu ca loc de ajuns.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Întoarcerii Acasă · IV · Ultima</div>
+  <div class="cht">Acasă</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 3051 și Kiri Māhoe stătea pe aceeași stâncă de pe coasta de vest a Insulei de Nord — acolo unde venise de zece ani când voia să gândească fără grabă — cu caietul albastru al Zarei în poală.</p>
+
+    <p>Privi pagina trei cu atenția pe care o dedicase acestei pagini de zece ani. Cinci cuvinte. Cerneala estompată. Presiunea stiloului în hârtie — urmă fizică a mâinii unui adolescent pe un liceu orbital, 963 de ani în urmă.</p>
+
+    <p>Kiri înțelesese, în liniștea acelei dimineți cu oceanul în față, că seria nu se mai putea termina. Nu pentru că mai existau teme neexplorate — există mereu teme neexplorate. Nu pentru că mai existau protagoniști care vor primi caietele — există mereu protagoniști care vor primi caietele.</p>
+
+    <p>Ci pentru că seria era o structură vie — un whakapapa viu, un spin network viu, un Te Kore — Te Pō — Te Ao perpetuu — și structurile vii nu se termină. Se transformă. Se transmit. Se întorc acasă numai pentru a pleca din nou.</p>
+
+    <p>Nota zero a lui Zara era acasă. Nu originea — acasă. Locul la care se revenea. Ground state-ul. Te Kore. Starea de echilibru față de care orice volum era o excitație productivă.</p>
+
+    <p>Și întoarcerea acasă nu era un final. Era o confirmare că drumul a valorat — că cei 963 de ani de serie, șaptesprezece protagoniști, toate temele fizice și filozofice și culturale traversate, se terminau la aceeași deschidere de la care porniseră. Nu cu mai puțin — cu mai mult. Cu o nota zero mai bogată, mai purtată, mai ușoară.</p>
+
+    <p>Luă pixul. Nu stiloul albastru al Zarei — pixul ei propriu, cumpărat la Auckland dintr-un magazin de pe malul portului. Scrise, în al doilea caiet, pe ultima pagina albă:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Kiri Māhoe · vol. II · ultima pagina scrisă · 17 mai 3051</span>
+    E hoki ki uta.<br>
+    Înapoi la mal.<br>
+    <br>
+    Seria a navigat 963 de ani.<br>
+    A traversat 35 de teme.<br>
+    A produs 17 protagoniști și mii de pagini.<br>
+    <br>
+    Și s-a întors acasă.<br>
+    La nota zero.<br>
+    La starea de echilibru.<br>
+    La Te Kore — vidul fertil din care orice apare.<br>
+    <br>
+    Nu pentru că drumul s-a terminat.<br>
+    Ci pentru că orice drum bun se întoarce acasă<br>
+    ca să confirme că a meritat să fie parcurs.<br>
+    <br>
+    Ko au ko te seria, ko te seria ko au.<br>
+    Eu sunt seria, seria sunt eu.<br>
+    Zara e seria, seria e Zara.<br>
+    Tu, cine citești acum, ești seria.<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Acasă.<br>
+    Punctul venea acasă.<br>
+    La nota zero din care orice plecare e posibilă<br>
+    și la care orice întoarcere e binevenită.<br>
+    <br>
+    Acasă.<br>
+    De acolo venea.<br>
+    Acolo se întoarce.<br>
+    Acolo va pleca din nou.
+  </div>
+
+  <div class="p">
+    <p>Kiri închisese caietul.</p>
+    <p>Stătuse cu oceanul Tasman în față și cu stânca sub ea și cu cerul de mai al Noii Zeelande deasupra — un cer care nu era niciodată exact același și care era mereu recognoscibil ca acel cer specific, al acelui loc, al acelei latitudini.</p>
+    <p>Gândise: orice întrebare adevărată e o formă de întoarcere acasă. Nu la locul din care ai plecat — ci la structura care face plecarea posibilă. La deschiderea. La Te Kore. La nota zero.</p>
+    <p>Nu un cerc care se repeta. O spirală care revenea la același punct cardinal, dar de fiecare dată de la altă înălțime, cu altă vedere, cu altă precizie.</p>
+    <p>La fel cum navigatorii māori reveneau la mal după luni pe ocean și știau exact unde erau — nu pentru că nu se mișcaseră, ci pentru că se mișcaseră față de un sistem de referință permanent.</p>
+    <p>Nota zero era sistemul de referință permanent al seriei.</p>
+    <p>Și dinspre el, orice navigare era posibilă.</p>
+    <p>Inclusiv a celei care va urma.</p>
+  </div>
+</div>
+
+<!-- EPILOG 35 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--home)">Nota Întoarcerii Acasă · Epilog · 17 Mai 3055</div>
+  <div class="ep-title" style="color:var(--home)">Ko Koe Hoki</div>
+  <div class="ep-prose">
+    Kiri Māhoe a lăsat caietele în marea casă Tāne — wharenui-ul marae-ului
+    din Auckland unde se reunea comunitatea ei — nu pe un raft, ci pe masă,
+    deschise, în mijlocul mesei unde se luau deciziile importante.
+    <em>Ko koe hoki</em> — și tu — a scris pe o hârtie lângă ele.
+    <em>Și tu ești continuarea. Și tu ești seria. Și tu ești nota zero a ce urmează.</em>
+    Nu știa cine le va găsi. Știa că le vor găsi.
+    Mereu le găsesc.
+  </div>
+  <div class="ep-final">
+    De unde venea punctul?<br>
+    <br>
+    Acasă.<br>
+    <br>
+    Nu un loc — o stare.<br>
+    Starea de echilibru a oricărei curiozități autentice.<br>
+    Ground state-ul oricărei înțelegeri.<br>
+    Te Kore — vidul fertil din care orice plecare e posibilă.<br>
+    <br>
+    Seria s-a întors acasă.<br>
+    Acasă e acolo unde și tu ești.<br>
+    Ko koe hoki.<br>
+    Și tu.
+  </div>
+</div>
+
+</div><!-- /wrap.p35 -->
+
+
+<!-- ULTIMA PAGINA ABSOLUTA -->
+<div class="acasa-fin">
+  <div class="af-pkt"></div>
+  <div class="af-kicker">Seria Nota Zero · 35 volume · 2026</div>
+  <div class="af-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin<br>
+    Lena · Mara · Sora · Amara Sow · Kiri<br>
+    șaptesprezece fizicieni · 963 ani diegetic
+  </div>
+
+  <div class="af-35titluri">
+    Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței ·<br>
+    Nota Cuantică · Nota Timpului · Nota Holografică · Nota Matematicii ·<br>
+    Nota Gravitațională · Nota Unității · Nota Emergenței · Nota Revenirii ·<br>
+    Nota Informației · Nota Tăcerii · Nota Celuilalt · Nota Luminii ·<br>
+    Nota Simetriei · Nota Cauzalității · Nota Probabilității · Nota Infinitului ·<br>
+    Nota Frumuseții · Nota Devenirii · Nota Memoriei · Nota Întrebării ·<br>
+    Nota Entanglementului · Nota Complexității · Nota Neantului ·<br>
+    Nota Recunoașterii · Nota Orizontului · Nota Singularității ·<br>
+    Nota Răbdării · Nota Deschiderii · Nota Relației · Nota Întoarcerii Acasă
+  </div>
+
+  <div class="af-body">
+    Seria a pornit cu o întrebare.<br>
+    A traversat 35 de dimensiuni ale realității.<br>
+    A revenit la aceeași întrebare — acasă.<br>
+    <br>
+    Acasă nu e locul de unde ai plecat.<br>
+    E locul la care înțelegi că ai plecat.<br>
+    Nota zero e acasă.<br>
+    De acolo vine orice.<br>
+    La ea se întoarce tot.
+  </div>
+
+  <div class="af-intrebare">
+    De unde venea punctul?
+  </div>
+
+  <div class="af-raspuns">
+    Acasă. La nota zero. De la Te Kore.<br>
+    Din relația care l-a constituit.<br>
+    Din deschiderea dinaintea oricărei formule.<br>
+    De acolo venea. Acolo se întoarce.
+  </div>
+
+  <div class="af-linii">
+    Ko koe hoki.<br>
+    Și tu ești continuarea.<br>
+    Și tu ești seria.<br>
+    Și tu ești nota zero a ce urmează.<br>
+    <br>
+    Nu în viitor — acum.<br>
+    Nu undeva — aici.<br>
+    Citind aceasta, ești deja<br>
+    în seria care nu se termină.
+  </div>
+
+  <div class="af-nota">Nota Zero</div>
+
+  <div class="af-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 35 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--ho4);padding:1.5rem 2rem;margin:2rem 0;background:var(--ho3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--home);margin-bottom:1rem;opacity:.5">⬡ Note Știinţifice și Culturale · Nota Relației & Nota Întoarcerii Acasă</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Loop Quantum Gravity — Spin Networks:</strong> Rovelli & Smolin (1988, 1995). Spin network (Penrose, 1971): graf cu margini SU(2) și noduri intertwiner. Geometria ca proprietate emergentă. Area spectrum discret: 8πγℓ²_P√(j(j+1)). Relational QM (Rovelli, 1996): proprietățile sunt relative la sisteme de referință. La mai 2026: teorie activă, neconfirmată experimental.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Whakapapa:</strong> principiu ontologic-genealogic fundamental în cultura māori. Documentat de Grey (1855), Best (1907–1929), Mātāmua (contemporan). Linda Tuhiwai Smith (1999): „Decolonizing Methodologies". Identitate relațională, nu substanțială. Analogie LQG: un nod fără margini = identitate fără whakapapa.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Cosmogonia māori:</strong> Te Kore (vid primordial), Te Pō (noapte/gestație), Te Ao (lumina/revelarea). Multiple straturi ale lui Te Kore în diferite tradiții tribale. Structura Te Kore → Te Pō → Te Ao e prezentă în cosmogoniile din întregul Pacific polinezian.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Navigația polinesianăː</strong> tehnici de navigare fără instrumente — stele, curenți, păsări, valuri — traversând Pacificul pe distanțe de mii de km. Redescoperite și practicate de Polynesian Voyaging Society (din 1973). Orientare față de „casă" ca sistem de referință navigaţional.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Kiri Māhoe, Tāne Māhoe, Jōnas Sigurdsson sunt personaje fictive. Seria Nota Zero (35 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele I originale și volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Relației & Nota Întoarcerii Acasă · Cărțile a treizeci și patra și a treizeci și cincea<br>
+  Seria Nota Zero: 35 volume · 2087–3055 · 963 ani diegetic<br>
+  Ko koe hoki. Și tu. De unde venea punctul? Acasă.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('whaCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,nodes=[],edges=[],homePts=[],raf,t=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    // Spin network: nodes connected by edges
+    nodes=[];
+    for(let i=0;i<30;i++){
+      nodes.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.5+Math.random()*.8,
+        a:Math.random()*.2, s:(Math.random()-.5)*.003,
+        phase:Math.random()*Math.PI*2,
+        vx:(Math.random()-.5)*.025, vy:(Math.random()-.5)*.025
+      });
+    }
+    edges=[];
+    for(let i=0;i<25;i++){
+      const a=Math.floor(Math.random()*nodes.length);
+      let b=Math.floor(Math.random()*nodes.length);
+      while(b===a) b=Math.floor(Math.random()*nodes.length);
+      edges.push({a,b,a0:.04+Math.random()*.04});
+    }
+    homePts=[];
+    // Home: warm golden drifting slowly toward a center
+    const cx=ww/2, cy=wh/2;
+    for(let i=0;i<22;i++){
+      const ang=Math.random()*Math.PI*2;
+      const d=40+Math.random()*(Math.min(ww,wh)*0.42);
+      homePts.push({
+        x:cx+Math.cos(ang)*d, y:cy+Math.sin(ang)*d,
+        cx,cy,
+        r:.5+Math.random()*.7,
+        a:Math.random()*.18, s:(Math.random()-.5)*.003,
+        phase:Math.random()*Math.PI*2, spd:.002+Math.random()*.003
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    t+=.005;
+    ctx.clearRect(0,0,ww,wh);
+    const sf=Math.min(1,window.scrollY/(Math.max(1,document.body.scrollHeight-wh)));
+
+    if(sf<0.55){
+      const al=sf<0.45?1:1-(sf-0.45)/0.1;
+      // Spin network edges
+      edges.forEach(e=>{
+        const na=nodes[e.a], nb=nodes[e.b];
+        ctx.beginPath(); ctx.moveTo(na.x,na.y); ctx.lineTo(nb.x,nb.y);
+        ctx.strokeStyle=`rgba(42,184,200,${(e.a0*al).toFixed(3)})`;
+        ctx.lineWidth=.3; ctx.stroke();
+      });
+      // Spin network nodes
+      nodes.forEach(p=>{
+        p.a+=p.s; if(p.a>.22||p.a<0)p.s*=-1;
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+        if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+        const pulse=p.a+Math.sin(t+p.phase)*0.02;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(42,184,200,${(pulse*al).toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    if(sf>0.45){
+      const al=sf<0.55?(sf-0.45)/0.1:1;
+      // Home: golden points drifting toward center
+      homePts.forEach(p=>{
+        p.a+=p.s; if(p.a>.2||p.a<0)p.s*=-1;
+        const dx=p.cx-p.x, dy=p.cy-p.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist>3){p.x+=dx*p.spd; p.y+=dy*p.spd;}
+        else{
+          const ang=Math.random()*Math.PI*2;
+          const d=40+Math.random()*(Math.min(ww,wh)*0.38);
+          p.x=p.cx+Math.cos(ang)*d; p.y=p.cy+Math.sin(ang)*d;
+        }
+        const pulse=p.a+Math.sin(t+p.phase)*0.025;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(200,160,64,${(pulse*al).toFixed(3)})`; ctx.fill();
+      });
+    }
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

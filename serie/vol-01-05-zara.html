@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nota Zero — Vol. I–V · Zara Voss · Ediția finală</title>
+<style>
+:root{
+  --void:#030407; --deep:#06080f; --surface:#0d0f1c;
+  --gold:#c8a96e; --gold-dim:rgba(200,169,110,.38); --gold-faint:rgba(200,169,110,.07);
+  --cream:#ede3ce; --cream-dim:rgba(237,227,206,.62);
+  --cyan:#00e8ff; --cyan-dim:rgba(0,232,255,.18);
+  --border:rgba(200,169,110,.13); --border2:rgba(200,169,110,.07);
+  --ak:rgba(80,160,90,.6); --ak-dim:rgba(80,160,90,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--void); color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.17rem; line-height:1.92;
+  max-width:720px; margin:0 auto;
+  padding:4.5rem 2.5rem 9rem;
+}
+/* NAV */
+.nav{
+  font-family:'Space Mono',monospace; font-size:.58rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:3rem;
+  display:flex; gap:1.5rem; flex-wrap:wrap;
+}
+.nav a{color:var(--gold-dim);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:1px;}
+.nav a:hover{color:var(--gold); border-color:var(--gold);}
+/* HEADER */
+.vol-badge{
+  font-family:'Space Mono',monospace; font-size:.56rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--cyan); opacity:.65; margin-bottom:1.4rem;
+}
+h1{
+  font-size:clamp(2rem,5.5vw,3.4rem); font-weight:300;
+  line-height:1.12; margin-bottom:.7rem;
+}
+h1 strong{font-weight:600;}
+h1 em{font-style:italic; color:var(--cream-dim); font-weight:300;}
+.subtitlu{font-size:.98rem; color:var(--cream-dim); font-style:italic; margin-bottom:.5rem;}
+.meta{
+  font-family:'Space Mono',monospace; font-size:.56rem;
+  letter-spacing:.11em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:4.5rem;
+  padding-bottom:2rem; border-bottom:1px solid var(--border);
+}
+/* SECȚIUNI */
+.sec{
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin:4.5rem 0 1.8rem;
+  padding-bottom:.6rem; border-bottom:1px solid var(--border2);
+}
+h3{font-size:1.12rem; font-weight:600; margin:3rem 0 1rem;}
+/* PROZĂ */
+p{margin-bottom:1.45rem; text-align:justify; hyphens:auto;}
+p:last-child{margin-bottom:0;}
+em{font-style:italic;}
+strong{color:var(--cream);}
+/* DIALOG */
+.d{margin:1.8rem 0;}
+.d p{margin-bottom:.65rem; text-align:left;}
+.d p::before{content:'— ';}
+/* BLOCNOTES */
+.bn{
+  border:1px solid var(--border); border-left:2px solid var(--gold);
+  padding:1.3rem 1.7rem; background:var(--gold-faint);
+  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
+}
+.bn p{margin-bottom:.85rem; text-align:left;}
+.bn p:last-child{margin-bottom:0;}
+.bn-src{
+  font-family:'Space Mono',monospace; font-size:.54rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold-dim); margin-top:1rem;
+  font-style:normal; display:block; padding-top:.6rem;
+  border-top:1px solid var(--border2);
+}
+/* STRAT BRUT */
+.brut{
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  line-height:2.15; color:rgba(237,227,206,.5);
+  background:rgba(200,169,110,.035); border:1px solid var(--border);
+  padding:1.3rem 1.7rem; margin:2.2rem 0;
+}
+.brut-lbl{
+  font-size:.53rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block; opacity:.65;
+}
+.brut-a{opacity:.32; text-decoration:line-through;}
+.brut-p{color:var(--cyan); opacity:.45;}
+/* AKAN */
+.akan{
+  border:1px solid var(--ak-dim); border-left:2px solid var(--ak);
+  padding:1.3rem 1.7rem; background:rgba(80,160,90,.04);
+  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
+}
+.akan p{margin-bottom:.85rem; text-align:left;}
+.akan p:last-child{margin-bottom:0;}
+.akan-src{
+  font-family:'Space Mono',monospace; font-size:.54rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ak); margin-top:1rem; font-style:normal;
+  display:block; padding-top:.6rem; border-top:1px solid var(--ak-dim);
+}
+.akan-badge{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--ak); border:1px solid var(--ak-dim);
+  padding:.3rem .7rem; display:inline-block; margin-bottom:2rem;
+}
+/* NOTE ȘTIINȚIFICE */
+.ns{
+  border-top:1px solid var(--border); margin:2.5rem 0;
+  padding-top:1.3rem; font-size:.81rem;
+  color:var(--cream-dim); line-height:1.72;
+}
+.ns-lbl{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.55rem; display:block;
+}
+/* ECUAȚIE */
+.eq{
+  font-family:'Space Mono',monospace; font-size:.76rem;
+  border-left:2px solid var(--cyan-dim);
+  padding:.85rem 1.3rem; margin:1.8rem 0;
+  color:rgba(0,232,255,.68); background:rgba(0,232,255,.028);
+  line-height:2.1;
+}
+/* SEPARATORI */
+hr.sep{border:none; border-top:1px solid var(--border); margin:3.5rem 0;}
+.pauza{text-align:center; color:var(--border); margin:3rem 0; letter-spacing:.6rem; font-size:1.2rem;}
+/* PAGINA GOALĂ YUKI */
+.pg-goala{
+  border:1px dashed rgba(200,169,110,.18);
+  height:220px; margin:3.5rem 0;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold-dim); font-family:'Space Mono',monospace;
+  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
+  flex-direction:column; gap:.8rem;
+}
+/* BOX FINAL */
+.final{
+  border:1px solid rgba(200,169,110,.28);
+  padding:3rem 2.5rem; margin:4rem 0; text-align:center;
+}
+.final p{font-size:1.32rem; font-style:italic; line-height:2.15; color:var(--cream-dim); margin-bottom:1rem;}
+.final p:last-child{margin:0; font-size:.85rem; font-style:normal; color:var(--gold-dim); font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase;}
+/* EMAIL */
+.email{
+  background:rgba(200,169,110,.05); border:1px solid var(--border);
+  padding:1.5rem 2rem; margin:2.2rem 0;
+  font-family:'Space Mono',monospace; font-size:.76rem;
+  line-height:2.1; color:var(--cream-dim);
+}
+/* NOTA ARHIVISTICĂ */
+.nota-arh{
+  background:rgba(6,8,15,.8); border:1px solid var(--border);
+  padding:1.8rem 2.2rem; margin:3rem 0;
+}
+.nota-arh-lbl{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block;
+}
+.nota-arh p{font-size:.85rem; color:var(--cream-dim); margin-bottom:.7rem; line-height:1.72;}
+/* FOOTER */
+footer{
+  margin-top:7rem; padding-top:2.5rem;
+  border-top:1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  color:var(--gold-dim); letter-spacing:.1em;
+  text-align:center; line-height:2.1;
+}
+@media(max-width:600px){
+  body{padding:3rem 1.4rem 6rem;}
+  h1{font-size:clamp(1.7rem,6vw,2.4rem);}
+}
+
+/* Text integral al volumelor II–V (din seria completă), în wrapper-e proprii */
+.s23{
+  --void:#04030a;--deep:#07060f;--surface:#0b0a15;
+  --gold:#c4a55a;--gold2:rgba(196,165,90,.15);--gold3:rgba(196,165,90,.06);
+  --silver:#8ab4c4;--silver2:rgba(138,180,196,.12);
+  --amber:#d4823a;--amber2:rgba(212,130,58,.12);
+  --cream:rgba(238,228,208,.88);--cream2:rgba(238,228,208,.5);--cream3:rgba(238,228,208,.15);
+  --border:rgba(196,165,90,.14);--border2:rgba(196,165,90,.06);
+  --r:1px solid var(--border);
+}
+.s23{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+.s23 .part-cover{
+  border-bottom:var(--r);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;
+  padding:5rem 2rem;position:relative;overflow:hidden;
+}
+.s23 .pc-back{
+  position:absolute;inset:0;display:flex;
+  align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:18rem;opacity:.025;line-height:1;
+  color:var(--gold);pointer-events:none;letter-spacing:-.05em;
+}
+.s23 .pc-kicker{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:var(--silver);margin-bottom:1.5rem;opacity:.6;
+  position:relative;z-index:1;
+}
+.s23 .pc-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,6vw,4.5rem);
+  font-weight:700;letter-spacing:.02em;
+  color:var(--gold);line-height:1;
+  position:relative;z-index:1;
+}
+.s23 .pc-subtitle{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.15rem;color:var(--cream2);margin-top:1rem;
+  position:relative;z-index:1;
+}
+.s23 .pc-nota{
+  font-family:'Cinzel',serif;font-size:clamp(4rem,12vw,9rem);
+  font-weight:700;color:transparent;
+  -webkit-text-stroke:1px rgba(196,165,90,.2);
+  position:relative;z-index:1;margin:1rem 0;
+  letter-spacing:.05em;
+}
+.s23 .wrap{max-width:720px;margin:0 auto;padding:0 2.5rem}
+.s23 .chapter{padding:4.5rem 0 3rem;border-bottom:1px solid var(--border2)}
+.s23 .chapter:last-child{border-bottom:none}
+.s23 .ch-num{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);opacity:.6;margin-bottom:.6rem;
+}
+.s23 .ch-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.2rem,2.5vw,1.8rem);
+  font-weight:600;letter-spacing:.02em;
+  color:var(--cream);margin-bottom:2.5rem;line-height:1.1;
+}
+.s23 .prose p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.s23 .prose p:last-child{margin-bottom:0}
+.s23 .prose em{font-style:italic;color:var(--cream)}
+.s23 .prose strong{font-weight:600;color:var(--cream)}
+.s23 .prose p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.6em;
+  font-weight:700;float:left;line-height:.82;
+  margin:.1em .12em -.04em 0;color:var(--gold);
+  text-shadow:0 0 30px rgba(196,165,90,.25);
+}
+.s23 .dial{margin-bottom:1.45rem;padding-left:0}
+.s23 .dial p{margin-bottom:.5rem;text-indent:0}
+.s23 .dial p:last-child{margin-bottom:0}
+.s23 .notebook{
+  margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--border);background:var(--gold3);
+  font-style:italic;color:var(--cream2);
+  font-size:.95rem;line-height:1.7;
+  position:relative;
+}
+.s23 .notebook::before{
+  content:'✎';
+  position:absolute;top:.8rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.5rem;
+  color:var(--gold);opacity:.4;font-style:normal;
+}
+.s23 .nb-header{
+  font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;margin-bottom:.6rem;
+  font-style:normal;
+}
+.s23 .pull{
+  margin:2.5rem -1rem;padding:1.8rem 2.5rem;
+  border-left:2px solid var(--gold);background:var(--gold3);
+}
+.s23 .pull p{
+  font-family:'Cinzel',serif;font-style:normal;
+  font-size:clamp(.9rem,1.8vw,1.15rem);
+  color:var(--cream);line-height:1.5;font-weight:400;
+}
+.s23 .pull cite{
+  display:block;margin-top:.6rem;
+  font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);opacity:.55;
+}
+.s23 .sci-note{
+  margin:2rem 0;padding:1.2rem 1.6rem;
+  border:1px solid var(--silver2);background:rgba(138,180,196,.04);
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:var(--cream2);line-height:1.7;
+}
+.s23 .sci-note::before{
+  content:'⬡ Notă Știintifică · ';
+  color:var(--silver);font-weight:700;
+}
+.s23 .epilog{
+  padding:4rem 0;text-align:center;
+  border-top:var(--r);
+}
+.s23 .ep-date{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;margin-bottom:1.5rem;
+}
+.s23 .ep-title{
+  font-family:'Cinzel',serif;font-size:1.8rem;font-weight:700;
+  color:var(--gold);margin-bottom:2rem;
+}
+.s23 .ep-body{
+  font-style:italic;color:var(--cream2);
+  max-width:540px;margin:0 auto 2rem;line-height:1.8;
+}
+.s23 .ep-blocnotes{
+  display:inline-block;
+  border:1px solid var(--border);padding:1.5rem 2.5rem;
+  font-style:italic;color:var(--cream);line-height:1.9;
+  margin-top:1rem;text-align:left;
+}
+.s23 .orn{text-align:center;color:var(--gold);opacity:.2;margin:2.5rem 0;font-size:1.1rem;letter-spacing:.8em}
+.s23 .interpart{
+  text-align:center;padding:3rem 0;border-top:var(--r);border-bottom:var(--r);
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+}
+.s23 footer{
+  border-top:var(--r);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--cream3);
+  opacity:.35;line-height:2;
+}
+@media(max-width:600px){.s23 .wrap{padding:0 1.5rem}
+.s23 .pull{margin:2rem -.5rem;padding:1.4rem 1.5rem}}
+.s45{
+  --void:#03030b;--deep:#06060e;--surface:#09091a;
+  --gold:#b89a4a;--gold2:rgba(184,154,74,.13);--gold3:rgba(184,154,74,.05);
+  --rose:#c4786a;--rose2:rgba(196,120,106,.1);
+  --silver:#7aa0b4;--silver2:rgba(122,160,180,.1);
+  --moss:#6a8a6a;--moss2:rgba(106,138,106,.1);
+  --cream:rgba(236,226,208,.85);--cream2:rgba(236,226,208,.48);--cream3:rgba(236,226,208,.14);
+  --border:rgba(184,154,74,.12);--border2:rgba(184,154,74,.05);
+  --hrule:1px solid var(--border);
+}
+.s45{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+.s45 #universe{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+.s45 .page{position:relative;z-index:1}
+.s45 .cv-series{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.38em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2.5rem;opacity:.65;
+}
+.s45 .cv-context{
+  font-family:'Cinzel',serif;font-size:.7rem;font-weight:400;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cream2);margin-bottom:.8rem;opacity:.7;
+}
+.s45 .cv-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;
+  color:var(--gold);margin-bottom:.5rem;
+}
+.s45 .cv-amp{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.2rem,3vw,2rem);color:var(--cream2);
+  display:block;margin:.5rem 0;
+}
+.s45 .cv-desc{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.15rem);
+  color:var(--cream2);max-width:560px;margin:2rem auto 0;line-height:1.7;
+}
+.s45 .cv-notice{
+  margin-top:3rem;padding:1rem 2rem;
+  border:1px solid var(--border);background:var(--gold3);
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.14em;color:var(--cream3);max-width:500px;
+  line-height:1.85;
+}
+.s45 .part-div{
+  border-top:var(--hrule);border-bottom:var(--hrule);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;
+  padding:5rem 2rem;position:relative;overflow:hidden;
+}
+.s45 .pd-ghost{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(8rem,20vw,18rem);
+  opacity:.02;color:var(--gold);pointer-events:none;line-height:1;
+}
+.s45 .pd-num{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream3);margin-bottom:.8rem;position:relative;z-index:1;
+}
+.s45 .pd-nota{
+  font-family:'Cinzel',serif;
+  font-size:clamp(3.5rem,10vw,8rem);
+  font-weight:700;color:var(--gold);line-height:.9;
+  position:relative;z-index:1;letter-spacing:.03em;
+}
+.s45 .pd-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.4rem,3vw,2.4rem);
+  font-weight:500;color:var(--cream2);
+  margin-top:.8rem;position:relative;z-index:1;
+}
+.s45 .pd-epigraph{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.92rem;color:var(--cream3);
+  max-width:440px;margin-top:1.5rem;line-height:1.65;
+  position:relative;z-index:1;
+}
+.s45 .wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+.s45 .chapter{padding:4.5rem 0 3rem;border-bottom:1px solid var(--border2)}
+.s45 .chapter:last-child{border-bottom:none}
+.s45 .ch-num{
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);opacity:.55;margin-bottom:.55rem;
+}
+.s45 .ch-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.1rem,2.2vw,1.7rem);
+  font-weight:500;color:var(--cream);
+  margin-bottom:2.5rem;line-height:1.1;
+  letter-spacing:.02em;
+}
+.s45 .prose p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.s45 .prose p:last-child{margin-bottom:0}
+.s45 .prose em{font-style:italic;color:var(--cream)}
+.s45 .prose strong{font-weight:600;color:var(--cream)}
+.s45 .prose p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.5em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--gold);text-shadow:0 0 25px rgba(184,154,74,.2);
+}
+.s45 .echo{
+  margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(184,154,74,.25);
+  background:var(--gold3);
+}
+.s45 .echo-label{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);opacity:.45;margin-bottom:.6rem;
+}
+.s45 .echo p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.4rem;font-size:.95rem;line-height:1.7;
+}
+.s45 .echo p:last-child{margin-bottom:0}
+.s45 .echo-attr{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);opacity:.35;margin-top:.5rem;display:block;
+}
+.s45 .dial p{margin-bottom:.5rem;text-indent:0}
+.s45 .dial p:last-child{margin-bottom:0}
+.s45 .nb{
+  margin:2.5rem 0;padding:1.4rem 1.8rem;
+  border:1px solid var(--border);background:var(--gold3);
+  font-style:italic;color:var(--cream2);font-size:.94rem;line-height:1.75;
+  position:relative;
+}
+.s45 .nb::after{
+  content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.46rem;
+  color:var(--gold);opacity:.35;font-style:normal;
+}
+.s45 .nb-hd{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.45;margin-bottom:.6rem;font-style:normal;
+  display:block;
+}
+.s45 .pull{
+  margin:2.5rem -1rem;padding:1.7rem 2.5rem;
+  border-left:2px solid var(--gold);background:var(--gold3);
+}
+.s45 .pull p{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.88rem,1.7vw,1.1rem);
+  color:var(--cream);line-height:1.5;
+}
+.s45 .pull cite{
+  display:block;margin-top:.55rem;
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;
+}
+.s45 .sci{
+  margin:2rem 0;padding:1.1rem 1.5rem;
+  border:1px solid var(--silver2);background:rgba(122,160,180,.04);
+  font-family:'DM Mono',monospace;font-size:.6rem;
+  color:var(--cream2);line-height:1.75;
+}
+.s45 .sci::before{content:'⬡ Notă Știintifică · ';color:var(--silver);font-weight:700}
+.s45 .orn{text-align:center;color:var(--gold);opacity:.18;margin:2.5rem 0;font-size:1rem;letter-spacing:.8em}
+.s45 .epilog{
+  padding:4rem 0;border-top:var(--hrule);text-align:center;
+}
+.s45 .ep-date{
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);opacity:.45;margin-bottom:1.5rem;
+}
+.s45 .ep-title{
+  font-family:'Cinzel',serif;font-size:1.6rem;font-weight:600;
+  color:var(--gold);margin-bottom:2rem;
+}
+.s45 .ep-prose{
+  font-style:italic;color:var(--cream2);
+  max-width:520px;margin:0 auto 2.5rem;line-height:1.85;
+}
+.s45 .ep-finale{
+  display:inline-block;border:1px solid var(--border);
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:500px;
+}
+.s45 .between{
+  text-align:center;padding:2.5rem 0;
+  border-top:var(--hrule);border-bottom:var(--hrule);
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--cream3);
+}
+.s45 footer{
+  border-top:var(--hrule);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.3;line-height:2;
+}
+@media(max-width:580px){.s45 .wrap{padding:0 1.4rem}
+.s45 .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}}
+</style>
+</head>
+<body>
+<nav class="nav"><a href="index.html">↑ Cuprins</a> <a href="vol-06-07-kaito.html">Vol. VI–VII · Kaito Mori →</a></nav>
+<div class="vol-badge">Seria Nota Zero · Cărțile I–V · Protagonist fondator</div>
+<h1><strong>Vol. I–V</strong> · <em>Nota Zero</em> · <em>Nota Unu</em> · <em>Nota Finală</em> · <em>Nota Vieții</em> · <em>Nota Conștiinței</em></h1>
+<div class="meta">Zara Voss · 15 ani în 2087 → 78 ani în 2145 · Stația Orbitală L2 + Oslo</div>
+
+<div class="sec">I · Întrebarea greșită · 2087 · Stația Orbitală L2</div>
+
+<div class="brut">
+<span class="brut-lbl">Blocnotes vol. I · Zara Voss · 14 mai 2087 · ora 22:14</span>
+De unde vine punctul?<br>
+Nu „ce era înainte" — aia presupune timp. Nu „ce l-a creat" — aia presupune cauza.<br>
+De unde VINE? Ca în: de unde e posibil că există?<br>
+<span class="brut-a">— poate că întrebarea e greșit pusă și —</span><br>
+sau poate că E greșit pusă și ăsta e exact răspunsul.<br>
+<span class="brut-p">tată — sună mâine · pizza pe Lună · râs bun</span>
+</div>
+
+Ficțiune speculativă · Teoria corzilor · 2087
+
+Înainte de Big Bang era ceva. Nimeni nu știe ce. Zara are de gând să afle.
+
+„De unde venea punctul din care a început totul? Fizica tace. Dar dacă cineva îți spune că știe — nu te-a mințit niciodată mai frumos."
+
+Zara avea cincisprezece ani și un blocnotes albastru cu coperta uzată în care colecționa întrebări fără răspuns. Unele aveau două cuvinte. Altele ocupau o pagină întreagă și se terminau cu trei semne de exclamare. Toate aveau în comun că nu le-o pusese nimeni altcineva, și că de fiecare dată când le punea ea, în clasă sau la masă sau la telefon cu tatăl ei, urmau fie o tăcere lungă, fie un zâmbet de genul:
+
+Întrebarea pe care o tot punea și tot primea înapoi era una singură, în versiuni diferite:
+
+Profesoara de cosmologie de la Liceul Orbital Kepler-442b o privise de data asta cu o răbdare pe care Zara o recunoștea drept epuizare mascată. Lumina sălii era constantă și albă, fără nicio indicație a orei — pe un liceu orbital nu existau ferestre cu soare sau nori, doar panouri LED calibrate să mimeze ciclul zi-noapte, și nu le ieșea chiar. Aerul mirosea ușor a plastic și a filtrare — același miros în tot liceul, în holuri, în cantină, în sala de sport. Zara se obișnuise cu el. Colegul din dreapta ei desenase ceva în caiet. Altcineva, în spatele sălii, suspinase.
+
+— Big Bang-ul, Zara, a început dintr-o singularitate de densitate infinită...
+
+Dar densitate infinită nu e un răspuns. E o evitare elegantă. Dacă volumul e zero—
+
+— Lasă-mă să termin. Dacă volumul e zero, rezultatul matematic e infinit. Dar infinit matematic nu e același lucru cu real. E semnul că ecuația ta a ieșit din domeniul ei de valabilitate. Că a dat de marginea lumii. Nu că lumea s-a terminat — că instrumentul nu mai funcționează acolo.
+
+Tăcere. Profesoara aranjă ceva pe masă fără nicio urgență reală. Cineva râse scurt în spatele sălii. Zara nu întoarse capul — notase întrebarea cu litere mari și o subliniase de trei ori, că asta era tot ce conta acum.
+
+— Și dacă spațiul însuși n-a existat înainte de Big Bang,
+
+Profesoara deschise gura, o închise. Zara o apreciase mai mult în clipa aia decât în toate orele precedente la un loc, pentru că ceea ce spuse în final era singurul lucru cinstit:
+
+— Aceasta este întrebarea pe care fizica modernă nu a rezolvat-o încă.
+
+— Atunci de ce o predăm ca și cum ar fi rezolvată?
+
+Profesoara o rugase să rămână după oră. Îi spusese că apreciază curiozitatea, că e o calitate rară, dar că trebuie canalizată în moduri constructive. Că există un timp și un loc pentru tot. Că ora de cosmologie nu era locul potrivit pentru filozofie. Zara ascultase politicos și plecase. Scrisese în blocnotes:
+
+Canalele constructive sunt pentru cei care nu cred că întrebările contează mai mult decât răspunsurile. Nu pentru min
+
+<div class="bn">
+<p>Canalele constructive sunt pentru cei care nu cred că întrebările contează mai mult decât răspunsurile. Nu pentru mine.</p>
+<span class="bn-src">Zara Voss · blocnotes vol. I · 2087</span>
+</div>
+
+<p>Subliniase ultima propoziție. Apoi o subliniase din nou.</p>
+
+<hr class="sep">
+
+<div class="sec">Emil Voss · Interludiu</div>
+
+<p>Dr. Emil Voss lucra la Marele Colizor Cuantic de pe Lună — un accelerator de particule de 340 de kilometri săpat în mantaua selenară, proiectat să recreeze condițiile din primele fracțiuni de secundă după Big Bang. Lumea îl numea simplu <em>Leagănul</em>. Emil îl numea „cel mai scump experiment de filozofie din istoria omenirii" și râdea la asta de fiecare dată ca și cum era prima dată când îl spunea.</p>
+
+<p>Tatăl Zarei era altfel decât ceilalți oameni pe care îi cunoștea. Era prezent în felul în care puțini oameni sunt prezenți: se oprea în mijlocul unei propoziții dacă găsea ceva mai interesant, asculta cu blocnotesul în mână, corecta greșelile Zarei fără să o facă să simtă că greșise. Seara, când Zara îl contacta de pe Stație, discuțiile durau câteodată până la unu noaptea, timp orbital. Emil bea ceai rece pe care uitase să-l bea cald.</p>
+
+<div class="d">
+<p>Tată, dacă universul s-a născut dintr-un punct, de ce presupunem că a fost mic?</p>
+<p>Nu presupunem că a fost mic, spuse Emil, aplecându-se spre ecran. Presupunem că densitatea era infinită. E o diferență enormă. Mic implică dimensiune. Densitate infinită implică că regulile dimensiunii nu se aplicau. Era un loc unde spațiul însuși nu exista ca noțiune.</p>
+<p>Nu știu cum să explic asta mai bine. Nici eu nu înțeleg complet.</p>
+<p>Asta e mai înspăimântător, nu mai liniștitor.</p>
+<p>Toate adevărurile reale sunt, spuse Emil. Ăsta e semnul că ești pe pista bună.</p>
+</div>
+
+<p>Ultima conversație a avut loc pe 14 mai 2087, ora 22:14, timp orbital. Emil era obosit, dar cu acel soi de oboseală bună care vine după o zi în care lucrurile au mers. Îi spusese că mâncaseră pizza la colizor — cu brânză sintetică și roșii crescute în seră, care nu seamănă cu pizza adevărată dar pe care toată lumea o numea tot pizza. Râseseră puțin.</p>
+
+<p>Pe 15 mai, Emil Voss intrase în sala centrală a colizorului pentru un experiment de rutină și nu mai ieșise. Nimeni nu înregistrase nimic neobișnuit. Toate senzorele afișau valori normale. Emil dispăruse pur și simplu — ca o paranteză dintr-o ecuație prea lungă.</p>
+
+<div class="brut">
+<span class="brut-lbl">Blocnotes vol. I · Zara · 15 mai 2087 · dimineața</span>
+<span class="brut-a">nota zero.</span><br>
+asta e nota zero.<br>
+nu absența de valoare — minimul de la care creșterea e posibilă.<br>
+prag. origine. stare de bază.<br>
+<span class="brut-p">tată nu știe că i-am dat un nume.</span>
+</div>
+
+<div class="ns">
+<span class="ns-lbl">Notă · Zara Voss · 2087</span>
+Nota zero nu e absența de valoare. E valoarea de la care un sistem poate fi măsurat. Starea de bază. Energia de punct zero — energia minimă a unui sistem cuantic chiar și la temperatura absolută zero. Nimic nu poate fi mai jos. De acolo, tot ce urmează e creștere.
+</div>
+
+
+<div class="sec">II–III · Nota Unu · Nota Finală · textul integral</div>
+<div class="s23">
+<div class="part-cover">
+  <div class="pc-back">I</div>
+  <div class="pc-kicker">Cartea a doua · Trilogia Nota Zero</div>
+  <div class="pc-nota">Nota Unu</div>
+  <div class="pc-title">Materia Întunecată</div>
+  <div class="pc-subtitle">Ceea ce nu strălucește există. Ceea ce nu putem vedea structurează tot ceea ce vedem.</div>
+</div>
+
+<div class="wrap">
+
+<!-- CAP 1 -->
+<div class="chapter">
+  <div class="ch-num">Nota Unu · I</div>
+  <div class="ch-title">Scheletul Nevăzut</div>
+  <div class="prose">
+    <p>Zara împlinise douăzeci și cinci de ani în august și nu organizase nicio petrecere. Petrecerile presupuneau că te afli la o intersecție importantă a vieții, un punct de bilanț. Zara nu credea în bilanțuri. Credea în întrebări curente, iar întrebarea curentă era alta: de ce galaxiile nu se desfac?</p>
+
+    <p>Stătea la biroul din apartamentul de pe Stația L2 — aceeași stație orbitală în care crescuse, altă cameră, același miros de aer filtrat și plastic cald — și citea articolul lui Vera Rubin din 1978 pentru a cincea oară. Nu pentru că nu îl înțelesese. Îl înțelesese perfect de la prima lectură. Îl recitea pentru că era genul de articol care, cu cât îl recitești, cu atât ți se deschide altceva. Nu în text — în tine.</p>
+
+    <p>Rubin măsurase viteza de rotație a stelelor din galaxii. Conform gravitației newtoniene și chiar einsteiniene, stelele de la marginea unei galaxii ar trebui să se miște mai lent decât cele din centru — exact cum Mercur orbitează mai repede decât Neptune. Dar nu o făceau. Se mișcau la fel de repede. Uneori mai repede. Ca și cum ar exista o masă suplimentară — enormă, invizibilă — care le ținea pe loc.</p>
+
+    <p>Zara scrisese în blocnotes — alt blocnotes, al patrulea de când îl epuizase pe primul la cincisprezece ani: <em>Dacă ceva te ține pe loc fără să îl poți vedea, nu înseamnă că nu există. Înseamnă că nu îl poți vedea.</em> Subliniase propoziția de două ori, ca altădată.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Ești acasă? trimisese mesaj lui Emil.</p>
+    <p>— Sunt la Leagăn. De ce, ai o urgență sau o întrebare imposibilă? răspunsese Emil după câteva minute.</p>
+    <p>— A doua, scrisese Zara.</p>
+    <p>— Dă-mi cinci minute să termin calibrarea.</p>
+  </div>
+
+  <div class="prose">
+    <p>Cinci minute deveniseră paisprezece, ceea ce era tipic pentru Emil. Calibrarea la Leagăn nu se termina niciodată la timp, pentru că Emil găsea întotdeauna ceva mai interesant pe parcurs. Era un om care pleca să cumpere pâine și se întorcea cu o teorie despre gravitație și o chitanță greșită.</p>
+
+    <p>Când apăru pe ecran, părea obosit dar cu acea oboseală bună pe care Zara o recunoscuse toată viața la el. Și ceva diferit: câteva fire albe la tâmplă pe care nu le observase luna trecută. Sau poate nu le observase.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Materia întunecată, spuse Zara fără preambul. De ce nu știm ce e?</p>
+    <p>— Știm ce face, spuse Emil. Știm unde e. Nu știm din ce e.</p>
+    <p>— Asta e o evitare elegantă.</p>
+    <p>Emil râse scurt — un sunet familiar. Recunoaște-l. Mi l-ai spus prima dată la cincisprezece ani. Ai drepturi de autor pe expresia aia.</p>
+    <p>— Atunci răspunde-mi direct. Din ce e?</p>
+    <p>— Nu știm. Asta e răspunsul direct. Nu știm nici măcar dacă e o singură substanță sau o familie întreagă de particule pe care nu le-am detectat încă. Știm că e acolo pentru că galaxiile nu se desfac, că lentilele gravitaționale se comportă ca și cum există mai multă masă decât vedem, că universul a evoluat structural în felul în care a evoluat — și nimic din asta nu se poate explica fără ceva suplimentar, nevizibil, care interacționează gravitațional dar nu electromagnetic. Nu emite lumină. Nu absoarbe lumină. Nu o reflectă. E acolo și e invizibilă din toate direcțiile.</p>
+    <p>— Scheletul nevăzut al galaxiei, spuse Zara.</p>
+    <p>Emil o privi câteva secunde. Scrie asta. E mai bine decât orice terminologie pe care am inventat-o noi.</p>
+  </div>
+
+  <div class="prose">
+    <p>Zara scrisese. Și rămăsese cu pixul în mână câteva secunde, privind cuvintele.</p>
+    <p>Materia întunecată nu era un eșec al fizicii. Era un succes al onestității: știința descoperise că nu vede 27% din tot ce există. Că universul vizibil — stelele, planetele, nebuloasele, galaxiile, tot ce se putuse fotografiat sau măsurat sau admirat — reprezenta doar 5% din conținutul total al cosmosului. Restul: materie întunecată și ceva și mai misterios, pe care îl discutaseră data viitoare.</p>
+    <p>Cinci la sută. Zara privise din nou spre Pământ — vizibil prin hublou, albastru și acoperit de nori. Tot ce a creat omul. Tot ce a scris sau compus sau construit sau iubit sau pierdut. Cinci procente dintr-un univers pe care nici măcar nu îl vedea complet.</p>
+    <p>Nu era un gând mic. Era unul dintre acele gânduri care, dacă îl lași să se termine, îți schimbă cum arată lumea după aceea.</p>
+  </div>
+
+  <div class="sci-note">
+    Materia întunecată (dark matter): ~27% din densitatea energetică totală a universului. Evidențiată prin curbele de rotație ale galaxiilor (Rubin & Ford, 1970–1978), lentile gravitaționale și formarea structurii cosmice la scară mare. Candidați teoretici: WIMPs (particule masive cu interacțiune slabă), axioni, neutrinos sterili. La data mai 2026, niciun candidat nu a fost detectat direct în laborator. Natura exactă a materiei întunecate rămâne una dintre cele mai mari întrebări deschise ale fizicii.
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="chapter">
+  <div class="ch-num">Nota Unu · II</div>
+  <div class="ch-title">Forța Care Desparte</div>
+  <div class="prose">
+    <p>Dacă materia întunecată era scheletul nevăzut, energia întunecată era altceva — ceva pentru care Zara nu găsise metafora potrivită câteva zile la rând, ceea ce era rar pentru ea.</p>
+    <p>Problema era aceasta: universul nu se extinde pur și simplu. Se extinde <em>din ce în ce mai repede</em>. Galaxiile se îndepărtează unele de altele cu o viteză care crește în timp, ca și cum ceva împinge spațiul însuși să se lărgească. Gravitația ar trebui să frâneze această expansiune — la fel cum o minge aruncată în sus e frânată de atracția Pământului. Dar nu o face. Expansiunea accelerează.</p>
+    <p>Descoperita în 1998, confirmată prin supernove de tip Ia — lumânări standard ale cosmologiei, surse de lumină cu luminozitate intrinsecă știută, măsurate ca mai slabe decât ar trebui să fie dacă universul s-ar fi extins uniform. Saul Perlmutter, Brian Schmidt, Adam Riess: Nobel în 2011 pentru că găsiseră ceva pe care nimeni nu îl căutase.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Explică-mi energia întunecată, spuse Zara. Fără ecuații. Dacă poți.</p>
+    <p>— Dacă pot, repetă Emil cu un ton care sugera că îi plăcea provocarea. Bine. Imaginează-ți că iei o bucată de aluat și o întinzi. Între stafidele din aluat — galaxii, grupe de galaxii — aluatul însuși crește. Nu stafidele se mișcă. Aluatul crește. Energia întunecată e ceea ce face aluatul să crească din ce în ce mai repede, independent de orice forță pe care o cunoaștem. E o proprietate a spațiului însuși — o energie a vidului, constantă, care nu se diluează pe măsură ce universul se lărgește, spre deosebire de materie sau radiație.</p>
+    <p>— Constanta cosmologică a lui Einstein.</p>
+    <p>— Pe care el însuși a retras-o, convins că era o eroare. Și pe care universul a reinstalat-o fără să ceară permisiunea nimănui. Emil zâmbi. Uneori fizica îți demonstrează că și greșelile tale pot fi corecte dacă greșești în direcția bună.</p>
+    <p>— Și știm ce e?</p>
+    <p>— Știm că e 68% din tot ce există. Știm că accelerează expansiunea. Nu știm de unde vine, de ce are valoarea pe care o are — valoarea observată e de 120 de ordine de magnitudine mai mică decât predicțiile teoriei câmpurilor cuantice. E cel mai mare dezacord numeric din istoria fizicii. O pauză. Și nu știm dacă va crește, va scădea sau va rămâne constantă în timp.</p>
+    <p>— Adică nu știm dacă va sfâșia universul.</p>
+    <p>— Adică nu știm dacă va sfâșia universul, confirmă Emil fără ironie. E o întrebare legitimă. Dacă energia întunecată crește, există scenariul Big Rip: expansiunea se accelerează până când sfâșie galaxii, stele, planete, atomi. Dacă rămâne constantă, scenariul e mai liniștit — și mai trist, în felul lui.</p>
+    <p>— Mai trist?</p>
+    <p>Emil tăcu o clipă. Da. Dar asta e pentru data viitoare.</p>
+  </div>
+
+  <div class="prose">
+    <p>Zara rămăsese mult timp la birou după ce închisese conversația. Pe hârtie desenase două cercuri — unul mic, altul mare — și o săgeată între ele. Săgeata creștea. Nu se oprea.</p>
+    <p>Energia întunecată era marea care despărțea insulele. Pe măsură ce marea creștea, insulele se îndepărtau unele de altele — nu pentru că ar fi navigat, ci pentru că apa dintre ele se înmulțea. La suficientă distanță, unele insule nu și-ar mai vedea niciodată lumina — orizontul cosmologic le separa definitiv. Galaxii care existau acum și care, în câteva sute de miliarde de ani, nu ar mai putea fi vreodată observate de cineva din galaxia noastră. Nu pentru că ar dispărea — ci pentru că spațiul dintre noi s-ar lărgi mai repede decât viteza luminii, linia de contact dintre ele devenind permanent inaccesibilă.</p>
+    <p>Scrise în blocnotes: <em>Energia întunecată e marea care desparte insulele. Fiecare insulă e singură în propria ei apă. Stafidele nu știu de aluat. Noi nu știm ce crește în jurul nostru.</em></p>
+    <p>Și dedesubt, după o pauză în care pixul rămăsese nemișcat: <em>68% din tot ce există nu știm ce e. Nu suntem în univers. Suntem o notă dintr-o simfonie pe care nu o auzim în întregime.</em></p>
+  </div>
+
+  <div class="sci-note">
+    Energia întunecată: ~68% din densitatea energetică totală. Descoperită în 1998 prin observarea supernove de tip Ia (Perlmutter, Schmidt, Riess — Nobel 2011). Cel mai plauzibil candidat: constanta cosmologică Λ (Einstein, 1917). Dezacordul dintre valoarea observată și predicția teoriei câmpurilor cuantice rămâne nerezolvat. Scenariul Big Rip (dacă energia întunecată e fantomă cu w &lt; −1) nu este confirmat. Natura energiei întunecate este considerată cea mai mare problemă deschisă a cosmologiei contemporane.
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="chapter">
+  <div class="ch-num">Nota Unu · III</div>
+  <div class="ch-title">Săgeata</div>
+  <div class="prose">
+    <p>Întrebarea venise noaptea, cum veneau cele mai bune întrebări ale Zarei — nu dintr-o lectură sau o conversație, ci dintr-un moment de liniște în care mintea ei, lăsată nesupravegheată, găsea conexiunile pe care ziua, prea ocupată, nu le observase.</p>
+    <p>Era simplă și devastatoare: de ce trece timpul într-o singură direcție?</p>
+    <p>Nu <em>de ce trece</em> — existau răspunsuri parțiale pentru asta. Ci de ce <em>înainte</em> și nu <em>înapoi</em>. De ce amintirile sunt despre trecut și nu despre viitor. De ce oul spart nu se recompune singur. De ce știi unde ai fost și nu știi unde vei fi.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Tată. Legile fizicii sunt simetrice în timp.</p>
+    <p>— Aproape toate, spuse Emil. Cu excepții minore legate de decăderea kaonilor, dar da — în principiu, o ecuație a fizicii funcționează la fel dacă rulezi filmul înainte sau înapoi. La nivel de particule elementare, trecutul și viitorul sunt echivalente matematic.</p>
+    <p>— Și totuși nu sunt echivalente în experiență.</p>
+    <p>— Nu.</p>
+    <p>— Atunci de unde vine săgeata timpului?</p>
+    <p>Emil tăcu câteva secunde — nu pentru că nu știa răspunsul, ci pentru că răspunsul era complex și voia să îl formuleze corect. Din entropie, spuse în final. Dar asta e aproape o tautologie. Entropia crește pentru că stările de dezordine sunt incomparabil mai multe decât stările de ordine — dacă amesteci aleatoriu un sistem, e aproape imposibil să obții ceva ordonat. Săgeata timpului e direcția în care entropia crește. Și entropia crește pentru că universul a pornit dintr-o stare de entropie extrem de scăzută — Big Bang-ul a fost extraordinar de ordonat — și se îndreaptă spre dezordine maximă. Nu pentru că există o lege care îl obligă să fie dezordonat, ci pentru că dezordinea e covârșitor mai probabilă.</p>
+    <p>— Dar de ce a pornit din stare de entropie scăzută?</p>
+    <p>Emil zâmbi. Asta nu știm. E una dintre marile întrebări nerezolvate. Entropia scăzută inițială a universului e prezumată, nu explicată. E condiția de graniță pe care teoria noastră o acceptă dar nu o justifică.</p>
+    <p>— Adică știm de unde vine săgeata timpului dar nu știm de ce există săgeata timpului.</p>
+    <p>— Adică știm că vine din entropie dar nu știm de ce entropia a putut să crească — adică de ce a pornit de atât de jos. O pauză. Ești sigură că e ora 23:00 și nu dimineața?</p>
+    <p>— Nu există dimineață pe o stație orbitală, spuse Zara. Există panouri LED.</p>
+    <p>— Același lucru, spuse Emil. Du-te să dormi.</p>
+    <p>— Încă o întrebare.</p>
+    <p>— O singură întrebare.</p>
+    <p>— Dacă la nivel de particule elementare trecutul și viitorul sunt echivalente, înseamnă că la nivel fundamental nu există o săgeată a timpului. Că ea apare doar la scară macroscopică, din statistica sistemelor mari. Că noi — conștiința, memoria, experiența trecerii timpului — suntem un efect al numerelor mari, nu o lege fundamentală.</p>
+    <p>Emil rămase câteva secunde fără să spună nimic.</p>
+    <p>— Dormi, spuse în final. Și lasă întrebarea asta să stea. E una care merită să fie lăsată să stea.</p>
+  </div>
+
+  <div class="prose">
+    <p>Zara stinsese ecranul și rămăsese în întunericul camerei. Aerul filtrat al stației mirosea ca întotdeauna. Undeva, sistemele de ventilație funcționau cu același sunet monoton pe care îl știa de mică.</p>
+    <p>Ea exista la marginea unui paradox: ființa sa — gândurile, amintirile, sentimentul că acum era acum și nu altceva — era un fenomen emergent din statistica particulelor. Particulele în sine nu știau de timp. Nu știau de trecut sau viitor. Vibrau, interacționau, se schimbau — și din enorma lor mulțime apărea ceva ce nu exista la nivelul fiecăreia în parte: direcția. Ireversibilitatea. Săgeata.</p>
+    <p>Ea era săgeata timpului care devenise conștientă de propria ei direcție.</p>
+    <p>Scrise în întuneric, pe pipăite, în blocnotes: <em>Suntem entropie care s-a uitat în oglindă.</em></p>
+  </div>
+</div>
+
+<!-- CAP 4 -->
+<div class="chapter">
+  <div class="ch-num">Nota Unu · IV</div>
+  <div class="ch-title">Cât Mai Avem</div>
+  <div class="prose">
+    <p>Era una dintre acele conversații pe care le-ar fi avut oricând — la prânz, la final de zi, la miezul nopții orbital — pentru că nu aveau nicio logistică emoțională necesară. Zara și Emil vorbeau despre fizică cu aceeași naturalețe cu care alți oameni vorbeau despre vreme sau despre ce aveau de mâncare. Fizica era vremea lor internă.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Spune-mi scenariul cel mai probabil pentru sfârșitul universului.</p>
+    <p>— Sfârşit sau moarte lentă?</p>
+    <p>— Care e diferența?</p>
+    <p>— Sfârşit implică o catastrofă, un moment. Moartea lentă implică un proces. Cel mai probabil scenariu e moartea lentă, spuse Emil. Și folosesc cuvântul „moarte" metaforic — universul nu va muri brusc, nu va exploda. Va deveni din ce în ce mai rece, mai gol, mai liniștit, până va atinge starea de entropie maximă — moartea termică. Termodinamic vorbind.</p>
+    <p>— Cât durează?</p>
+    <p>Emil inspiră adânc. Depinde ce numeri. Ultimele stele active — stelele pitice roșii, care ard extrem de lent — se vor stinge în aproximativ 10 la puterea a 14 ani. Asta e de zece mii de ori vârsta actuală a universului. Mult, dar finit. Apoi, dacă protonii sunt instabili — ceea ce e prezis de unele teorii de câmp unificat — ei se dezintegrează în câteva sute de mii de miliarde de miliarde de miliarde de ani. 10 la puterea a 40. Planck scale de timp. Materia obișnuită dispare. Rămân găuri negre.</p>
+    <p>— Și găurile negre?</p>
+    <p>— Radiația Hawking. Extrem de lent, pe parcursul unor perioade de timp cu mai multe zerouri decât pot scrie pe o pagină, găurile negre evaporează. Ultima gaură neagră supermasivă — miliarde de mase solare — se evaporă în câteva 10 la puterea 100 de ani. Duplex de cifre. Eonii de eoni de eoni de universuri.</p>
+    <p>— Și după?</p>
+    <p>Emil tăcu. Și după, universul e un gaz ultradiluatat de fotoni și leptoni la o temperatură infinit apropiată de zero absolut. Nicio structură. Nicio informație utilă. Nicio posibilitate de lucru mecanic. Echilibru termic perfect. Entropie maximă. Nota zero a viitorului.</p>
+  </div>
+
+  <div class="prose">
+    <p>Zara rămase câteva secunde în tăcere. Nota zero a viitorului. Același titlu, alt capăt.</p>
+    <p>Originea fusese o notă zero: starea de entropie minimă, densitatea maximă, momentul dinaintea curgerii timpului. Și sfârșitul era tot o notă zero: starea de entropie maximă, densitatea minimă, momentul în care timpul nu mai putea produce nimic nou. Două note zero, la capetele celei mai lungi simfonii posibile. Între ele: tot.</p>
+  </div>
+
+  <div class="pull">
+    <p>Nota zero a originii și nota zero a sfârșitului sunt aceeași notă, cântată de la capete opuse ale aceleiași corzi.</p>
+    <cite>— Blocnotesul Zarei, vol. IV, p. 88</cite>
+  </div>
+
+  <div class="dial">
+    <p>— Tată. E trist?</p>
+    <p>— Ce anume?</p>
+    <p>— Că se termină. Că tot ce există acum — galaxiile, stelele, noi — va deveni un gaz de fotoni reci.</p>
+    <p>Emil stătu o clipă. Nu știu, spuse. Depinde la ce distanță te uiți. Din perspectiva cuiva care trăiește azi, e irelevant — orizontul de 10 la puterea 100 de ani e atât de îndepărtat încât instinctele noastre de supraviețuire nu îl pot procesa. Din perspectiva unui observator ipotetic — dacă ar exista un astfel de observator — finalul nu e o catastrofă. E o liniște. O rezolvare a ecuației. O pauză după ultimul acord.</p>
+    <p>— Dar nota zero din care am pornit a produs toată complexitatea asta. A produs stelele și planetele și viața și conștiința și întrebările. De ce nota zero finală nu ar putea produce și ea ceva?</p>
+    <p>Emil o privi câteva secunde fără să spună nimic.</p>
+    <p>— Aceasta, spuse în final, e întrebarea pentru data viitoare.</p>
+  </div>
+</div>
+
+<!-- EPILOG NOTA UNU -->
+<div class="epilog">
+  <div class="ep-date">Nota Unu · Epilog · 14 Septembrie 2097</div>
+  <div class="ep-title">Ce nu strălucește</div>
+  <div class="ep-body">
+    Cartea a doua se numea <em>Scheletul Nevăzut</em> și era de două ori mai groasă decât prima. Zara o scrisese în optsprezece luni, cu doi ani de cercetare înainte. Vorbea despre materia întunecată, despre energia întunecată, despre săgeata timpului și despre moartea termică — adică despre 95% din univers pe care nu îl vedem și despre singurul final pe care știința îl considera plauzibil.
+    Vorbea și despre cum e să știi că nu știi, și că asta nu e același lucru cu ignoranța.
+  </div>
+  <div class="ep-blocnotes">
+    Nu vedem 95% din univers.<br>
+    Și totuși existăm în el.<br>
+    Și totuși îl putem gândi.<br>
+    Această carte e scrisă din 5% cunoaștere<br>
+    spre 95% întuneric.<br>
+    E suficient.<br>
+    E mai mult decât suficient.<br>
+    E tot ce avem și tot ce contează că avem.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  NOTA FINALĂ — ULTIMA VIBRAȚIE                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="interpart">✦ &nbsp; &nbsp; &nbsp; ✦ &nbsp; &nbsp; &nbsp; ✦</div>
+
+<div class="part-cover">
+  <div class="pc-back">∞</div>
+  <div class="pc-kicker">Cartea a treia · Trilogia Nota Zero</div>
+  <div class="pc-nota">Nota Finală</div>
+  <div class="pc-title">Ultima Vibrație</div>
+  <div class="pc-subtitle">Dacă totul se termină în tăcere, tăcerea aceea e din ce e făcută o altă atingere.</div>
+</div>
+
+<div class="wrap">
+
+<!-- CAP 1 FINALA -->
+<div class="chapter">
+  <div class="ch-num">Nota Finală · I</div>
+  <div class="ch-title">Întunericul Termic</div>
+  <div class="prose">
+    <p>Emil împlinise șaptezeci de ani în primăvară și Zara organizase, spre surprinderea lui, o petrecere. Mică — șapte oameni, toți din fizică sau din vecinătatea ei — pe terasa din Baza Artemis VII, cu vedere spre câmpia Oceanus Procellarum și spre Pământ pe orizontul selenar. Emil nu voia discurs și Zara nu ținuse. Ridicase un pahar de vin cu gust ușor metalic din cauza presiunii și spusese doar: <em>La mulți ani. Mai avem lucruri de discutat.</em></p>
+    <p>Și aveau.</p>
+    <p>Acum, la trei săptămâni după, cu Emil în fața ecranului și Zara la biroul de pe L2, aveau conversația pe care o amânaseră de câteva ori: moartea termică a universului. Nota zero a viitorului, cum îi spusese Zara data trecută.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Vreau să înțeleg ce înseamnă cu adevărat, spuse Zara. Nu ca număr — ca realitate.</p>
+    <p>— Ca realitate, spuse Emil, moartea termică înseamnă că nu mai există gradient. Temperatura e uniformă pretutindeni. Nu mai există locuri mai calde și locuri mai reci. Și fără gradient termic nu există fluxul de energie care să producă lucru mecanic. Nu pot funcționa mașini. Nu pot apărea structuri. Nu se poate forma niciun cristal, niciun atom complex, nicio moleculă organică. Totul e diluat uniform în infinit.</p>
+    <p>— E tot, nu? Asta e cu adevărat tot.</p>
+    <p>— Fizic — da. Cel mai probabil.</p>
+    <p>— Și conștiința?</p>
+    <p>Emil tăcu. Conștiința, dacă e un fenomen emergent al complexității — și există argumente serioase pentru asta — dispare mult mai devreme. Nu la moartea termică. La stingerea ultimelor stele. Sau mai devreme. Nu am o dată exactă pentru dispariția conștiinței, pentru că nu avem o definiție exactă a conștiinței.</p>
+    <p>— Dar e posibil — spuse Zara cu grijă, alergând să rămână pe partea onestă a speculației — ca un sistem suficient de complex să mențină o formă de procesare a informației mult dincolo de lumile biologice?</p>
+    <p>— Posibil, spuse Emil. Jenner Freeman Dyson a explorat ipoteze de felul acesta — sisteme care hibernează și se trezesc, care descresc exponențial temperatura internă odată cu temperatura universului, care procesează gânduri tot mai lente dar mereu finite. Imposibil de confirmat sau infirmat. Speculație pură — dar speculație frumos articulată.</p>
+    <p>— Deci s-ar putea să existe o ultimă gândire.</p>
+    <p>— S-ar putea. Infinit de lentă. Infinit de solitară. Și poate infinit de frumoasă — cine știe ce gândești când ai toată eternitatea pentru un singur gând.</p>
+  </div>
+
+  <div class="prose">
+    <p>Zara stătu cu gândul acela câteva minute. O ultimă gândire în universul rece. Un gând care durează mii de miliarde de ani. Poate singurul gând rămas, în ultimul sistem capabil să gândească, în întunericul termic al unei simfonii terminate.</p>
+    <p>Ce ai gândi? Ce ar merita să gândești, dacă ai ști că e ultimul gând și că după el nu mai urmează nimic?</p>
+    <p>Scrise în blocnotes: <em>Dacă există o ultimă gândire, sper că e o întrebare. Nu un răspuns.</em></p>
+  </div>
+</div>
+
+<!-- CAP 2 FINALA -->
+<div class="chapter">
+  <div class="ch-num">Nota Finală · II</div>
+  <div class="ch-title">Ciclul</div>
+  <div class="prose">
+    <p>Dar existase și o altă posibilitate. Una pe care Zara o lăsase pentru finalul finalului, pentru că era genul de idee pe care trebuia să o meriți înainte să o asculți.</p>
+    <p>Cosmologia ekpyrotică — pe care o văzuse cu ochii ei la cincisprezece ani, în bulk, alături de Emil — nu se termina la primul ciclu. Steinhardt și Turok propuseseră un model în care coliziunea membranelor nu era un eveniment unic. Era unul dintre o infinitate de astfel de evenimente. Membranele se atingeau, produceau Big Bang, se îndepărtau, universul evolua, se răcea, moartea termică se instala — și membranele se apropiau din nou. Un nou contact. Un nou Big Bang. Un nou univers.</p>
+    <p>Nu recursiv în interiorul aceluiași univers. Recursiv între universuri. O roată care nu are nici început, nici final. Doar cicluri.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Ăsta e scenariul tău preferat? îl întrebă Zara.</p>
+    <p>— Nu am scenarii preferate. Am scenarii mai sau mai puțin bine susținute de date. O pauză. Dar dacă aș fi necinstit, da. Mi-ar plăcea ca universul să fie ciclic. Nu pentru că e mai confortabil — nici un fizician adevărat nu alege teoriile după confort — ci pentru că e mai economic. Rezolvă problema condițiilor inițiale: de ce entropia a fost atât de scăzută la Big Bang? Poate pentru că e totdeauna scăzută la momentul coliziunii — condițiile membranei restabilesc ordinea la fiecare ciclu.</p>
+    <p>— Și celelalte membrane — din care s-a format universul nostru — și ele au cicluri?</p>
+    <p>— Dacă modelul e corect, da. Fiecare membrană e un univers cu propriul lui ciclu. Fiecare coliziune produce un Big Bang. Bulk-ul e plin de membrane care vibrează, se apropie, se ating, se îndepărtează, se întorc.</p>
+    <p>— Atunci moartea termică nu e finalul.</p>
+    <p>— Dacă modelul ciclic e corect — nu. E pauza dintre note. O tăcere lungă în partitură, nu finalul partiturii.</p>
+    <p>Zara stătu câteva secunde cu aceasta.</p>
+    <p>— Tată. Dacă universul nostru era nota zero de la origine — starea de entropie minimă, densitate maximă, momentul dinaintea oricărui sunet — atunci moartea termică e nota zero de la final. Nota zero a viitorului. Același lucru, alt capăt. Și dacă modelul ciclic e corect, nota zero a viitorului devine nota zero a unui alt univers.</p>
+    <p>Emil o privi câteva secunde fără să spună nimic.</p>
+    <p>— Scrie asta, spuse în final.</p>
+    <p>— Deja am scris-o.</p>
+    <p>— Știu. De aceea ți-am spus să o scrii.</p>
+  </div>
+
+  <div class="sci-note">
+    Cosmologia ekpyrotică ciclică (Steinhardt & Turok, 2002, 2004): model în care Big Bang-ul e produs de coliziuni periodice între membrane paralele. Fiecare ciclu include expansion, răcire, moarte termică și revenire la o nouă coliziune. Nu există o singularitate inițială — fiecare Big Bang vine dintr-un ciclu anterior. Predicțiile observaționale diferă de inflația cosmică standard (în principal la nivelul undelor gravitaționale primordiale). Teorie validă speculativ, neconfirmată la mai 2026.
+  </div>
+</div>
+
+<!-- CAP 3 FINALA -->
+<div class="chapter">
+  <div class="ch-num">Nota Finală · III</div>
+  <div class="ch-title">Ultima Întrebare</div>
+  <div class="prose">
+    <p>Conversația asta fusese diferită. Nu pentru că fizica ar fi fost mai grea — nu era. Ci pentru că Emil vorbise mai lent decât de obicei, cu pauze mai lungi, și Zara observase că alege cuvintele cu mai multă grijă decât îi era obiceiul. Emil Voss nu alegea de obicei cuvintele cu grijă. Le lăsa să vină și le corecta pe drum, în stilul omului care gândea tare și nu se jenea să se audă gândind.</p>
+    <p>Acum alegea. Și Zara nu spusese nimic despre asta, pentru că uneori cel mai important lucru pe care poți să îl faci pentru cineva e să nu observi că ai observat.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Tată. Ce crezi că se pierde definitiv la moartea termică? Nu fizic — știu ce se pierde fizic. Ce crezi că se pierde ca sens?</p>
+    <p>Emil rămase tăcut câteva secunde lungi.</p>
+    <p>— Memoria, spuse în final. Memoria universului despre sine însuși. Toată informația produsă de 10 la puterea 100 de ani de procese cosmice, de viață, de conștiință, de cultură, de gândire — tot ce a gândit vreodată orice minte din orice civilizație din orice galaxie — dispare. Nu că s-ar pierde undeva. Ci că dispare cu adevărat. O pauză. Teorema lui Hawking spune că găurile negre distrug informația — sau poate o codifică pe suprafața lor, holografic, și o returnează prin radiație. Dar la moartea termică, chiar și aceasta se împrăștie. Nicio urmă. Nicio amprentă.</p>
+    <p>— Și dacă modelul ciclic e corect?</p>
+    <p>— Atunci informația din ciclul anterior nu trece în ciclul următor. Fiecare Big Bang e un nou început. Un nou univers care nu știe nimic despre cel care l-a precedat.</p>
+    <p>— Atunci noi nu vom fi amintiți.</p>
+    <p>— Nu în sensul ăsta. Nu de universul următor. O pauză scurtă. Dar asta nu înseamnă că am fi existat degeaba.</p>
+    <p>— Nu, spuse Zara. Asta înseamnă că existăm acum. Și că acum e tot ce contează că există.</p>
+    <p>Emil o privi câteva secunde. Câte secunde? Zara numărase fără să vrea: șase. Șase secunde de tăcere în care tatăl ei o privise fără să spună nimic, și în care Zara simțise că se spunea ceva mai important decât orice propoziție rostită.</p>
+    <p>— Ești mai bună la asta decât am fost eu vreodată, spuse Emil în final.</p>
+    <p>— La fizică?</p>
+    <p>— La restul.</p>
+  </div>
+
+  <div class="prose">
+    <p>Zara nu știa ce să facă cu asta, deci nu făcu nimic. Uneori complimentele tatălui tău te lasă fără cuvinte nu pentru că ar fi neașteptate, ci pentru că sunt exact ceea ce așteptaseși să auzi și nu știai că așteptai.</p>
+    <p>Trecuse câteva minute în liniște. Nu tăcere incomodă — era tăcerea dintre două persoane care nu mai au nevoie de cuvinte să știe că celălalt e acolo.</p>
+    <p>Și în acea liniște, Zara se gândise la corzi. La faptul că fiecare particulă din ei vibra la propria frecvență. La faptul că vibrațiile corzilor din corpul ei fuseseră cândva parte din steaua care îi dăduse carbonul, și din norul de hidrogen de dinaintea stelei, și din radiația primordială de dinaintea norului. Că tatăl ei era alcătuit din aceleași corzi, vibrând altfel. Că distanța dintre ei — câteva sute de mii de kilometri, Luna față de L2 — era, din perspectiva bulk-ului, o distanță pe care gravitonii o traversau în fiecare clipă ca mesageri ai unui univers mai vast.</p>
+    <p>Că probabil existau alte membrane, alte universuri, în care nu existau fizicieni și nici fiice ale fizicienilor, și nici întrebări. Și că asta făcea universul acesta extraordinar de specific: că în el apăruseră ființe care puteau să pună întrebări despre el.</p>
+    <p>Că asta nu era lipsă de modestie. Era cel mai frumos lucru pe care un univers îl putea produce.</p>
+  </div>
+</div>
+
+<!-- CAP 4 - ULTIMA NOTA -->
+<div class="chapter">
+  <div class="ch-num">Nota Finală · IV</div>
+  <div class="ch-title">Atingerea Care Nu Se Termină</div>
+  <div class="prose">
+    <p>Zara nu dormise bine în noaptea de dinaintea conversației finale. Nu din anxietate — sau nu numai. Ci pentru că era genul de noapte în care mintea alunecă spre întrebările mari și nu le poate da drumul, o noapte în care granița dintre gândire și vis e mai subțire decât de obicei.</p>
+    <p>Visase corzi. Nu metaforic — corzi reale, infinite, vibrând la frecvențe pe care urechea nu le putea auzi dar corpul le simțea ca pe o rezonanță internă. Și în vis știuse — cu certitudinea specifică visurilor care par mai reale decât realitatea — că ea era și observatoarea și observatul. Că corzile din care era alcătuită vibrau în același bulk în care văzuse coliziunea membranelor la cincisprezece ani. Că nu existase niciodată o graniță reală între interior și exterior.</p>
+    <p>Se trezise la 4 dimineața cu un singur gând clar în minte, pe care îl scrisese imediat, înainte să uite: <em>Moartea termică nu e tăcere. E pregătirea pentru o altă atingere.</em></p>
+  </div>
+
+  <div class="dial">
+    <p>— Tată. Am o ultimă întrebare.</p>
+    <p>— Câte ultime întrebări ai avut în viața ta?</p>
+    <p>— Aceasta e prima care e cu adevărat ultima. Sau poate ultima care deschide prima dintr-un nou blocnotes. Nu știu.</p>
+    <p>— Atunci întreabă.</p>
+    <p>— Dacă universul nostru s-a născut dintr-o atingere — din contactul a două membrane — și dacă modelul ciclic e corect, atunci Big Bang-ul nostru era pentru o altă membrană o moarte termică. Sau mai degrabă: starea de entropie minimă de la care am pornit noi era starea de echilibru atinsă de un alt ciclu. Nota noastră zero era nota finală a altcuiva.</p>
+    <p>Emil tăcu.</p>
+    <p>— Nu știu dacă asta e fizică sau filozofie, spuse în final.</p>
+    <p>— E ambele. Răspunde-mi la amândouă.</p>
+    <p>— Ca fizică: nu e exclus. Modelele ciclice nu specifica ce se întâmpla în cealaltă membrană înainte de coliziune. Poate că era un univers matur în moartea sa termică. Poate că entropia maximă a unui univers e condiția inițială de entropie minimă pentru universul produs prin coliziune. Nu știm. Nu avem instrumentele. O pauză lungă. Ca filozofie — și acum îi era lui Emil rândul să aleagă cuvintele cu grijă — înseamnă că finalurile și începuturile nu sunt opuse. Că tăcerea și nota zero sunt același lucru privit din direcții diferite. Că atingerea nu se termina — se transformă. Că ceea ce noi numim moarte termică e pregătirea pentru o altă atingere. Că suntem — noi, acum, cu toată complexitatea și conștiința și întrebările noastre — proba că o atingere de acum 13,787 miliarde de ani a reușit. Că merită să se mai repete.</p>
+    <p>Zara stătu cu aceasta câteva secunde.</p>
+    <p>— Asta e mai frumos decât orice ai spus vreodată.</p>
+    <p>— Ai lăsat-o pe ultimă. Merita ceva bun.</p>
+  </div>
+
+  <div class="prose">
+    <p>Nu mai vorbiseră în seara aceea. Nu pentru că ar fi terminat — nici o conversație a lor nu se termina cu adevărat, se suspenda și continua altundeva, în alte zile, pe alte planuri. Ci pentru că era genul de seară în care orice cuvânt suplimentar ar fi luat ceva din ceea ce fusese spus.</p>
+    <p>Zara stătuse la fereastra circulară a stației, privind Pământul. Același Pământ albastru pe care îl văzuse de mică, acoperit de luminițele orașului, fragil și concret în același timp. Aceeași membrană pe membrană, aceleași corzi care vibrau în bulk, aceeași gravitație care scurgea o parte din ea în dimensiuni pe care nu le putea percepe.</p>
+    <p>Și totuși real. Real cu o precizie extraordinară. Real în sensul că exista în mod specific, cu această configurație și nicio alta, în acest moment și nu altul, cu ea privind la el și cu el conținând tot ce a iubit și tot ce a pierdut și tot ce mai era.</p>
+    <p>Starea de entropie scăzută în care se afla acum universul — această fereastră de complexitate și ordine relativă în care stelele ardeau și viața gândea și Zara privea și Emil îmbătrânea și găurile negre consumau materie și fizicienii scriau ecuații — era cel mai prețios lucru pe care un univers îl putea produce. Nu pentru că era etern. Ci pentru că era.</p>
+    <p>Scrise în blocnotes ultima propoziție a trilogiei. Nu o propoziție nouă — una pe care o știuse de la cincisprezece ani și pe care abia acum o înțelesese în toate straturile ei:</p>
+  </div>
+
+  <div class="notebook">
+    <div class="nb-header">Blocnotes vol. VII, ultima pagina · Zara Voss · 2 Noiembrie 2097</div>
+    Atingerea nu se termina.<br>
+    Se transformă.<br>
+    Nota zero de la final e nota zero de la început a altcuiva.<br>
+    Și undeva, în bulk,<br>
+    alte membrane vibrează spre noi,<br>
+    fără să știe că vibrează,<br>
+    fără să știe că noi le așteptăm,<br>
+    fără să știe că noi înșine suntem<br>
+    urmele ultimei lor atingeri.<br>
+    <br>
+    Continuați să întrebați.<br>
+    Chiar și când e ultima întrebare.<br>
+    Mai ales atunci.
+  </div>
+</div>
+
+<!-- EPILOG NOTA FINALA -->
+<div class="epilog">
+  <div class="ep-date">Nota Finală · Epilog · 17 Mai 2112</div>
+  <div class="ep-title">Nota Unu. Nota Finală.</div>
+  <div class="ep-body">
+    Emil Voss murise liniștit, la optzeci și cinci de ani, în camera lui de la Baza Artemis VII, cu vederea spre Oceanus Procellarum și spre Pământul care răsărea pe orizontul selenar o dată la fiecare 27 de zile.
+    Pe noptieră era o carte deschisă la pagina optzeci și patru — pagina cu greșeala de fizică pe care Zara o lăsase intenționat, cu patruzeci de ani în urmă. Emil marcase propoziția cu creionul și scrisese în margine, cu scrisul lui înclinat și inegal: <em>Mai frumos greșit decât corect.</em>
+    Zara citise nota de mai multe ori. Fiecare dată plângea puțin. Fiecare dată și râdea puțin. Asta era semnul că era bine.
+  </div>
+  <div class="ep-blocnotes">
+    Trilogia Nota Zero e despre o întrebare pe care<br>
+    fizica nu a rezolvat-o încă — și poate nu va rezolva-o<br>
+    niciodată în forma în care o punem.<br>
+    <br>
+    Nota Zero e despre origine.<br>
+    Nota Unu e despre ce există între origine și final.<br>
+    Nota Finală e despre final — și despre faptul că<br>
+    finalul e aceeași structură ca originea, privită din interior.<br>
+    <br>
+    Toate trei spun același lucru:<br>
+    nu știm de unde vine universul<br>
+    și nu știm unde se duce<br>
+    și nu știm de ce există mai degrabă ceva decât nimic —<br>
+    dar știm că suntem din el<br>
+    și că întrebarea e parte din el<br>
+    și că asta, în sine,<br>
+    e suficient de frumos<br>
+    pentru a continua.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="orn">✦ ✦ ✦</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--border);padding:1.5rem 2rem;margin:2rem 0;background:var(--gold3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:.6">⬡ Note Ştiinţifice · Nota Unu & Nota Finală</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1.</strong> Materia întunecată (~27%): detectată prin curbe de rotaţie galactică, lentile gravitaţionale şi formare de structuri cosmice. Natura sa exactă — WIMP, axion, neutrino steril sau altceva — rămâne necunoscută la mai 2026. Niciun candidat nu a fost detectat direct în laborator.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2.</strong> Energia întunecată (~68%): descoperită în 1998 prin observaţii de supernove Ia. Cel mai plauzibil candidat: constanta cosmologică Λ. Dezacordul de 120 ordine de magnitudine cu teoria câmpurilor cuantice e nerezolvat. Nu se ştie dacă e constantă în timp.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3.</strong> Săgeata timpului: legile fizicii la nivel microscopic sunt (aproape) simetrice temporal. Asimetria apare la scară macroscopică din entropia sistemelor mari. Originea entropiei scăzute a Big Bang-ului rămâne un mister deschis.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4.</strong> Moartea termică (Big Freeze): scenariu cosmologic în care expansiunea continuă, stelele se sting (~10¹⁴ ani), materia barionice se dezintegrează dacă protonul e instabil (~10⁴⁰ ani), găurile negre evaporează prin radiaţie Hawking (~10⁶⁷–10¹⁰⁰ ani), rezultând un univers la entropie maximă. Nu exclude alte scenarii (Big Rip, Big Crunch).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">5.</strong> Cosmologia ekpyrotică ciclică (Steinhardt & Turok, 2002): modelul ciclic propune că Big Bang-urile sunt coliziuni periodice între membrane. Fiecare ciclu durează trilioane de ani. Predicţii observaţionale diferite de inflaţia standard — neconfirmate la mai 2026.</p>
+    <p><strong style="color:var(--cream)">6.</strong> Ficţiune speculativă: conversaţiile şi personajele din această carte sunt ficţionale. Fizica este prezentată cu acurateţe în limitele cunoaşterii actuale, cu excepţia scenelor de vizualizare directă a bulk-ului şi a membranelor, care sunt dispozitive ficţionale imposibile din punct de vedere fizic.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Unu & Nota Finală · Continuarea trilogiei Nota Zero<br>
+  Alexandru Ionuț Chiuță · 2026–2027<br>
+  Toate drepturile rezervate
+</footer>
+
+
+
+
+</div>
+<div class="sec">IV–V · Nota Vieții · Nota Conștiinței · textul integral</div>
+<div class="s45">
+<div class="part-div">
+  <div class="pd-ghost">IV</div>
+  <div class="pd-num">Cartea a patra · Trilogia Nota Zero</div>
+  <div class="pd-nota">Nota Vieții</div>
+  <div class="pd-title">De ce există cineva care să întrebe</div>
+  <div class="pd-epigraph">
+    „Dacă universul e atât de mare și noi atât de mici,<br>
+    de ce suntem noi singurii care știm că e mare?"<br>
+    — Zara Voss, blocnotes vol. VIII, p. 3
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- CAP 1 -->
+<div class="chapter">
+  <div class="ch-num">Nota Vieții · I</div>
+  <div class="ch-title">Constantele</div>
+  <div class="prose">
+    <p>Biroul lui Emil era exact cum îl lăsase — cu excepția cărților, pe care Zara le mutase de pe podea pe rafturi. Emil considera că rafturi era o invenție pentru oamenii care nu citeau destul ca să aibă cărțile la îndemână oricând. Dar Emil nu mai era acolo să protesteze, și Zara rearanjase biblioteca după propria logică: pe teme, nu pe autori, cronologic în cadrul fiecărei teme. Îi luase trei zile. La final stătuse în mijlocul camerei și realizase că, fără să intenționeze, reconstruise felul în care Emil organiza conversațiile: de la origine spre final, de la teorie spre consecințe.</p>
+
+    <p>Acum stătea la biroul lui și citea un articol pe care el îl imprimase și îl lăsase neterminat cu sublinieri până la pagina a șaptea. Articolul era despre constantele fundamentale ale fizicii — valorile precise ale forțelor și masei și sarcinilor care guvernau fiecare interacțiune din univers. Viteza luminii. Constanta gravitației. Masa electronului. Constanta Planck. Sarcina electrică elementară.</p>
+
+    <p>Problema cu aceste constante era că aveau valori precise dincolo de orice necesitate aparentă. Și că dacă ar fi fost altfel — chiar și puțin altfel — universul nu ar fi produs nimic interesant.</p>
+
+    <p>Zara scrisese pe o foaie separată, cu stiloul albastru pe care îl folosise dintotdeauna: dacă forța nucleară tare ar fi fost cu câteva procente mai slabă, protonii nu s-ar fi legat în nuclee. Nu ar fi existat heliu, nu carbon, nu oxigen. Nu chimie. Nu biologie. Dacă ar fi fost cu câteva procente mai puternică, tot hidrogenul s-ar fi transformat în heliu în primele minute după Big Bang. Nicio stea de generație lungă. Nicio planetă. Nicio apă lichidă.</p>
+
+    <p>Dacă constanta cosmologică ar fi fost de o mie de ori mai mare decât e — tot în domenii imense față de zero — universul s-ar fi expandat prea rapid pentru ca galaxiile să se formeze. Dacă ar fi fost negativă, s-ar fi prăbușit înapoi în câteva miliarde de ani. Fereastra în care viața e posibilă e îngust de îngustă pe o scală cu totul altfel.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-label">— din caietul lui Emil, nedatat —</div>
+    <p>„Fine-tuning-ul nu e un argument pentru design. E o întrebare despre selecție. Dacă există infinit de multe universuri cu constante diferite, noi existăm în cel care permite existența noastră — nu pentru că cineva l-a proiectat, ci pentru că în celelalte nu era nimeni care să observe. Dar dacă există un singur univers, atunci fie are nevoie de o explicație, fie suntem extraordinar de norocoși. Oricare dintre variante e fascinantă."</p>
+    <span class="echo-attr">Emil Voss · note personale · Baza Artemis VII</span>
+  </div>
+
+  <div class="prose">
+    <p>Zara citise nota de mai multe ori. Recunoscuse tonul — Emil când era singur și nu se mai controla să sune calm. Emil fascinat, Emil cu sublinierile în toate direcțiile, Emil care nu terminase articolul pentru că găsise un fir mai interesant pe parcurs și îl urmărise.</p>
+
+    <p>Fine-tuning-ul universului era problema care îi plăcuse cel mai mult și pe care o amânase mereu. Îi spusese de câteva ori că o lăsa pentru final — că era genul de întrebare care merita să fie ultima, să aibă toată distanța de până acolo. Acum Zara era la final și întrebarea o aștepta.</p>
+
+    <p>Deschise un nou blocnotes — al optulea — și scrise pe prima pagină, cu litere mari, singura întrebare cu care voia să înceapă: <em>De ce constantele au valorile pe care le au?</em></p>
+
+    <p>Dedesubt, după o pauză: <em>Și de ce exact valorile care permit această întrebare?</em></p>
+  </div>
+
+  <div class="sci">
+    Fine-tuning-ul constantelor fizice: mai mulți parametri ai fizicii fundamentale par ajustați cu precizie enormă pentru a permite existența structurii complexe. Constanta cosmologică e mai mică cu ~120 de ordine de magnitudine față de predicțiile teoriei cuantice a câmpurilor — problema vacuumului catastrofal. Forța nucleară tare variată cu ±1% ar elimina carbonul sau hidrogenul. Principiul antropic (Barrow & Tipler, 1986): constatăm constant acele valori compatibile cu existența observatorilor. Multivers cosmologic (Susskind, Weinberg): un peisaj de 10⁵⁰⁰ universuri cu constante diferite ar explica selecția antropică. Nicio teorie nu e confirmată la mai 2026.
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="chapter">
+  <div class="ch-num">Nota Vieții · II</div>
+  <div class="ch-title">Paradoxul lui Fermi</div>
+  <div class="prose">
+    <p>Dacă constantele universului permit viața, și dacă viața a apărut pe Pământ din chimie anorganică în câteva sute de milioane de ani — o clipă în scara cosmică — atunci ar trebui să existe și altundeva. Mult altundeva. Universul observable conținea aproximativ două trilioane de galaxii, fiecare cu sute de miliarde de stele, fiecare cu probabilitate estimată de câteva procente de a avea planete în zona locuibilă. Numerele erau copleșitoare în favoarea existenței vieții în altă parte.</p>
+
+    <p>Și totuși: tăcere.</p>
+
+    <p>Niciun semnal. Nicio urmă. Nicio dovadă. Cerul radio era liniștit în tot ceea ce ar fi putut semăna cu o transmisie inteligentă. Enrico Fermi pusese întrebarea la prânz, în 1950, pe o bucată de hârtie de șervețel: <em>Unde sunt cu toții?</em></p>
+
+    <p>Zara stătuse câteva minute cu această întrebare. Ea și Emil o discutaseră o singură dată, scurt, cu mulți ani în urmă. Emil spusese că paradoxul Fermi era, în fond, o probă că nu știm câte variabile sunt implicate — că subestimăm ori probabilitatea de apariție a vieții, ori distanța, ori viteza cu care o civilizație se poate distruge pe sine. Că tăcerea era compatibilă cu orice, de la unicitate la abundență, pentru că nu aveam instrumentele să distingem.</p>
+
+    <p>Dar acum Zara voia să meargă mai adânc de atât. Nu la statistică. La implicații.</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Blocnotes vol. VIII · p. 14 · 3 mai 2117</span>
+    Dacă suntem singurii, atunci constantele universului — ajustate cu precizie de neimaginat pentru a permite chimia carbonului, apa lichidă, stelele cu durată medie — au produs un singur observator în două trilioane de galaxii. Un singur loc în care cineva a înălțat capul spre cer și a vrut să știe. Asta e ori cel mai stupid risip din istoria cosmosului, ori cea mai frumoasă specificitate posibilă. Nu știu care din două mă înspăimântă mai mult.
+  </div>
+
+  <div class="prose">
+    <p>Cel mai probabil răspuns, considerau mulți fizicieni, nu era că eram singurii. Era că nu îi auzim — din motive pe care nu le înțelegem încă. Distanța. Viteza luminii ca limită. Fereastra temporală: o civilizație care transmitea semnale radio timp de o sută de ani dintr-o galaxie la cincizeci de milioane de ani-lumină era invizibilă pentru orice detector din era actuală. Sau poate că civilizațiile avansate nu transmiteau semnale radio — poate treceau la metode de comunicare pe care nu le puteam detecta, la fel cum o civilizație din secolul XVII nu ar putea detecta fibra optică.</p>
+
+    <p>Sau poate că filtrele erau mai dure decât credea cineva. Că originea vieții, apariția celulelor eucariotice, sexualitatea reproductivă, conștiința, tehnologia — fiecare era o tranziție improbabilă, și că produsul tuturor improbabilităților era aproape zero. Că eram o anomalie statistică, nu o regulă.</p>
+
+    <p>Zara scrise lent în blocnotes, cântărind fiecare cuvânt: <em>Dacă suntem singurii care întreabă, atunci întrebarea e și mai prețioasă. Dacă nu suntem singurii, atunci tăcerea e o problemă mai gravă decât credem. Oricare e adevărul, întrebarea merită pusă.</em></p>
+
+    <p>Scrise dedesubt, cu litere mai mici: <em>Emil ar fi spus că ambele variante sunt fascinante. Ar fi avut dreptate.</em></p>
+  </div>
+
+  <div class="pull">
+    <p>Unde sunt cu toții? Poate nicăieri. Poate pretutindeni și tăcuți. Poate că tăcerea e răspunsul — și că răspunsul e mai înfricoșător decât orice semnal pe care l-am putea primi.</p>
+    <cite>— Nota Vieții, cap. II</cite>
+  </div>
+
+  <div class="sci">
+    Paradoxul Fermi (Fermi, 1950; Hart, 1975): dacă viața inteligentă e răspândită, de ce nu detectăm niciun semnal? Soluții propuse: Marea Filtru (Hanson, 1998) — un obstacol evolutiv rar care elimină majoritate civilizațiilor; Ipoteza Planetei Rare (Ward & Brownlee, 2000) — condiții Pământului sunt excepțional de specifice; Zoo Hypothesis, Dark Forest (Liu Cixin, 2008 — ficțiune speculativă), comunicare non-radio. Proiectul SETI (Search for Extraterrestrial Intelligence) nu a confirmat niciun semnal artificial la mai 2026. Probabilitatea de origine a vieții rămâne necunoscută.
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="chapter">
+  <div class="ch-num">Nota Vieții · III</div>
+  <div class="ch-title">Condiția</div>
+  <div class="prose">
+    <p>Studentul o sunase dimineața — un student de douăzeci și doi de ani de la Institutul de Fizică Teoretică din Oslo, care citise toate cărțile ei și voia să întrebe ceva. Zara vorbea uneori cu studenți. Nu din obligație — nu mai preda formal de câțiva ani. Ci pentru că unii aveau întrebări bune, și Zara nu putuse niciodată rezista la o întrebare bună.</p>
+
+    <p>Studentul se numea Kaito și era inteligent în felul specific al curiozității autentice — nu rapid, nu strălucitor, ci persistent. Punea întrebări de care nu îi era rușine că nu știa răspunsul. Emil ar fi spus că ăsta e semnul că va face ceva bun.</p>
+  </div>
+
+  <div class="dial">
+    <p>— Doamnă Voss. Am o întrebare despre fine-tuning. Nu despre probabilitate — despre implicații.</p>
+    <p>— Continuă, spuse Zara.</p>
+    <p>— Dacă constantele universului sunt ajustate precis pentru a permite viața, și dacă principiul antropic spune că le observăm cu aceste valori pentru că altfel nu am exista — atunci observatorul e condiția necesară pentru ca universul să fie observat în felul în care e observat. Asta înseamnă că noi nu suntem niște accidente în univers. Suntem condiția de posibilitate a descrierii lui.</p>
+    <p>Zara tăcu o clipă. Era o propoziție bună. Era genul de propoziție pe care o ții minte.</p>
+    <p>— Continuă.</p>
+    <p>— Dacă e adevărat, atunci dispariția conștiinței — moartea termică, sau dispariția oricărui observator — e mai mult decât o tragedie locală. E sfârșitul posibilității de descriere. Universul va exista în continuare, dar nu va mai exista nimeni care să știe că există. Și dacă „a exista" și „a fi observat" nu sunt complet separabile la nivel fundamental—</p>
+    <p>— Atunci ești în teritoriu speculativ, spuse Zara. Dar teritoriu speculativ interesant.</p>
+    <p>— Știu. Nu am o concluzie. Aveam o întrebare.</p>
+    <p>— Care?</p>
+    <p>— Ați crezut vreodată că contează că întrebăm? Nu metaforic. Fizic. Că actul de a întreba schimbă ceva în univers?</p>
+    <p>Zara stătu câteva secunde fără să răspundă. Prin fereastra biroului, Luna răsărea pe orizontul orbital. Aceeași Lună pe care o văzuse toată viața — de pe Pământ când era mică, de pe orbită mai târziu, de pe suprafața ei când îl vizita pe Emil la Leagăn. Aceeași Lună privind aceleași întrebări din direcții diferite.</p>
+    <p>— Nu știu, spuse ea în final. Dar cred că contează că nu știm dacă contează. Că asta e suficient motiv să continuăm.</p>
+  </div>
+
+  <div class="prose">
+    <p>Închisese conversația după câteva minute. Stătuse la birou fără să scrie nimic timp de un sfert de oră — ceea ce pentru ea era mult, pentru că Zara scria de obicei imediat, înainte să piardă textura gândului.</p>
+
+    <p>Dar gândul acesta nu era de tipul care se pierde. Era de tipul care creștea dacă îl lăsai să stea.</p>
+
+    <p><em>Condiția de posibilitate a descrierii.</em></p>
+
+    <p>Dacă universul era descris de legile fizicii — și era, cu o precizie care continua să uimească generații întregi de fizicieni — și dacă descrierea necesita un observator, și dacă observatorul era produs de acel univers, atunci era un cerc. Nu un cerc vicios — un cerc fecund. Universul care produce observatorul care descrie universul care produce observatorul. Fiecare nivel susținându-l pe celălalt.</p>
+
+    <p>Zara scrise, lent: <em>Poate că nu suntem accidentul universului. Poate că suntem modul în care universul se cunoaște pe sine.</em></p>
+
+    <p>Se opri. Reciti. Era prea frumos ca să fie sigur. Era exact genul de propoziție pe care Emil ar fi subliniat-o și ar fi scris în margine: <em>Atenție. Poate fi adevărat. Sau poate fi doar frumos. Cele două nu sunt același lucru.</em></p>
+
+    <p>Zara lăsase spațiu dedesubt pentru răspuns. Și scrisese, în stilul lui Emil, cu litere mai mici: <em>Da. Dar și dacă e doar frumos, e suficient.</em></p>
+  </div>
+</div>
+
+<!-- CAP 4 -->
+<div class="chapter">
+  <div class="ch-num">Nota Vieții · IV</div>
+  <div class="ch-title">Miza</div>
+  <div class="prose">
+    <p>Era noaptea înainte de conferință — o conferință pe care o ținea a doua zi la Institutul din Oslo, despre fine-tuning și principiul antropic, pentru o sală de o sută optzeci de fizicieni și studenți — și Zara nu dormea. Nu din emoție. Din gândul că nu știa cum să termine discursul.</p>
+
+    <p>Știa cum să înceapă. Știa cum să construiască mijlocul — constantele, numerele, fereastra îngustă a posibilității. Știa cum să prezinte principiul antropic fără să pară că pledează pentru design inteligent, și fără să pară că îl respinge prematur. Știa cum să vorbească despre multivers ca ipoteză onestă, nu ca evitare filozofică.</p>
+
+    <p>Nu știa cum să termine. Nu știa ce voia să rămână în sala aceea după ce pleca.</p>
+
+    <p>Luase caietul lui Emil. Nu blocnotesul cu ecuații — caietul personal, cel cu coperta maro uzată, în care el scria seara, după ore, lucruri la care nu lucra formal dar care nu îi dădeau pace. Îl deschisese aleatoriu, cum fac oamenii când caută ceva fără să știe ce caută.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-label">— caietul personal al lui Emil Voss, nedatat, ~2108 —</div>
+    <p>„Problema cu fine-tuning-ul nu e că nu avem răspuns. E că oricare ar fi răspunsul — design, selecție, necesitate logică, accident pur — implicațiile sunt la fel de imense. Dacă suntem proiectați: de cine și de ce și cu ce cost? Dacă suntem selectați dintr-un multivers: înseamnă că există tot ce poate exista, și că tot ce poate exista există, și că această abundanță e cel mai vertiginos gând pe care mintea omenească îl poate ține? Dacă suntem necesari logic: asta înseamnă că viața nu e un accident ci o consecință a matematicii universului — că ecuațiile cereau cineva care să le citească? Și dacă suntem un accident pur: atunci probabilitatea noastră de existență e atât de mică încât existența noastră e cel mai improbabil lucru din istoria a tot ce a existat — și totuși iată-ne, existând și punând întrebări despre propria noastră improbabilitate.</p>
+    <p>Oricare variantă îl faci pe om să se simtă simultan minuscul și extraordinar. Cred că ăsta e răspunsul corect la fine-tuning. Nu o explicație — o recalibrare a scării la care te privești."</p>
+    <span class="echo-attr">Emil Voss · caiet personal · Baza Artemis VII · pagina 134</span>
+  </div>
+
+  <div class="prose">
+    <p>Zara citise de trei ori paragraful. La a treia lectură știuse cum să termine discursul.</p>
+
+    <p>Nu cu o explicație. Cu recalibrarea.</p>
+
+    <p>A doua zi, la finalul celor optzeci de minute, stătuse câteva secunde în tăcere înainte de ultimele propoziții. Sala fusese liniștită — liniștea specifică oamenilor care urmăresc și nu vor să se miște ca să nu piardă ceva.</p>
+
+    <p>Spusese: <em>Nu știm de ce constantele au valorile pe care le au. Nu știm dacă suntem singurii sau dacă tăcerea cerului ascunde milioane de civilizații pe care nu le putem auzi. Nu știm dacă viața e o consecință necesară a matematicii sau cel mai improbabil accident din istoria cosmosului. Dar știm că suntem — și că a fi înseamnă a fi capabil să întrebi. Că întrebarea nu e un eșec al cunoașterii. E forma cea mai înaltă pe care cunoașterea o poate lua.</em></p>
+
+    <p>Sala aplaudase. Zara nu auzise aplauzele cu adevărat — era deja în altă parte, în gândul următor, care era, cum fusese întotdeauna, întrebarea care urma.</p>
+  </div>
+</div>
+
+<!-- EPILOG NOTA VIETII -->
+<div class="epilog">
+  <div class="ep-date">Nota Vieții · Epilog · 17 Mai 2122</div>
+  <div class="ep-title">Recalibrarea</div>
+  <div class="ep-prose">
+    Cartea a patra se numea <em>Nota Vieții</em> și era cea mai scurtă din trilogie — o sută și două pagini, fără nicio greșeală de fizică și fără nicio propoziție lăsată intenționat greșită, pentru că Zara nu mai era la vârsta la care putea lua o astfel de decizie fără să o regrete.
+    Ultima pagină era goală. Editorul o întrebase dacă era o eroare. Zara îi spusese că nu. Că pagina goală era locul pentru întrebarea cititorului. Că ea terminase — dar cartea nu.
+  </div>
+  <div class="ep-finale">
+    Fine-tuning-ul nu ne spune că suntem proiectați.<br>
+    Ne spune că suntem posibili.<br>
+    Iar posibil și real sunt, în cazul nostru,<br>
+    același lucru.<br>
+    <br>
+    Oricare ar fi explicația —<br>
+    multivers, necesitate, design, accident —<br>
+    existăm.<br>
+    Și existând, întrebăm.<br>
+    Și întrebând, facem ceva<br>
+    pe care niciun alt fenomen cunoscut<br>
+    nu îl face:<br>
+    aducem universul la cunoștință de sine.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  NOTA CONȘTIINȚEI                                  -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="between">✦ &nbsp; · &nbsp; ✦ &nbsp; · &nbsp; ✦</div>
+
+<div class="part-div">
+  <div class="pd-ghost">V</div>
+  <div class="pd-num">Cartea a cincea · Ultimul volum</div>
+  <div class="pd-nota">Nota Conștiinței</div>
+  <div class="pd-title">Ce înseamnă că există cineva care știe că există</div>
+  <div class="pd-epigraph">
+    „E ușor să explici de ce există un univers.<br>
+    E imposibil să explici de ce există cineva<br>
+    care știe că există un univers."<br>
+    — Zara Voss, curs inaugural, Oslo, 2127
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- CAP 1 -->
+<div class="chapter">
+  <div class="ch-num">Nota Conștiinței · I</div>
+  <div class="ch-title">Problema Dificilă</div>
+  <div class="prose">
+    <p>Zara împlinise cincizeci și cinci de ani în august și nu se simțise diferit față de cincizeci și patru. Vârsta nu o schimbase niciodată brusc — se schimbase lent, în stratificări, ca rocile sedimentare. Fiecare an adăugase un strat și Zara nu observase stratul în sine, ci diferența de textură față de cel de dedesubt.</p>
+
+    <p>Cursul inaugural pe care îl ținuse la Oslo în primăvară fusese despre problema dificilă a conștiinței — <em>the hard problem</em>, cum o numise David Chalmers în 1995, cu o precizie terminologică atât de exactă încât termenul rămăsese. Problemele ușoare ale conștiinței erau cele despre funcție: cum procesează creierul informații, cum integrează semnale din mediu, cum produce comportamente adaptive. Neurologia progresase mult cu acestea. Nu le rezolvase — dar progresase.</p>
+
+    <p>Problema dificilă era alta. Nu cum funcționează conștiința. Ci de ce există ceva care <em>simte</em> cum funcționează.</p>
+
+    <p>Durerea nu era doar un semnal de alarmă. Era experiența durerii — roșul roșului, amaritudinea amare, căldura unui foc văzut prin geam. Qualia. Experiența subiectivă pură, ireductibilă la niciun proces fizic, oricât de detaliat l-ai descrie. Poți descrie complet fiecare neuron implicat în percepția roșului și tot nu ai explicat de ce există cineva care îl vede roșu.</p>
+
+    <p>Zara pusese întrebarea asta la final de curs, cu o simplitate dezarmantă: <em>Fizica descrie ce face universul. Nu descrie de ce există cineva căruia i se pare că ceva se întâmplă.</em></p>
+
+    <p>Sala tăcuse câteva secunde. Genul de tăcere bun.</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Blocnotes vol. VIII · p. 67 · 14 martie 2127</span>
+    Problema dificilă e mai grea decât Big Bang-ul. Big Bang-ul e greu pentru că instrumentele noastre nu ajung acolo. Problema dificilă e grea pentru că instrumentul și problema sunt același lucru: conștiința care încearcă să se înțeleagă pe sine. E ca și cum te-ai cere să te privești din afara câmpului tău vizual. Nu că nu poți — e că structura problemei face imposibilă separarea observatorului de observat.
+  </div>
+
+  <div class="sci">
+    Problema dificilă a conștiinței (Chalmers, 1995): distincția între explicarea mecanismelor neurale ale conștiinței (problemele ușoare) și explicarea existenței experienței subiective (qualia). Panpsihismul (Goff, 2019): conștiința ca proprietate fundamentală a materiei. Teoriile integrativ-informaționale (Tononi, IIT): conștiința ca grad de integrare a informației (Φ). Teoriile computaționale (Dennett): conștiința ca iluzie utilă. Nicio teorie nu e consensuală la mai 2026. Problema rămâne deschisă.
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="chapter">
+  <div class="ch-num">Nota Conștiinței · II</div>
+  <div class="ch-title">Dacă Materia Poate Gândi</div>
+  <div class="prose">
+    <p>Zara nu putea discuta problema conștiinței cu Emil, pentru că Emil nu mai era. Dar descoperise că putea discuta cu el în alt mod — citind caietele lui în ordine inversă, de la ultimul la primul, și imaginând ce ar fi răspuns dacă ar fi fost acolo. Nu inventând răspunsuri — reconstruind logica lui din tot ce știa despre felul în care gândea. Era o formă de anamneză: nu amintirea unor cuvinte spuse, ci amintirea unui mod de a gândi.</p>
+
+    <p>Emil ar fi atacat problema din direcție opusă față de filozofi. Nu de la subiectivitate spre materie — de la materie spre subiectivitate. Ar fi întrebat: dacă conștiința e un fenomen real și nu o iluzie, și dacă e produsă de materie, atunci fie materia are o proprietate pe care nu o cunoaștem — ceva care face posibilă subiectivitatea — fie subiectivitatea apare din complexitate la un prag pe care nu îl putem calcula.</p>
+
+    <p>Ambele variante erau radicale. Panpsihismul — ideea că conștiința e o proprietate fundamentală a materiei, ca sarcina sau masa — era disconfortabilă pentru că părea că atribuia simțire electronilor. Emergentismul — ideea că subiectivitatea apare dintr-o complexitate suficientă a proceselor fizice — era disconfortabil pentru că nu explicase niciodată unde exact era pragul și de ce depășirea lui producea experiență.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-label">— caietul personal al lui Emil Voss, 2095, p. 78 —</div>
+    <p>„Mă gândesc uneori la electron. El nu știe că există. Nu are o perspectivă de la care să se vadă. Dacă adun suficienți electroni în aranjamentul potrivit, apare ceva care știe că există. Asta e mai misterios decât orice Big Bang. Big Bang-ul a produs materie din energie. Creierul a produs subiectivitate din materie. Eu nu știu care din cele două e mai improbabil."</p>
+    <span class="echo-attr">Emil Voss · caiet personal · 2095 · pagina 78</span>
+  </div>
+
+  <div class="prose">
+    <p>Zara pusese caietul jos și stătuse câteva minute cu gândul acela. Electronul care nu știe că există. Creierul care știe. Și între ele: nicio formulă, nicio ecuație, niciun mecanism clar prin care subiectivitatea apăruse din ce nu era subiectiv.</p>
+
+    <p>Poate că problema era formulată greșit. Poate că distincția dintre „cu subiectivitate" și „fără subiectivitate" era prea binară — poate că există grade, că protonul are o urmă infinit de mică de ceva, că insecta are mai mult, că mamiferul și mai mult, că omul ajunsese la un nivel la care putea să se întrebe despre el însuși. Nu o apariție bruscă — o creștere continuă a unui parametru pe care nu știam să îl măsurăm.</p>
+
+    <p>Sau poate că problema dificilă era dificilă nu pentru că nu aveam instrumente — ci pentru că conștiința era exact genul de lucru care nu putea fi studiat din exterior. Care necesita interior. Și că nu exista nicio metodă de a transfera interiorul spre exterior fără să îl pierzi.</p>
+
+    <p>Scrise: <em>Poate că conștiința nu poate fi explicată de fizică. Poate că ea e condiția de posibilitate a fizicii. Și dacă e condiția, nu poate fi și obiectul: nu poți explica ceea ce explică explicarea.</em></p>
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="chapter">
+  <div class="ch-num">Nota Conștiinței · III</div>
+  <div class="ch-title">Informația</div>
+  <div class="prose">
+    <p>Era o după-amiază de toamnă pe Stația L2 — deși toamna nu exista acolo, doar calibrarea panourilor LED spre un portocaliu mai cald care mima, cu aproximație, ceea ce văzuse Zara pe Pământ la vârste mici. Stătea la birou și citea despre paradoxul informației din găurile negre.</p>
+
+    <p>Hawking spusese că găurile negre distrug informația — că tot ce cade în ele e pierdut pentru totdeauna, inclusiv informația despre ce era. Asta contrazicea un principiu fundamental al mecanicii cuantice: că informația nu dispare, că ecuațiile fizicii sunt reversibile în principiu, că dacă știi starea completă a unui sistem acum o poți calcula și pentru trecut și pentru viitor. Cele două nu puteau fi ambele adevărate.</p>
+
+    <p>Paradoxul fusese dezbătut timp de decenii. Soluția parțială — pe care Hawking însuși o acceptase în final — era că informația nu dispărea în găurile negre, ci se codifica holografic pe suprafața lor și era returnată lent, extrem de dezordonat, prin radiația Hawking. Nu distrusă — îngropată, amestecată dincolo de orice posibilitate practică de recuperare, dar teoretic conservată.</p>
+
+    <p>Zara citise această soluție și rămăsese cu o singură întrebare: dacă informația era conservată la nivel fundamental, ce era informația?</p>
+  </div>
+
+  <div class="dial">
+    <p>Sunase-l pe Kaito — studentul din Oslo, care acum era doctor și lucra la integrarea informației în fizica cuantică.</p>
+    <p>— Dacă informația e conservată în găurile negre, îi spuse ea, și dacă conștiința e un fel de procesare a informației, e posibil că conștiința are aceeași proprietate de conservare?</p>
+    <p>— Speculativ, spuse Kaito imediat. Dar nu imposibil de formulat. Depinde ce înțelegi prin „conservare a conștiinței". Dacă e conservare a informației pe care o conținea conștiința — posibil, în sensul în care orice stare fizică e conservată. Dacă e conservare a subiectivității în sine—</p>
+    <p>— Acolo se opresc ecuațiile, spuse Zara.</p>
+    <p>— Acolo se opresc toate ecuațiile, confirmă Kaito. Subiectivitatea nu apare în nicio ecuație pe care o știm. E în afara formalismului. Asta o face ori cel mai misterios fenomen din fizică, ori dovada că fizica nu e completă.</p>
+    <p>— Sau dovada că fizica e completă și că subiectivitatea nu e fizică, spuse Zara.</p>
+    <p>— Și dacă nu e fizică?</p>
+    <p>— Atunci e altceva. Și dacă e altceva, trebuie să îl studiem cu alte instrumente. Sau să inventăm instrumentele.</p>
+    <p>Kaito tăcu o secundă. Aveți o perspectivă pentru subiect? pentru cartea a cincea?</p>
+    <p>— Încă nu, spuse Zara. Dar știu că e ultima. Că după ea n-am de adăugat nimic. Că tot ce se poate spune cu instrumentele actuale, s-a spus în primele patru. A cincea e despre limita instrumentelor.</p>
+  </div>
+
+  <div class="sci">
+    Paradoxul informației în găurile negre (Hawking, 1975; rezolvare parțială Hawking, 2004): mecanism holografic de conservare la suprafața orizontului de evenimente. Teoria Informației Integrate (Tononi, IIT): conștiința ca grad al integrării informației (Φ) — cu cât mai mult un sistem integrează informație, cu atât mai mult are experiență subiectivă. Critica lui Aaronson (2014): IIT implică panpsihism și atribuie Φ ridicat unor sisteme banale (grile logice). Niciun consens la mai 2026.
+  </div>
+</div>
+
+<!-- CAP 4 -->
+<div class="chapter">
+  <div class="ch-num">Nota Conștiinței · IV</div>
+  <div class="ch-title">Nota Finală a Trilogiei</div>
+  <div class="prose">
+    <p>Zara lucrase la ultimul capitol timp de trei luni — mai mult decât orice alt capitol din toate cele cinci cărți la un loc. Nu pentru că ar fi fost greu de scris. Ci pentru că voia să fie corect, și corect era exact cuvântul potrivit: nu perfect, nu frumos, nu complet — corect. Adică onest cu ceea ce știa și cu ceea ce nu știa, și cu distanța dintre ele.</p>
+
+    <p>Știa că conștiința era reală — propria ei conștiință era dovada cea mai directă pe care o putea invoca, și dacă cineva o nega, nu mai rămânea nimeni să negocieze cu el. Știa că era produsă de procese fizice — că leziunile cerebrale o modificau, că medicamentele o alterau, că somnul o suspenda și o restaura în formă ceva mai ordonată. Știa că problema dificilă era reală și că nu era rezolvată — că niciun mecanism descris până acum nu explica de ce există experiența subiectivă a proceselor fizice pe care le descria.</p>
+
+    <p>Nu știa dacă această limită era temporară — dacă viitoarele generații de fizicieni și neurologi și filozofi ar găsi puntea care lipsea — sau dacă era structurală, dacă subiectivitatea era principlial în afara oricărei descrieri la persoana a treia.</p>
+
+    <p>Nu știa dacă conștiința era un accident evolutiv sau o proprietate fundamentală a realității. Nu știa dacă dispărea complet la moartea unui organism sau dacă informația care o codifica se conserva în feluri pe care nu le înțelegea încă.</p>
+
+    <p>Nu știa. Și asta, gândi Zara, era tocmai punctul.</p>
+  </div>
+
+  <div class="prose">
+    <p>Deschise blocnotesul la ultima pagină necompletată — o pagina albă, singura rămasă din volumul al optulea — și scrise, cu stiloul albastru, lent, fiecare propoziție cântărită înainte să fie pusă pe hârtie:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Blocnotes vol. VIII · ultima pagină · 17 mai 2132</span>
+    La cincisprezece ani am pus o întrebare greșită și am primit nota zero.<br>
+    La douăzeci și cinci am descoperit că 95% din univers e invizibil.<br>
+    La treizeci și cinci am văzut că finalul e același lucru cu originea.<br>
+    La patruzeci și cinci am înțeles că existăm în marginea îngustă a posibilului.<br>
+    La cincizeci și cinci am ajuns la limita a ceea ce poate fi întrebat<br>
+    fără să traversezi în ce nu mai e știință.<br>
+    <br>
+    Conștiința e locul unde fizica se oprește.<br>
+    Nu pentru că nu mai există nimic dincolo.<br>
+    Ci pentru că dincolo e cel care întreabă.<br>
+    <br>
+    Tatăl meu a spus odată că toate adevărurile reale<br>
+    sunt mai înfricoșătoare, nu mai liniștitoare.<br>
+    El a avut dreptate în toate.<br>
+    <br>
+    Dar asta — faptul că există cineva care știe că există —<br>
+    e singurul adevăr pe care îl găsesc<br>
+    simultan înfricoșător și liniștitor.<br>
+    <br>
+    Suntem nota pe care universul a cântat-o<br>
+    ca să audă că poate cânta.<br>
+    <br>
+    Nu știu dacă asta e fizică.<br>
+    Nu știu dacă e filozofie.<br>
+    Știu că e adevărat.
+  </div>
+
+  <div class="prose">
+    <p>Închisese blocnotesul. Nu îl deschisese din nou.</p>
+
+    <p>Stătuse la fereastra stației — aceeași fereastră, alt unghi, Pământul mai mic acum din cauza unei schimbări de orbită din primăvară — și privise câteva minute. Lumina soarelui pe suprafața oceanului, vizibilă de acolo ca o pată albă în azur. Nori. Coasta unui continent pe care nu o distingea cu precizie — putea fi Africa, putea fi America de Sud, putea fi orice.</p>
+
+    <p>Acolo erau opt miliarde de oameni care nu știau că ea exista. Și ea era acolo și știa că ei existau, fără să știe nimic specific despre ei. Și toți existau în aceeași membrană, alcătuiți din aceleași corzi, produși de aceeași atingere de acum 13,787 miliarde de ani, îndreptându-se împreună spre aceeași moarte termică pe care o calculaseră cu ecuații scrise în același carbon care îl producea Big Bang-ul pe care îl cauzase coliziunea membranelor pe care o văzuse la cincisprezece ani cu tatăl ei într-un bulk pe care nu ar mai putea intra niciodată.</p>
+
+    <p>Tot cercul. Complet.</p>
+
+    <p>Nota zero de la origine. Nota unu a materiei nevăzute. Nota finală a ciclului. Nota vieții în marginea îngustă a posibilului. Nota conștiinței care se întoarce la ea însăși.</p>
+
+    <p>Toate notele aceleiași simfonii. Toate vibrații ale aceleiași corzi. Toată trilogia o singură întrebare pusă din unghiuri diferite: <em>de ce există ceva mai degrabă decât nimic, și de ce acel ceva include pe cineva care întreabă?</em></p>
+
+    <p>Zara nu știa răspunsul. Nu îl știuse la cincisprezece ani. Nu îl știa la cincizeci și cinci. Și asta, realiza acum cu o claritate care nu o mai deranjase niciodată atât de puțin, era tocmai nota zero a oricărei cunoașteri autentice: că nu știi, și că nu a ști te ține în mișcare.</p>
+
+    <p>Continuați să întrebați.</p>
+
+    <p>Chiar și când e ultima notă.</p>
+
+    <p>Mai ales atunci.</p>
+  </div>
+</div>
+
+<!-- EPILOG FINAL -->
+<div class="epilog">
+  <div class="ep-date">Nota Conștiinței · Epilog · 17 Mai 2145</div>
+  <div class="ep-title">Coda</div>
+  <div class="ep-prose">
+    Zara Voss a murit la optzeci și trei de ani, pe Stația Orbitală L2, în camera cu vedere spre Pământ. Pe noptieră era blocnotesul albastru cu coperta uzată — primul, cel din 2087, cu întrebările de la cincisprezece ani. Îl ținuse toată viața. Ultima pagina scrisă era pagina trei: <em>De unde venea punctul?</em>
+    Pe ultima pagina a blocnotesului — pagina 120, goală, pe care nu o completase niciodată — cineva, cu ani în urmă, scrisese cu cerneală roșie, în scrisul inconfundabil al lui Emil, înclinat și inegal: <em>Aceasta e locul răspunsului tău.</em>
+    Pagina rămăsese goală.
+    Asta era răspunsul.
+  </div>
+  <div class="ep-finale">
+    Trilogia Nota Zero nu are un final.<br>
+    Are o ultimă notă.<br>
+    <br>
+    Nota zero de la origine.<br>
+    Nota vieții din mijloc.<br>
+    Nota conștiinței de la capăt.<br>
+    <br>
+    Toate trei sunt aceeași notă,<br>
+    cântată din poziții diferite<br>
+    ale aceleiași corzi.<br>
+    <br>
+    Cântați mai departe.<br>
+    Chiar și când nu mai auziți instrumentul.<br>
+    <br>
+    — Zara Voss, 2132
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--border);padding:1.5rem 2rem;margin:2rem 0;background:var(--gold3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:.6">⬡ Note Știinţifice · Nota Vieții & Nota Conștiinței</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Fine-tuning:</strong> constantele fizicale fundamentale par ajustate cu precizie pentru a permite complexitate. Constanta cosmologică e mai mică cu ~10¹²⁰ față de predicțiile QFT. Explicații propuse: multivers (selecție antropică), necesitate logică, design. Niciuna confirmată.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Principiul antropic:</strong> observăm un univers compatibil cu existența observatorilor — tautologie utilă sau explicație reală, dezbatut activ (Barrow & Tipler, 1986; Weinberg, 1987; Smolin, 1992).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Paradoxul Fermi (1950):</strong> absența dovezilor de viață extraterestră în ciuda probabilității statistice ridicate. Marea Filtru, Ipoteza Planetei Rare, Zoo Hypothesis — niciuna confirmată.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Problema dificilă a conștiinței (Chalmers, 1995):</strong> distincția între mecanismele neurale și experiența subiectivă (qualia). Panpsihism (Goff, 2019), IIT (Tononi), funcționalism (Dennett) — dezbatere deschisă.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">5. Paradoxul informației (Hawking, 1975–2004):</strong> conservarea informației în găurile negre prin mecanism holografic. Legătura cu conștiința — speculativă, nedemonstrată.</p>
+    <p><strong style="color:var(--cream)">6. Ficțiune:</strong> personajele și dialogurile sunt ficționale. Zara Voss, Emil Voss, Kaito nu există. Fizica e prezentată cu acuratețe în limitele cunoașterii actuale (mai 2026). Toate scenele de vizualizare directă a bulk-ului, a corzilor sau a membrelor sunt dispozitive ficționale.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Vieții & Nota Conștiinței · Cărțile a patra și a cincea ale Trilogiei Nota Zero<br>
+  Alexandru Ionuț Chiuță · 2026<br>
+  Trilogia completă: Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței
+</footer>
+
+</div><!-- /page -->
+
+
+
+
+
+</div>
+<div class="nota-arh">
+<span class="nota-arh-lbl">Nota arhivistică · Oslo · 3262</span>
+<p>Blocnotesul albastru al lui Zara Voss — Vol. I, 2087 — se află în colecția arhivei Universității din Oslo, cutia 47, acces nivel 3. Prima pagină: lista de cumpărături, neterminată. Pagina a doua: „De unde vine punctul?" Cele 97 de pagini care urmează: goale.</p>
+<p>Blocnotesul a stat lângă Zara 58 de ani. A ajuns la arhivă prin Kaito Mori în 2146, donat odată cu caietele de lucru ale lui Zara.</p>
+<p>Pata de cafea pe copertă. Marginile ondulate. Cerneala primei pagini: un stilou cu care Zara nu mai scrisese niciodată — l-a ținut numai pentru blocnotesul ăsta.</p>
+</div>
+
+<footer>Nota Zero · Vol. I–V · Zara Voss · 2087–2145 · Alexandru Ionuț Chiuță · implementări I–V integrate</footer>
+</body>
+</html>

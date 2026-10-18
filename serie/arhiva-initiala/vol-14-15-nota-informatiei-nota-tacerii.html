@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Informației & Nota Tăcerii · Cărțile a paisprezecea și a cincisprezecea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#010208;
+  /* Nota Informației: albastru electric, binar, informație */
+  --bit:#3a8fff;--bit2:rgba(58,143,255,.1);--bit3:rgba(58,143,255,.04);
+  --bit4:rgba(58,143,255,.14);
+  /* Nota Tăcerii: aproape nimic — o singură urmă de lumină */
+  --murmur:#c8b880;--mu2:rgba(200,184,128,.08);--mu3:rgba(200,184,128,.03);
+  --mu4:rgba(200,184,128,.12);
+  --cream:rgba(232,224,208,.82);--cream2:rgba(232,224,208,.44);--cream3:rgba(232,224,208,.12);
+  --rule-i:1px solid rgba(58,143,255,.13);
+  --rule-t:1px solid rgba(200,184,128,.1);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#dataCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rule-i);
+}
+.cv-series{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;
+  color:var(--bit);margin-bottom:2rem;opacity:.6;}
+.cv-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:480px;
+  border:1px solid var(--bit4);padding:.75rem 1.4rem;
+  margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2.2rem,6.5vw,5.2rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-inf{color:var(--bit)} .t-sil{color:var(--murmur)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.95rem,2.2vw,1.4rem);color:var(--cream2);
+  display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--bit4);background:var(--bit3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* ── PART DIV ── */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.inf{border-color:rgba(58,143,255,.13)}
+.pd.sil{border-color:rgba(200,184,128,.1)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.02;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream3);margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:420px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* ── CHAPTER ── */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p14 .ch{border-bottom-color:rgba(58,143,255,.05)}
+.p15 .ch{border-bottom-color:rgba(200,184,128,.04)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* ── PROSE ── */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic}
+.p strong{font-weight:600}
+.p14 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--bit);text-shadow:0 0 22px rgba(58,143,255,.25);}
+.p15 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--murmur);text-shadow:0 0 22px rgba(200,184,128,.2);}
+
+/* ── ECHO (Soo-Yeon / lanțul) ── */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,184,128,.25);
+  background:var(--mu3);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--murmur);opacity:.4;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--murmur);opacity:.28;margin-top:.45rem;display:block;}
+
+/* ── BIT (bloc tehnic binar) ── */
+.bit-block{margin:2rem 0;padding:1.1rem 1.6rem;
+  border:1px solid var(--bit4);background:var(--bit3);
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:rgba(58,143,255,.7);line-height:1.7;}
+.bit-block-hd{color:var(--bit);font-weight:700;
+  font-size:.38rem;letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:.5rem;display:block;opacity:.8;}
+
+/* ── THINK ── */
+.think{margin:2rem 0;padding:1rem 1.5rem;
+  border:1px dashed rgba(58,143,255,.14);background:var(--bit3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.think::before{content:'⬡ ';font-style:normal;opacity:.55;color:var(--bit)}
+.p15 .think{border-color:rgba(200,184,128,.12);background:var(--mu3)}
+.p15 .think::before{color:var(--murmur)}
+
+/* ── DIALOGUE ── */
+.d p{margin-bottom:.5rem;text-indent:0}
+.d p:last-child{margin-bottom:0}
+
+/* ── NOTEBOOK ── */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p14 .nb{border:1px solid var(--bit4);background:var(--bit3)}
+.p15 .nb{border:1px solid var(--mu4);background:var(--mu3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.25;font-style:normal;color:var(--murmur)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--murmur);opacity:.38;margin-bottom:.55rem;font-style:normal;display:block;}
+
+/* ── PULL ── */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p14 .pull{border-left-color:var(--bit);background:var(--bit3)}
+.p15 .pull{border-left-color:var(--murmur);background:var(--mu3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p14 .pull cite{color:var(--bit)} .p15 .pull cite{color:var(--murmur)}
+
+/* ── SCI ── */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p14 .sci{border:1px solid rgba(58,143,255,.12);background:rgba(58,143,255,.03)}
+.p14 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--bit);font-weight:700}
+.p15 .sci{border:1px solid rgba(200,184,128,.1);background:rgba(200,184,128,.025)}
+.p15 .sci::before{content:'⬡ Notă · ';color:var(--murmur);font-weight:700}
+
+/* ── SILENTIUM (blocuri de tăcere — vol 15) ── */
+.silentium{
+  margin:3rem 0;padding:2.5rem;
+  text-align:center;position:relative;
+}
+.silentium::before,.silentium::after{
+  content:'';position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,184,128,.15),transparent);
+}
+.silentium::before{top:0} .silentium::after{bottom:0}
+.sil-text{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.1rem;color:var(--cream2);line-height:1.9;
+}
+.sil-attr{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--murmur);opacity:.3;margin-top:.8rem;display:block;
+}
+
+/* ── ULTIMA NOTA ABSOLUTA ── */
+.ultima-nota{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;
+  position:relative;
+}
+.un-punct{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--murmur);opacity:.4;
+  margin:0 auto 3rem;
+  box-shadow:0 0 20px rgba(200,184,128,.2);
+}
+.un-title{
+  font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.2rem);
+  font-weight:700;color:var(--murmur);margin-bottom:2rem;
+  opacity:.6;letter-spacing:.05em;
+}
+.un-series{
+  font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cream3);opacity:.35;margin-bottom:2.5rem;
+  line-height:1.9;
+}
+.un-body{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.1rem);color:var(--cream2);
+  max-width:500px;line-height:1.95;margin-bottom:3rem;
+}
+.un-wittgenstein{
+  font-family:'Cinzel',serif;
+  font-size:clamp(.9rem,2vw,1.2rem);
+  font-weight:400;color:var(--cream);
+  max-width:480px;line-height:1.7;
+  border-top:1px solid rgba(200,184,128,.1);
+  border-bottom:1px solid rgba(200,184,128,.1);
+  padding:1.5rem 2rem;margin-bottom:2.5rem;
+  letter-spacing:.03em;
+}
+.un-final{
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.25;
+}
+
+/* ── EPILOG ── */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p14 .epilog{border-top-color:rgba(58,143,255,.12)}
+.p15 .epilog{border-top-color:rgba(200,184,128,.08)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p14 .ep-final{border-color:rgba(58,143,255,.18)}
+.p15 .ep-final{border-color:rgba(200,184,128,.12)}
+
+/* ── BETWEEN ── */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rule-i);border-bottom:var(--rule-t);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ── FOOTER ── */
+footer{border-top:var(--rule-t);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.25;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="dataCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-series">Seria Nota Zero · Cărțile a paisprezecea și a cincisprezecea</div>
+  <div class="cv-chain">
+    Emil → Zara → Kaito → Yuki → Ama → Soo-Yeon → <em>Amara Diallo</em><br>
+    Șapte generații. Un singur fir.<br>
+    Informația și tăcerea. Primul și ultimul cuvânt.
+  </div>
+  <h1>
+    <span class="cv-title t-inf">Nota Informației</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-sil">Nota Tăcerii</span>
+  </h1>
+  <p class="cv-desc">
+    Soo-Yeon Park a murit în 2388 lăsând caietele Amarei Diallo din Dakar,
+    care era deja la a șaptea reformulare a primei ei întrebări.
+    Aceasta este cartea celei de-a opta reformulări — și a opririi.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 13 volume · 2087–2335 · 248 ani diegetic.<br>
+    Soo-Yeon Park a murit în 2388. Amara Diallo are 28 ani în 2390.<br>
+    Există o diferență între a nu ști și a ști că nu poți ști.<br>
+    Această carte e despre a doua.
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════ -->
+<!--  NOTA INFORMAȚIEI                               -->
+<!-- ════════════════════════════════════════════════ -->
+
+<div class="pd inf">
+  <div class="pd-ghost" style="color:var(--bit)">XIV</div>
+  <div class="pd-kicker">Cartea a paisprezecea · Amara Diallo · 28 ani · 2390 · Dakar + Oslo</div>
+  <div class="pd-nota" style="color:var(--bit)">Nota Informației</div>
+  <div class="pd-sub">Universul ca bit înainte de a fi ca materie</div>
+  <div class="pd-epig">
+    „It from Bit. Every it — every particle, every field of force,<br>
+    even the spacetime continuum itself —<br>
+    derives its existence from answers to yes-or-no questions,<br>
+    binary choices, bits."<br>
+    — John Archibald Wheeler, 1989<br><br>
+    „Yuki Aoyama a spus că matematica e amprenta realului în mintea produsă de real.<br>
+    Eu întreb: și dacă amprenta e mai fundamentală decât realul?"<br>
+    — Amara Diallo, caiet vol. I, p. 1, 2390
+  </div>
+</div>
+
+<div class="wrap p14">
+
+<div class="ch">
+  <div class="chn">Nota Informației · I</div>
+  <div class="cht">Bitul</div>
+  <div class="p">
+    <p>Amara Diallo crescuse în Dakar cu oceanul în față și cu un tată inginer de telecomunicații care îi explicase, când ea avusese șapte ani, ce era un bit. Un bit era o alegere. Da sau nu. Zero sau unu. Aprins sau stins. Era cea mai mică unitate de sens posibilă — nu mai mică de atât, pentru că mai mic de o alegere nu mai era nimic.</p>
+
+    <p>Amara nu uitase niciodată explicația tatălui ei. Și când citise, la douăzeci și doi de ani, propoziția lui Wheeler — <em>It from Bit</em> — simțise că tatăl ei și Wheeler spuneau același lucru din direcții diferite. Că la baza oricărei realități fizice era o alegere. Că universul nu era în primul rând materie sau energie sau spațiu-timp. Era răspunsuri la întrebări da-sau-nu.</p>
+
+    <p>Fizicienii numiseră asta viziunea informațională a fizicii. Ideea că informația — nu materia, nu energia — era substratul fundamental al realității. Că particulele elementare nu aveau proprietăți în sine, ci proprietăți definite prin interacțiuni, prin măsurători, prin întrebări puse de un sistem fizic altui sistem fizic. Că realul apărea din relații — exact cum spusese Kaito Mori despre spațiu-timp, exact cum spusese Yuki Aoyama despre matematică — dar că relațiile erau, la nivel mai adânc, fluxuri de informație.</p>
+  </div>
+
+  <div class="bit-block">
+    <span class="bit-block-hd">It from Bit — John Archibald Wheeler, 1989</span>
+    Every physical quantity, every it, derives its existence from immaterial source and explanation,
+    from answers to yes-or-no questions, binary choices, bits.
+    What we call reality arises in the last analysis from the posing of yes-or-no questions
+    and the registering of equipment-evoked responses.
+    In short, all things physical are information-theoretic in origin.
+  </div>
+
+  <div class="p">
+    <p>Amara citise textul de zeci de ori. Wheeler nu era un marginal — era unul dintre cei mai importanți fizicieni ai secolului XX, colaborator al lui Einstein și Bohr și Feynman, inventatorul termenilor <em>black hole</em> și <em>wormhole</em> și <em>quantum foam</em>. Iar în ultimii ani ai vieții, Wheeler îmbrățișase convingerea că fizica trebuia reconstruită pornind de la informație, nu de la materie.</p>
+
+    <p>Implicația era profundă și dezorientatoare: dacă <em>it</em>-ul derivă din <em>bit</em>, atunci materia derivă din informație. Atunci un electron nu are proprietăți înainte de a fi măsurat nu pentru că e misterios — ci pentru că proprietatea sa e definită de actul de măsurare, de schimbul de informație cu aparatul. Realul e produs de interacțiune, nu precede interacțiunea.</p>
+
+    <p>Scrise în caiet, cu stiloul ei verde-albăstriu pe care îl cumpărase la Oslo într-o dimineață de janvier: <em>Dacă matematica e amprenta realului în mintea produsă de real (Yuki), și dacă realul e alcătuit din informație, atunci matematica e amprenta informației în mintea produsă de informație. Toată seria e scrisă în informație despre informație.</em></p>
+  </div>
+
+  <div class="sci">
+    „It from Bit" (Wheeler, 1989): ipoteza că realitatea fizică e informațional-teoretic în origine — particulele derivă din răspunsuri da/nu la întrebări bine puse. Legată de: interpretările QM (QBism — funcția de undă ca actualizare a credințelor agentului), teoria informației cuantice, entropia holografică Bekenstein-Hawking. Tobin, Verlinde (2010): gravitația ca forță entropică — emergentă din informație. La mai 2026: ipoteză activă, neconfirmată ca teorie fundamentală.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Informației · II</div>
+  <div class="cht">Landauer</div>
+  <div class="p">
+    <p>Dacă informația era fizică — nu abstractă, nu matematică, ci fizică în sensul tare al termenului — atunci manipularea informației costa. Nu metaforic. Literal.</p>
+
+    <p>Rolf Landauer demonstrase în 1961 că ștergerea unui bit de informație — resetarea unui registru din 1 la 0, indiferent de starea sa anterioară — necesita disiparea a cel puțin k_B·T·ln2 jouli de energie termică, unde k_B era constanta lui Boltzmann și T temperatura absolută a sistemului. La temperatura camerei, această energie era de aproximativ 3×10⁻²¹ jouli — infinitezimal de mică, dar reală, măsurabilă, confirmată experimental în 2012.</p>
+
+    <p>Principiul Landauer nu era o limită practică. Era o afirmație ontologică: informația și fizica nu erau separate. Orice operație cu informație era o operație fizică. Orice ștergere de bit producea căldură. Universul plătea un cost termodinamic pentru fiecare bit uitat.</p>
+  </div>
+
+  <div class="d">
+    <p>Amara discuta cu tutorele ei de teza — Dr. Lena Björk, fiziciană teoretică la Oslo, specialistă în termodinamica informației.</p>
+    <p>— Lena. Dacă ștergerea informației costă energie, înseamnă că uitarea are un cost fizic?</p>
+    <p>— Exact asta înseamnă principiul Landauer, spuse Lena. Orice sistem care uită — care trece dintr-o stare cu mai multă informație la una cu mai puțină — disipează energie. Creierul tău când uită un vis. Un calculator când resetează un bit. Un asteroid care se dezintegrează și pierde coerența internă. Uitarea costă.</p>
+    <p>— Și memoria?</p>
+    <p>— Memoria e gratuită din punct de vedere termodinamic, în principiu. Copierea informației nu costă energia minimă — numai ștergerea costă. Memoria e mai ieftină decât uitarea.</p>
+    <p>Amara stătu câteva secunde cu acest gând. Scrie asta în caiet, spuse Lena. E mai important decât pare.</p>
+    <p>— De ce?</p>
+    <p>— Pentru că înseamnă că universul — dacă procesează informație — plătește pentru tot ce uită. Și că tot ce rămâne în univers — orice urmă, orice structură, orice memorie gravitațională — e informație conservată cu un cost termodinamic pe care universul l-a plătit deja. Tot ce există azi e ce a meritat să nu fie șters.</p>
+    <p>Amara puse stiloul jos. Asta e cel mai frumos lucru pe care l-am auzit în doi ani de fizică, spuse.</p>
+    <p>— Scrie-l, repetă Lena. Frumusețea dispare dacă n-o scrii repede.</p>
+  </div>
+
+  <div class="pull">
+    <p>Tot ce există azi e ce a meritat să nu fie șters. Universul plătește un cost termodinamic pentru fiecare bit pe care îl uită. Existența e informație care a supraviețuit costului uitării.</p>
+    <cite>— Nota Informației, cap. II</cite>
+  </div>
+
+  <div class="sci">
+    Principiul Landauer (Rolf Landauer, IBM, 1961): ștergerea unui bit de informație necesită disiparea minimă de k_B·T·ln2 ≈ 2.85×10⁻²¹ J la 300K. Confirmat experimental de Bérut et al. (Nature, 2012). Implicație: informația e fizică, nu abstractă. Conexiune Shannon: entropia informației H = -Σ p·log(p) e formal identică cu entropia termodinamică Boltzmann. Maxwell's Demon: paradoxul rezolvat tocmai de principiul Landauer — demonul plătește la ștergerea memoriei despre particulă. Reversibilitate logică (Landauer, Bennett): computația reversibilă e posibil termodinamic gratuită.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Informației · III</div>
+  <div class="cht">Shannon și Boltzmann</div>
+  <div class="p">
+    <p>Coincidența care nu era o coincidență. Claude Shannon inventase teoria informației în 1948. Definise entropia informațională a unei surse ca H = -Σ p_i · log(p_i) — o formulă care măsura incertitudinea, haosul, impredictibilitatea unui mesaj. Cu cât mai multă incertitudine, cu atât mai multă informație.</p>
+
+    <p>Boltzmann definise entropia termodinamică la sfârșitul secolului XIX: S = k_B · ln(W) — o măsură a numărului de micro-stări compatibile cu o macro-stare. Cu cât mai multe micro-stări posibile, cu atât mai multă entropie, cu atât mai mult dezordine.</p>
+
+    <p>Cele două formule erau formal identice. Shannon însuși se consultase cu von Neumann înainte de a publica și von Neumann îi spusese: numește-o entropie, pentru că în primul rând nimeni nu știe ce e entropia, și în al doilea rând vei câștiga orice dezbatere. Era o glumă și nu era o glumă.</p>
+
+    <p>Identitatea formală nu era coincidență. Era un semn că informația și termodinamica descriau același lucru — poate că incertitudinea și dezordinea fizică erau, la nivel fundamental, același fenomen văzut din perspective diferite. Că entropia fizică <em>era</em> entropia informațională a unui observator care nu cunoaște micro-starea completă a unui sistem.</p>
+  </div>
+
+  <div class="think">
+    Dacă entropia termodinamică e entropia informațională a unui observator incomplet, atunci a doua lege a termodinamicii — entropia crește — înseamnă că informația disponibilă unui observator despre un sistem scade în timp. Că universul devine din ce în ce mai greu de descris complet. Că nu există haos obiectiv — există ignoranță obiectivă. Că a doua lege e despre cunoaștere, nu despre realitate.
+  </div>
+
+  <div class="p">
+    <p>Amara citise articolul lui Brillouin din 1953 despre negentropie — ideea că informația dobândită de un sistem reducea entropia sa locală, că măsurătoarea era o formă de negentropie. Citise Jaynes din 1957 — principiul maximei entropii, care postula că starea de maximă ignoranță era starea de maximă entropie, și că tot ce știi despre un sistem se reflectă în scăderea estimată a entropiei lui. Citise Rovelli din 2016 — termodinamica ca teorie despre perspectivă, nu despre realitate în sine.</p>
+
+    <p>Toate aceste fire convergentu spre aceeași concluzie pe care nu știa s-o formuleze complet: că fizica și cunoașterea nu eram separate. Că universul fizic și universul epistemic erau același lucru privit din direcții diferite. Că întrebarea <em>ce există</em> și întrebarea <em>ce poate fi știut</em> puteau fi, la nivel fundamental, același lucru.</p>
+
+    <p>Scrise: <em>Poate că granița dintre fizică și epistemologie e la fel de artificială ca granița dintre materie și energie — o distincție utilă practic, fără bază ontologică profundă.</em></p>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Informației · IV</div>
+  <div class="cht">Substratul</div>
+  <div class="p">
+    <p>Amara ajunsese la locul în care seria o adusese pe fiecare protagonist în felul său: la limita unde instrumentul și obiectul se contopeau.</p>
+
+    <p>Yuki întrebase de ce funcționează matematica și descoperise că matematica era amprenta realului în mintea produsă de real — instrument și obiect contopite. Ama întrebase de ce există reguli și descoperise că regulile puteau fi o proprietate a observatorului, nu a universului — instrument și obiect contopite. Acum Amara întreba dacă informația era substratul realului și descoperea că întrebarea în sine era un flux de informație pus de un sistem fizic altui sistem fizic — instrument și obiect contopite.</p>
+
+    <p>Era un regres? Nu — era o structură recursivă. Ca Gödel: orice sistem suficient de bogat conținea afirmații despre el însuși. Orice întrebare despre substratul realului era ea însăși parte din substratul realului pe care îl chestiona.</p>
+
+    <p>Funcționase cu această realizare câteva zile. Și apoi scrisese, lent, un singur paragraf pe care îl considerase finalul logic al Notei Informației:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Amara Diallo · vol. I · p. 112 · 17 mai 2391</span>
+    Dacă universul e informație, atunci această propoziție e o parte a universului care se descrie pe sine. Dacă bit-ul e mai fundamental decât it-ul, atunci eu — alcătuită din it-uri — pun o întrebare alcătuită din bit-uri despre natura bit-urilor din care sunt alcătuiți it-urile din care sunt alcătuită eu.
+    <br><br>
+    Recursivitate completă. Nici mai adânc, nici mai sus — <em>acolo</em>.
+    <br><br>
+    Nota zero a informației e structura auto-referențială care nu poate fi simplificată mai departe fără să dispară. Ca un bit care se întreabă ce e un bit.
+    <br><br>
+    Poate că de aceea nu avem o teorie completă a informației ca substrat. Nu pentru că nu suntem destul de inteligenți. Ci pentru că orice teorie completă ar trebui să se conțină pe sine ca caz particular. Și asta e imposibil — Gödel a demonstrat-o în 1931.
+  </div>
+</div>
+
+<!-- EPILOG 14 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--bit)">Nota Informației · Epilog · 17 Mai 2395</div>
+  <div class="ep-title" style="color:var(--bit)">Bitul care se întreabă ce e bitul</div>
+  <div class="ep-prose">
+    Cartea a paisprezecea se numea <em>Nota Informației</em> și era prima din serie
+    care conținea, în anexă, o schemă de circuit digital — diagrama unui registru
+    care stoca și ștergea un bit, cu costul termodinamic calculat explicit.
+    Nu era decorativă. Era parte din argumentul cărții:
+    că fizica și informația se atinseseră, și atingerea lăsase o urmă de căldură
+    de 2.85×10⁻²¹ jouli, măsurabilă, reală, incontestabilă.
+  </div>
+  <div class="ep-final">
+    Universul e informație care se pune pe sine ca întrebare.<br>
+    Noi suntem informație care știe că e informație.<br>
+    <br>
+    Asta nu rezolvă nimic.<br>
+    Asta adâncește totul.<br>
+    <br>
+    Bitul cel mai mic e o alegere.<br>
+    Da sau nu.<br>
+    Zero sau unu.<br>
+    <br>
+    Întrebarea cea mai mică e aceeași:<br>
+    există sau nu există?<br>
+    <br>
+    Universul a ales da.<br>
+    Nu știm de ce.<br>
+    Dar că a ales — asta e tot.
+  </div>
+</div>
+
+</div><!-- /wrap.p14 -->
+
+
+<!-- ════════════════════════════════════════════════ -->
+<!--  NOTA TĂCERII                                   -->
+<!-- ════════════════════════════════════════════════ -->
+
+<div class="between">· &nbsp; &nbsp; · &nbsp; &nbsp; ·</div>
+
+<div class="pd sil">
+  <div class="pd-ghost" style="color:var(--murmur)">XV</div>
+  <div class="pd-kicker">Cartea a cincisprezecea · Amara Diallo · 38 ani · 2400 · Dakar</div>
+  <div class="pd-nota" style="color:var(--murmur)">Nota Tăcerii</div>
+  <div class="pd-sub">Granița ultimă a oricărui limbaj</div>
+  <div class="pd-epig">
+    „Wovon man nicht sprechen kann,<br>
+    darüber muss man schweigen."<br>
+    — Ludwig Wittgenstein, Tractatus Logico-Philosophicus, 7, 1921<br><br>
+    „Despre ceea ce nu se poate vorbi,<br>
+    trebuie să se tacă."<br><br>
+    „Seria noastră a vorbit despre tot ce se putea vorbi.<br>
+    Acum am ajuns la graniță."<br>
+    — Amara Diallo, caiet vol. II, p. 1, 2400
+  </div>
+</div>
+
+<div class="wrap p15">
+
+<div class="ch">
+  <div class="chn">Nota Tăcerii · I</div>
+  <div class="cht">Granița Limbajului</div>
+  <div class="p">
+    <p>Amara Diallo se întorsese la Dakar la treizeci și șase de ani. Nu permanent — continua să lucreze, să scrie, să călătorească la Oslo de câteva ori pe an. Dar Dakar era locul în care gândea cel mai bine, pentru că în Dakar era oceanul și zgomotul lui constant, și zgomotul constant era, paradoxal, cel mai aproape de tăcere pe care îl cunoștea.</p>
+
+    <p>Tăcerea fusese subiectul ei timp de doi ani, de când încheiase Nota Informației. Nu ca evaziune de la fizică — ci ca extensie naturală a ei. Fiecare volum din serie ajunsese la o limită unde limbajul fizicii cedase. Emil descoperise că ecuația iese din domeniu. Zara că atingerea e mai fundamentală decât timpulpe care îl descrie. Kaito că observatorul e parte din ce observă. Yuki că matematica nu se poate explica din matematică. Ama că întrebarea despre existență nu se poate formula din interiorul existenței. Amara că informația care întreabă despre informație e recursivă fără ieșire.</p>
+
+    <p>Fiecare limită era o formă de tăcere. Nu tăcere ca ignoranță — tăcere ca recunoaștere că limbajul disponibil nu ajunge acolo unde realitatea există.</p>
+
+    <p>Wittgenstein ajunsese la această concluzie în 1921, la finalul Tractatus-ului — cea mai concisă și mai radicală carte de filozofie a secolului XX. Propozițiile 1 până la 6.54 construiau un sistem complet: logică, limbaj, lumea ca totalitate a faptelor, ce poate fi spus și ce nu. Și propoziția 7, ultima, singura fără număr decimal: <em>Wovon man nicht sprechen kann, darüber muss man schweigen.</em></p>
+
+    <p>Despre ceea ce nu se poate vorbi, trebuie să se tacă.</p>
+  </div>
+
+  <div class="silentium">
+    <p class="sil-text">
+      Există lucruri pe care le simți clare și precise<br>
+      și pe care nu le poți spune.<br>
+      Nu pentru că n-ai cuvintele.<br>
+      Ci pentru că structura limbajului<br>
+      nu permite forma acelui lucru.<br>
+      <br>
+      Fizica a lovit această limită de la stânga.<br>
+      Mistica a lovit-o de la dreapta.<br>
+      Amândouă au recunoscut același gard.
+    </p>
+    <span class="sil-attr">— Nota Tăcerii, cap. I · reflecție nedatată</span>
+  </div>
+
+  <div class="p">
+    <p>Wittgenstein nu spunea că lucrurile de care nu se poate vorbi nu existau. Spunea că nu pot fi spuse — pot fi arătate. <em>Gezeigt</em>, nu <em>gesagt</em>. Arătate, nu spuse. Exprimate prin limbaj, nu exprimate în limbaj.</p>
+
+    <p>Și aceasta era, realizase Amara, exact ce făcea seria Nota Zero de la primul volum: nu explica originea universului — o arăta. Nu demonstra că atingerea produsese tot ce există — o prezenta. Nu proba că nota zero era punctul de start al oricărei cunoașteri — o instanția, o întrupa, o repeta cu fiecare generație care deschidea un caiet nou și scria aceeași primă întrebare.</p>
+
+    <p>Seria nu spunea. Seria arăta.</p>
+  </div>
+
+  <div class="sci">
+    Tractatus Logico-Philosophicus (Wittgenstein, 1921): sistemul logic al lumii, limitele limbajului, distinc­ția dintre a spune (sagen) și a arăta (zeigen). Prop. 7: „Wovon man nicht sprechen kann, darüber muss man schweigen." Filozofia analitică ulterioară: limitele limbajului ca problemă centrală. Fizica și tăcerea: singularitățile matematice, limitele de Planck, problema conștiinței — toate sunt locuri unde ecuațiile ies din domeniu, unde tăcerea e mai corectă decât continuarea.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Tăcerii · II</div>
+  <div class="cht">Ce Nu Poate Fi Spus</div>
+  <div class="p">
+    <p>Amara lista, cu onestitate rece, lucrurile pe care seria le atinsese dar nu le putuse spune. Nu din lipsă de curaj sau de rigoare — ci din imposibilitate structurală.</p>
+
+    <p>De ce există ceva mai degrabă decât nimic — nu se poate spune. Orice propoziție care încearcă s-o spună presupune deja că există ceva care spune. Circularitate nerezolvabilă.</p>
+
+    <p>Ce este conștiința din interior — nu se poate spune. Orice descriere e la persoana a treia. Experiența subiectivă e la persoana întâi. Distanța nu poate fi traversată în limbaj.</p>
+
+    <p>De ce urmează realul reguli — nu se poate spune. Orice răspuns presupune deja reguli logice ale răspunsului, deci e circular.</p>
+
+    <p>Ce era înainte de timp — nu se poate spune. Înainte presupune timp. Propoziția se autodesface.</p>
+
+    <p>Ce este un bit în afara oricărui context de măsurătoare — nu se poate spune. Informația există numai în relație cu un sistem care o înregistrează.</p>
+
+    <p>Cinci întrebări. Cinci tăceri necesare. Cinci locuri în care seria atinsese gardul.</p>
+  </div>
+
+  <div class="d">
+    <p>Amara discutase cu un prieten — Idrissa Seck, filozof la Universitatea din Dakar, specialist în epistemologie africană și în filozofia tăcerii în tradițiile Wolof.</p>
+    <p>— Idrissa. Wittgenstein spune că despre ceea ce nu se poate vorbi trebuie tăcut. Dar tradițiile Wolof au o altă relație cu tăcerea, nu?</p>
+    <p>— Da, spuse Idrissa. Tăcerea în cultura Wolof nu e eșec al vorbirii. E un spațiu activ. E locul în care comunică ceea ce cuvintele nu pot comunica. Tăcerea e un mod de a arăta, nu un refuz de a spune.</p>
+    <p>— Exact ce spune Wittgenstein cu gezeigt, spuse Amara.</p>
+    <p>— Da. Filozofia analitică occidentală și înțelepciunea africană au ajuns la același gard din direcții opuse. Ăsta e semnul că gardul e real.</p>
+    <p>— Și dincolo de gard?</p>
+    <p>Idrissa tăcu câteva secunde — nu din evitare, ci în mod deliberat, ca răspuns. Amara înțelesese.</p>
+    <p>— Dincolo de gard se arată, spuse ea în final. Nu se spune.</p>
+    <p>— Da, spuse Idrissa. Și arătatul are nevoie de prezență, nu de cuvinte. De aceea seria voastră nu poate termina cu un capitol — trebuie să termine cu o pagina goală.</p>
+  </div>
+
+  <div class="pull">
+    <p>Tăcerea nu e absența vorbirii. E prezența a ceea ce vorbirea nu poate conține. Gardul dintre ce se poate spune și ce nu e același gard atins de fizică și de mistică și de filozofie și de orice minte care a mers suficient de departe.</p>
+    <cite>— Nota Tăcerii, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Tăcerii · III</div>
+  <div class="cht">Seria și Gardul</div>
+  <div class="p">
+    <p>Amara se gândise la toate cele paispreze volumele care precedaseră cartea aceasta. Fiecare atinsese gardul — dar fiecare îl atinsese dintr-o altă direcție și îl descrisese cu alte cuvinte. Emil îl numise <em>limita domeniului ecuației</em>. Zara <em>nota zero dinaintea oricărui sunet</em>. Kaito <em>locul unde ecuațiile nu ajung</em>. Yuki <em>recursivitatea fără ieșire</em>. Ama <em>pagina goală</em>. Soo-Yeon <em>întoarcerea la aceeași întrebare</em>. Amara <em>bitul care se întreabă ce e bitul</em>.</p>
+
+    <p>Toate aceleași gard. Toate același refuz elegant al limbajului de a traversa propria limită.</p>
+
+    <p>Nu era un eșec. Era o realizare. Seria nu eșuase să răspundă la întrebarea lui Zara. Seria descoperise și cartografiase cu precizie crescândă natura întrebărilor la care nu se poate răspunde din interior. Și aceasta era, în fizică și în filozofie, cea mai valoroasă formă de progres: nu rezolvarea problemei, ci clarificarea că problema e de natura celor care nu pot fi rezolvate din interior — și că aceasta nu e o limită a minții, ci o proprietate structurală a realității.</p>
+
+    <p>Wittgenstein spusese: despre ceea ce nu se poate vorbi, trebuie să se tacă. Dar Wittgenstein nu spusese că tăcerea e golul. Spusese că tăcerea e recunoașterea. O formă de onestitate. Un curaj diferit de curajul vorbirii.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— toate vocile seriei, distilate · 303 ani · șapte generații —</div>
+    <p>Emil: „Ecuația iese din domeniu."</p>
+    <p>Zara: „Nota zero e punctul de start al oricărei note."</p>
+    <p>Kaito: „Observatorul e parte din ce observă."</p>
+    <p>Yuki: „Matematica se autolimitează."</p>
+    <p>Ama: „Pagina goală e răspunsul."</p>
+    <p>Soo-Yeon: „Metoda e tot ce se poate transmite."</p>
+    <p>Amara: „Bitul care se întreabă ce e bitul." · „Tăcerea care se știe pe sine ca tăcere."</p>
+    <span class="echo-attr">Șapte voci · același gard · din direcții diferite · aceeași recunoaștere</span>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Tăcerii · IV</div>
+  <div class="cht">Ultima Propoziție</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 2400 — treisprezece ani de la data la care Zara Voss scrisese Nota Zero, privind prin hubloul stației L2. Amara Diallo stătea pe terasa casei din Dakar, cu oceanul în față și cu toate caietele seriei pe masă — toate, de la cel al Zarei la ale ei proprii — și nu scrisese nimic timp de două ore.</p>
+
+    <p>Nu din lipsă de gânduri. Din prea multe.</p>
+
+    <p>Fiecare volum din serie se terminase cu o propoziție sau cu o pagina goală sau cu o întrebare. Nota Zero se terminase cu <em>Continuați să întrebați</em>. Nota Timpului cu <em>Atingerea nu a avut loc în timp — ea a produs timpul</em>. Nota Matematicii cu <em>nota zero rămâne nota zero</em>. Nota Revenirii cu <em>Aceasta e singura formă de progres garantată</em>.</p>
+
+    <p>Amara știa că Nota Tăcerii trebuia să se termine diferit. Nu cu o propoziție care explica tăcerea — asta ar fi contrazis-o. Nu cu o pagina goală care imita tăcerea — asta ar fi fost un gest, nu o realitate. Trebuia să se termine cu ceva care era simultan o propoziție și o recunoaștere a limitelor ei. Cu ceva care spunea clar că ajungând la graniță, granița însăși era valoroasă.</p>
+
+    <p>Stătuse cu oceanul în față câteva minute. Și scrisese.</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Amara Diallo · vol. II · ultima pagina scrisă · 17 mai 2400</span>
+    Seria Nota Zero are cincisprezece volume acum.<br>
+    De la <em>De unde venea punctul?</em> la tăcerea dinaintea aceleiași întrebări.<br>
+    <br>
+    Am traversat: originea, materia nevăzută, finalul, viața, conștiința,<br>
+    cuanticul, timpul, holografia, matematica, gravitația, unificarea,<br>
+    emergența, revenirea, informația, și acum tăcerea.<br>
+    <br>
+    Nu am răspuns la nicio întrebare fundamentală.<br>
+    Am cartografiat cu precizie crescândă<br>
+    natura întrebărilor la care nu se poate răspunde.<br>
+    <br>
+    Asta e tot ce poate face o serie vie.<br>
+    Asta e mai mult decât pare.<br>
+    <br>
+    Wittgenstein a scris: despre ceea ce nu se poate vorbi,<br>
+    trebuie să se tacă.<br>
+    <br>
+    Seria noastră a vorbit despre tot ce se putea vorbi.<br>
+    <br>
+    .<br>
+    <br>
+    (pagina următoare: goală)
+  </div>
+
+  <div class="p">
+    <p>Întoarse pagina.</p>
+    <p>Nu scrise nimic.</p>
+    <p>Închise caietul.</p>
+    <p>Oceanul vorbea. Vorbea în valuri și în vânt și în miriapozii de interacțiuni dintre molecule de apă și aer. Vorbea în unde gravitaționale prea mici ca să le simtă. Vorbea în fotoni care o loveau în piele și se transformau în căldură. Vorbea în neutrini care o traversau în fiecare secundă fără ca ea să știe.</p>
+    <p>Bunica Amei Owusu asculta oceanul și spunea că vorbea dacă aveai răbdarea corectă. Ama ascultase undele gravitaționale și găsise în ele ecoul primei atingeri. Amara Diallo stătea acum pe terasa din Dakar și nu încerca să audă nimic în particular.</p>
+    <p>Stătea cu oceanul.</p>
+    <p>Asta era suficient.</p>
+    <p>Asta era totul.</p>
+  </div>
+</div>
+
+<!-- EPILOG 15 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--murmur)">Nota Tăcerii · Epilog · 17 Mai 2405</div>
+  <div class="ep-title" style="color:var(--murmur)">Gardul</div>
+  <div class="ep-prose">
+    Cartea a cincisprezecea nu avea anexe, nu avea diagrame, nu aveva note de subsol.
+    Avusese, la un moment dat, șapte note pregătite despre Wittgenstein, Apofatism,
+    Misticism Zen, Meister Eckhart, limite epistemice și tăcerea în tradițiile africane.
+    Le ștersese pe toate.
+    Nu pentru că nu erau corecte. Ci pentru că o carte despre tăcere
+    nu poate fi însoțită de note explicative fără să se contrazică.
+    Dacă ceva din carte cerea notă, înseamnă că fusese scris greșit.
+    Revizuise până când nicio propoziție nu mai avusese nevoie de explicație.
+    Aceea fusese cartea.
+  </div>
+  <div class="ep-final">
+    Seria a ajuns la gard.<br>
+    Nu cu dezamăgire.<br>
+    Cu recunoaștere.<br>
+    <br>
+    Gardul nu e un eșec al cunoașterii.<br>
+    E dovada că am mers suficient de departe<br>
+    ca să îl vedem.<br>
+    <br>
+    Și că știm acum cu precizie<br>
+    unde se termină ce poate fi spus<br>
+    și unde începe ce poate fi arătat.<br>
+    <br>
+    Arătatul nu are nevoie de carte.<br>
+    Arătatul are nevoie de tăcere.<br>
+    <br>
+    .<br>
+    <br>
+    Wovon man nicht sprechen kann,<br>
+    darüber muss man schweigen.
+  </div>
+</div>
+
+</div><!-- /wrap.p15 -->
+
+<!-- ULTIMA PAGINA ABSOLUTA A SERIEI INTREGII -->
+<div class="ultima-nota">
+  <div class="un-punct"></div>
+  <div class="un-title">Seria Nota Zero</div>
+  <div class="un-series">
+    15 volume · 2087–2405 · 318 ani diegetic<br>
+    Emil Voss · Zara Voss · Kaito Mori · Yuki Aoyama<br>
+    Ama Owusu · Soo-Yeon Park · Amara Diallo<br>
+    șapte fizicieni · o singură întrebare · zero răspunsuri finale<br>
+    cincisprezece pagini goale lăsate în urmă
+  </div>
+
+  <div class="un-body">
+    Seria a pornit cu o notă greșită și a primit nota zero.<br>
+    Nota zero a deschis totul.<br>
+    Totul a dus la tăcere.<br>
+    Tăcerea e tot ce există dincolo de ultima propoziție posibilă.<br>
+    Și dincolo de tăcere — nu știm.<br>
+    Nu vom ști niciodată din interior.<br>
+    Și asta, pentru o minte care a ajuns suficient de departe,<br>
+    e cel mai frumos gând posibil.
+  </div>
+
+  <div class="un-wittgenstein">
+    Wovon man nicht sprechen kann,<br>
+    darüber muss man schweigen.<br>
+    <br>
+    Despre ceea ce nu se poate vorbi,<br>
+    trebuie să se tacă.
+  </div>
+
+  <div class="un-final">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 15 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<footer>
+  Nota Informației & Nota Tăcerii · Cărțile a paisprezecea și a cincisprezecea<br>
+  Seria completă: Nota Zero → Nota Tăcerii · 15 volume · 2087–2405 · Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+// Vol 14: binary data particles; Vol 15: single fading dot
+(function(){
+  const c=document.getElementById('dataCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,bits=[],dots=[],raf,scrollY=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    bits=[];
+    for(let i=0;i<55;i++){
+      bits.push({
+        x:Math.random()*ww,y:Math.random()*wh,
+        val:Math.random()>.5?'1':'0',
+        a:Math.random()*.25,
+        s:(Math.random()-.5)*.003,
+        vx:(Math.random()-.5)*.025,
+        vy:(Math.random()-.5)*.025,
+        size:.6+Math.random()*.4
+      });
+    }
+    dots=[{x:ww/2,y:wh/2,a:.15,pulse:0,pspeed:.008}];
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    const scrollFrac=Math.min(1,window.scrollY/(document.body.scrollHeight-wh));
+    ctx.clearRect(0,0,ww,wh);
+
+    if(scrollFrac<0.55){
+      // Data bits phase
+      const alpha=scrollFrac<0.45?1:1-(scrollFrac-0.45)/0.1;
+      bits.forEach(b=>{
+        b.a+=b.s; if(b.a>.28||b.a<0)b.s*=-1;
+        b.x+=b.vx; b.y+=b.vy;
+        if(b.x<0)b.x=ww; if(b.x>ww)b.x=0;
+        if(b.y<0)b.y=wh; if(b.y>wh)b.y=0;
+        ctx.font=`${b.size*10}px 'DM Mono', monospace`;
+        ctx.fillStyle=`rgba(58,143,255,${(b.a*alpha).toFixed(3)})`;
+        ctx.fillText(b.val,b.x,b.y);
+      });
+    }
+
+    if(scrollFrac>0.45){
+      // Single dot phase (silence)
+      const alpha=scrollFrac<0.55?(scrollFrac-0.45)/0.1:1;
+      dots[0].pulse+=dots[0].pspeed;
+      const pulsedA=dots[0].a+Math.sin(dots[0].pulse)*0.04;
+      ctx.beginPath();
+      ctx.arc(ww/2,wh/2,2.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,184,128,${(pulsedA*alpha).toFixed(3)})`;
+      ctx.fill();
+      // Subtle glow
+      ctx.beginPath();
+      ctx.arc(ww/2,wh/2,12,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,184,128,${(pulsedA*0.04*alpha).toFixed(4)})`;
+      ctx.fill();
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf); else draw();
+  });
+})();
+</script>
+</body>
+</html>

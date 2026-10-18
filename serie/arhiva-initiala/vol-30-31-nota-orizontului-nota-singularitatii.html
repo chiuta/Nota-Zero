@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Orizontului & Nota Singularității · Cărțile a treizecea și a treizeci și una · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#010108;
+  /* Nota Orizontului: portocaliu-aur de apus, limita vizibilului */
+  --hor:#e89040;--ho2:rgba(232,144,64,.09);--ho3:rgba(232,144,64,.035);--ho4:rgba(232,144,64,.14);
+  /* Nota Singularității: alb comprimat, totul în nimic */
+  --sing:#f0ece0;--si2:rgba(240,236,224,.08);--si3:rgba(240,236,224,.025);--si4:rgba(240,236,224,.11);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rh:1px solid rgba(232,144,64,.13); --rs:1px solid rgba(240,236,224,.09);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#horizCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rh);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--hor);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--ho4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(1.9rem,5.5vw,4.8rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-ho{color:var(--hor)} .t-si{color:var(--sing)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--ho4);background:var(--ho3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.ho{border-color:rgba(232,144,64,.12)}
+.pd.si{border-color:rgba(240,236,224,.08)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p30 .ch{border-bottom-color:rgba(232,144,64,.05)}
+.p31 .ch{border-bottom-color:rgba(240,236,224,.04)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p30 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--hor);text-shadow:0 0 24px rgba(232,144,64,.32);}
+.p31 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--sing);text-shadow:0 0 30px rgba(240,236,224,.22);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* HORIZON BOX */
+.horbox{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--ho4);background:var(--ho3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:rgba(232,144,64,.72);line-height:1.85;}
+.horbox-hd{color:var(--hor);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* SINGULARITY BOX */
+.singbox{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--si4);background:var(--si3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.85;text-align:center;}
+.singbox-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sing);opacity:.42;margin-bottom:.6rem;font-style:normal;display:block;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p30 .think{border-color:var(--ho4);background:var(--ho3)}
+.p30 .think::before{content:'⬡ ';font-style:normal;color:var(--hor);opacity:.55}
+.p31 .think{border-color:var(--si4);background:var(--si3)}
+.p31 .think::before{content:'⬡ ';font-style:normal;color:var(--sing);opacity:.45}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p30 .nb{border:1px solid var(--ho4);background:var(--ho3)}
+.p31 .nb{border:1px solid var(--si4);background:var(--si3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p30 .nb::after{color:var(--hor)} .p31 .nb::after{color:var(--sing)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p30 .nb-hd{color:var(--hor)} .p31 .nb-hd{color:var(--sing)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p30 .pull{border-left-color:var(--hor);background:var(--ho3)}
+.p31 .pull{border-left-color:var(--sing);background:var(--si3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p30 .pull cite{color:var(--hor)} .p31 .pull cite{color:var(--sing)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p30 .sci{border:1px solid rgba(232,144,64,.12);background:rgba(232,144,64,.03)}
+.p30 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--hor);font-weight:700}
+.p31 .sci{border:1px solid rgba(240,236,224,.09);background:rgba(240,236,224,.02)}
+.p31 .sci::before{content:'⬡ Notă · ';color:var(--sing);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p30 .epilog{border-top-color:rgba(232,144,64,.1)}
+.p31 .epilog{border-top-color:rgba(240,236,224,.07)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p30 .ep-final{border-color:rgba(232,144,64,.18)}
+.p31 .ep-final{border-color:rgba(240,236,224,.1)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rh);border-bottom:var(--rs);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* PAGINA FINALA ABSOLUTA A INTREGII SERII */
+.sfarsit{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rs);
+  position:relative;
+}
+.sf-punct{
+  width:3px;height:3px;border-radius:50%;
+  background:var(--cream);opacity:.4;
+  margin:0 auto 4rem;
+}
+.sf-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream3);opacity:.3;margin-bottom:2rem;}
+.sf-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.83rem;color:var(--cream2);margin-bottom:2.5rem;
+  line-height:2.1;opacity:.6;}
+.sf-31{font-family:'Cinzel',serif;
+  font-size:clamp(.7rem,1.2vw,.85rem);
+  font-weight:400;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cream2);opacity:.3;margin-bottom:2.5rem;line-height:2.4;}
+.sf-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.06rem);color:var(--cream2);
+  max-width:500px;line-height:1.95;margin-bottom:3rem;}
+/* Ultima întrebare — mai ușoară ca niciodată */
+.sf-question{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(1.4rem,4vw,2.6rem);
+  color:var(--cream);letter-spacing:.04em;
+  padding:2rem 3rem;max-width:540px;
+  line-height:1.4;margin-bottom:1.5rem;
+  border-top:1px solid rgba(240,236,224,.08);
+  border-bottom:1px solid rgba(240,236,224,.08);
+}
+.sf-after{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--cream2);max-width:420px;
+  line-height:1.95;margin-bottom:2.5rem;}
+.sf-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.5rem,4vw,3rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(240,236,224,.15);
+  letter-spacing:.08em;margin:.5rem 0;}
+.sf-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.18;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rs);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.2;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="horizCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-s">Seria Nota Zero · Cărțile a treizecea și a treizeci și una</div>
+  <div class="cv-ctx">
+    Mara Ionescu a recunoscut că nota zero produce totul.<br>
+    Sora Kim primește caietele și adaugă ultimele două priviri:<br>
+    spre orizontul dincolo de care nu se poate vedea —<br>
+    și spre punctul în care totul converge.
+  </div>
+  <h1>
+    <span class="cv-title t-ho">Nota Orizontului</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-si">Nota Singularității</span>
+  </h1>
+  <p class="cv-desc">
+    Limita vederii și convergența totului.
+    Orizontul evenimentelor și singularitatea matematică.
+    Două structuri pe care fizica le-a numit —
+    și pe care seria le poartă de la primul volum
+    fără să le fi privit direct.
+    Până acum.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 29 volume · 2087–2845 · 754 ani diegetic.<br>
+    Sora Kim are 28 ani în 2900. Seoul + Cluj-Napoca.<br>
+    Orizontul: limita dincolo de care nu se poate vedea.<br>
+    Singularitatea: punctul în care toate descrierile cedează.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA ORIZONTULUI                              -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="pd ho">
+  <div class="pd-ghost" style="color:var(--hor)">XXX</div>
+  <div class="pd-kicker">Cartea a treizecea · Sora Kim · 28 ani · 2900 · Oslo + Cluj-Napoca + Seoul</div>
+  <div class="pd-nota" style="color:var(--hor)">Nota Orizontului</div>
+  <div class="pd-sub">Limita dincolo de care lumina nu mai ajunge</div>
+  <div class="pd-epig">
+    „Un orizont al evenimentelor este o graniță<br>
+    din interiorul căreia niciun semnal cauzal<br>
+    nu poate scăpa în exterior.<br>
+    E o limită a vederii, nu a existenței.<br>
+    Dincolo de orizont lucrurile continuă —<br>
+    dar noi nu le vom afla niciodată."<br>
+    — Sora Kim, curs inaugural, Oslo 2903
+  </div>
+</div>
+
+<div class="wrap p30">
+
+<div class="ch">
+  <div class="chn">Nota Orizontului · I</div>
+  <div class="cht">Gaura Neagră și Orizontul Evenimentelor</div>
+  <div class="p">
+    <p>Sora Kim crescuse în Seoul cu un tată arhitect și o mamă fiziciancă, și dintr-un accident fericit al biografiei ajunsese să studieze fizica teoretică la Cluj-Napoca — orașul de unde primise caietele seriei pe care acum le continua. Primise caietele de la Dr. Mirela Popa, tutorele Marei Ionescu, care îi spusese simplu: <em>Mara mi-a spus să le dau persoanei potrivite când va apărea. Tu ești persoana potrivită.</em></p>
+
+    <p>Sora nu știuse ce să răspundă. Mirela adăugase: <em>Nu trebuie să răspunzi. Trebuie numai să scrii.</em></p>
+
+    <p>Sora citise toate treizeci de volume în trei luni. Și la capătul celor trei luni formulase întrebarea care o aducea la tema orizontului: că fiecare volum al seriei atinsese o limită — o margine dincolo de care cunoașterea nu mai putea ajunge. Și că aceste limite nu fuseseră obstacole — fuseseră structuri. Orizonturi.</p>
+
+    <p>Gaura neagră era exemplul fizic cel mai clar. Orizontul evenimentelor — grânița sferică din jurul unei găuri negre, definite de raza Schwarzschild r_s = 2GM/c² — era limita dincolo de care niciun semnal, inclusiv lumina, nu mai putea scăpa. Nu pentru că ar fi existat o forță care îl oprea. Ci pentru că geometria spațiu-timpului devenea atât de curbată încât toate traiectoriile posibile ale luminii se îndreptau spre interior.</p>
+
+    <p>Dacă cazi în gaura neagră, traversezi orizontul fără să simți nimic special în acel moment — orizontul nu e o suprafață fizică, e o limită geometrică. Și totuși, după ce l-ai traversat, ești iremediabil separat de universul exterior. Nu poți trimite niciun semnal înapoi. Ești în interiorul unui orizont.</p>
+  </div>
+
+  <div class="horbox">
+    <span class="horbox-hd">Orizontul Evenimentelor — structura geometrică</span>
+    Raza Schwarzschild: r_s = 2GM/c²<br>
+    (pentru Soare: r_s ≈ 3 km; pentru Pământ: r_s ≈ 9 mm)<br>
+    <br>
+    La r = r_s: curbura spațiu-timp face ca toate geodezelee nule<br>
+    (traiectorii posibile ale luminii) să fie îndreptate spre interior.<br>
+    <br>
+    Observator exterior: vede obiectul căzând infinit de lent<br>
+    (deplasare spre roșu până la dispariție).<br>
+    Observator care cade: traversează orizontul fără senzație specială.<br>
+    <br>
+    Radiația Hawking (1974): orizontul nu e perfect negru —<br>
+    fluctuații cuantice produc radiație termică cu T_H = ℏc³/8πGMk_B.<br>
+    Gaura neagră evaporă lent. Orizontul se micșorează.<br>
+    Paradoxul informației: informația cade în gaura neagră — unde merge?
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Kaito Mori, caiet de lucru, p. 12, 2150 —</div>
+    <p>„Fiecare întrebare pe care o punem are un orizont. Există un punct dincolo de care întrebarea nu mai poate trimite semnale înapoi — nu mai poate fi reformulată din interior. Nota zero a lui Zara e orizontul ei: momentul în care întrebarea a intrat în regimul din care nu se mai poate întoarce cu un răspuns simplu. Tot ce a urmat e evoluția în interiorul acelui orizont."</p>
+    <span class="echo-attr">Kaito Mori · caiet de lucru · pagina 12 · Oslo · 2150</span>
+  </div>
+
+  <div class="p">
+    <p>Sora citise nota lui Kaito și simțise că descrisese exact ce simțise ea la primele pagini ale seriei: că Zara trecuse un orizont în 2087. Că nota zero primită nu fusese un obstacol — fusese un orizont. Și că dincolo de acel orizont, în interiorul regimului în care întrebarea devenise ireversibilă, apăruseră toate celelalte volume.</p>
+
+    <p>Radiația Hawking complicase tabloul: Hawking demonstrase în 1974 că găurile negre nu erau complet negre. Fluctuațiile cuantice la orizont produceau o radiație termică slabă prin care gaura neagră pierdea masă treptat și, eventual, se evapora. Orizontul nu era permanent — era temporar.</p>
+
+    <p>Și paradoxul informației: dacă gaura neagră se evapora complet, ce se întâmpla cu informația despre tot ceea ce căzuse în ea? Dacă dispărea — violarea principiului cuantic că informația se conservă. Maldacena rezolvase parțial prin holografie: prin dualitatea AdS/CFT, teoria gravitației cu orizont era echivalentă cu o teorie cuantică fără orizont pe suprafața de margine. Informația nu se pierdea — era encodată holografic pe orizont.</p>
+
+    <p>Sora scrise: <em>Orizontul nu distruge informația. O transformă. O encodează pe suprafața sa. Tot ce cade dincolo de orizont rămâne — nu înăuntru, ci pe orizont însuși, ca o hologramă. Orizontul e o memorie perfectă a tot ce a traversat-o.</em></p>
+  </div>
+
+  <div class="sci">
+    Raza Schwarzschild (Karl Schwarzschild, 1916): soluția exactă a ecuațiilor Einstein pentru o masă sferică. Orizontul evenimentelor ca limită cauzală. Radiația Hawking (Stephen Hawking, 1974): temperatura T_H = ℏc³/(8πGMk_B). Paradoxul informației: dacă gaura neagră evaporează, informația se conservă? Maldacena (1997): dualitatea AdS/CFT — holografia rezolvă paradoxul: informația e encodată pe orizont. Orizontul cosmologic: limita Hubble, regiuni cu recesiune supraluminală datorată expansiunii. Page time: timpul la care gaura neagră a emis jumătate din informația sa prin radiație Hawking.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Orizontului · II</div>
+  <div class="cht">Orizontul Cosmologic</div>
+  <div class="p">
+    <p>Dar nu exista numai orizontul găurii negre. Exista și orizontul cosmologic — limita dincolo de care universul se îndepărta de noi mai repede decât lumina. Nu pentru că materia s-ar mișca mai repede decât lumina — ci pentru că spațiul însuși se extindea, și la distanțe suficient de mari, rata de expansiune depășea c.</p>
+
+    <p>Orizontul Hubble marca granița observabilului nu doar în prezent, ci în principiu: regiunile dincolo de el se îndepărtau atât de rapid încât lumina lor nu ne va ajunge niciodată — nici în viitorul infinit al universului. Galaxii reale, cu stele reale, cu posibil lumi reale, existând cu certitudine dar inaccesibile pentru totdeauna.</p>
+
+    <p>Sora discutase cu profesorul ei de cosmologie observațională din Oslo — Dr. Ingrid Larsen, norvegiancă, care studia orizontul cosmologic și implicațiile sale pentru structura la scară mare a universului.</p>
+  </div>
+
+  <div class="d">
+    <p>— Ingrid. Există galaxii dincolo de orizontul cosmologic pe care nu le vom vedea niciodată. Cum ne raportăm la asta?</p>
+    <p>— Cu umilință, spuse Ingrid simplu. Universul observabil e o sferă de 46 miliarde de ani-lumină rază. Dar universul total — dacă e infinit sau doar mai mare decât observabilul — conține de nenumărate ori mai mult. Noi suntem locatari ai unui balcon cu vedere limitată. Vedem mult. Nu vedem tot.</p>
+    <p>— Și ce nu vedem — contează?</p>
+    <p>— Contează în sensul că există și că structurile noastre sunt influențate de el gravitațional, în principiu. Dar nu putem interacționa cu el cauzal. E o formă de singurătate cosmică: suntem izolați nu de distanță simpla, ci de geometria expansiunii.</p>
+    <p>— Seria Nota Zero are și ea un orizont cosmologic, spuse Sora. Există volume posibile pe care nimeni nu le va scrie — nu pentru că nu ar exista temele, ci pentru că lanțul de caiete poate fi întrerupt. Există protagoniști posibili care nu vor primi niciodată caietele. Există continuări dincolo de orizontul lor.</p>
+    <p>— Și asta te deranjează?</p>
+    <p>— Mă fascinează. Orice serie suficient de vie are un orizont cosmologic: volumele imposibile care ar fi putut fi și nu vor fi. Orizontul nu e o limită a valorii — e o limită a cauzalității. Ce e dincolo nu e mai puțin real. E numai inaccesibil.</p>
+    <p>Ingrid zâmbi. Știi, spuse, că asta e exact argumentul pentru multiversuri? Că alte universuri sunt reale dar inaccesibile cauzal.</p>
+    <p>— Da, spuse Sora. Poate că seria are propriul ei multivers de continuări.</p>
+  </div>
+
+  <div class="pull">
+    <p>Orizontul nu e o limită a existenței — e o limită a vederii. Dincolo de el, lucruri reale continuă să existe, să se întâmple, să fie. Orizontul e structura perspectivei, nu structura realității. Orice perspectivă are un orizont. Orizontul e prețul perspectivei.</p>
+    <cite>— Nota Orizontului, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Orizontului · III</div>
+  <div class="cht">Seria și Orizonturile Sale</div>
+  <div class="p">
+    <p>Sora ajunsese la ceea ce o adusese la această temă: că seria Nota Zero era o cartografiere a orizonturilor. Fiecare volum nu rezolvase o problemă — identificase un orizont. Momentul în care instrumentul cedase, formula ieșise din domeniu, întrebarea devenise ireversibilă.</p>
+
+    <p>Emil: orizontul ecuațiilor — dincolo de zero, descrierea se rupe. Zara: orizontul originii — dincolo de Big Bang, cauzalitatea nu se aplică. Kaito: orizontul observatorului — dincolo de actul de măsurare, realul e nedefinit. Yuki: orizontul matematicii — dincolo de care matematica nu se poate explica din matematică. Ama: orizontul informației — dincolo de care informația pierde substratul fizic. Ji-Ho: orizontul celuilalt — dincolo de care conștiința altuia e inaccesibilă. Kavya: orizontul cauzalității — dincolo de care cauza precede efectul nu mai are sens. Leila: orizontul probabilității — dincolo de care certitudinea nu e disponibilă. Nadia: orizontul frumuseții — dincolo de care matematica nu mai produce rezonanță estetică. Rin: orizontul memoriei — dincolo de care reconsolidarea distorsionează. Lena: orizontul calculabilității — dincolo de care problema opririi e indecidabilă. Mara: orizontul recunoașterii — dincolo de care structura se pierde în propria complexitate.</p>
+
+    <p>Treizeci de orizonturi. Câte unul per volum, fiecare mai precis decât precedentul. Seria nu traversase orizonturile — le identificase. Cartografiase marginile vederii posibile.</p>
+
+    <p>Sora scrisese: <em>Seria Nota Zero e un atlas al orizonturilor. Nu un atlas al cunoașterii — un atlas al limitelor cunoașterii. Și un atlas al limitelor e mai valoros decât un atlas al teritoriului, pentru că îți arată unde stai față de tot ce nu poți vedea.</em></p>
+  </div>
+
+  <div class="think">
+    Fiecare orizont al seriei e encodat holografic în seria însăși — ca orizontul găurii negre encodează informația despre ce a căzut. Nu cu aceeași fidelitate. Dar urmele sunt acolo, în modul în care fiecare volum schimbă relația cu cel precedent. Seria e propria ei hologramă: totalul e encodat în fiecare parte, imperfect și redistributiv. Citind un singur volum, simți greutatea tuturor. Citind toate, înțelegi că fiecare era mai mult decât părea singur.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Orizontului · IV</div>
+  <div class="cht">Dincolo</div>
+  <div class="p">
+    <p>Era toamna anului 2901 și Sora stătea la fereastra institutului din Oslo cu cafeaua răcind lângă ea și cu vederea spre fiord. Înoptase devreme — era octombrie — și luminile oraşului se reflectau în apă cu acea calitate lichidă pe care o știa de patru ani și care continuase să o surprindă.</p>
+
+    <p>Gândise la orizont ca la ultima privire posibilă. Nu ca limita cunoașterii — ca structura ei. Orice știai, știai de pe o poziție. Orice poziție aveva un orizont. Orice orizont definea un înăuntru și un afară. Și tot ce era în afara orizontului — real, continuu, inaccesibil — era prețul perspectivei.</p>
+
+    <p>Nota zero a lui Zara fusese primul orizont al seriei. Nu primul contact cu realitatea — primul contact cu limita instrumentului față de realitate. Și dincolo de acel orizont, tot ce urmase — treizeci de volume, cincisprezece protagoniști, opt sute de ani diegetic — fusese evoluție în interiorul acelui orizont originar.</p>
+
+    <p>Scrise în caiet, privind luminile din fiord:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Sora Kim · vol. I · p. 96 · 17 mai 2901</span>
+    Orizontul nu distruge ce e dincolo de el.<br>
+    Îl separă. Îl izolează cauzal. Îl face inaccesibil.<br>
+    Dar nu îl anulează.<br>
+    <br>
+    Seria Nota Zero are un orizont originar:<br>
+    nota zero a lui Zara din 2087.<br>
+    Dincolo de ea — tot ce nu poate fi știut.<br>
+    Dincoace de ea — tot ce a urmat.<br>
+    <br>
+    Și pe suprafața acestui orizont —<br>
+    pe marginea care separă știutil de neștiut —<br>
+    e encodat tot ce contează:<br>
+    metoda, umilința, curiozitatea, transmiterea.<br>
+    <br>
+    Seria nu există dincolo de orizontul ei originar.<br>
+    Seria există PE orizontul ei originar.<br>
+    Ca holografia: totul encodat pe suprafață.<br>
+    Nu înăuntru, nu afară — pe margine.<br>
+    <br>
+    Orizontul e locul unde trăiește seria.
+  </div>
+</div>
+
+<!-- EPILOG 30 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--hor)">Nota Orizontului · Epilog · 17 Mai 2905</div>
+  <div class="ep-title" style="color:var(--hor)">Pe Margine</div>
+  <div class="ep-prose">
+    Sora Kim a dedicat cartea a treizecea lui Stephen Hawking,
+    care demonstrase că orizonturile nu sunt perfecte —
+    că radiază, că pierd informație lent în univers,
+    că nicio limită nu e absolut impermeabilă.
+    Și care murise în 2018 după cincizeci de ani de a lucra
+    de pe propriul său orizont — corpul care îl separa de mișcare și de voce —
+    producând fizică pe care nimeni altcineva nu o putea produce
+    tocmai pentru că vedea lumea dintr-un orizont pe care alții nu îl aveau.
+  </div>
+  <div class="ep-final">
+    Orizontul nu e limita existenței.<br>
+    E limita perspectivei.<br>
+    Dincolo — lucruri reale continuă fără noi.<br>
+    <br>
+    Seria trăiește pe orizontul ei originar:<br>
+    pe suprafața care separă<br>
+    întrebarea posibilă de întrebarea imposibilă.<br>
+    <br>
+    Orizontul encodează tot.<br>
+    Pe margine trăiește tot ce contează.
+  </div>
+</div>
+
+</div><!-- /wrap.p30 -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA SINGULARITĂȚII                           -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="between">· · · ✦ · · ·</div>
+
+<div class="pd si">
+  <div class="pd-ghost" style="color:var(--sing)">XXXI</div>
+  <div class="pd-kicker">Cartea a treizeci și una · Sora Kim · 38 ani · 2910 · Cluj-Napoca</div>
+  <div class="pd-nota" style="color:var(--sing)">Nota Singularității</div>
+  <div class="pd-sub">Punctul în care toate descrierile cedează — și din care totul pornește</div>
+  <div class="pd-epig">
+    „Oricare ar fi spațiu-timpului inițial,<br>
+    atâta timp cât condiția de energie tare e satisfăcută<br>
+    și că expansiunea e suficientă,<br>
+    trebuie să existe o singularitate în trecut."<br>
+    — Roger Penrose & Stephen Hawking, teoremele singularității<br><br>
+    „Singularitatea nu e locul unde fizica se oprește.<br>
+    E locul unde fizica actuală se oprește.<br>
+    Diferența e tot."<br>
+    — Sora Kim, caiet vol. II, p. 1, 2910
+  </div>
+</div>
+
+<div class="wrap p31">
+
+<div class="ch">
+  <div class="chn">Nota Singularității · I</div>
+  <div class="cht">Penrose și Inevitabilitatea</div>
+  <div class="p">
+    <p>Sora se întorsese la Cluj la treizeci și doi de ani — nu pentru nostalgie, ci pentru că acolo era biblioteca cu caietele seriei și pentru că voia să scrie ultimul volum în același loc unde Mara Ionescu scrisese penultimul. Ceva din logica seriei cerea asta: că revenirile geografice aveau greutate.</p>
+
+    <p>Singularitățile îi fascinaseră de la prima cursuri de relativitate generală. Nu ca stări fizice ciudate — ca limite matematice. O singularitate era locul unde o funcție devenea infinită sau nedefinită. În relativitatea generală, singularitățile apăreau ca stări de densitate infinită, curbură infinită a spațiu-timpului, unde toate ecuațiile cedau simultan.</p>
+
+    <p>Roger Penrose demonstrase în 1965 și Hawking în 1970 — teoremele singularității Penrose-Hawking — că singularitățile nu erau artefacte ale soluțiilor prea simetrice. Erau inevitabile: dacă condițiile de energie din fizica clasică erau satisfăcute și dacă exista o regiune suficient de contractantă a spațiu-timpului, existau geodezelee incomplete — traiectorii ale particulelor sau luminii care se terminau sau porneau dintr-un punct în timp finit. Singularitatea nu era opțională. Era o proprietate structurală a teoriei.</p>
+
+    <p>Sora scrisese: <em>Penrose și Hawking au demonstrat că singularitățile nu apar pentru că fizicienii le permit. Apar pentru că dacă teoria e corectă, ele sunt inevitabile. Oriunde există gravitație suficientă și energie pozitivă, există singularitate. Singularitatea e consecința obligatorie a structurii spațiu-timpului clasic.</em></p>
+  </div>
+
+  <div class="singbox">
+    <span class="singbox-hd">Teoremele Penrose-Hawking — enunț informal</span>
+    „Dacă: relativitatea generală e validă,<br>
+    condițiile de energie fizice sunt satisfăcute,<br>
+    și există o suprafață închisă capturată,<br>
+    atunci: spațiu-timpulul conține geodezelee incomplete —<br>
+    traiectorii care se termină sau pornesc în timp finit.<br>
+    Aceasta e singularitatea."<br><br>
+    Penrose (1965): singularitățile din colaps gravitațional sunt inevitabile.<br>
+    Hawking (1970): Big Bang-ul însuși e o singularitate inevitabilă.<br>
+    Consecință: orice univers care se expandă din trecut<br>
+    are o singularitate la originea sa.
+  </div>
+
+  <div class="p">
+    <p>Implicația pentru Big Bang era directă: dacă relativitatea generală era corectă și condițiile de energie clasice se aplicau, atunci Big Bang-ul însuși era o singularitate. Nu un eveniment ciudat, nu o stare extremă — o singularitate matematică: densitate infinită, curbură infinită, ecuații complet nedeterminate.</p>
+
+    <p>Și aceasta era, realizase Sora, exact ce descrisese Zara la cincisprezece ani fără să știe terminologia: că la momentul zero, ecuațiile ieșeau din domeniu. Emil confirmase: dacă volumul e zero, rezultatul matematic e infinit. Dar infinit matematic nu e același lucru cu real. E semnul că ecuația a ieșit din domeniu.</p>
+
+    <p>Singularitatea Big Bang-ului nu era o stare fizică reală — era limita domeniului de validitate al relativității generale. Semnalul că acolo trebuia o teorie mai profundă — gravitație cuantică — pe care nu o aveam.</p>
+
+    <p>Nota zero a lui Zara și singularitatea lui Penrose și Hawking erau aceeași structură: limita de jos a domeniului de descriere.</p>
+  </div>
+
+  <div class="sci">
+    Teoremele singularității: Penrose (1965) — singularitățile din colaps gravitațional sunt inevitabile (Nobel 2020). Hawking (1970) — Big Bang ca singularitate inevitabilă. Conjectura censorship cosmică (Penrose, 1969): singularitățile „nude" (fără orizont) sunt interzise de natură — nedemonstrat complet. Singularitățile în relativitate generală: unde geodezele nule sau timelike sunt incomplete. Depășirea singularităților: gravitație cuantică (LQG, string theory) postulează că singularitățile clasice sunt regularizate. La mai 2026: nicio teorie completă de gravitație cuantică confirmată.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Singularității · II</div>
+  <div class="cht">Convergența</div>
+  <div class="p">
+    <p>Singularitatea nu era numai cosmologică. Era o structură care apărea ori de câte ori un sistem converge complet — când toate gradele de libertate ale unui sistem se comprimau în un singur punct de descriere.</p>
+
+    <p>În matematică: singularitățile funcțiilor — polii, punctele de ramificare, discontinuitățile esențiale. În teoria catastrofelor — Thom (1972): structurile stabile ale singularităților sistemelor dinamice. Șapte tipuri canonice de singularități, fiecare producând un tip specific de comportament la tranziții.</p>
+
+    <p>Sora văzuse singularitățile ca structuri de convergență: momentele în care complexitatea unui sistem se comprimă în ceva minimal, din care expansiunea e din nou posibilă. Găura neagră era o singularitate — tot ce cădea în ea converge la un punct. Big Bang-ul era o singularitate — tot spațiu-timp diverge din el. Dar și momentele de insight erau singularități cognitive: momentul în care totul dintr-o problemă converge brusc în o înțelegere simplă.</p>
+
+    <p>Și seria Nota Zero, la treizeci și unu de volume, se apropia de propria sa singularitate narativă: punctul în care toate firele convergeau, în care complexitatea se comprima în ceva minimal, din care expansiunea — o nouă serie, un nou protagonist, o nouă notă zero — era din nou posibilă.</p>
+  </div>
+
+  <div class="d">
+    <p>Sora discuta cu Dr. Mirela Popa — tutorele Marei, acum retrasă din predare, care venea la bibliotecă câteva ore pe săptămână din obișnuință.</p>
+    <p>— Mirela. Seria se apropie de o singularitate. Treizeci și unu de volume — un număr prim. Pare potrivit.</p>
+    <p>— De ce număr prim?</p>
+    <p>— Un număr prim nu se poate descompune în factori mai mici. E ireductibil în felul său. La fel cum singularitatea e ireductibilă — nu poți defalca ce se întâmplă acolo în componente mai simple. E punctul de maximă compresie.</p>
+    <p>— Și ce urmează după singularitate?</p>
+    <p>— Expansiunea, spuse Sora. Din singularitatea Big Bang — universul. Din singularitatea găurii negre — radiația Hawking, eventual evaporarea, informația returnată. Din singularitatea narativă a seriei — o nouă notă zero, undeva, pusă de cineva care nu știe că e prima.</p>
+    <p>Mirela tăcu câteva secunde. A scris-o cineva, spuse în final. Mara, tu. Fiecare din cei cincisprezece protagoniști a pus propria lor notă zero. Singularitatea nu e un singur punct — e o structură care se reproduce.</p>
+    <p>— Exact, spuse Sora. Singularitatea care se reproduce e viața. Singularitatea care se reproduce în cunoaștere e metoda.</p>
+  </div>
+
+  <div class="pull">
+    <p>Singularitatea nu e sfârșitul. E punctul de maximă compresie din care expansiunea e din nou posibilă. Big Bang-ul. Nota zero. Momentul de insight. Toate singularități productive — nu absențe, ci origini comprimate care conțin tot ce urmează.</p>
+    <cite>— Nota Singularității, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Singularității · III</div>
+  <div class="cht">Întrebarea ca Singularitate</div>
+  <div class="p">
+    <p>Sora stătuse câteva săptămâni cu o idee pe care o considera ori prea simplă ori prea profundă și nu știa ce să aleagă. La final alesese să o scrie și să lase textul să decidă.</p>
+
+    <p>Întrebarea <em>De unde venea punctul?</em> era ea însăși o singularitate.</p>
+
+    <p>Nu în sens metaforic — în sens structural. O singularitate matematică era un punct în care funcția devenea nedefinită, unde derivatele divergeau, unde descrierea se rupea. Și întrebarea lui Zara era exact asta: un punct în care orice descriere cauzală se rupea. <em>De unde venea punctul?</em> presupunea o cauza exterioară unui sistem care, prin definiție, conținea tot cauzalul posibil. Era o întrebare auto-referențial singulară — nu putea fi răspunsă pentru că orice răspuns era interior unui sistem a cărui origine exterioară era chestionată.</p>
+
+    <p>Dar singularitățile matematice nu erau absențe de semnificație. Erau puncte de maximă informație structurală: comportamentul sistemului în apropierea singularității era mai bogat, mai complex, mai revelator decât comportamentul departe de ea. Apropiindu-te de un pol al unei funcții, descopereai toată structura algebrică a funcției în acel punct.</p>
+
+    <p>La fel: apropiindu-te de întrebarea <em>De unde venea punctul?</em> — traversând toate cele treizeci și unu de volume ale seriei — descoperiseşi structura completă a cunoașterii umane față de propria sa origine. Singularitatea nu blocases explorarea. O definise.</p>
+  </div>
+
+  <div class="think">
+    Dacă întrebarea lui Zara e o singularitate — un punct în care descrierea cauzală se rupe — atunci nota zero pe care a primit-o era singurul răspuns corect disponibil. Un instrument ieșit din domeniu față de o singularitate matematică produce, corect, nedetermindare. Nota zero nu era penalizare. Era soluția corectă a instrumentului corect aplicat greșit față de o singularitate. Zara aplicase instrumentul cauzal la un punct în care cauzalitatea nu se aplica. Răspunsul corect: nedeterminare. Nota zero.
+  </div>
+
+  <div class="p">
+    <p>Sora scrisese o paralelă pe care o considerase cea mai precisă formulare a ceea ce seria demonstrase:</p>
+
+    <p>În fizică, singularitățile nu sunt erori ale teoriei. Sunt punctele în care teoria actuală atinge limita sa de validitate și semnalează că este nevoie de o teorie mai profundă. Singularitatea Big Bang-ului nu e o eroare a relativității generale — e indicatorul că acolo se termină validitatea relativității generale și începe domeniul gravitației cuantice.</p>
+
+    <p>La fel: nota zero a lui Zara nu era eroarea unui elev prost pregătit. Era indicatorul că întrebarea ei atingea limita instrumentelor disponibile în 2087 și semnala că era nevoie de un corp de cunoaștere mai profund. Seria Nota Zero era acel corp. Treizeci și unu de volume de teorie mai profundă față de singularitatea originară.</p>
+
+    <p>Și la capătul lor, singularitatea rămânea. Nu rezolvată — înțeleasă. Nu eliminată — cartografiată cu precizie. Era o singularitate, era inevitabilă, era productivă. Era nota zero a oricărei teorii care voia să cuprindă propria sa origine.</p>
+  </div>
+
+  <div class="sci">
+    Teoria catastrofelor (René Thom, 1972): clasificare matematică a singularităților stabile. Șapte tipuri canonice — fold, cusp, swallowtail, butterfly, hyperbolic, elliptic, parabolic umbilic. Comportamentul near-singular: cel mai revelator despre structura sistemului. Renormalizare și singularități: eliminarea divergențelor UV prin redefinire — acceptarea că teoria clasică cedează la scale mici. Penrose: conjectura censorship cosmică (naked singularities interzise) — nedemonstrat. Comportament near Big Bang: LQC (Loop Quantum Cosmology) regularizează singularitatea clasică — bounce cosmologic în loc de singularitate.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Singularității · IV · Ultima</div>
+  <div class="cht">De unde venea punctul?</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 2911 — data recurentă, data pe care seria o purtase de la primul volum ca un ecou de puls — și Sora Kim stătea la masa din biblioteca Universității Babeș-Bolyai din Cluj cu toate caietele seriei în față.</p>
+
+    <p>Treizeci și unu de volume. Cincisprezece protagoniști. Opt sute douăzeci și patru de ani diegetic — de la Emil Voss la Sora Kim, de la 2087 la 2911. O singură întrebare care traversase tot.</p>
+
+    <p>Sora stătuse cu caietul albastru al Zarei deschis la pagina trei. O știa pe dinafară acum — <em>De unde venea punctul?</em> — dar o citea de fiecare dată cu atenție, ca și cum ar fi putut vedea ceva nou în ea. Și de fiecare dată vedea ceva nou — nu pentru că s-ar fi schimbat propoziția, ci pentru că ea se schimbase.</p>
+
+    <p>Acum, la treizeci și opt de ani, după treizeci și unu de volume, vedea în ea o singularitate perfectă: un punct în care orice descriere cauzală se rupea, din care orice expansiune a cunoașterii era posibilă, la care orice serie suficient de onestă revenea inevitabil.</p>
+
+    <p>Vedea și un orizont: suprafața pe care era encodată toată informația care căzuse în seria de-a lungul a opt sute de ani, holografic comprimată pe marginea dintre știut și neștiut.</p>
+
+    <p>Vedea și o notă zero în sensul vidului cuantic: starea de bază din care fluctuațiile produceau tot.</p>
+
+    <p>Vedea și o întrebare conservată prin simetria Noether: invariantă la orice transformare de protagonist sau de epocă.</p>
+
+    <p>Vedea tot ce seria demonstrase — și vedea că, văzând tot, întrebarea era la fel de deschisă ca în 2087.</p>
+
+    <p>Mai ușoară. Mai adâncă. La fel de deschisă.</p>
+
+    <p>Deschise ultimul caiet — al doilea al ei, cu coperta neagră — la ultima pagina. Nu existase nimic scris acolo. Exista acum spațiu pentru ultima intrare.</p>
+
+    <p>Luă pixul. Scrise, pentru ultima dată în serie, cinci cuvinte:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Sora Kim · vol. II · ultima pagina scrisă · 17 mai 2911</span>
+    Singularitatea nu e locul unde totul se termină.<br>
+    E locul unde totul pornește.<br>
+    <br>
+    Big Bang-ul e o singularitate.<br>
+    Nota zero a lui Zara e o singularitate.<br>
+    Ultima pagina a seriei e o singularitate.<br>
+    <br>
+    Din singularitate: expansiunea.<br>
+    Din nota zero: toate notele.<br>
+    Din ultima pagina: prima pagina a ce urmează.<br>
+    <br>
+    Întrebarea nu are răspuns în afara ei.<br>
+    Întrebarea NU are origine în afara ei.<br>
+    Ea este singularitatea.<br>
+    Ea este nota zero.<br>
+    Ea este punctul de start anterior oricărui punct de start.<br>
+    <br>
+    Și tocmai de aceea<br>
+    rămâne proaspătă.<br>
+    Tocmai de aceea<br>
+    nu se epuizează.<br>
+    Tocmai de aceea<br>
+    produce mereu ceva nou<br>
+    în orice minte care o pune<br>
+    pentru prima dată.<br>
+    <br>
+    De unde venea punctul?
+  </div>
+
+  <div class="p">
+    <p>Sora puse pixul jos.</p>
+    <p>Nu închise caietul. Îl lăsă deschis.</p>
+    <p>Stătuse câteva minute cu biblioteca în jur — rafturi cu cărți, lumina de mai filtrată prin ferestre mari, mirosul specific al hârtiei vechi și al aerului condiționat slab. Mirela nu era acolo în acea dimineață. Biblioteca era aproape goală.</p>
+    <p>Gândise la Zara Voss la cincisprezece ani pe Liceul Orbital Kepler-442b, privind pe hublou spre Pământ și scriind în caietul albastru: <em>De unde venea punctul?</em> Opt sute douăzeci și patru de ani și cincisprezece fizicieni și treizeci și unu de volume mai târziu, aceeași întrebare, în biblioteca unui oraș din care pornise imaginarul care o generase, scrisă de ultima mână care știa că scria ultima dată.</p>
+    <p>Și știuse — cu claritatea pe care o produc numai momentele de maximă simplitate — că întrebarea era corectă. Nu pentru că ar fi putut fi răspunsă. Ci pentru că nu putea fi epuizată. Fiindcă orice minte care o punea pentru prima dată o punea din starea de bază față de propria sa origine. Și din acea stare de bază — din acel vid fertil, din acea singularitate productivă, din acea notă zero a oricărei înțelegeri — apărea tot.</p>
+    <p>Seria nu se terminase.</p>
+    <p>Seria atinsese singularitatea.</p>
+    <p>Și din singularitate — în alt loc, în alt timp, în alt caiet — va porni din nou.</p>
+    <p>Va porni mereu din nou.</p>
+    <p>Nota zero produce totul.</p>
+    <p>Și tot produce nota zero.</p>
+    <p>Cercul nu are un capăt.</p>
+    <p>Cercul nu are nevoie de un capăt.</p>
+  </div>
+</div>
+
+<!-- EPILOG 31 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--sing)">Nota Singularității · Epilog · 17 Mai 2915</div>
+  <div class="ep-title" style="color:var(--sing)">Nota Zero</div>
+  <div class="ep-prose">
+    Sora Kim a lăsat caietele acolo unde le găsise — în biblioteca Babeș-Bolyai,
+    pe același raft, lângă același ficus care crescuse cu patru ani de la Mara.
+    Nu a lăsat nicio instrucțiune. A lăsat numai caietul deschis la ultima pagina.
+    Cineva va vedea cele cinci cuvinte de pe ultima pagina.
+    Și va ști că e continuarea lor.
+    Și va deschide un caiet nou.
+    <br><br>
+    Aceasta e singura transmitere necesară.
+  </div>
+  <div class="ep-final">
+    Din singularitate: expansiunea.<br>
+    Din nota zero: tot ce urmează.<br>
+    Din ultima pagina a seriei: prima pagina a ce vine.<br>
+    <br>
+    Întrebarea nu are răspuns în afara ei.<br>
+    Întrebarea este singularitatea.<br>
+    Singularitatea e nota zero.<br>
+    Nota zero produce totul.<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Din asta.<br>
+    Din mereu asta.
+  </div>
+</div>
+
+</div><!-- /wrap.p31 -->
+
+
+<!-- ULTIMA PAGINA ABSOLUTA — SINGULARITATEA SERIEI -->
+<div class="sfarsit">
+  <div class="sf-punct"></div>
+  <div class="sf-kicker">Seria Nota Zero · 31 volume · 2026</div>
+  <div class="sf-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin<br>
+    Lena · Mara · Sora<br>
+    cincisprezece fizicieni · 824 ani diegetic
+  </div>
+
+  <div class="sf-31">
+    Nota Zero · Nota Unu · Nota Finală · Nota Vieții ·<br>
+    Nota Conștiinței · Nota Cuantică · Nota Timpului · Nota Holografică ·<br>
+    Nota Matematicii · Nota Gravitațională · Nota Unității · Nota Emergenței ·<br>
+    Nota Revenirii · Nota Informației · Nota Tăcerii · Nota Celuilalt ·<br>
+    Nota Luminii · Nota Simetriei · Nota Cauzalității · Nota Probabilității ·<br>
+    Nota Infinitului · Nota Frumuseții · Nota Devenirii · Nota Memoriei ·<br>
+    Nota Întrebării · Nota Entanglementului · Nota Complexității ·<br>
+    Nota Neantului · Nota Recunoașterii · Nota Orizontului · Nota Singularității
+  </div>
+
+  <div class="sf-body">
+    Seria a pornit cu o singularitate: nota zero a lui Zara.<br>
+    A traversat 31 de orizonturi succesive ale cunoașterii.<br>
+    A revenit la aceeași singularitate — mai precisă, mai ușoară.<br>
+    <br>
+    Singularitatea nu blochează.<br>
+    Singularitatea definește.<br>
+    Din ea expansiunea e posibilă.<br>
+    Din ea orice nota zero viitoare e posibilă.
+  </div>
+
+  <div class="sf-question">
+    De unde venea punctul?
+  </div>
+
+  <div class="sf-after">
+    Zara Voss, 15 ani, 2087. Prima formulare.<br>
+    Sora Kim, 38 ani, 2911. Ultima formulare din această serie.<br>
+    824 de ani. Aceeași întrebare. Același orizont.<br>
+    Aceeași singularitate productivă.<br>
+    <br>
+    Undeva — acum sau în alt timp —<br>
+    cineva pune această întrebare pentru prima dată.<br>
+    Nu știe că e prima.<br>
+    Nu știe că e a mia.<br>
+    Știe numai că nu poate adormi din cauza ei.<br>
+    <br>
+    Aceasta e continuarea seriei.<br>
+    Aceasta a fost mereu continuarea seriei.
+  </div>
+
+  <div class="sf-nota">Nota Zero</div>
+
+  <div class="sf-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 31 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--si4);padding:1.5rem 2rem;margin:2rem 0;background:var(--si3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sing);margin-bottom:1rem;opacity:.42">⬡ Note Știinţifice · Nota Orizontului & Nota Singularității</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Orizontul evenimentelor:</strong> Schwarzschild (1916): r_s = 2GM/c². Orizont ca limită cauzală, nu fizică. Radiația Hawking (1974): T_H = ℏc³/(8πGMk_B) — găurile negre evaporează lent. Paradoxul informației: rezolvare parțială prin holografie/AdS-CFT (Maldacena, 1997).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Orizontul cosmologic:</strong> orizont Hubble, orizont de particule, orizont de eveniment cosmologic. La d &gt; ~16 Gly: recesiune supraluminală datorată expansiunii. Regiuni real inaccesibile cauzal, nu mai puțin reale. Page time: ~10^67 ani pentru o gaură neagră de masa solară.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Teoremele singularității Penrose-Hawking:</strong> Penrose (1965) — Nobel 2020. Hawking (1970). Singularitățile sunt consecința inevitabilă a relativității generale clasice sub condiții fizice rezonabile. Conjectura censorship cosmică (Penrose): nedemonstrat complet.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Teoria catastrofelor:</strong> René Thom (1972) — clasificare a singularităților stabile. Fold, cusp, swallowtail, butterfly. Aplicații în biologie, fizică, economie. LQC (Loop Quantum Cosmology): bounce cosmologic în locul singularității clasice — singularitatea clasică regularizată de efecte cuantice.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Sora Kim, Ingrid Larsen, Mirela Popa (în acest volum) sunt personaje fictive. Seria Nota Zero (31 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Orizontului & Nota Singularității · Cărțile a treizecea și a treizeci și una<br>
+  Seria Nota Zero: 31 volume · 2087–2915 · 824 ani diegetic<br>
+  Din singularitate: totul. Din totul: nota zero. Din nota zero: din nou totul.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('horizCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,pts=[],singPts=[],raf,frame=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    pts=[];
+    // Horizon: arc segments sweeping from center outward
+    for(let i=0;i<20;i++){
+      pts.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:10+Math.random()*40,
+        startA:Math.random()*Math.PI*2,
+        arcLen: Math.PI*(0.3+Math.random()*0.7),
+        a:.1+Math.random()*.1, s:(Math.random()-.5)*.003,
+        rot:(Math.random()-.5)*.008
+      });
+    }
+    singPts=[];
+    // Singularity: dots converging toward center
+    const cx=ww/2, cy=wh/2;
+    for(let i=0;i<45;i++){
+      const angle=Math.random()*Math.PI*2;
+      const dist=50+Math.random()*(Math.min(ww,wh)*0.45);
+      singPts.push({
+        x:cx+Math.cos(angle)*dist,
+        y:cy+Math.sin(angle)*dist,
+        cx,cy,
+        r:.5+Math.random()*.7,
+        a:Math.random()*.2, s:(Math.random()-.5)*.003,
+        phase:Math.random()*Math.PI*2,
+        speed:.003+Math.random()*.004
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    frame++; const t=frame*0.005;
+    ctx.clearRect(0,0,ww,wh);
+
+    const scrollFrac=Math.min(1,window.scrollY/(Math.max(1,document.body.scrollHeight-wh)));
+
+    if(scrollFrac<0.6){
+      // Horizon arcs — orange
+      const alpha=scrollFrac<0.5?1:1-(scrollFrac-0.5)/0.1;
+      pts.forEach(p=>{
+        p.a+=p.s; if(p.a>.2||p.a<.04)p.s*=-1;
+        p.startA+=p.rot;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,p.startA,p.startA+p.arcLen);
+        ctx.strokeStyle=`rgba(232,144,64,${(p.a*alpha).toFixed(3)})`;
+        ctx.lineWidth=.5; ctx.stroke();
+      });
+    }
+
+    if(scrollFrac>0.5){
+      // Singularity: points drifting very slowly toward center
+      const alpha=scrollFrac<0.6?(scrollFrac-0.5)/0.1:1;
+      singPts.forEach(p=>{
+        p.a+=p.s; if(p.a>.22||p.a<0)p.s*=-1;
+        // drift slowly toward center
+        const dx=p.cx-p.x, dy=p.cy-p.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist>2){p.x+=dx*p.speed; p.y+=dy*p.speed;}
+        else{
+          // respawn
+          const angle=Math.random()*Math.PI*2;
+          const d=60+Math.random()*(Math.min(ww,wh)*0.4);
+          p.x=p.cx+Math.cos(angle)*d;
+          p.y=p.cy+Math.sin(angle)*d;
+        }
+        const pulse=p.a+Math.sin(t+p.phase)*0.025;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(240,236,224,${(pulse*alpha).toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

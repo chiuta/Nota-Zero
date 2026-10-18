@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Frumuseții & Nota Devenirii · Cărțile a douăzeci și doua și a douăzeci și treia · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#030208;
+  /* Nota Frumuseții: auriu-cald, estetică, geometrie */
+  --beau:#e8b040;--be2:rgba(232,176,64,.09);--be3:rgba(232,176,64,.035);--be4:rgba(232,176,64,.14);
+  /* Nota Devenirii: verde-flux, curgere, proces */
+  --flow:#30d880;--fl2:rgba(48,216,128,.09);--fl3:rgba(48,216,128,.035);--fl4:rgba(48,216,128,.14);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rb:1px solid rgba(232,176,64,.13); --rf:1px solid rgba(48,216,128,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#beauCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rb);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--beau);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--be4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-be{color:var(--beau)} .t-fl{color:var(--flow)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--be4);background:var(--be3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.be{border-color:rgba(232,176,64,.12)} .pd.fl{border-color:rgba(48,216,128,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p22 .ch{border-bottom-color:rgba(232,176,64,.05)}
+.p23 .ch{border-bottom-color:rgba(48,216,128,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p22 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--beau);text-shadow:0 0 22px rgba(232,176,64,.3);}
+.p23 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--flow);text-shadow:0 0 22px rgba(48,216,128,.28);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* DIRAC BOX */
+.dirac{margin:2rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--be4);background:var(--be3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.8;text-align:center;}
+.dirac-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--beau);opacity:.5;margin-bottom:.6rem;font-style:normal;display:block;}
+
+/* HERAKLIT BOX */
+.herak{margin:2rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--fl4);background:var(--fl3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.8;text-align:center;}
+.herak-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--flow);opacity:.5;margin-bottom:.6rem;font-style:normal;display:block;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p22 .think{border-color:var(--be4);background:var(--be3)}
+.p22 .think::before{content:'⬡ ';font-style:normal;color:var(--beau);opacity:.55}
+.p23 .think{border-color:var(--fl4);background:var(--fl3)}
+.p23 .think::before{content:'⬡ ';font-style:normal;color:var(--flow);opacity:.55}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p22 .nb{border:1px solid var(--be4);background:var(--be3)}
+.p23 .nb{border:1px solid var(--fl4);background:var(--fl3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p22 .nb::after{color:var(--beau)} .p23 .nb::after{color:var(--flow)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p22 .nb-hd{color:var(--beau)} .p23 .nb-hd{color:var(--flow)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p22 .pull{border-left-color:var(--beau);background:var(--be3)}
+.p23 .pull{border-left-color:var(--flow);background:var(--fl3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p22 .pull cite{color:var(--beau)} .p23 .pull cite{color:var(--flow)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p22 .sci{border:1px solid rgba(232,176,64,.12);background:rgba(232,176,64,.03)}
+.p22 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--beau);font-weight:700}
+.p23 .sci{border:1px solid rgba(48,216,128,.12);background:rgba(48,216,128,.03)}
+.p23 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--flow);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p22 .epilog{border-top-color:rgba(232,176,64,.1)}
+.p23 .epilog{border-top-color:rgba(48,216,128,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p22 .ep-final{border-color:rgba(232,176,64,.18)}
+.p23 .ep-final{border-color:rgba(48,216,128,.18)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rb);border-bottom:var(--rf);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* RIVER FINALE */
+.river-fin{
+  min-height:80vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rf);
+}
+.rf-symbol{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(3rem,8vw,6rem);color:var(--flow);opacity:.2;
+  margin-bottom:1.5rem;line-height:1;letter-spacing:.1em;
+}
+.rf-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--flow);
+  opacity:.35;margin-bottom:1.5rem;}
+.rf-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.4rem);
+  font-weight:700;color:var(--cream);margin-bottom:2rem;letter-spacing:.03em;}
+.rf-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);margin-bottom:2.5rem;line-height:1.9;}
+.rf-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:var(--cream);max-width:540px;line-height:1.95;margin-bottom:2.5rem;}
+.rf-body em{color:var(--flow);font-style:normal}
+.rf-box{border-top:1px solid rgba(48,216,128,.12);border-bottom:1px solid rgba(48,216,128,.12);
+  padding:1.5rem 2.5rem;max-width:480px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.97rem;color:var(--cream2);line-height:2;margin-bottom:2rem;}
+.rf-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.8rem,4vw,3.5rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(232,176,64,.22);
+  letter-spacing:.06em;margin:.5rem 0;}
+.rf-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.22;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rf);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.25;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="beauCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-s">Seria Nota Zero · Cărțile a douăzeci și doua și a douăzeci și treia</div>
+  <div class="cv-ctx">
+    Leila Nkosi a văzut că nota zero e prima instanță actualizată din infinit.<br>
+    Nadia Osei primește caietele și adaugă ultimele două perspective:<br>
+    de ce instanța e frumoasă — și de ce e mereu în curgere.
+  </div>
+  <h1>
+    <span class="cv-title t-be">Nota Frumuseții</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-fl">Nota Devenirii</span>
+  </h1>
+  <p class="cv-desc">
+    Estetica fizicii și filozofia procesului.
+    De ce ecuațiile adevărate sunt frumoase —
+    și de ce tot ce există nu stă, ci curge.
+    Două proprietăți ale realității pe care seria le ignorase mereu
+    ca evidente. Și care se dovedesc mai adânci decât orice altceva.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 21 volume · 2087–2585 · 498 ani diegetic.<br>
+    Nadia Osei are 28 ani în 2630. Accra + Oslo.<br>
+    Dirac. Heraclit. Whitehead.<br>
+    Frumusețea și curgerea. Ultimele două note.
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  NOTA FRUMUSEȚII                              -->
+<!-- ══════════════════════════════════════════════ -->
+
+<div class="pd be">
+  <div class="pd-ghost" style="color:var(--beau)">XXII</div>
+  <div class="pd-kicker">Cartea a douăzeci și doua · Nadia Osei · 28 ani · 2630 · Oslo + Accra</div>
+  <div class="pd-nota" style="color:var(--beau)">Nota Frumuseții</div>
+  <div class="pd-sub">De ce ecuațiile adevărate sunt frumoase</div>
+  <div class="pd-epig">
+    „It is more important to have beauty in one's equations<br>
+    than to have them fit experiment."<br>
+    — Paul Dirac, 1963<br><br>
+    „Dumnezeu a folosit matematică frumoasă<br>
+    în crearea lumii."<br>
+    — Paul Dirac<br><br>
+    „Emil Voss i-a spus Zarei: mai frumos greșit decât corect.<br>
+    Dirac spune că frumusețea e criteriul corectitudinii.<br>
+    Poate că amândoi aveau dreptate."<br>
+    — Nadia Osei, caiet vol. I, p. 1, 2630
+  </div>
+</div>
+
+<div class="wrap p22">
+
+<div class="ch">
+  <div class="chn">Nota Frumuseții · I</div>
+  <div class="cht">Dirac și Criteriul Estetic</div>
+  <div class="p">
+    <p>Nadia Osei crescuse în Accra cu un tată arhitect care îi spusese, când ea avusese zece ani, că o clădire bine proiectată nu se explică — se simte corectă înainte să îi înțelegi structura. Același principiu se aplica, descoperise ea la douăzeci și trei de ani, ecuațiilor de fizică. Ecuația lui Schrödinger era frumoasă înainte de a fi utilă. Ecuațiile lui Maxwell erau elegante în mod inexplicabil. Tensorul lui Einstein îi crease un sentiment de completitudine la prima vedere, cu ani înainte să înțeleagă pe deplin ce conținea.</p>
+
+    <p>Paul Dirac spusese în 1963 că e mai important să ai frumusețe în ecuații decât să le faci să se potrivească cu experimentul. Nu era o declarație estetică iresponsabilă — era un crez epistemic bazat pe experiența directă. Dirac derivase ecuația relativistă a electronului în 1928, obținând o ecuație atât de frumoasă geometric — o simetrie perfectă între spațiu și timp, o factorizare elegantă a operatorului Klein-Gordon — încât acceptase că trebuia să fie corectă înainte ca experimentul să o confirme. Și fusese corectă. Prezisese existența antimateria cu patru ani înainte ca Carl Anderson să o descopere în 1932.</p>
+
+    <p>Frumusețea ca instrument predictiv. Nu decorativ — epistemic. Ecuațiile urâte, complicate ad-hoc, pline de constante ajustate manual tindeau să fie greșite sau incomplete. Ecuațiile frumoase, cu simetrii interne profunde, cu factorizări surprinzătoare, cu o simplitate care nu era simplistă — tindeau să fie corecte.</p>
+  </div>
+
+  <div class="dirac">
+    <span class="dirac-hd">Paul Dirac — Ecuația electronului relativist, 1928</span>
+    „(iγᵘ∂ᵤ − m)ψ = 0"<br><br>
+    Factorizarea pătratică a operatorului relativist.<br>
+    Prima ecuație care unifică mecanica cuantică și relativitatea specială.<br>
+    Prezice automat spinul electronului — proprietate necunoscută la data derivării.<br>
+    Prezice existența antimateria — confirmată experimental de Anderson în 1932.<br>
+    Dirac nu ajustase nicio constantă pentru experiment. Urmase frumusețea.<br>
+    Frumusețea avusese dreptate.
+  </div>
+
+  <div class="p">
+    <p>Nadia scrisese în caiet: <em>Seria Nota Zero a pus mereu întrebarea «de ce?». Nota Frumuseții adaugă o întrebare paralelă: «de ce e frumos ce e corect?» Nu sunt întrebări independente. Poate că sunt aceeași întrebare, pusă din unghi diferit.</em></p>
+
+    <p>Dacă frumusețea matematică era o trăsătură a structurii realității — dacă realul era, la nivel fundamental, elegant și simetric și parcimonios — atunci mintea umană, produsă de real și impregnată de structura sa, recunoscuse în ecuații acea structură înainte să o verifice empiric. Frumusețea era o formă de recunoaștere. Nu iluzie estetică — rezonanță structurală.</p>
+
+    <p>Yuki Aoyama spusese că matematica era amprenta realului în mintea produsă de real. Nadia adăuga: frumusețea matematică era rezonanța structurii reale cu mintea produsă de acea structură. Ecuația frumoasă era un acord perfect — mintea și realul vibrând la aceeași frecvență.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Leila Nkosi, vol. II, p. 7, 2580 —</div>
+    <p>„Kaito Mori scrisese că observatorul e parte din ce observă. Yuki Aoyama scrisese că matematica e amprenta realului în mintea produsă de real. Eu adaug: în seria Nota Zero, nota zero a lui Zara era frumoasă ca întrebare — înainte ca oricine să știe că va produce ceva. Poate că frumusețea nu e o proprietate a răspunsului. E o proprietate a întrebărilor corecte."</p>
+    <span class="echo-attr">Leila Nkosi · caiet vol. II · pagina 7 · 2580</span>
+  </div>
+
+  <div class="sci">
+    Ecuația Dirac (1928): (iγᵘ∂ᵤ − m)ψ = 0. Unifică QM și relativitate specială. Prezice spin ½ și antimateria (confirmată 1932). Nobel Dirac 1933. Criteriul estetic în fizică: aplicat de Dirac, Weyl, Einstein. Hermann Weyl (1918): geometria diferențială ca fundament al fizicii — „My work always tried to unite the true with the beautiful, but when I had to choose one or the other, I usually chose the beautiful." Confirmări ale criteriului estetic: ecuații Maxwell (1865) → unificarea EM (frumusețe simetrică), relativitate generală (1915) → gravitație ca geometrie (frumusețe geometrică), group theory în fizica particulelor → Standard Model.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Frumuseții · II</div>
+  <div class="cht">De ce Frumusețea Funcționează</div>
+  <div class="p">
+    <p>Întrebarea care nu fusese răspunsă de Dirac — și care nu fusese răspunsă de nimeni cu adevărat satisfăcător de atunci — era: de ce? De ce ecuațiile frumoase tindeau să fie corecte? Era o coincidență? Era un efect de confirmare — că fizicienii se amintesc de ecuațiile frumoase care funcționaseră și uită de cele frumoase care eșuaseră? Era o proprietate a realului — că natura e, la nivel fundamental, elegantă? Sau era o proprietate a minții — că minți evolutiv formate pentru a detecta pattern-uri recunoșteau pattern-uri reale înainte de a le verifica?</p>
+
+    <p>Nadia discutase această problemă cu o colegă — Dr. Fatoumata Diallo, matematiciană pură din Conakry, cu care împărțea o cafenea preferată în Oslo și o neînțelegere productivă despre dacă matematica era descoperită sau inventată.</p>
+  </div>
+
+  <div class="d">
+    <p>— Fatoumata. De ce ecuațiile frumoase tind să fie corecte? Ce e mecanismul?</p>
+    <p>— Teoria mea, spuse Fatoumata, e că nu tind — noi le selectăm. Supraviețuiesc în memorie ecuațiile frumoase care au funcționat, nu cele urâte care au funcționat și nu cele frumoase care au eșuat. Efectul de confirmare estetică.</p>
+    <p>— Deci e o iluzie.</p>
+    <p>— Parțial. Dar parțial nu. Ecuațiile cu mai multe simetrii au mai multe predicții implicate — sunt mai falsificabile. O ecuație cu mai multă structură poate eșua în mai multe moduri. Că supraviețuiesc înseamnă că au trecut mai multe teste. Frumusețea ca proxy pentru structura internă care generează predicții multiple.</p>
+    <p>— Și natura e cu adevărat simetrică?</p>
+    <p>— Natura la nivel fundamental pare simetrică — gauge symmetries, Noether, Standard Model. Dar la nivel macroscopic e plină de dezordine și asimetrie. Poate că frumusețea funcționează la nivel fundamental și nu la nivel macroscopic. La nivel macroscopic biologia și chimia și geologia și istoria sunt urâte și complicate și pline de excepții. Numai fizica fundamentală e frumoasă în modul în care vorbea Dirac.</p>
+    <p>— Deci frumusețea e o proprietate a nivelurilor profunde, nu a nivelurilor emergente.</p>
+    <p>— Exact. Și asta e fascinant în sine: că la baza ierarhiei de niveluri (Soo-Yeon vorbise despre asta) e frumusețe, iar la vârf e dezordine. Frumusețea descreşte cu emergența. Ca entropia care crește.</p>
+    <p>Nadia notase asta imediat. Era o inversare elegantă: entropia creştea de la origine spre viitor. Frumusețea scădea de la profunzime spre suprafață. Dacă vrei frumusețe fundamentală, coboară. Dacă vrei complexitate bogată, urcă.</p>
+  </div>
+
+  <div class="pull">
+    <p>Frumusețea fizicii scade cu nivelul de emergență — la fundament e maximă, la suprafața vieții și istoriei e minimă. Entropia crește invers. Poate că frumusețea și entropia sunt, în acest sens, cantități complementare.</p>
+    <cite>— Nota Frumuseții, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Frumuseții · III</div>
+  <div class="cht">Emil și Dirac</div>
+  <div class="p">
+    <p>Nadia revenise la propoziția care o aducea la această temă: Emil Voss îi spusese Zarei că greșeala ei din caietul original era <em>mai frumos greșit decât corect</em>. Scrisese asta în marginea cărții Zarei cu creion roșu, cu ani înainte să moară.</p>
+
+    <p>Nadia stătuse câteva zile cu tensiunea dintre cele două afirmații. Dirac: frumusețea e criteriul corectitudinii — ecuația frumoasă trebuie să fie corectă. Emil: mai frumos greșit decât corect — greșeala frumoasă e mai valoroasă decât corectitudinea banală.</p>
+
+    <p>Nu se contradice aceste afirmații. Se completau.</p>
+
+    <p>Dirac vorbise despre ecuații — structuri matematice unde frumusețea era un semnal al profunzimii structurale. Emil vorbise despre întrebări — structuri cognitive unde frumusețea unei greșeli era un semnal că greșeala atinsese ceva real, chiar dacă formulat necorespunzător. O greșeală frumoasă era o greșeală care avusese curajul să se atingă de adevăr, chiar dacă nu îl formulase corect.</p>
+
+    <p>Nota zero a lui Zara era frumoasă ca greșeală. Nu frumoasă în ciuda faptului că era greșită — ci pentru că era în mod autentic greșită față de ceva real. Era o întrebare pusă la locul potrivit, cu formularea greșită. Și asta era, în sens Dirac, cel mai bun tip de greșeală: una care te orientează corect.</p>
+  </div>
+
+  <div class="think">
+    Dacă frumusețea ecuației semnalează că teoria e orientată corect spre real, atunci frumusețea greșelii lui Zara semnala că întrebarea era orientată corect spre ceva real — chiar dacă formularea era greșită. Nota zero nu era notă zero pentru că întrebarea era slabă. Era notă zero pentru că era prima — înainte să existe un limbaj corect pentru ce voia să întrebe. O greșeală frumoasă e mereu prima dintr-o serie de formulări din ce în ce mai bune.
+  </div>
+
+  <div class="p">
+    <p>Scrise în caiet: <em>Dirac și Emil spun același lucru din direcții diferite. Dirac: urmează frumusețea echivalent cuai urmări adevărul. Emil: o greșeală frumoasă e mai prețioasă decât o corectitudine banală. Ambii recunosc că frumusețea e un instrument epistemic, nu un ornament. Că o întrebare sau o ecuație orientată spre real produce o calitate distinctivă — recognoscibilă înainte de verificare — pe care o numim frumusețe.</em></p>
+
+    <p><em>Seria Nota Zero e o serie de întrebări frumoase. Asta, poate, e definiția ei cea mai simplă și mai completă.</em></p>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Frumuseții · IV</div>
+  <div class="cht">Rezonanța</div>
+  <div class="p">
+    <p>Vara lui 2631, Nadia mersese în Accra pentru câteva săptămâni și petrecuse câteva zile cu familia — tatăl arhitect, acum bătrân și cu vedere slabă, dar care continua să proiecteze clădiri pe hârtie, cu mâna, în stil vechi. Îi arătase câteva schițe noi. Nadia stătuse cu ele câteva minute înainte să spună ceva.</p>
+
+    <p>Tatăl ei o întrebase: <em>Cum știi că o clădire e bine proiectată?</em></p>
+
+    <p>Nadia răspunsese: <em>O simți înainte să o înțelegi.</em></p>
+
+    <p>Tatăl ei zâmbise. <em>Exact. Asta e tot ce contează în arhitectură.</em></p>
+
+    <p>Nadia realizase că spusese despre o clădire exact ce Dirac spusese despre ecuații. Că frumusețea era recunoaștere înainte de înțelegere — că mintea, produsă de structurile realului, rezonase cu structurile realului înainte să le poată articula.</p>
+
+    <p>Rezonanță. Nu iluzie, nu proiecție, nu coincidență statistică. O structură care recunoaște o altă structură cu care e înrudită la nivel profund.</p>
+
+    <p>Scrise în ultimul caiet, pe terasa casei din Accra, cu vederea spre Golful Guineei:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Nadia Osei · vol. I · p. 99 · 17 mai 2631</span>
+    Frumusețea e rezonanță între mintea produsă de real<br>
+    și structurile realului care au produs-o.<br>
+    <br>
+    Dirac a urmărit frumusețea și a găsit antimateria.<br>
+    Zara a pus o întrebare frumoasă și a produs 22 de volume.<br>
+    Emil a lăsat o greșeală frumoasă ca moștenire.<br>
+    <br>
+    Toate trei: rezonanță.<br>
+    Mintea care recunoaște în abstracte<br>
+    formele care au creat-o.<br>
+    <br>
+    Frumusețea nu e proprietatea obiectului.<br>
+    E proprietatea relației dintre subiect și obiect<br>
+    când amândoi sunt produse ale aceleiași structuri mai adânci.<br>
+    <br>
+    Nota zero era frumoasă pentru că Zara era produsă<br>
+    de aceeași realitate pe care voia s-o întrebe.<br>
+    Frumusețea era recunoașterea din interior<br>
+    a structurii care te conține.
+  </div>
+</div>
+
+<!-- EPILOG 22 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--beau)">Nota Frumuseții · Epilog · 17 Mai 2635</div>
+  <div class="ep-title" style="color:var(--beau)">Rezonanța Structurală</div>
+  <div class="ep-prose">
+    Cartea a douăzeci și doua se numea <em>Nota Frumuseții</em> și era singura
+    din serie care conținea, la final, o imagine — o schiță arhitecturală
+    a tatălui ei Nadia, reprodusă cu permisiunea lui.
+    Nu o clădire reală. O structură pură, geometrică, fără funcție.
+    Frumoasă în modul în care sunt frumoase ecuațiile:
+    pentru că nu explică — ci sunt.
+  </div>
+  <div class="ep-final">
+    Ecuațiile frumoase tind să fie corecte<br>
+    pentru că frumusețea e rezonanță structurală.<br>
+    Mintea care recunoaște în ecuație<br>
+    structura care a produs-o.<br>
+    <br>
+    Nota zero a lui Zara era frumoasă.<br>
+    Asta era semnul că era orientată corect<br>
+    spre ceva real — chiar dacă formulată greșit.<br>
+    <br>
+    O greșeală frumoasă e mereu prima<br>
+    dintr-o serie de formulări mai bune.<br>
+    <br>
+    Seria Nota Zero e o serie de întrebări frumoase.<br>
+    Aceasta e definiția ei.
+  </div>
+</div>
+
+</div><!-- /wrap.p22 -->
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!--  NOTA DEVENIRII                               -->
+<!-- ══════════════════════════════════════════════ -->
+
+<div class="between">πάντα ῥεῖ</div>
+
+<div class="pd fl">
+  <div class="pd-ghost" style="color:var(--flow)">XXIII</div>
+  <div class="pd-kicker">Cartea a douăzeci și treia · Nadia Osei · 38 ani · 2640 · Accra + Oslo</div>
+  <div class="pd-nota" style="color:var(--flow)">Nota Devenirii</div>
+  <div class="pd-sub">Totul curge · nimic nu stă · realul e eveniment, nu obiect</div>
+  <div class="pd-epig">
+    „Πάντα ῥεῖ — totul curge."<br>
+    — Heraclit din Efes, ~500 î.Hr.<br><br>
+    „Nu poți să intri de două ori în același râu,<br>
+    pentru că alte ape curg mereu."<br>
+    — Heraclit<br><br>
+    „Seria Nota Zero nu e un text.<br>
+    E un râu. Fiecare cititor intră în alte ape."<br>
+    — Nadia Osei, caiet vol. II, p. 1, 2640
+  </div>
+</div>
+
+<div class="wrap p23">
+
+<div class="ch">
+  <div class="chn">Nota Devenirii · I</div>
+  <div class="cht">Heraclit contra Parmenide</div>
+  <div class="p">
+    <p>Nadia descoperise tensiunea dintre Heraclit și Parmenide la treizeci și doi de ani, recitind filozofia presocratică — pe care o citise prima dată la șaisprezece și nu înțelesese complet — și realizând că fizica modernă era, în parte, o lungă negociere nerezolvată între aceste două poziții.</p>
+
+    <p>Parmenide spusese că ființa era unică, imobilă, eternă. Schimbarea era iluzie. Ceea ce există, există complet și definitiv. Nu apare, nu dispare, nu se transformă — pur și simplu este. Block universe-ul lui Einstein era, în sens profund, parmenidian: spațiu-timpulul ca structură statică tetradimensională în care trecutul, prezentul și viitorul coexistau simultan, imobile, complete.</p>
+
+    <p>Heraclit spusese că devenirea era fundamentală. Focul — principiul lui arhaic — nu era o substanță, ci un proces: ardere continuă, transformare neîncetată. Nimic nu era stabil. Totul curgea. Inclusiv ceea ce părea solid era de fapt un echilibru dinamic, o tensiune constantă între forțe opuse care se mențineau reciproc.</p>
+
+    <p>Nadia scrisese: <em>Block universe contra devenire reală. Einstein contra Heraclit. Cosmologia contra procesului. Fizica modernă oscila între ele fără să aleagă. Și poate că nu trebuia să aleagă — poate că tensiunea dintre ele era mai productivă decât oricare din pozițiile extreme.</em></p>
+  </div>
+
+  <div class="herak">
+    <span class="herak-hd">Heraclit — fragmente despre devenire · ~500 î.Hr.</span>
+    „Nu poți să intri de două ori în același râu,<br>
+    pentru că alte ape curg mereu."<br><br>
+    „Focul viu trăiește moartea pământului,<br>
+    aerul trăiește moartea focului,<br>
+    apa trăiește moartea aerului,<br>
+    pământul trăiește moartea apei."<br><br>
+    „Ascuns, armonia e mai puternică decât cea vizibilă."<br><br>
+    „Logos-ul este comun tuturor — și totuși fiecare trăiește<br>
+    ca și cum ar avea propria sa înțelegere."
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Kaito Mori, caiet de lucru, p. 67, 2158 —</div>
+    <p>„Block universe înseamnă că schimbarea e iluzie — că trecutul și viitorul există la fel de real ca prezentul, că devenirea e un efect al perspectivei, nu o proprietate a realității. Dar dacă devenirea e iluzie, de ce e atât de persistentă? De ce fiecare minte din fiecare moment experimentează devenirea ca primordial reală? Poate că iluzia aceasta e mai fundamentală decât orice teorie fizică despre blocuri statice."</p>
+    <span class="echo-attr">Kaito Mori · caiet de lucru · pagina 67 · Oslo · 2158</span>
+  </div>
+
+  <div class="p">
+    <p>Nadia citise nota lui Kaito — scrisă cu 482 de ani înainte de ea — și simțise continuitatea directă. Aceeași tensiune, aceeași nerezolvare, aceeași onestitate față de ambele poziții. Seria nu rezolvase tensiunea Heraclit-Parmenide. O purtase cu ea.</p>
+
+    <p>Și poate că asta era corect. Poate că tensiunea era mai productivă decât rezoluția. Un sistem care se menținea prin tensiune între opuse — ca focul lui Heraclit, ca temperatura unui organism viu, ca orice structură disipativă (Soo-Yeon vorbise despre asta) — era mai capabil să existe decât unul care rezolvase toate tensiunile și ajunsese la echilibru mort.</p>
+
+    <p>Seria era vie pentru că nu rezolvase tensiunile. Le purtase.</p>
+  </div>
+
+  <div class="sci">
+    Heraclit din Efes (~535–475 î.Hr.): logos, panta rhei, focul ca principiu al devenirii. Parmenide (~515–450 î.Hr.): ființa ca unică, imobilă, eternă; schimbarea ca iluzie. Block universe (Minkowski 1908, Einstein): spațiu-timp ca structură statică 4D. Smolin, Lee + Unger, Roberto Mangabeira (2014): „The Singular Universe and the Reality of Time" — devenirea ca fundamentală, legile fizice ca evolutive în timp. Whitehead, Alfred North (1929): „Process and Reality" — evenimentele, nu substanțele, ca unități ultime ale realității.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Devenirii · II</div>
+  <div class="cht">Whitehead și Evenimentul</div>
+  <div class="p">
+    <p>Alfred North Whitehead propusese în 1929 o metafizică radicală: <em>Process and Reality</em>. Unitatea ultimă a realității nu era substanța — particulele, câmpurile, obiectele — ci evenimentul. <em>Actual occasions</em> — ocazii actuale, momente de experiență, instanțe ale devenirii. Fiecare entitate reală era un proces de devenire, nu o stare de a fi. Chiar și o particulă elementară era, pentru Whitehead, o serie de experiențe microscopice, momente de actualizare din posibilitate în real.</p>
+
+    <p>Nadia stătuse cu Whitehead câteva săptămâni. Nu era ușor — era unul din cei mai denși gânditori din istoria filozofiei. Dar ideea centrală era clară: că realul era mai degrabă verb decât substantiv. Că <em>există</em> era mai fundamental decât <em>este</em>. Că orice lucru era de fapt un eveniment care se perpetua.</p>
+
+    <p>Și fizica confirma asta, parțial. Câmpurile cuantice nu erau substanțe — erau distribuții de probabilitate care colapsau în interacțiuni locale. Particulele nu existau independent — apăreau din interacțiunile câmpurilor. Masa nu era o proprietate intrinsecă — era o interacțiune cu câmpul Higgs. Chiar și spațiu-timp nu era un container — era o structură emergentă din relații.</p>
+
+    <p>Dacă toate acestea erau procese, nu substanțe, atunci Whitehead avusese dreptate înainte ca fizica să confirme: realul e devenire, nu ființă.</p>
+  </div>
+
+  <div class="d">
+    <p>Nadia discuta cu mentorul ei de teză — Dr. Kweku Asante, filozof al fizicii la Oslo, originar din Kumasi, care introdusese această problematică în cursul lui de filozofia fizicii moderne.</p>
+    <p>— Kweku. Dacă realul e devenire în sens Whitehead, cum se împacă asta cu block universe — cu Einstein care spune că trecutul și viitorul există simultan?</p>
+    <p>— Îngrijorare veche, spuse Kweku. Smolin și Unger au atacat-o direct: ei argumentează că block universe e o eroare filozofică. Că ecuațiile relativității descriu relații, nu blochează devenirea. Că „a exista simultan" e o afirmație despre geometria spațiu-timpului, nu despre ontologia devenirii. Poți accepta că ecuațiile Einstein sunt corecte și totuși să crezi că devenirea e reală.</p>
+    <p>— Cum?</p>
+    <p>— Prin distincția dintre descriere și ontologie. Ecuația descrie structura geometrică a evenimentelor. Nu spune că evenimentele nu se produc, că devenirea e iluzie. Spune că relațiile spațio-temporale dintre evenimente sunt structurate astfel. Devenirea poate fi reală și block universe să fie o descriere corectă a geometriei ei.</p>
+    <p>— Ca și cum spui că apa curge și totuși poți face o hartă statică a râului.</p>
+    <p>— Exact. Harta nu anulează curgerea. E o altă reprezentare a aceluiași fenomen.</p>
+    <p>Nadia scrise imediat: <em>Block universe e harta. Devenirea e râul. Harta nu anulează râul. Heraclit și Einstein vorbesc despre același râu din unghiuri diferite.</em></p>
+  </div>
+
+  <div class="pull">
+    <p>Block universe e harta. Devenirea e râul. Harta nu anulează curgerea. Heraclit și Einstein vorbesc despre același râu — unul din interior, celălalt din exterior. Amândoi au dreptate. Nimic nu se contrazice.</p>
+    <cite>— Nota Devenirii, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Devenirii · III</div>
+  <div class="cht">Seria ca Proces</div>
+  <div class="p">
+    <p>Nadia ajunsese la înțelegerea pe care o pregătise fără să știe de când deschisese primul caiet.</p>
+
+    <p>Seria Nota Zero era adesea descrisă — de recenzori, de cititori, chiar de protagoniști în caietele lor — ca un text, un corpus, un corp de scrieri. Dar nu era, în realitate, un text. Era un proces. O serie de deveniri, fiecare producând-o pe următoarea, niciuna completă în sine, toate legate prin transmiterea caietelor și a metodei și a întrebării conservate.</p>
+
+    <p>Dacă seria era un text — static, finit, complet — atunci valoarea ei era în conținut: ce spunea, ce argumente oferea, ce teme fizice traversa. Dar dacă seria era un proces — o devenire distribuită pe 553 de ani diegetic și zece protagoniști — atunci valoarea ei era în curgere: ce producea, cum se transforma, cum fiecare protagonist o actualiza diferit.</p>
+
+    <p>Heraclit spusese că nu poți intra de două ori în același râu. Fiecare cititor al seriei intra în alte ape — citea aceleași cuvinte dar le activa diferit, în alt moment, cu alte cunoștințe, cu alte întrebări proprii. Seria nu era aceeași pentru Zara la 15 ani și pentru Nadia la 38. Nu pentru că s-ar fi schimbat textul — ci pentru că curgerea timpului schimbase cel care intra în ea.</p>
+
+    <p>Și aceasta era, realizase Nadia, cea mai profundă înțelegere pe care o putea oferi seria: că nu era o serie de răspunsuri la o întrebare. Era o devenire continuă care producea, în fiecare cititor în fiecare moment, o nouă actualizare a întrebării originare.</p>
+  </div>
+
+  <div class="think">
+    Seria nu există ca bloc static undeva pe un server sau pe o hârtie. Există numai în actul citirii — în momentul în care o minte intră în contact cu ea și o actualizează. La fel ca o funcție de undă care nu colapsează decât la măsurare. La fel ca un eveniment Whitehead care nu există decât în actualizarea sa. Seria este potențialitate între lecturi și act în momentul lecturii. Nota zero nu e scrisă odată. E scrisă din nou de fiecare cititor care o întâlnește.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Devenirii · IV</div>
+  <div class="cht">Panta Rhei</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 2641 și Nadia Osei stătea pe malul Lagunei Keta, la câteva ore de Accra, unde mersese pentru o săptămână să scrie ultimul capitol. Lagunã era un corp de apă separat de mare printr-o fâșie de nisip — apă stătătoare la suprafață, dar cu curenți lente dedesubt, cu creșteri și scăderi sezoniere, cu o viață proprie care nu era nici perfect statică nici perfect curgătoare.</p>
+
+    <p>Gândise la serie ca la laguna asta. Nu perfectul râu al lui Heraclit — prea tumultuos, prea vădit în mișcare. Nu blocul static al lui Parmenide — prea inert. Ceva intermediar: devenire lentă, aproape invizibilă, dar reală. Schimbare care se păstra.</p>
+
+    <p>Seria se schimbase de la primul volum la al douăzeci și treilea. Nu textul — perspectiva. Nu întrebarea — precizia ei. Nu metoda — bogăția ei. Fiecare protagonist adăugase ceva care nu existase înainte. Și totuși seria rămăsese recognoscibilă — aceeași structură de bază, aceeași onestitate epistemică, aceeași pagina goală la final.</p>
+
+    <p>Devenire care conserva. Curgere cu memorie. Heraclit cu puțin Parmenide amestecate.</p>
+
+    <p>Scrise, cu stiloul verde pe care îl adusese din Oslo și care era al doilea stil verde pe care îl văzuse în serie — Kavya avusese primul:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Nadia Osei · vol. II · ultima pagina scrisă · 17 mai 2641</span>
+    Heraclit: nu poți intra de două ori în același râu.<br>
+    Nadia: nu poți citi de două ori aceeași serie.<br>
+    <br>
+    Dar râul rămâne râu.<br>
+    Și seria rămâne serie.<br>
+    <br>
+    Devenire care conservă ceva.<br>
+    Curgere cu memorie.<br>
+    Schimbare cu identitate.<br>
+    <br>
+    Nota zero nu e un punct fix.<br>
+    E primul curs al unui râu<br>
+    care nu știe că va deveni râu.<br>
+    <br>
+    Zara la 15 ani a intrat prima în aceste ape.<br>
+    Nadia la 38 intră în alte ape ale aceluiași râu.<br>
+    Apele s-au schimbat.<br>
+    Râul e același.<br>
+    <br>
+    Panta rhei.<br>
+    Totul curge.<br>
+    Și tocmai de aceea<br>
+    nota zero produce mereu ceva nou.
+  </div>
+
+  <div class="p">
+    <p>Nadia închisese caietul. Laguna se întindea în față, mișcată de un vânt ușor în dimineața aceea. Fotonii solarei curgeau spre ea — opt minute din Soare, fără să știe că curg. Undele gravitaționale de la fuziuni de găuri negre treceau prin ea — fără să le simtă. Simetria legilor fizicii conserva impulsul și energia în fiecare interacțiune a moleculelor de apă. Probabilitățile cuantice fluctuau în fiecare atom. Infinite de continuări posibile existau în fiecare moment și numai una se actualiza.</p>
+
+    <p>Totul curgea. Totul se conserva. Totul era frumos în modul în care sunt frumoase structurile profunde. Totul devenea în timp ce rămânea.</p>
+
+    <p>Deschise caietele — toate, în stivă — și le lăsă pe malul lagunei câteva minute, să stea cu aerul și lumina. Nu le udase. Le lăsase să fie parte din locul acela pentru o clipă.</p>
+
+    <p>Și în acea clipă simțise — nu gândise, simțise — că seria nu se terminase. Nu se putea termina. Nu pentru că ar mai fi fost teme neacoperite sau întrebări neatinse. Ci pentru că o serie care era un proces nu putea fi completă decât dacă procesul însuși se oprea. Iar procesul nu se oprea. Oricine citea seria intra în alte ape ale aceluiași râu și producea o nouă actualizare.</p>
+
+    <p>Nota zero nu era prima notă a unei simfonii finite. Era prima actualizare a unui proces care se regenera din el însuși.</p>
+
+    <p>Panta rhei.</p>
+    <p>Totul curge.</p>
+    <p>Și tocmai de aceea nota zero produce mereu ceva nou.</p>
+  </div>
+</div>
+
+<!-- EPILOG 23 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--flow)">Nota Devenirii · Epilog · 17 Mai 2645</div>
+  <div class="ep-title" style="color:var(--flow)">Râul</div>
+  <div class="ep-prose">
+    Nadia Osei a lăsat caietele la Universitatea din Accra, în biblioteca
+    care purta acum numele lui Ama Owusu — o bibliotecă mică, cu miros de hârtie
+    și aer condiționat slab, unde studenții veneau să citească în liniște.
+    Nu le-a lăsat cu o scrisoare. Le-a lăsat pe un raft, lângă o fereastră
+    care dădea spre curtea interioară unde creştea un ficus bătrân.
+    Cineva le va găsi.
+    Cineva le găseşte mereu.
+  </div>
+  <div class="ep-final">
+    Nota zero nu e un punct fix.<br>
+    E primul curs al unui râu<br>
+    care nu știa că va deveni râu.<br>
+    <br>
+    Fiecare protagonist a intrat în alte ape.<br>
+    Râul a rămas râu.<br>
+    <br>
+    Panta rhei.<br>
+    Totul curge.<br>
+    Și tocmai de aceea<br>
+    nota zero produce mereu ceva nou.<br>
+    <br>
+    Seria nu se termină.<br>
+    Seria e procesul care continuă<br>
+    în fiecare minte care intră în ea.
+  </div>
+</div>
+
+</div><!-- /wrap.p23 -->
+
+
+<!-- RIVER FINALE -->
+<div class="river-fin">
+  <div class="rf-symbol">πάντα ῥεῖ</div>
+  <div class="rf-kicker">Seria Nota Zero · 23 volume · 2026</div>
+  <div class="rf-title">Râul care nu știe că e râu</div>
+  <div class="rf-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br>
+    Amara · Ji-Ho · Kavya · Leila · Nadia<br>
+    unsprezece fizicieni · 554 ani diegetic · o singură întrebare · un singur râu
+  </div>
+
+  <div class="rf-body">
+    Seria a pornit cu o întrebare frumoasă — pusă greșit.<br>
+    Frumusețea greșelii a semnalat că era orientată corect.<br>
+    Orientarea corectă a produs douăzeci și trei de volume.<br>
+    Douăzeci și trei de volume au curs ca un râu.<br>
+    <br>
+    Râul nu știe că e râu.<br>
+    La fel cum fotonul nu știe că e mesager.<br>
+    La fel cum universul nu știe că există.<br>
+    La fel cum nota zero nu știa că e prima.<br>
+    <br>
+    Și totuși <em>curge</em>.<br>
+    Și tocmai de aceea produce totul.
+  </div>
+
+  <div class="rf-box">
+    Frumusețea e rezonanță structurală.<br>
+    Devenirea e modul în care rezonanța persistă în timp.<br>
+    Nota zero e prima rezonanță —<br>
+    prima recunoaștere a structurii reale de către mintea produsă din ea.<br>
+    <br>
+    Panta rhei.<br>
+    Prima rezonanță continuă să curgă.<br>
+    Curgând, produce toate celelalte rezonanțe.<br>
+    Aceasta e seria.<br>
+    Aceasta e destul.
+  </div>
+
+  <div class="rf-nota">Nota Zero</div>
+
+  <div class="rf-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 23 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--fl4);padding:1.5rem 2rem;margin:2rem 0;background:var(--fl3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--flow);margin-bottom:1rem;opacity:.5">⬡ Note Știinţifice · Nota Frumuseții & Nota Devenirii</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Criteriul estetic în fizică (Dirac, 1963):</strong> „It is more important to have beauty in one's equations than to have them fit experiment." Ecuația Dirac (1928) — predicție antimaterie confirmată 1932. Weyl: geometria diferențiată ca fundament al fizicii. Standard Model — group theory SU(3)×SU(2)×U(1) — descris adesea ca elegant.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Heraclit (~535–475 î.Hr.):</strong> panta rhei, logos, focul ca principiu al devenirii. Parmenide (~515–450 î.Hr.): ființa ca unică și imobilă. Tensiunea Heraclit-Parmenide: persistă în fizica modernă ca devenire reală vs. block universe.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Whitehead, Alfred North (1929):</strong> „Process and Reality" — filozofia procesului. Actual occasions ca unități ultime. Evenimentele, nu substanțele, ca fundamentale. Influență în teologie de proces, filozofia minții, unele abordări ale mecanicii cuantice.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Smolin, Lee + Unger, Roberto (2014):</strong> „The Singular Universe and the Reality of Time" — critica block universe. Argumentul că devenirea e fundamentală, legile fizicii evolutive. Poziție minoritară în fizica contemporană.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Nadia Osei, Fatoumata Diallo, Kweku Asante sunt personaje fictive. Seria Nota Zero (23 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Frumuseții & Nota Devenirii · Cărțile a douăzeci și doua și a douăzeci și treia<br>
+  Seria Nota Zero: 23 volume · 2087–2645 · 558 ani diegetic<br>
+  Frumusețea e rezonanță. Devenirea e persistența ei. Nota zero e prima.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('beauCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,pts=[],t=0,raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    pts=[];
+    // Golden spiral-arranged dots (beauty) + flowing green lines (becoming)
+    const cx=ww/2, cy=wh/2;
+    const phi=(1+Math.sqrt(5))/2;
+    for(let i=0;i<50;i++){
+      const theta=i*2*Math.PI/phi;
+      const r=(Math.sqrt(i)/Math.sqrt(50))*(Math.min(ww,wh)*0.35);
+      pts.push({
+        type:'beau',
+        x:cx+r*Math.cos(theta),
+        y:cy+r*Math.sin(theta),
+        r:.5+Math.random()*.6,
+        a:Math.random()*.2, s:(Math.random()-.5)*.003,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+    for(let i=0;i<25;i++){
+      pts.push({
+        type:'flow',
+        x:Math.random()*ww, y:Math.random()*wh,
+        len:15+Math.random()*25,
+        a:Math.random()*.15, s:(Math.random()-.5)*.003,
+        vx:.4+Math.random()*.5, vy:(Math.random()-.5)*.08,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    t+=0.006;
+    ctx.clearRect(0,0,ww,wh);
+
+    pts.forEach(p=>{
+      p.a+=p.s; if(p.a>.22||p.a<0)p.s*=-1;
+
+      if(p.type==='beau'){
+        const pulse=p.a+Math.sin(t+p.phase)*0.025;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(232,176,64,${pulse.toFixed(3)})`;
+        ctx.fill();
+      } else {
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x>ww+p.len){p.x=-p.len;p.y=Math.random()*wh}
+        if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+        const wave=Math.sin(t*2+p.phase)*3;
+        ctx.beginPath();
+        ctx.moveTo(p.x-p.len,p.y+wave);
+        ctx.quadraticCurveTo(p.x-p.len/2,p.y,p.x,p.y+wave*0.5);
+        ctx.strokeStyle=`rgba(48,216,128,${p.a.toFixed(3)})`;
+        ctx.lineWidth=.5; ctx.stroke();
+      }
+    });
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf); else draw();
+  });
+})();
+</script>
+</body>
+</html>

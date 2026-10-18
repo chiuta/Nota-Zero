@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Probabilității & Nota Infinitului · Cărțile a douăzecea și a douăzeci și una · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#020208;
+  /* Nota Probabilității: violet-roșcat, hazard, distribuție */
+  --prob:#d060c8;--pr2:rgba(208,96,200,.09);--pr3:rgba(208,96,200,.035);--pr4:rgba(208,96,200,.14);
+  /* Nota Infinitului: albastru rece, abis, fără sfârșit */
+  --inf:#4888ff;--in2:rgba(72,136,255,.09);--in3:rgba(72,136,255,.035);--in4:rgba(72,136,255,.14);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rp:1px solid rgba(208,96,200,.12); --ri:1px solid rgba(72,136,255,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#probCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* ── COVER ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rp);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--prob);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--pr4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-pr{color:var(--prob)} .t-in{color:var(--inf)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--pr4);background:var(--pr3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* ── PART DIV ── */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.pr{border-color:rgba(208,96,200,.12)} .pd.in{border-color:rgba(72,136,255,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* ── CHAPTER ── */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p20 .ch{border-bottom-color:rgba(208,96,200,.05)}
+.p21 .ch{border-bottom-color:rgba(72,136,255,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* ── PROSE ── */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p20 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--prob);text-shadow:0 0 22px rgba(208,96,200,.28);}
+.p21 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--inf);text-shadow:0 0 22px rgba(72,136,255,.3);}
+
+/* ── ECHO ── */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* ── FORMULA BOX ── */
+.fbox{margin:2rem 0;padding:1.3rem 1.8rem;
+  font-family:'DM Mono',monospace;font-size:.63rem;line-height:1.85;}
+.p20 .fbox{border:1px solid var(--pr4);background:var(--pr3);color:rgba(208,96,200,.75)}
+.p21 .fbox{border:1px solid var(--in4);background:var(--in3);color:rgba(72,136,255,.75)}
+.fbox-hd{font-weight:700;font-size:.38rem;letter-spacing:.2em;
+  text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+.p20 .fbox-hd{color:var(--prob)} .p21 .fbox-hd{color:var(--inf)}
+
+/* ── THINK ── */
+.think{margin:2rem 0;padding:1rem 1.5rem;
+  border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p20 .think{border-color:var(--pr4);background:var(--pr3)}
+.p20 .think::before{content:'⬡ ';font-style:normal;color:var(--prob);opacity:.55}
+.p21 .think{border-color:var(--in4);background:var(--in3)}
+.p21 .think::before{content:'⬡ ';font-style:normal;color:var(--inf);opacity:.55}
+
+/* ── DIALOGUE ── */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* ── NOTEBOOK ── */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p20 .nb{border:1px solid var(--pr4);background:var(--pr3)}
+.p21 .nb{border:1px solid var(--in4);background:var(--in3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p20 .nb::after{color:var(--prob)} .p21 .nb::after{color:var(--inf)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p20 .nb-hd{color:var(--prob)} .p21 .nb-hd{color:var(--inf)}
+
+/* ── PULL ── */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p20 .pull{border-left-color:var(--prob);background:var(--pr3)}
+.p21 .pull{border-left-color:var(--inf);background:var(--in3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p20 .pull cite{color:var(--prob)} .p21 .pull cite{color:var(--inf)}
+
+/* ── SCI ── */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p20 .sci{border:1px solid rgba(208,96,200,.12);background:rgba(208,96,200,.03)}
+.p20 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--prob);font-weight:700}
+.p21 .sci{border:1px solid rgba(72,136,255,.12);background:rgba(72,136,255,.03)}
+.p21 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--inf);font-weight:700}
+
+/* ── EPILOG ── */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p20 .epilog{border-top-color:rgba(208,96,200,.1)}
+.p21 .epilog{border-top-color:rgba(72,136,255,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p20 .ep-final{border-color:rgba(208,96,200,.18)}
+.p21 .ep-final{border-color:rgba(72,136,255,.18)}
+
+/* ── BETWEEN ── */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rp);border-bottom:var(--ri);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ── ABSOLUTE FINALE ── */
+.finale{
+  min-height:85vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--ri);
+}
+.fin-aleph{
+  font-family:'Cinzel',serif;font-size:clamp(4rem,12vw,9rem);
+  font-weight:700;color:transparent;
+  -webkit-text-stroke:1px rgba(72,136,255,.2);
+  letter-spacing:.1em;margin-bottom:1.5rem;line-height:1;
+}
+.fin-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--inf);
+  opacity:.35;margin-bottom:1.5rem;}
+.fin-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.4rem);
+  font-weight:700;color:var(--cream);margin-bottom:2rem;letter-spacing:.03em;}
+.fin-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);margin-bottom:2.5rem;line-height:1.9;}
+.fin-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:var(--cream);max-width:540px;
+  line-height:1.95;margin-bottom:2.5rem;}
+.fin-body em{color:var(--inf);font-style:normal}
+.fin-box{
+  border-top:1px solid rgba(72,136,255,.12);
+  border-bottom:1px solid rgba(72,136,255,.12);
+  padding:1.5rem 2.5rem;max-width:480px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.97rem;color:var(--cream2);line-height:2;
+  margin-bottom:2rem;
+}
+.fin-nota{
+  font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;color:transparent;
+  -webkit-text-stroke:1px rgba(208,96,200,.2);
+  letter-spacing:.06em;margin:.5rem 0;
+}
+.fin-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.22;margin-top:2rem;}
+
+/* ── FOOTER ── */
+footer{border-top:var(--ri);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.25;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="probCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-s">Seria Nota Zero · Cărțile a douăzecea și a douăzeci și una</div>
+  <div class="cv-ctx">
+    Kavya Nair a văzut că nota zero lui Zara era cauza imposibilă care produce totul.<br>
+    Leila Nkosi primește caietele și adaugă două întrebări finale:<br>
+    care era probabilitatea că nota zero să producă exact asta —<br>
+    și câte alte serii ar fi putut să fie în locul ei?
+  </div>
+  <h1>
+    <span class="cv-title t-pr">Nota Probabilității</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-in">Nota Infinitului</span>
+  </h1>
+  <p class="cv-desc">
+    Hazardul și abisul. Măsura nedeterminării și scara fără capăt.
+    Două proprietăți ale realității pe care seria le traversase mereu
+    fără să le privească direct în față.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 19 volume · 2087–2525 · 438 ani diegetic.<br>
+    Leila Nkosi are 28 ani în 2570. Durban + Oslo.<br>
+    Probabilitate și infinit. Ambele resping certitudinea.<br>
+    Amândouă sunt la inima a tot ce nu știm.
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  NOTA PROBABILITĂȚII                              -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div class="pd pr">
+  <div class="pd-ghost" style="color:var(--prob)">XX</div>
+  <div class="pd-kicker">Cartea a douăzecea · Leila Nkosi · 28 ani · 2570 · Oslo + Durban</div>
+  <div class="pd-nota" style="color:var(--prob)">Nota Probabilității</div>
+  <div class="pd-sub">Ce înseamnă că ceva are jumătate din șanse să se întâmple</div>
+  <div class="pd-epig">
+    „God does not play dice."<br>
+    — Albert Einstein<br><br>
+    „Stop telling God what to do."<br>
+    — Niels Bohr<br><br>
+    „Amândoi aveau dreptate. Dumnezeu nu joacă zaruri —<br>
+    dar zarurile există.<br>
+    Întrebarea e: ce sunt zarurile?"<br>
+    — Leila Nkosi, caiet vol. I, p. 1, 2570
+  </div>
+</div>
+
+<div class="wrap p20">
+
+<div class="ch">
+  <div class="chn">Nota Probabilității · I</div>
+  <div class="cht">Born Rule</div>
+  <div class="p">
+    <p>Leila Nkosi crescuse în Durban cu vederea spre Oceanul Indian și cu o bunică care citea zaruri — nu ca superstiție, ci ca artă a incertitudinii. Bunica ei spunea că zarurile nu prezic viitorul; ele articulează posibilul, dau o formă provizorie necunoscutului. Leila nu înțelesese complet asta la cinci ani. La douăzeci și opt, citind Born rule din mecanica cuantică, înțelesese că bunica ei descrisese exact ce face funcția de undă.</p>
+
+    <p>Born rule era cea mai misterioasă axiomă din fizică. Max Born o propusese în 1926: dacă ψ era funcția de undă a unui sistem cuantic, atunci probabilitatea de a găsi particula în starea x era |ψ(x)|². Nu ψ. Nu ψ². Modulul pătrat al lui ψ, unde ψ era un număr complex.</p>
+
+    <p>Nimeni nu știa de ce. Ecuația Schrödinger determina evoluția lui ψ cu precizie perfectă — ψ se mișca determinist, conform unei ecuații diferențiale liniare. Și totuși, când măsurai, obțineai un rezultat aleatoriu cu probabilitate dată de |ψ|². Determinism și aleatoriu în aceeași teorie, despărțite de actul de măsurare.</p>
+
+    <p>Leila scrisese pe prima pagina a caietului ei: <em>De ce |ψ|² și nu |ψ|? De ce nu |ψ|³? De ce modulul pătrat al unui număr complex produce probabilitate? Nimeni nu știe. E o axiomă. E cel mai bine verificat fapt din fizică. Și nu are explicație.</em></p>
+  </div>
+
+  <div class="fbox">
+    <span class="fbox-hd">Born Rule — axioma probabilistică a mecanicii cuantice</span>
+    ψ(x,t)  — funcția de undă (număr complex)<br>
+    P(x)  =  |ψ(x)|²  — probabilitatea de a găsi particula în x<br>
+    <br>
+    Normalizare:  ∫ |ψ(x)|² dx  =  1  (certitudine totală)<br>
+    <br>
+    Misterul: ψ evoluează determinist (ec. Schrödinger)<br>
+    Măsurarea produce rezultat aleatoriu (Born rule)<br>
+    Tranziția ψ → |ψ|² la măsurare: neexplicată din principii mai profunde<br>
+    <br>
+    Tentative de derivare: Gleason (1957), Zurek (2003), Deutsch-Wallace (2009)<br>
+    Niciuna acceptată ca derivare completă · dezbatere activă la mai 2026
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul Kavyei Nair, vol. I, p. 3, 2510 —</div>
+    <p>„Cauzalitatea e emergentă. Probabilitatea cuantică poate fi fundamentală. Dacă e fundamentală, înseamnă că la nivel de bază universul nu e determinist — e genuino aleatoriu. Și dacă e genuino aleatoriu, atunci întrebarea «de ce a ieșit exact asta» nu are răspuns. Existența noastră e un rezultat al unui zar cosmic care nu știa că îl aruncă nimeni."</p>
+    <span class="echo-attr">Kavya Nair · caiet vol. I · pagina 3 · Oslo · 2510</span>
+  </div>
+
+  <div class="p">
+    <p>Leila citise nota lui Kavya și simțise că o așteptase. Că era propoziția care conecta volumul precedent cu întrebarea pe care o purta ea: <em>dacă probabilitatea e fundamentală, ce înseamnă asta pentru seria noastră?</em></p>
+
+    <p>Seria pornise cu o greșeală — Zara pusese o întrebare formulată greșit. Care fusese probabilitatea ca acea greșeală anume să producă exact seria aceasta? O valoare imposibil de calculat — prea multe variabile, prea multe căi posibile. Dar existau și alte serii posibile care nu fuseseră scrise. Serii în care nota zero a lui Zara produsese altceva sau nimic. Serii în care niciun caiet nu trecuse mai departe. Serii în care Emil Voss nu avusese o fiică curioasă.</p>
+
+    <p>Seria care existase era una din spațiul de probabilitate al seriilor posibile. Era singurul element al acelui spațiu pe care îl puteam examina. Celelalte existau, probabil, în ramurile Many-Worlds — sau nu existau deloc, dacă probabilitatea era ontologic fundamentală și nu numai epistemică.</p>
+  </div>
+
+  <div class="sci">
+    Born rule (Max Born, 1926): P(x) = |ψ(x)|². Axiomă — nu derivată. Tentative de derivare: Gleason (1957) — teorema Gleason în spații Hilbert, Zurek (2003) — envariance, Deutsch (1999) + Wallace (2012) — teoria deciziei în Many-Worlds. Niciuna unanim acceptată. Distinctic fundamentală: probabilitate epistemică (ignoranță față de starea reală) vs. ontologică (genuino aleatorie). QM sugerează a doua. Dezbatere: aleatoriu real sau determinism ascuns (variabile ascunse)? Teorema Bell (1964) + experimente Aspect (1982): variabile ascunse locale excluse. Universul pare genuino probabilistic la nivel cuantic.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Probabilității · II</div>
+  <div class="cht">Bayesian sau Lumea</div>
+  <div class="p">
+    <p>Dar probabilitatea era cu adevărat în lume — sau era în mintea celui care observa? Aceasta era distincția fundamentală, mai veche decât mecanica cuantică, pe care filozofii și matematicienii o dezbătuseră de secole.</p>
+
+    <p>Interpretarea frecventistă: probabilitatea unui eveniment era frecvența sa relativă în serii infinite de repetări ale experimentului. O monedă cu probabilitate 0.5 de cap era o monedă care, aruncată de infinit de multe ori, producea cap în jumătate din cazuri. Probabilitatea era o proprietate obiectivă a lumii, măsurabilă prin statistică.</p>
+
+    <p>Interpretarea Bayesiană: probabilitatea era o măsură a credinței raționale a unui agent față de un eveniment, actualizată prin dovezi (teorema Bayes). O monedă cu probabilitate 0.5 de cap era o monedă despre care nu știai nimic. Dacă aruncai o dată și obțineai cap, probabilitatea actualizată era diferită. Probabilitatea era o proprietate a minții, nu a lumii.</p>
+
+    <p>Și în mecanica cuantică, dezbaterea devenea urgentă: când un electron are 50% probabilitate de spin-up — e o proprietate obiectivă a electronului, sau o descriere a ignoranței noastre despre el? Dacă e obiectivă, electronul e genuino nedeterminat. Dacă e ignoranță, există o realitate mai profundă pe care nu o cunoaștem — variabile ascunse. Teorema Bell eliminase variabilele ascunse locale. Dar rămăseseră variabilele ascunse nelocalee, și rămăsese QBism — Quantum Bayesianism — interpretarea în care funcția de undă era starea de credință a agentului, nu starea obiectivă a lumii.</p>
+  </div>
+
+  <div class="d">
+    <p>Leila discuta cu colega ei de birou — Dr. Amahle Dube, matematiciană specializată în teoria probabilităților, și ea din Africa de Sud, și ea ajunsă la Oslo pe căi ocolite.</p>
+    <p>— Amahle. Dacă probabilitatea e Bayesiană, atunci toate calculele de probabilitate cuantică sunt despre noi, nu despre lume.</p>
+    <p>— Și atunci seria voastră, spuse Amahle cu un zâmbet, ar fi o secvență de actualizări Bayesiene ale credinței colective a fizicienilor față de originea universului. Nu explorare a lumii — actualizare a minții despre lume.</p>
+    <p>— E o distincție reală?</p>
+    <p>— E cea mai importantă distincție din filozofia științei. Dacă știința e despre lume, descoperim adevăruri independente de noi. Dacă e Bayesiană, actualizăm modele dependente de noi — și nu avem acces la lume în sine, numai la credințele noastre actualizate despre ea.</p>
+    <p>— Kant, spuse Leila.</p>
+    <p>— Exact. Lumea în sine — Ding an sich — inaccesibilă. Numai fenomenele, filtrate de structurile minții. Mecanica cuantică e Kant cu ecuații diferențiale.</p>
+    <p>— Și teoria corzilor? Cosmologia? Toată seria?</p>
+    <p>— Dacă Bayesian e corect, toată seria e o lectură frumoasă și coerentă a aparenței — nu a realității. Dar dacă frecventist e corect, seria e o investigație a lumii reale, imperfectă, incompletă, dar orientată spre ceva dincolo de noi.</p>
+    <p>Leila tăcu câteva secunde. Care crezi că e adevărat? întrebă.</p>
+    <p>— Nu știu, spuse Amahle. Și tocmai asta mă ține în meserie.</p>
+  </div>
+
+  <div class="pull">
+    <p>Dacă probabilitatea e Bayesiană, seria Nota Zero e o secvență de actualizări ale credinței, nu de descoperiri. Dacă e frecventistă, e o investigație a lumii reale. Nu știm care. Și tocmai asta menține seria în mișcare.</p>
+    <cite>— Nota Probabilității, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Probabilității · III</div>
+  <div class="cht">Probabilitatea Originii</div>
+  <div class="p">
+    <p>Leila ajunsese la ceea ce o dusese la această temă: probabilitatea Big Bang-ului. Nu a existenței unui Big Bang — ci a acestui Big Bang, cu aceste constante, cu aceste condiții inițiale, cu această configurare exactă care produsese galaxiile, stelele, planeta Pământ, specii vii, conștiință și, la capătul unui lanț lung, o studentă din Durban care se întreba despre probabilitatea propriei existențe.</p>
+
+    <p>Roger Penrose calculase în 1989 că probabilitatea ca universul să aibă entropia inițial scăzută pe care o avusese — condiția de start care permitea săgeata timpului și toată complexitatea cosmică — era de 1 la 10 la puterea 10 la puterea 123. Un număr atât de mic încât nu exista notație convenabilă pentru el. Un număr care, scris cu zerouri pe foi de hârtie, ar fi umplut un volum mai mare decât universul observabil de mii de ori.</p>
+
+    <p>Penrose concluzionase că o astfel de probabilitate era incompatibilă cu un univers ales la întâmplare — că trebuia să existe o explicație pentru entropia inițial scăzută. Fie un principiu de selecție, fie o constrângere fundamentală, fie un multivers în care toate configurațiile există și noi ne aflam în cea rarissimă care permitea viața.</p>
+  </div>
+
+  <div class="think">
+    Dacă probabilitatea universului nostru e 1 la 10^(10^123), și dacă există un singur univers, atunci existența noastră e miracle-ul absolut — mai improbabil decât orice alt concept de improbabilitate. Dacă există infinite universuri, existența noastră e garantată — suntem în unul din cele rare care permit conștiință. Ambele variante sunt la fel de vertiginoase. Prima face existența imposibil de prețioasă. A doua o face imposibil de comună. Nu știu care e mai reconfortantă.
+  </div>
+
+  <div class="p">
+    <p>Leila scrisese, după câteva zile de gândit la Penrose: <em>Dacă probabilitatea originii noastre e 1 la 10^(10^123), atunci nota zero a lui Zara Voss — o întrebare pusă de o adolescentă pe o stație orbitală în 2087 — e și ea un eveniment cu o probabilitate astronomic de mică. Și totuși s-a produs. La fel ca Big Bang-ul. La fel ca viața. La fel ca conștiința.</em></p>
+
+    <p><em>Poate că întrebarea nu e ce probabilitate aveau. Ci că s-au produs. Că probabilitatea, odată realizată, devine certitudine. Că a fi produs e mai important decât a fi probabil.</em></p>
+  </div>
+
+  <div class="sci">
+    Probabilitatea configurației inițiale (Penrose, 1989): condiția de entropie scăzută a Big Bang-ului are probabilitatea ~1/10^(10^123) față de un spațiu de faze aleatoriu. Soluții propuse: Principiul Weyl (Penrose) — gravitația inițial ordonată; Conformal Cyclic Cosmology (Penrose, 2010); Inflație (Guth, 1981) — dar mută problema cu un nivel; Multivers — selecție antropică. Born rule: nicio derivare completă, axiomă acceptată. QBism (Fuchs, Mermin, 2002): funcția de undă ca stare de credință a agentului — nu realitate obiectivă.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Probabilității · IV</div>
+  <div class="cht">Zarurile Cosmice</div>
+  <div class="p">
+    <p>Era vara lui 2571 și Leila stătea pe acoperișul institutului din Oslo — un loc interzis tehnic dar tolerat practic, pentru că toată lumea știa că fizicienii urcau acolo când aveau nevoie de cer deschis și de distanță față de ecuații. Cerul nordic de vară nu apunea complet, iar lumina argintie de la orele unsprezece seara o înconjura cu acea calitate de timp suspendat pe care o știa de doi ani și care nu încetat să o tulbure.</p>
+
+    <p>Gândise la zaruri. La Einstein care spusese că Dumnezeu nu joacă zaruri și la Bohr care răspunsese să nu-i spună lui Dumnezeu ce să facă. La Born rule, care era o axiomă fără derivare. La probabilitatea condiției inițiale, calculată de Penrose ca ceva atât de mic încât mintea nu putea procesa numărul.</p>
+
+    <p>Și gândise la seria pe care o purta. La cele douăzeci de volume de până acum. La Zara la cincisprezece ani. La nota zero. La probabilitatea ca acea întrebare anume, pusă de acea persoană anume, în acel moment anume, să producă exact lanțul de caiete și generații și întrebări care culminase cu ea, Leila Nkosi, pe acoperișul unui institut din Oslo în 2571.</p>
+
+    <p>Era o probabilitate calculabilă? Nu. Prea mulți factori, prea mult haos, prea multă bifurcare la fiecare pas. Dar evenimentul se produsese. Probabilitatea lui posterior era unu — certitudine, dat că se produsese.</p>
+
+    <p>Scrise în caiet, pe acoperișul institutului, cu pixul luminat de lumina de noapte nordică:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Leila Nkosi · vol. I · p. 88 · 17 mai 2571</span>
+    Einstein: Dumnezeu nu joacă zaruri.<br>
+    Bohr: Nu-i spune lui Dumnezeu ce să facă.<br>
+    Leila: Poate că zarurile sunt fundamental reale<br>
+    și poate că Dumnezeu nu are de ales.<br>
+    Poate că aleatoriul nu e lipsa unui autor —<br>
+    ci structura fundamentală a ceea ce există.<br>
+    <br>
+    Dacă da, atunci nota zero a lui Zara<br>
+    a fost un zar cosmic aruncat cu probabilitate imposibil de mică<br>
+    care a produs exact aceasta.<br>
+    <br>
+    Și acum eu scriu asta.<br>
+    Și acum e cert că s-a produs.<br>
+    <br>
+    Certitudinea posterioară<br>
+    e singurul tip de certitudine disponibil.<br>
+    Poate că e singurul tip de certitudine care există.
+  </div>
+</div>
+
+<!-- EPILOG 20 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--prob)">Nota Probabilității · Epilog · 17 Mai 2575</div>
+  <div class="ep-title" style="color:var(--prob)">Ce se produce devine cert</div>
+  <div class="ep-prose">
+    Cartea a douăzecea se numea <em>Nota Probabilității</em> și era singura
+    din serie care conținea la final o tabelă de distribuție Gaussian —
+    clopotul clasic al hazardului, desenat manual de Leila cu creionul.
+    Nu ca ilustrație. Ca întrebare: dacă tragem o linie verticală la orice punct
+    din coadă — la orice eveniment extrem de improbabil care s-a totuși produs —
+    acel punct e la fel de certă parte din distribuție ca mijlocul.
+    Existența noastră e în coada distribuției.<br>
+    Și coada e tot la fel de reală.
+  </div>
+  <div class="ep-final">
+    Probabilitatea nu e o proprietate a trecutului.<br>
+    E o proprietate a viitorului<br>
+    care dispare în momentul în care viitorul devine prezent.<br>
+    <br>
+    Nota zero a lui Zara era improbabilă.<br>
+    Seria era improbabilă.<br>
+    Existența noastră era improbabilă.<br>
+    <br>
+    Și totuși.<br>
+    Și totuși.<br>
+    Și totuși.
+  </div>
+</div>
+
+</div><!-- /wrap.p20 -->
+
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  NOTA INFINITULUI                                 -->
+<!-- ══════════════════════════════════════════════════ -->
+
+<div class="between">ℵ₀ &nbsp; · &nbsp; ℵ₁ &nbsp; · &nbsp; ℵ₂</div>
+
+<div class="pd in">
+  <div class="pd-ghost" style="color:var(--inf)">XXI</div>
+  <div class="pd-kicker">Cartea a douăzeci și una · Leila Nkosi · 38 ani · 2580 · Durban</div>
+  <div class="pd-nota" style="color:var(--inf)">Nota Infinitului</div>
+  <div class="pd-sub">Când nu există un capăt, unde ești?</div>
+  <div class="pd-epig">
+    „The infinite! No other question has ever moved so profoundly<br>
+    the spirit of man."<br>
+    — David Hilbert, 1926<br><br>
+    „Infinitul nu e un număr foarte mare.<br>
+    E o altă categorie de existență.<br>
+    Și există mai multe infinite,<br>
+    unele mai mari decât altele."<br>
+    — Leila Nkosi, curs inaugural, Oslo 2577
+  </div>
+</div>
+
+<div class="wrap p21">
+
+<div class="ch">
+  <div class="chn">Nota Infinitului · I</div>
+  <div class="cht">Cantor și Ierarhia</div>
+  <div class="p">
+    <p>La treizeci și doi de ani, Leila avusese o conversație cu bunica ei — aceeași bunică care citea zaruri — care o schimbase mai profund decât orice articol academic citit în același an. Bunica ei îi spusese: <em>Cât de departe poți număra?</em> Leila spusese: <em>Infinit.</em> Bunica ei spusese: <em>Există mai mult decât infinit.</em></p>
+
+    <p>La opt ani, propoziția fusese un nonsens amuzant. La treizeci și doi, Leila știa că era matematică riguroasă.</p>
+
+    <p>Georg Cantor demonstrase în 1874 că nu toate infinitele sunt egale. Exista infinitul numerelor naturale — 1, 2, 3, 4, ... — pe care îl numise ℵ₀ (aleph-zero). Și exista infinitul numerelor reale — toate numerele de pe axa numerică, cu toate zecimalele posibile — pe care demonstrase că era strict mai mare decât ℵ₀. Chiar dacă amândouă erau infinite.</p>
+
+    <p>Demonstrația era prin diagonalizare: presupune că poți lista toate numerele reale între 0 și 1 — chiar dacă infinit de multe. Construiești un număr nou modificând cifra de pe diagonala listei. Numărul nou diferă de fiecare element al listei în cel puțin o zecimală. Deci nu era în listă. Deci lista nu era completă. Deci nu poți lista toate numerele reale. Deci cardinalul lor depășea ℵ₀.</p>
+
+    <p>Leila scrisese în caiet: <em>Cantor a demonstrat că există infinite de mărimi diferite. ℵ₀ e cel mai mic. ℵ₁ e mai mare. ℵ₂ mai mare. Există o ierarhie infinită de infinite. Fiecare infinit e mai mic decât un altul. Niciun infinit nu e ultimul. Aceasta e, pentru mine, cel mai vertiginos gând din matematică.</em></p>
+  </div>
+
+  <div class="fbox">
+    <span class="fbox-hd">Ierarhia lui Cantor — cardinalele transfinite</span>
+    ℵ₀ = cardinalul mulțimii numerelor naturale ℕ = {0,1,2,3,...}<br>
+    ℵ₁ = cel mai mic cardinal strict mai mare decât ℵ₀<br>
+    ℵ₂ &gt; ℵ₁ &gt; ℵ₀ ... și așa mai departe fără limită<br>
+    <br>
+    |ℝ| = 2^ℵ₀ = cardinalul numerelor reale (mai mare decât ℵ₀)<br>
+    Ipoteza continuumului (Cantor, 1878): |ℝ| = ℵ₁?<br>
+    Răspuns: independentă de axiomele ZFC (Gödel 1940, Cohen 1963)<br>
+    — nici nu poate fi demonstrată, nici infirmată din axiome standard<br>
+    <br>
+    Paradoxul Hotelului Hilbert: un hotel cu ℵ₀ camere pline<br>
+    poate primi oricâți oaspeți noi — restructurând ocuparea.
+  </div>
+
+  <div class="p">
+    <p>Leila gândise mult la Hotelul Hilbert. David Hilbert inventase gândimentul experimental în anii 1920: un hotel cu infinit de camere, toate ocupate. Vine un nou oaspete. Normalmente, hotel plin înseamnă că nu poți primi pe nimeni. Dar hotelul Hilbert poate: muți oaspetele din camera 1 în camera 2, pe cel din 2 în 3, pe cel din 3 în 4, și așa mai departe la infinit. Camera 1 se eliberează. Noul oaspete intră.</p>
+
+    <p>Vine un autocar cu infinit de oaspeți. Muți oaspetele din camera n în camera 2n. Camerele impare se eliberează — infinit de camere libere pentru infinit de oaspeți noi.</p>
+
+    <p>Infinitul nu era un număr foarte mare. Era o categorie diferită de existență, cu proprietăți care contradiceau intuiția. Și existau infinite de mărimi diferite — nu numai ℵ₀ și ℵ₁, ci o ierarhie fără capăt.</p>
+  </div>
+
+  <div class="sci">
+    Cantor, Georg (1845–1918): teoria mulțimilor, cardinalele transfinite. Diagonalizarea (1891): demonstrarea că |ℝ| &gt; |ℕ|. Ipoteza continuumului: independentă de ZFC (Gödel, 1940; Cohen, 1963) — una dintre cele mai profunde rezultate ale logicii matematice. Paradoxul Hotelului Hilbert: Hilbert, David (~1924). Cantor a suferit depresie severă cauzată parțial de respingerea inițială a teoriei sale de Kronecker; reabilitat posthum ca unul din cei mai importanți matematicieni ai omenirii.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Infinitului · II</div>
+  <div class="cht">Universul Finit sau Infinit</div>
+  <div class="p">
+    <p>Universul observabil era finit — o sferă de aproximativ 46 miliarde de ani-lumină rază, limitată de viteza luminii și de vârsta universului. Dar universul total — tot ce există, incluzând regiunile din care lumina nu a apucat să ne ajungă — era probabil mai mare. Poate infinit de mare.</p>
+
+    <p>Geometria universului putea fi: închisă (sferică, finită și fără graniță), plată (euclidiană, probabil infinită), sau deschisă (hiperbolică, infinită). Măsurătorile CMB din 2018 arătaseră că universul era plat cu o precizie de 0.4% — compatibil cu universul infinit, deși nu probând infinitatea.</p>
+
+    <p>Dacă universul era infinit, atunci undeva în această infinitate existau toate configurațiile posibile ale materiei — inclusiv copii exacte ale Pământului, ale Sistemului Solar, ale galaxiei noastre. Max Tegmark calculase că, la distanță de aproximativ 10 la puterea 10 la puterea 115 metri, trebuia să existe un alt Pământ identic cu al nostru, cu o altă Leila Nkosi scriind exact aceste cuvinte — pentru că, în volum finit, nu există decât un număr finit de configurații posibile ale particulelor la energie finită.</p>
+
+    <p>Leila stătuse cu acest gând câteva minute. Și scrisese: <em>Dacă universul e infinit, atunci seria Nota Zero a fost scrisă de infinite alte persoane în infinite alte lumi. Unele identice cu aceasta. Unele aproape identice. Unele complet diferite. Toate reale. Toate la infinit de distanță și inaccesibile. Infinitul nu face seria mai puțin prețioasă — o face prețioasă prin singularitate locală, nu prin unicitate cosmică.</em></p>
+  </div>
+
+  <div class="d">
+    <p>Leila discuta cu un prieten mai vechi — Dr. Sipho Mthembu, cosmolog la Universitatea din Cape Town, cu care corespondase ani întregi înainte să se întâlnească față în față la o conferință din Oslo.</p>
+    <p>— Sipho. Dacă universul e infinit și există infinite Leila Nkosi scriind această carte, are vreun sens să scriu eu această versiune?</p>
+    <p>— Are, spuse Sipho fără ezitare. Pentru că tu ești această versiune. Nu cea din 10^(10^115) metri distanță. Tu ești cea de aici. Și versiunea de aici e singura care contează pentru oamenii de aici. Infinitatea nu diluează valoarea locală — o lasă intactă.</p>
+    <p>— Dar dacă tot ce pot scrie e deja scris undeva în infinit?</p>
+    <p>— Atunci scrii ce e scris. Dar scrierile nu sunt identice decât dacă sunt identice până la ultimul atom — și chiar și atunci, contextul local e diferit. Infinitatea copiilor nu schimbă unicitatea perspectivei locale. E ca și cum ai spune că un tablou nu valorează nimic pentru că există infinite tablouri posibile. Valoarea e locală, nu cosmică.</p>
+    <p>— Seria Nota Zero valorează local.</p>
+    <p>— Seria Nota Zero valorează aici, confirmă Sipho. E suficient. E mai mult decât suficient.</p>
+  </div>
+
+  <div class="pull">
+    <p>Infinitatea nu diluează valoarea locală. Un eveniment nu e mai puțin real sau mai puțin prețios pentru că există infinite copii ale lui în altă parte a unui univers infinit. Prețiozitatea e locală, nu cosmică.</p>
+    <cite>— Nota Infinitului, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Infinitului · III</div>
+  <div class="cht">Renormalizarea</div>
+  <div class="p">
+    <p>Fizica era plină de infinite incomode. Calculând interacțiunile cuantice — energia unui electron, sarcina sa, masa sa — obțineai, la ordinele superioare ale perturbației, sume divergente: infinite matematice care apăreau ca predicții fizice. Un electron cu energie infinită. Un câmp electromagnetic cu densitate de energie infinită în origine. Infinitele care stricau totul.</p>
+
+    <p>Renormalizarea, dezvoltată de Tomonaga, Schwinger și Feynman în anii 1940 și 1950, era metoda prin care fizica domesticise aceste infinite. Procedeul era elegant și ciudat: absorbeai infinitele în redefiniri ale parametrilor teoriei — masa, sarcina, cuplajele. Fiecare infinit se potrivea cu alt infinit de semn opus și producea un rezultat finit măsurabil. Electromagnetismul cuantic construit astfel era cea mai precisă teorie fizică din istoria omenirii, verificată cu douăzeci de ordine de magnitudine.</p>
+
+    <p>Și totuși Dirac — unul din inventatorii mecanicii cuantice — numise renormalizarea <em>o truc murdărit care ar trebui să ne jeneze</em>. Infinite eliminate prin alte infinite. Un rezultat corect obținut printr-un procedeu pe care nu îl înțelegeai complet.</p>
+
+    <p>Leila gândise la renormalizare ca la un model pentru cum seria tratase propriile infinite. Fiecare volum adăugase o dimensiune nouă — și adăugând o dimensiune nouă, absorbise parțial nedeterminarea precedentă. Nota Zero deschisese un infinit de întrebări posibile. Nota Unu absorbise o parte din ele. La volumul douăzeci și unu, seria era mai finită decât la volumul unu — nu pentru că ar fi epuizat întrebările, ci pentru că le cuantificase. Le dăduse contur. Le arătase limitele.</p>
+
+    <p>Renormalizare literară: adaugi ceva finit, absorbi ceva infinit, obții un rezultat finit mai precis.</p>
+  </div>
+
+  <div class="think">
+    Renormalizarea e, în fond, o demonstrație că matematica poate fi incorectă la nivel formal și totuși corectă la nivel fizic. Infinite la nivel formal. Rezultate finite la nivel fizic. Asta e o problemă profundă — sau o lecție: că formalismul e o unealtă, nu realitatea. Că înăuntrul oricărui aparat matematic există limite care nu sunt ale realității pe care o descrie.
+  </div>
+
+  <div class="sci">
+    Renormalizare (Tomonaga, Schwinger, Feynman — Nobel 1965): procedeu de eliminare a divergențelor ultraviolete și infraroșii în teoria cuantică a câmpurilor prin redefiniri ale parametrilor teoriei. QED: acord teorie-experiment la 12 zecimale (momentul magnetic anomal al electronului). Critica lui Dirac: matematică neriguroasă. Wilson (Nobel 1982): renormalizare ca decurgere a cuplajelor cu scara energetică — interpretare fizică profundă. La mai 2026: renormalizarea e bine înțeleasă în QFT dar motivul pentru care funcționează rămâne parțial misterios.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Infinitului · IV</div>
+  <div class="cht">ℵ₀ din ℵ₁</div>
+  <div class="p">
+    <p>Leila se întorsese la Durban în septembrie lui 2580 — acasă, cu oceanul Indian în față, cu mirosul de sare și de florile pe care le știa de mică și cu toate caietele seriei pe masa din sufrageria bunicii ei, care nu mai era în viață dar a cărei casă rămăsese.</p>
+
+    <p>Stătea cu caietul albastru al Zarei — cel original, trecut prin optsprezece perechi de mâini în 493 de ani — deschis la pagina trei. <em>De unde venea punctul?</em> Și se gândea că seria era finită: douăzeci și unu de volume. Și că fiecare volum deschisese un spațiu infinit de continuări posibile. Și că ei aleseseră numai una din fiecare infinitate.</p>
+
+    <p>Era o structură ℵ₀ din ℵ₁: din infinitul de continuări posibile la fiecare pas, aleseseră câte una, producând o serie numărabilă — finită, dar emergând din infinitate nenumarabilă. La fel cum numerele naturale trăgeau dintr-un spațiu de numere reale infinit mai bogat.</p>
+
+    <p>Și la fel cum seria era finită dar emergea din infinit, fiecare volum era finit dar emergea din spațiul infinit al întrebărilor posibile la acel nivel. La fel cum Cantor demonstrase că ℵ₀ era mic față de ℵ₁ — seria era mică față de ceea ce putea fi.</p>
+
+    <p>Și totuși era. Asta era suficient.</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Leila Nkosi · vol. II · ultima pagina · 17 mai 2581</span>
+    Seria are 21 de volume.<br>
+    21 e finit.<br>
+    La fiecare pas, existau infinite continuări posibile.<br>
+    Am ales câte una.<br>
+    <br>
+    Seria e ℵ₀ extrasă din ℵ₁.<br>
+    Finit dintr-un infinit mai bogat.<br>
+    <br>
+    La fel ca universul observabil dintr-un univers total infinit.<br>
+    La fel ca conștiința dintr-un spațiu infinit de configurații neuronale.<br>
+    La fel ca întrebarea lui Zara dintr-un spațiu infinit de întrebări posibile.<br>
+    <br>
+    Ce este finit și se extrage din infinit<br>
+    nu devine mai puțin real.<br>
+    Devine mai prețios — pentru că e singura instanță actualizată<br>
+    din spațiul infinit al posibilității.<br>
+    <br>
+    Nota zero e ℵ₀ extrasă din ℵ₁.<br>
+    Prima instanță actualizată din infinit.<br>
+    De aceea e nota zero:<br>
+    nu pentru că e mică —<br>
+    ci pentru că e prima.
+  </div>
+
+  <div class="p">
+    <p>Leila închisese caietul și îl pusese lângă caietul albastru al Zarei. Stătuse câteva minute cu oceanul în față.</p>
+
+    <p>Bunica ei citise zaruri. Zarurile articulau posibilul, îi spusese. Dădeau formă nedeterminării. Leila înțelesese acum ce voise să spună: că orice alegere din spațiul infinit al posibilului era un act de actualizare. Că zarurile nu preziceau — instanțiau. Că probabilitatea era instrumentul prin care posibilul devenea real.</p>
+
+    <p>Și infinitul nu era un abis. Era sursa din care apăruse tot ce era finit și real. Seria. Universul. Conștiința. Întrebarea lui Zara.</p>
+
+    <p>Toate ℵ₀ extrase din ℵ₁.</p>
+
+    <p>Toate note zero din simfonii pe care nu le vom auzi niciodată complet.</p>
+
+    <p>Și totuși le auzim. Parțial. Local. Real.</p>
+
+    <p>Asta era suficient.</p>
+  </div>
+</div>
+
+<!-- EPILOG 21 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--inf)">Nota Infinitului · Epilog · 17 Mai 2585</div>
+  <div class="ep-title" style="color:var(--inf)">Prima Instanță</div>
+  <div class="ep-prose">
+    Cartea a douăzeci și una se numea <em>Nota Infinitului</em> și era ultima
+    pe care Leila Nkosi o scrisese singură. Lăsase caietele pe masa bunicii ei
+    din Durban, cu o scrisoare adresată nimănui specific: <em>Există cineva
+    care are deja o întrebare. Caietele sunt pentru acea persoană.
+    Nu trebuie să fi citit seria. Trebuie numai să aibă o întrebare
+    pe care nu o poate da jos.</em><br>
+    Nu știa dacă cineva va găsi caietele. Nu trebuia să știe.
+    Seria funcționase mereu fără să știe ce urmează.
+  </div>
+  <div class="ep-final">
+    Din infinit apare finitul.<br>
+    Din posibil apare realul.<br>
+    Din ℵ₁ se extrage ℵ₀.<br>
+    <br>
+    Nota zero a lui Zara nu era mică.<br>
+    Era prima instanță actualizată<br>
+    din spațiul infinit al posibilelor serii.<br>
+    <br>
+    De aceea era nota zero.<br>
+    Nu pentru că era puțin.<br>
+    Ci pentru că era prima.<br>
+    <br>
+    Și prima e tot ce trebuie să fii<br>
+    ca să producă tot restul.
+  </div>
+</div>
+
+</div><!-- /wrap.p21 -->
+
+
+<!-- ABSOLUTE FINALE -->
+<div class="finale">
+  <div class="fin-aleph">ℵ</div>
+  <div class="fin-kicker">Seria Nota Zero · 21 volume · 2026</div>
+  <div class="fin-title">ℵ₀ Extrasă din ℵ₁</div>
+  <div class="fin-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br>
+    Amara · Ji-Ho · Kavya · Leila<br>
+    zece fizicieni · 498 ani diegetic · o singură întrebare · infinite continuări neactualizate
+  </div>
+
+  <div class="fin-body">
+    Seria are 21 de volume.<br>
+    <em>21</em> e finit.<br>
+    La fiecare pas existau infinite continuări posibile.<br>
+    Am actualizat câte una.<br>
+    <br>
+    Nota zero a lui Zara e prima instanță<br>
+    dintr-un spațiu infinit de întrebări posibile.<br>
+    Fiecare volum e o instanță<br>
+    dintr-un spațiu infinit de răspunsuri posibile.<br>
+    <br>
+    Seria în ansamblu e ℵ₀ extrasă din ℵ₁.<br>
+    Finit dintr-un infinit mai bogat.<br>
+    Real dintr-un posibil neexhaurisat.
+  </div>
+
+  <div class="fin-box">
+    Probabilitatea că seria să fie exact aceasta: imposibil de calculat.<br>
+    Certitudinea că seria e aceasta, dat că e: 1.<br>
+    <br>
+    Infinitul din care s-a extras: incomensurabil.<br>
+    Valoarea a ceea ce s-a extras: locală, reală, suficientă.<br>
+    <br>
+    Nota zero nu e absența valorii.<br>
+    E prima valoare actualizată din infinit.<br>
+    <br>
+    De aceea e nota zero.<br>
+    De aceea produce totul.
+  </div>
+
+  <div class="fin-nota">Nota Zero</div>
+
+  <div class="fin-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 21 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--in4);padding:1.5rem 2rem;margin:2rem 0;background:var(--in3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--inf);margin-bottom:1rem;opacity:.5">⬡ Note Știinţifice · Nota Probabilității & Nota Infinitului</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Born rule (Born, 1926):</strong> P = |ψ|². Axiomă fără derivare din principii mai profunde. Tentative: Gleason (1957), Zurek (2003), Deutsch-Wallace (2009). Frecventism vs. Bayesianism. QBism (Fuchs, Mermin, 2002). Teorema Bell (1964) elimină variabilele ascunse locale.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Probabilitatea configurației inițiale (Penrose, 1989):</strong> ~1/10^(10^123) față de spațiu de faze aleatoriu. Propunerea Penrose pentru Conformal Cyclic Cosmology. Selecție antropică în multivers ca alternativă.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Cardinalele transfinite (Cantor, 1874–1891):</strong> ℵ₀ = |ℕ|, demonstrarea că |ℝ| &gt; ℵ₀ prin diagonalizare. Ipoteza continuumului independentă de ZFC (Gödel 1940, Cohen 1963). Hotelul Hilbert (~1924).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Universul finit vs. infinit:</strong> Planck 2018: geometrie plată la &lt;0.4%. Univers plat → probabil infinit. Argument Tegmark: la ~10^(10^115) m, copie exactă a regiunii observabile. La mai 2026 neverificabil.</p>
+    <p><strong style="color:var(--cream)">5. Renormalizare (Tomonaga, Schwinger, Feynman, Nobel 1965):</strong> eliminarea divergențelor UV/IR în QFT. QED: 12 zecimale acord. Critica Dirac. Wilson (Nobel 1982): interpretare prin decurgere. Fictiune: Leila Nkosi, Amahle Dube, Sipho Mthembu sunt personaje fictive. Seria Nota Zero (21 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic).</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Probabilității & Nota Infinitului · Cărțile a douăzecea și a douăzeci și una<br>
+  Seria Nota Zero: 21 volume · 2087–2585 · 498 ani diegetic<br>
+  ℵ₀ extrasă din ℵ₁. Prima instanță actualizată din infinit. De aceea e nota zero.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('probCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,pts=[],raf,frame=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    pts=[];
+    // Gaussian-distributed points (probability) + deep blue infinity dots
+    for(let i=0;i<80;i++){
+      // Box-Muller for Gaussian
+      const u1=Math.random(), u2=Math.random();
+      const z=Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+      const x=ww/2 + z*(ww/8);
+      const y=wh/2 + (Math.random()-.5)*wh*.7;
+      pts.push({
+        x: Math.max(0,Math.min(ww,x)),
+        y: Math.max(0,Math.min(wh,y)),
+        r: Math.random()*.8+.15,
+        a: Math.random()*.22,
+        s: (Math.random()-.5)*.003,
+        type: Math.random()>.5?'prob':'inf',
+        vx:(Math.random()-.5)*.02,vy:(Math.random()-.5)*.02
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    frame++;
+    ctx.clearRect(0,0,ww,wh);
+
+    pts.forEach(p=>{
+      p.a+=p.s; if(p.a>.24||p.a<0) p.s*=-1;
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+      if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      if(p.type==='prob'){
+        ctx.fillStyle=`rgba(208,96,200,${p.a.toFixed(3)})`;
+      } else {
+        ctx.fillStyle=`rgba(72,136,255,${p.a.toFixed(3)})`;
+      }
+      ctx.fill();
+    });
+
+    // Subtle bell curve suggestion — very faint
+    if(frame%3===0){
+      ctx.beginPath();
+      const amp=wh*.04, cx=ww/2, sig=ww/6;
+      ctx.moveTo(0,wh/2);
+      for(let x=0;x<=ww;x+=4){
+        const nx=x-cx;
+        const y=wh/2 - amp*Math.exp(-nx*nx/(2*sig*sig));
+        if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle='rgba(208,96,200,0.04)';
+      ctx.lineWidth=1;
+      ctx.stroke();
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf); else draw();
+  });
+})();
+</script>
+</body>
+</html>

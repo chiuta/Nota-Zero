@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nota Muzicii · Layla al-Mansouri · 2481</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#030407;--surface:#0b0d18;
+  --gold:#c8a96e;--gold-dim:rgba(200,169,110,.4);--gold-faint:rgba(200,169,110,.07);
+  --cream:#ede3ce;--cream-dim:rgba(237,227,206,.65);
+  --cyan:#00d8f0;--cyan-dim:rgba(0,216,240,.22);
+  --border:rgba(200,169,110,.12);--border2:rgba(200,169,110,.06);
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-display:'Cinzel',serif;
+  --font-mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--cream);font-family:var(--font-serif);font-size:1.12rem;line-height:1.92;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(3,4,7,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border2);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-family:var(--font-display);font-size:.7rem;letter-spacing:.2em;color:var(--gold);text-decoration:none}
+.nav-info{font-family:var(--font-mono);font-size:.45rem;letter-spacing:.12em;color:var(--cream-dim);opacity:.45;text-transform:uppercase}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(200,169,110,.05) 0%,transparent 70%),radial-gradient(ellipse 40% 30% at 80% 80%,rgba(0,216,240,.03) 0%,transparent 60%)}
+.hero-kicker{font-family:var(--font-mono);font-size:.52rem;letter-spacing:.4em;color:var(--cyan);opacity:.6;text-transform:uppercase;margin-bottom:1.2rem;position:relative}
+.hero-vol{font-family:var(--font-mono);font-size:.45rem;letter-spacing:.2em;color:var(--gold-dim);opacity:.6;text-transform:uppercase;margin-bottom:.8rem;position:relative}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.4rem,8vw,5.5rem);color:var(--gold);font-weight:700;letter-spacing:.02em;line-height:1;margin-bottom:.6rem;position:relative}
+.hero-sub{font-family:var(--font-display);font-size:clamp(.9rem,2.5vw,1.4rem);color:var(--cream-dim);letter-spacing:.08em;margin-bottom:2rem;position:relative}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;justify-content:center;margin-bottom:2.5rem;position:relative}
+.hero-meta-item{font-family:var(--font-mono);font-size:.45rem;letter-spacing:.1em;color:var(--cream-dim);opacity:.5;text-transform:uppercase;text-align:center}
+.hero-meta-item strong{display:block;color:var(--gold);font-size:.58rem;opacity:1;margin-bottom:.15rem}
+.hero-epigraph{max-width:48ch;font-style:italic;font-size:1rem;color:var(--cream-dim);border-left:2px solid var(--cyan-dim);padding-left:1.2rem;text-align:left;margin:0 auto;position:relative}
+.hero-epigraph cite{display:block;margin-top:.4rem;font-family:var(--font-mono);font-size:.47rem;letter-spacing:.1em;color:var(--cyan);opacity:.55;font-style:normal}
+
+/* PROGRESS */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));z-index:999;transition:width .1s linear}
+
+/* CONTENT */
+.container{max-width:780px;margin:0 auto;padding:0 2rem 8rem}
+
+/* CHAPTERS */
+.chapter{padding:4rem 0 2rem;border-top:1px solid var(--border2)}
+.chapter:first-of-type{border-top:none;padding-top:3rem}
+.ch-label{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);opacity:.45;margin-bottom:.6rem}
+.ch-title{font-family:var(--font-display);font-size:clamp(1.2rem,3vw,2rem);color:var(--cream);font-weight:600;margin-bottom:2rem;line-height:1.2}
+
+p{margin-bottom:1.5rem;color:var(--cream-dim)}
+p:last-child{margin-bottom:0}
+em{color:var(--cream);font-style:italic}
+strong{color:var(--gold);font-weight:600}
+
+.drop-cap::first-letter{float:left;font-family:var(--font-display);font-size:4.5rem;line-height:.8;color:var(--gold);margin:.08em .12em 0 0;font-weight:700}
+
+/* NOTEBOOK */
+.notebook{background:var(--gold-faint);border:1px solid var(--gold-dim);padding:1.5rem 2rem;margin:2.5rem 0;font-style:italic;font-size:.95rem;color:var(--cream-dim);position:relative}
+.notebook::before{content:'Caiet · Layla al-Mansouri';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.55;display:block;margin-bottom:.8rem}
+.notebook p{color:var(--cream-dim);margin-bottom:.6rem}
+.notebook p:last-child{margin-bottom:0}
+
+/* FOOTNOTE */
+.footnote-block{background:rgba(0,0,0,.3);border-left:2px solid var(--cyan-dim);padding:1rem 1.5rem;margin:2rem 0;font-size:.78rem;color:var(--cream-dim);opacity:.7;font-family:var(--font-mono);line-height:1.6;letter-spacing:.02em}
+
+/* MUSIC NOTATION METAPHOR */
+.score{text-align:center;padding:2rem 0;font-family:var(--font-mono);font-size:.52rem;letter-spacing:.2em;color:var(--gold-dim);opacity:.4}
+
+/* DIVIDER */
+.divider{text-align:center;padding:1.5rem 0;color:var(--gold-dim);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.5em;opacity:.3}
+
+/* INJUSTICE BOX */
+.injustice{background:rgba(240,80,80,.05);border:1px solid rgba(240,80,80,.3);padding:1.5rem 2rem;margin:2rem 0}
+.injustice::before{content:'★ INJUSTIȚIE EPISTEMICĂ';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(240,80,80,.7);display:block;margin-bottom:.6rem}
+.injustice p{color:var(--cream-dim);font-size:.88rem;margin-bottom:.5rem}
+
+/* DREAM */
+.dream{background:rgba(160,100,240,.05);border:1px solid rgba(160,100,240,.25);padding:1.5rem 2rem;margin:2rem 0;font-style:italic}
+.dream::before{content:'Vis · 4:12 dimineața';font-family:var(--font-mono);font-size:.4rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(160,100,240,.6);display:block;margin-bottom:.6rem;font-style:normal}
+
+/* JOY */
+.joy-marker{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(80,200,140,.7);margin:2rem 0 .5rem;opacity:.8}
+
+/* TRANSFER */
+.transfer{background:var(--surface);border:1px solid var(--cyan-dim);padding:1.2rem 1.5rem;margin:3rem 0;font-family:var(--font-mono);font-size:.45rem;letter-spacing:.1em;color:var(--cyan);opacity:.65;text-transform:uppercase;text-align:center;line-height:1.8}
+
+/* END */
+.end-mark{text-align:center;padding:4rem 0 2rem;color:var(--gold-dim);font-family:var(--font-display);font-size:.75rem;letter-spacing:.3em;opacity:.4}
+
+/* FOOTER */
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border2);font-family:var(--font-mono);font-size:.42rem;letter-spacing:.12em;color:var(--cream-dim);opacity:.3;text-transform:uppercase}
+
+@media(max-width:600px){.hero-title{font-size:2.5rem}.container{padding:0 1rem 6rem}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">Seria Nota Zero</a>
+  <div class="nav-info">Vol. XVII-A · Nota Muzicii · Layla al-Mansouri · 2481–2491</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div style="position:relative;z-index:2;max-width:700px;width:100%">
+    <p class="hero-kicker">Ficțiune speculativă · Teoria corzilor · Al-Kindi · Fizică și muzică · 2481</p>
+    <p class="hero-vol">Vol. XVII-A · între Nota Luminii și Nota Simetriei</p>
+    <h1 class="hero-title">Nota Muzicii</h1>
+    <p class="hero-sub">Layla al-Mansouri · Baghdad / Oslo · 28 ani</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>2481–2491</strong>Diegetic</div>
+      <div class="hero-meta-item"><strong>Baghdad</strong>Origine</div>
+      <div class="hero-meta-item"><strong>Oud</strong>Instrument</div>
+      <div class="hero-meta-item"><strong>QFT · Corzi</strong>Fizică</div>
+      <div class="hero-meta-item"><strong>Vol. XVII-A</strong>Poziție</div>
+    </div>
+    <blockquote class="hero-epigraph">
+      „Al-Kindi a scris matematica muzicii în 830. Noi am redescoperit-o în 1900 și am numit-o altfel."
+      <cite>— Layla al-Mansouri · Caiet II · 17 mai 2491</cite>
+    </blockquote>
+  </div>
+</div>
+
+<div class="score">━━━━ ♩ ♩ ♩ ━━━━ ♩ ♩ ━━━━ ♩ ━━━━</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+<!-- I -->
+<div class="chapter">
+  <p class="ch-label">Capitolul I</p>
+  <h2 class="ch-title">Corzile fizicianului și corzile muzicianului</h2>
+
+  <p class="drop-cap">Ji-Ho Yun îi lăsase caietele pe biroul din Oslo cu un bilet scris pe o foaie simplă, fără plicuri: <em>„Dacă ești surprins de ce e în ele, ești exact persoana potrivită. Dacă nu ești surprins, citește din nou pagina trei."</em> Layla al-Mansouri citise biletul de trei ori. Și nu știuse dacă era sau nu surprinsă, pentru că nu știuse mai întâi cum se simte surpriza față de ceva la care nu știi că te aștepți.</p>
+
+  <p>Era 17 mai 2481 și Layla era fiziciancă la Institutul de Fizică Teoretică din Oslo, specializată în teoria câmpurilor cuantice, și era de douăzeci și opt de ani, și în seara aceea corzile instrumentului ei — un oud cumpărat la Baghdad de tatăl ei cu douăzeci de ani în urmă, cu unsprezece corzi și cutia de rezonanță ovală pe care mâna o cunoștea din memorie musculară — erau dezacordate din cauza temperaturii. Ea le stinsese și rearanjase caietele pe birou și deschisese caietul albastru al Zarei Voss, cel original, la pagina trei.</p>
+
+  <p>Cinci cuvinte. Cerneala puțin estompată la marginea literelor — hârtie de 394 de ani, ținută în arhivele institutului în condiții controlate, nu îmbătrânise uniform. Litera Z din <em>„de"</em> era mai palidă decât restul. Layla se întrebase o clipă dacă asta era cerneala sau lumina.</p>
+
+  <p>Deschisese la întâmplare o pagina din mijlocul caietului. Găsise un pasaj pe care îl citise de două ori înainte să înțeleagă că îl citise deja, că îl știa deja, că îl purtase de ani de zile în altă formă:</p>
+
+  <p><em>„O coardă. O singură coardă, infinit de subțire, vibrând la o frecvență pe care niciun instrument nu o putuse măsura vreodată — pentru că instrumentele sunt construite din aceleași corzi și nu pot sta în afara lor să măsoare."</em></p>
+
+  <p>Layla pusese caietul pe birou. Luase oudul. Acordase prima coardă — <em>rast</em>, do, fundamentala. Trăsese arcușul (sau mai precis: ciupise, că oudul nu are arcuș — <em>risha</em>, pana de plastic sau os). Un sunet plin, cu armonicile lui suprapuse: octava, cvinta, terța majoră, toate prezente simultan în acel singur sunet, invizibile urechii obișnuite dar acolo, reale, măsurabile cu un analizor de spectru.</p>
+
+  <p>Un singur sunet. O sută de frecvențe.</p>
+
+  <p>Stătuse câteva minute cu asta.</p>
+
+  <div class="notebook">
+    <p>Zara Voss a văzut o coardă în bulk. Eu cânt corzi din lemn și nailon în biroul meu din Oslo. Ea spune că instrumentele nu pot măsura corzile cosmice pentru că sunt construite din aceleași corzi. Eu știu asta din muzică: nu poți acorda un instrument cu el însuși. Ai nevoie de un diapazón extern, de o frecvență de referință din afara instrumentului. Fizica nu are diapazón extern. Matematica poate că este diapazónul. Dar și matematica e produs al minților construite din corzi.</p>
+    <p>Asta nu e o problemă nouă. Al-Kindi a scris despre asta în 830. Folosind alte cuvinte. Despre altceva. Dar structura era aceeași.</p>
+  </div>
+</div>
+
+<!-- II -->
+<div class="chapter">
+  <p class="ch-label">Capitolul II</p>
+  <h2 class="ch-title">Al-Kindi și matematica sunetului (830–2481)</h2>
+
+  <p>Abu Yusuf Ya'qub ibn Ishaq al-Kindi trăise în Baghdad în secolul al IX-lea și era primul dintre filozofii arabi pe care arabii îl numeau <em>„filozoful arabilor"</em> — primul, dar nu singurul care merita titlul. Scrisese despre fizică, matematică, optică, farmacie, psihologie, meteorologie. Scrisese și despre muzică.</p>
+
+  <p>Layla citise tratatul de muzică al lui al-Kindi pentru prima dată la șaptesprezece ani, dintr-o copie digitalizată a manuscrisului din Biblioteca Națională din Cairo. Îl citise în arabă clasică, cu dificultate, notând cuvintele necunoscute. Ceea ce al-Kindi descrisese — raporturile dintre frecvențe, intervalele muzicale ca raporturi de numere întregi, structura matematică a armoniei — era același lucru pe care Pitagora îl descrisese cu treisprezece secole înainte și pe care manualele de fizică acustică îl descriau acum. Aceeași matematică. Alte cuvinte. Altă geografie.</p>
+
+  <div class="injustice">
+    <p><strong>Al-Kindi (801–873 d.Hr.)</strong>, <em>Risala fi'l-lahn wa al-nagham</em> (Tratat despre ritm și melodie): primul tratat sistematic de acustică matematică în lumea islamică medievală. Conține teoria matematică a intervalelor muzicale, analiza raporturilor armonice și principiile construcției scalelor modale.</p>
+    <p><strong>Al-Farabi (872–950)</strong>, <em>Kitab al-Musiqa al-Kabir</em> (Marea Carte a Muzicii): clasificare completă a sunetelor, matematica modurilor muzicale, acustică fizică. Cel mai sofisticat tratat de teoria muzicii din Evul Mediu, în orice tradiție.</p>
+    <p><strong>Ibn Sina (980–1037)</strong>, <em>Kitab al-Shifa</em>, secțiunea muzică: integrarea matematicii armonice cu filozofia naturii. Prima descriere a propagării sunetului ca perturbație a aerului.</p>
+    <p>Niciuna din aceste lucrări nu apare în curricula standard de acustică fizică din universitățile occidentale. Transmiterea matematicii armonice arabe spre Europa medievală se face prin traduceri latine (Gerard din Cremona, sec. XII), în care autorii arabi sunt adesea omisi sau citați tangențial. Teoria muzicii occidentale se prezintă ca descendentă din Pitagora, cu un salt direct la Helmholtz (1863). Golul de cincisprezece secole — în care matematica arabă a rafinat și extins aceeași structură — nu este sistematic reprezentat. La mai 2026, această situație rămâne parțial necorijată.</p>
+  </div>
+
+  <p>Layla nu era indignată față de asta — sau nu numai indignată. Era fascinată de structura transmiterii. Că matematica era aceeași, că apăruse independent în tradiții separate cu secole distanță, că convergența era prea precisă pentru a fi coincidență. Că poate structura matematică a armoniei era mai mult decât o convenție culturală — era o proprietate a realului pe care mințile suficient de precise o găseau indiferent de unde plecau.</p>
+
+  <p>Wigner pusese întrebarea: de ce funcționează matematica? Yuki elaborase: matematica e amprenta realului în mintea produsă de real. Layla adăuga un strat concret: matematica armoniei muzicale a apărut independent în Grecia antică, în Baghdad medieval, în Europa Renașterii — pentru că structura fizică a sunetelor forțează orice minte care o studiază cu atenție spre aceleași raporturi numerice. Convergența nu e culturală. E fizică. Realul impune aceeași amprentă pe minți din tradiții radical diferite.</p>
+
+  <div class="notebook">
+    <p>Al-Kindi nu a „precedat" teoria occidentală a muzicii. A formulat aceeași teorie, din aceeași realitate fizică, cu instrumente matematice similare, cu trei sute de ani înainte. Nu e precursor. E parallel — sau mai exact, e același lucru. Că îl numim precursor și nu îl cităm în manualele de fizică acustică e o eroare de narațiune istorică, nu de fizică. Fizica nu are naționalitate. Eroarea e a istoriei.</p>
+    <p>Scriu asta nu ca acuzație. Ca observație despre structura transmiterii cunoașterii. Caietele acestea au traversat 394 de ani prin douăzeci și una de perechi de mâini. Tratatul lui al-Kindi a traversat douăsprezece secole prin mâini pe care nu le știu complet. Ambele sunt transmitere. Una e recunoscută. Cealaltă, parțial nu.</p>
+  </div>
+</div>
+
+<!-- III -->
+<div class="chapter">
+  <p class="ch-label">Capitolul III</p>
+  <h2 class="ch-title">Baghdad · strada al-Mutanabbi · o dimineață anonimă</h2>
+
+  <p>Layla se întorsese la Baghdad în septembrie 2481 pentru șase săptămâni, cu laptopul și cu caietele și cu oudul și cu un set de articole despre teoria câmpurilor cuantice pe care nu le terminase la Oslo. Prima dimineață mergea la strada al-Mutanabbi — strada cărților din Baghdad, numită după poetul abbasid din secolul al X-lea — nu pentru a cumpăra ceva anume, ci pentru că știa că acolo gândea mai clar.</p>
+
+  <p>Strada era îngustă și acoperită parțial de tarabe. Mirosea a hârtie veche, a cafea fiartă tare, a scrum de țigară și a parfumul specific al cărților arabe folosite — un amestec de cerneală și timp pe care nu îl știa din nicăieri altundeva. Vânzătorii nu o cunoșteau. Ea nu cunoștea pe nimeni. Era un corp care se mișca printre alte corpuri, care alegea drumul prin mulțime după reguli pur fizice — evitând umeri, ocolind tarabe, urmând fluxul.</p>
+
+  <p>Un vânzător de ceai cu o termos verde deschisă. Layla plătise și stătuse pe o banchetă de lemn lângă o tarabă de cărți uzate. Băuse ceaiul — dulce, cu cardamon, prea fierbinte — și deschisese <em>Kitab al-Shifa</em> al lui ibn Sina, volumul al doilea, secțiunea despre muzică. Ediție facsimil. Scris în arabă clasică pe care o citea cu dificultate, mai lent decât citea engleza sau franceza sau româna.</p>
+
+  <p>Ibn Sina distinsese în 1020 între muzica practică — ce auzi, ce cânți, efectul ei asupra emoțiilor — și muzica teoretică — structura sa matematică, raporturile de frecvențe, teoria intervalelor. Distincția era exactă: muzica practică apărea în timp, era corporală, era experiată. Muzica teoretică era atemporală, era structurală, era matematică.</p>
+
+  <p>Aceeași distincție, realizase Layla bând al doilea ceai, pe care fizica o facea mereu între fenomenul observat și teoria care îl descrie. Universul practic — ce observăm — și teoria câmpurilor cuantice — structura matematică a realului. Ibn Sina nu vorbise despre fizica cuantică. Vorbise despre muzică. Dar structura distincției era identică.</p>
+
+  <p>Poate că muzica și fizica teoretică nu sunt disciplini diferite care se intersectează metaforic. Poate că ambele sunt modalități diferite de a studia aceeași proprietate a realului — că realul are o structură armonică, că vibrația e mai fundamentală decât substanța, că frecvența precede materia.</p>
+
+  <p>Scrisese asta pe o foaie ruptă dintr-un caiet de notițe — nu în caietele seriei, fiindcă nu era gata să o pună acolo — și o pliase și pusese în buzunarul de la jachetă. Ridicase termos-ul și îl returnase vânzătorului de ceai. Vânzătorul nu ridicase privirea din cartea lui. Nimeni nu știuse că acolo, pe banca aia de lemn, se formulase ceva.</p>
+</div>
+
+<div class="divider">· · · ·</div>
+
+<!-- IV -->
+<div class="chapter">
+  <p class="ch-label">Capitolul IV</p>
+  <h2 class="ch-title">Fine-tuning și acordatul instrumentului</h2>
+
+  <p>Problema fine-tuning-ului o știa de la Zara — Nota Vieții descrisese-o cu claritate. Constantele fizice ale universului par ajustate cu o precizie uluitoare pentru a permite complexitate. Constanta cosmologică. Raportul maselor nucleonilor. Constanta structurii fine. Fiecare cu o fereastră de toleranță de ordinul zecimilor sau miimilor din valoarea sa, dincolo de care nu ar apărea atomi stabili, sau stele, sau chimie, sau viață.</p>
+
+  <p>Explicațiile propuse: design inteligent (respins de comunitatea știintifică); selecție antropică prin multivers (elegant dar neverificabil); necesitate logică (nedemonstrat); hazard pur (vertiginos ca probabilitate).</p>
+
+  <p>Layla adusese o perspectivă pe care o formulase încet, pe parcursul a trei săptămâni la Baghdad, acordând oudul în fiecare seară înainte de practică.</p>
+
+  <p>Acordatul unui instrument nu e impus din afară. E o aliniere a instrumentului la o referință externă — un diapazón, o altă coardă acordată, sau astăzi un tuner electronic care măsoară frecvența și o compară cu standardul. Fără referință externă, nu poți acorda. Poți acorda relative — corzile unele față de altele — dar nu absolut față de un standard.</p>
+
+  <p>Universul nu are referință externă. Nu există un diapazón cosmologic față de care să fie acordat. Și totuși e acordat — sau pare acordat, cu acele constante care permit complexitate.</p>
+
+  <p>Ce dacă universul se acordă pe sine? Nu față de o referință externă — față de propriile condiții de auto-consistență? Ce dacă constantele fizice nu sunt libere să aibă orice valoare, ci sunt constrânse de condiții de consistență internă pe care nu le-am identificat complet — la fel cum un instrument care vrea să producă sunete armonice (nu hașurate, nu disonante) e constrâns de fizica vibrației să aibă anumite proporții, anumite tensiuni, anumite materiale?</p>
+
+  <p>Un oud prost construit nu poate fi acordat: cutia de rezonanță ar absorbi frecvențele greșit, corzile ar produce bătăi, armonicile s-ar anula reciproc. Forma instrumentului constrânge ce frecvențe pot rezona în el. Poate că forma universului constrânge ce constante pot rezona în el.</p>
+
+  <div class="notebook">
+    <p>Fine-tuning ca auto-acordaj. Universul nu e acordat de cineva — e construit din condiții de auto-consistență care elimină configura­țiile disonante. Exact cum un instrument prost construit nu poate fi acordat, un univers cu constante inconsistente nu poate produce structuri stabile — se anulează pe sine în dezordine prea rapidă sau în simetrie prea perfectă pentru orice complexitate.</p>
+    <p>Asta nu rezolvă problema. Mută problema: de ce această auto-consistență și nu alta? De ce condițiile de consistență produc tocmai universul acesta și nu altul? Nu știu. Dar măcar reformularea e mai precisă decât „designul" sau „accidentul pur".</p>
+    <p>Trebuie să verific dacă asta e în literatura de specialitate. Dacă e, n-am inventat nimic. Dacă nu e, poate că merită publicat. Dacă e parțial — trebuie înțeles ce parte e nouă și ce parte nu.</p>
+  </div>
+
+  <p>Verificase. Era în literatura de specialitate, în parte — ideea de self-consistency constraints pe constantele fizice apărea în unele lucrări despre fine-tuning antropic și în discuțiile despre landscape-ul String Theory. Dar formularea prin analogie cu auto-acordajul instrumental nu apărea explicit. Era o reformulare, nu o descoperire. Publicase articolul șase luni mai târziu, în <em>Journal of Theoretical Physics</em>, cu un recenzor care scrisese în raport: <em>„Ideea nu e nouă, dar prezentarea prin analogia instrumentală e utilă pedagogic."</em></p>
+
+  <p>Layla citise comentariul și nu știuse dacă să fie dezamăgită sau nu. Ajunsese la concluzia că nu — că o formulare mai clară a ceva care era deja acolo era contribuție reală, chiar dacă nu era descoperire. Și că era mai cinstit să fie recenzorului care citea decât să pretindă originalitate.</p>
+</div>
+
+<!-- V — DREAM -->
+<div class="chapter">
+  <p class="ch-label">Capitolul V</p>
+  <h2 class="ch-title">Visul · 4:12 dimineața · Oslo · iarna lui 2482</h2>
+
+  <div class="dream">
+    <p>Era în sala de concert a institutului — o sală pe care institutul nu o are, dar în vis era acolo, cu pereții de marmură neagră și cu acustica perfectă a unui spațiu construit special pentru sunet. Cânta oudul. Nu o piesă — o improvizație care pornea de la do și urca prin moduri arabice: rast, bayati, hijaz, kurd. Fiecare mod cu culoarea lui de tristețe sau de bucurie sau de tensiune sau de rezolvare.</p>
+    <p>Și la un moment dat realizase că nu cânt eu oudul. Oudul mă cântă pe mine. Că fiecare coardă pe care o ating e o dimensiune din teoria corzilor — nu metaforic, literal. Că eu sunt în bulk. Că mișcarea mâinii mele face să vibreze o coardă cosmică și că vibrația produce o particulă undeva, un fermion sau un bozon sau poate o particulă fără nume pe care fizica din 2482 nu o descoperise încă.</p>
+    <p>Și că sala de concert e spațiu-tim­pul și că spectatorii — nu i-am văzut, dar știam că sunt acolo — erau observatorii de care vorbise Kaito. Că observarea lor colapsa corzile pe care le cântam în note definite. Că fără observatori, cântam posibilități pure.</p>
+    <p>Ultima imagine: pun oudul jos și observ că masa pe care îl pun e tot o coardă vibrantă. Că podea­ua e corzi. Că eu sunt corzi. Că nota pe care o cânt și corpul care o cântă sunt același material.</p>
+    <p>M-am trezit la 4:12. Am scris imediat, înainte să uit textura visului: <em>nu instrumentul creează muzica. Muzica creează instrumentul.</em> Nu știu ce înseamnă asta în fizică. Știu că e adevărat în muzică.</p>
+  </div>
+
+  <div class="footnote-block">
+    Interpretarea visului ca accesare a structurilor inconștiente ale gândirii are o tradiție lungă — de la Freud (1900) la neurocogniție contemporană (Hobson & McCarley, 1977; Stickgold & Walker, 2004 — rolul somnului REM în consolidarea memoriei și rezolvarea problemelor). Documentarea viselor ca sursă de insight există în istoria științei: Kekulé și inelul benzenic (1865, vis al șarpelui care se mușcă de coadă — posibil legendar dar frecvent citat); Bohr și modelul atomic (1913 — vis al sistemului solar); Ramanujan și formulele matematice (atribuite zeiței Namagiri în stare de somn). La mai 2026, mecanismul neurobiologic al insight-ului nocturnal rămâne parțial neînțeles.
+  </div>
+</div>
+
+<!-- VI — JOY -->
+<div class="chapter">
+  <p class="ch-label">Capitolul VI</p>
+  <h2 class="ch-title">O oră fără fizică</h2>
+
+  <p class="joy-marker">▸ Bucurie non-epistemică · Baghdad · mai 2483</p>
+
+  <p>Sora mai mică a lui Layla — Mariam, nouă ani — vroia să înveţe oud. Nu pentru că ar fi vrut să devină muziciancă. Vroia să facă ce face Layla. Asta era motivul, spus fără nicio jenă: <em>„Tu cânți și e frumos, vreau și eu."</em></p>
+
+  <p>Layla petrecuse o oră cu Mariam în vara lui 2483, în grădina casei de la Baghdad, cu soarele de mai care era deja puternic dar nu insuportabil, cu un oud mic cumpărat de părinți special pentru această oră. Îi arătase cum se ține instrumentul — nu pe genunchi, ci puțin ridicat, cutia de rezonanță sprijinită de coasta dreaptă. Îi arătase cum se ciupesc corzile — nu cu unghia plată, cu unghi ușor, să sune clar.</p>
+
+  <p>Mariam trăsese prima coardă și sunetul fusese strident, dezacordat. Mariam râsese — un râs complet, dezinhibat, de copil care greșise ceva și nu îi păsa. Layla râsese și ea. Nu din politețe. Dintr-o plăcere brută, neargumentată, ca un reflex al corpului față de ceva simplu și bun.</p>
+
+  <p>Nu gândise la fizică. Nu gândise la caietele de pe biroul din Oslo. Nu gândise la fine-tuning sau la al-Kindi sau la corzile cosmice din vis. Gândise numai la unghiul mâinii lui Mariam și la cum să i-l corecteze fără să o descurajeze.</p>
+
+  <p>La finalul orei, Mariam putuse cânta un singur motiv de patru note, lent, cu câteva greșeli. Era tot. Era mult. Mariam plecrase la joacă. Layla rămăsese cu oudul în mână câteva minute, în grădina cu soare de mai, și nu scrisese nimic. Nu era nimic de scris.</p>
+
+  <p>Seara, la birou, deschisese caietul de serie și scrisese:</p>
+
+  <div class="notebook">
+    <p>Am petrecut o oră fără fizică. Mariam a greșit prima coardă și a râs și eu am râs. Nu știu ce legătură are asta cu nimic din ce am scris până acum. Poate că nu are nicio legătură. Poate că e mai important decât tot ce am scris. Nu știu cum să decid.</p>
+    <p>Am remarcat că în ora aceea nu m-am gândit dacă fac ceva util. Nu m-am gândit dacă merituri sau nu să fie notate. Am cântat cu sora mea mică pentru că era frumos. Și a fost suficient.</p>
+    <p>Emil bea ceai rece pe care uitase să îl bea cald. Zara mânca biscuiți de ovăz cu gust de carton. Ama asculta undele gravitaționale. Toate acestea nu sunt acțiuni utile față de fizică. Sunt fizicieni care există complet, nu numai intelectual.</p>
+    <p>Adaug asta la ce transmit: fă un lucru pe săptămână care nu e niciun pas spre niciun scop. Nu pentru a te odihni. Ci pentru că e frumos.</p>
+  </div>
+</div>
+
+<!-- VII — STRING BREAK / VIOLENCE -->
+<div class="chapter">
+  <p class="ch-label">Capitolul VII</p>
+  <h2 class="ch-title">Coarda care s-a rupt · Oslo · noaptea de 3 februarie 2485</h2>
+
+  <p>Era ora unsprezece și jumătate noaptea și Layla cânta singură în biroul ei din Oslo. Nu un concert — practică, exerciții tehnice. Trăgea scale modale în ordine, în tempo lent, cu atenția pe claritatea fiecărei note. Fereastra era aburită pe margini. Afară ningea.</p>
+
+  <p>La trecerea spre octava înaltă pe prima coardă — <em>rast</em> înaltă, do acut — coarda s-a rupt.</p>
+
+  <p>Nu dramatic. Un poc sec, ca o lovitură mică, și capătul liber al corzii o tăiase pe degetul arătător drept — o tăietură mică, adâncă, care sângerase imediat. Un centimetru. Nu durea tare. Dar sângerase.</p>
+
+  <p>Layla stătuse câteva secunde cu degetul ținut sus, privind la oudul cu coarda ruptă. Instrumentul arăta ciudat — asimetric, cu coarda lipsă, cu capătul ei atârnând liber. Nu mai era complet.</p>
+
+  <p>Pusese un șervețel pe deget. Lăsase oudul pe birou. Stătuse cu asta.</p>
+
+  <p>O coardă ruptă schimbă instrumentul. Nu temporar — permanent, în sensul că instrumentul fără coarda aceea nu mai e același instrument. Poate fi reparat — o coardă nouă poate fi montată — dar momentul rupturii e un eveniment ireversibil în istoria instrumentului. El l-a traversat. A trecut prin ruptura aia.</p>
+
+  <p>Ama scrisese despre memoria gravitațională — că spațiu-timplui ține urma fiecărei coliziuni. Că o fuziune de găuri negre lasă o deformare permanentă, infinit de mică, în geometria realității. Că atingerea nu dispare — rămâne.</p>
+
+  <p>Instrumentul ținea minte ruptura. Nu în sensul că ar fi conștient — în sensul că structura lui era acum diferită. Că coarda nouă pe care o va pune mâine va fi o altă coardă, cu o altă tensiune, cu o altă sonoritate puțin diferită. Instrumentul cu coarda nouă nu e instrumentul dinainte de ruptura — e instrumentul care a traversat ruptura și a intrat într-o nouă stare.</p>
+
+  <div class="notebook">
+    <p>Universul ține minte fiecare eveniment. Nu în sensul că există o înregistrare undeva — în sensul că fiecare eveniment modifică structura a tot ce urmează. Un electron care interacționează cu un foton nu mai e același electron — e electronul care a trecut prin acea interacțiune. Câmpul electromagnetic din jurul lui e diferit. Ușor, imperceptibil, dar diferit.</p>
+    <p>Big Bang-ul nu e un eveniment care s-a terminat. E un eveniment pe care universul îl poartă în structura sa, la fiecare nivel, în fiecare particulă. Universul e instrumentul care a supraviețuit propriei sale rupturi originare — coliziunea membranelor, atingerea, expansiunea. El e instrumentul după ruptura sa fondatoare.</p>
+    <p>Și noi — minți construite din particulele acestui instrument — purtăm aceeași amprentă. Suntem consecința rupturii. Sunetul care a apărut din coarda care s-a rupt.</p>
+  </div>
+</div>
+
+<!-- VIII — MISREADING -->
+<div class="chapter">
+  <p class="ch-label">Capitolul VIII</p>
+  <h2 class="ch-title">Greșeala de lectură · Yuki · principiul holografic</h2>
+
+  <p>Yuki Aoyama scrisese în Nota Holografică: <em>„informația unui volum este encodată pe suprafața sa — realul e mai puțin decât pare în volum, și mai mult decât pare pe suprafață."</em></p>
+
+  <p>Layla citise prima dată: <em>„sunetul unui volum este encodat pe suprafața sa."</em></p>
+
+  <p>Nu era ce scrisese Yuki. Layla înlocuise <em>informația</em> cu <em>sunetul</em> — o greșeală de lectură în grabă, la ora două noaptea, cu ochii obosiți.</p>
+
+  <p>Stătuse câteva secunde cu greșeala. Și greșeala era mai interesantă decât textul original.</p>
+
+  <p>Sunetul unui volum pe suprafața sa. Un instrument de suflat — un ney, un flaut, un saxofon — produce sunet prin interferența undelor în interiorul coloanei de aer. Dar sunetul care iese e determinat de forma suprafeței instrumentului: lungimea, diametrul, găurile. Informația despre timbre e encodată pe suprafața instrumentului. Interiorul produce — suprafața determină.</p>
+
+  <p>Aceasta era analogă cu AdS/CFT — corespondenţa Maldacena în care o teorie gravitațională în volumul unui spațiu curbat era dual echivalentă cu o teorie de câmp cuantic pe suprafața sa. Yuki știa asta și scrisese corect. Dar formularea prin instrumente muzicale — că forma suprafeței instrumentului determina sunetul produs de volumul interior — era o formulare pe care Layla nu o găsise în literatură și care era, poate, mai intuitivă decât corespondenţa matematică abstractă.</p>
+
+  <p>Publicase un articol despre asta — <em>AdS/CFT și acustica instrumentelor: o analogie pedagogică</em>. Recenzorul scrisese: <em>„Analogia e utilă dar trebuie clarificat că e o analogie, nu o identitate structurală."</em> Clarificase.</p>
+
+  <div class="notebook">
+    <p>Am citit greșit o pagina din Yuki și din greșeala a ieșit un articol. Nu primul articol bun care a ieșit dintr-o eroare. Newton a greșit în prima variantă a calculului. Darwin a greșit câteva ipoteze subsidiare din selecția naturală. Einstein a greșit constanta cosmologică — greșeala lui a devenit, ulterior, ceea ce căutam.</p>
+    <p>Greșeala fertilă nu e greșeala care produce ceva similar cu ce era corect. E greșeala care produce ceva pe care textul corect nu l-ar fi produs. Greșeala mea a produs o analogie pe care Yuki nu o intenționa. Poate că e mai valoroasă pentru că nu a fost intențio­nată — că a venit dintr-un unghi pe care Yuki nu l-a ales.</p>
+    <p>Adaug la ce transmit: citește caietele cu atenție. Și uneori citește-le cu neglijență. Greșelile de lectură pot fi mai interesante decât textul corect.</p>
+  </div>
+</div>
+
+<!-- IX — PHYSICS OF HARMONY -->
+<div class="chapter">
+  <p class="ch-label">Capitolul IX</p>
+  <h2 class="ch-title">Seria Nota Zero ca partitură — nu metaforă</h2>
+
+  <p>Layla ajunsese, la treizeci și șase de ani, la înțelegerea care o adusese la această temă și pe care o elaborase lent, testând-o din mai multe direcții înainte să o considere suficient de precisă pentru a fi scrisă în caietele seriei.</p>
+
+  <p>Seria Nota Zero nu folosea muzica ca metaforă pentru fizică. Nu spunea că universul <em>este ca</em> o simfonie. Spunea că muzica și fizica sunt două modalități de studiu al aceleiași proprietăți fundamentale a realului — că realul are o structură armonică în sens tehnic, nu poetic.</p>
+
+  <p>Fourier demonstrase în 1822 că orice funcție periodică poate fi descompusă într-o sumă de sinusoide cu frecvențe multiple ale celei fundamentale. Aceasta e teorema Fourier — una din cele mai utile în toată matematica aplicată. Mecanica cuantică o utilizează fundamental: funcțiile de undă sunt decompoziții Fourier. Optica o utilizează. Procesarea semnalului o utilizează. Acustica instrumentelor o utilizează.</p>
+
+  <p>Un sunet muzical este o sumă de sinusoide — frecvența fundamentală plus armonicile ei, cu amplitudini diferite. <em>Timbre</em>-ul — calitatea sonoră care distinge un oud de un pian care cântă aceeași notă — e dat tocmai de distribuția relativă a amplitudinilor armonicilor. Aceasta e structura Fourier a sunetului.</p>
+
+  <p>O particulă elementară, în teoria câmpurilor cuantice, e o excitație a unui câmp — o undă în câmpul cuantic cu o anumită frecvență. Masa particulei e determinată de frecvența fundamentală a excitației. Proprietățile sale interne — spin, sarcina, izospin — sunt, în formulările avansate ale teoriei corzilor, determinate de modurile de vibrație ale corzii.</p>
+
+  <p>Armonicile muzicale și modurile de vibrație ale corzilor din teoria M nu sunt analoge. Sunt, matematic, același lucru aplicat la scale diferite. Fourier la scara sunetului. Fourier la scara câmpului cuantic. Fourier la scara corzilor cosmice din bulk.</p>
+
+  <div class="notebook">
+    <p>Al-Kindi a scris matematica armoniei în 830. Fourier a formalizat-o pentru funcțiile periodice în 1822. Heisenberg și Schrödinger au aplicat-o câmpurilor cuantice în 1925–1926. Nambu și Goto și Veneziano au aplicat-o la corzi unidimensionale în 1970–1971. Aceeași structură matematică, de patru ori, la scale diferite, cu scopuri diferite.</p>
+    <p>Nu e o coincidență. E faptul că realul e structurat armonic — că Fourier nu a inventat o metodă matematică, ci a identificat o proprietate a realului pe care muzicienii o practicaseră empiric cu milenii înainte și pe care fizicienii o vor aplica cu decenii după.</p>
+    <p>Dacă asta e corect — și cred că e — atunci muzica nu e o metaforă pentru fizică. E o practică anterioară a fizicii. E modul în care omenirea a studiat structura armonică a realului înainte să aibă ecuații diferențiale.</p>
+  </div>
+
+  <div class="footnote-block">
+    Fourier, Joseph (1768–1830): <em>Théorie analytique de la chaleur</em> (1822) — teorema de descompunere Fourier. Nambu, Yoichiro (1921–2015): acțiunea Nambu-Goto pentru corzi relativiste (1970). Veneziano, Gabriele (n. 1942): formula Veneziano (1968) — originea accidentală a teoriei corzilor din studiul scattering-ului hadronic. Heisenberg, Werner (1901–1976) și Born, Max (1882–1970): mecanica matricelor (1925) — utilizarea implicită a transformatei Fourier în bazele mecanicii cuantice. Conexiunea Fourier–QFT: modurile de vibrație ale câmpurilor cuantice sunt descompuneri Fourier ale operatorilor de câmp. Aceasta nu e o analogie — e structura matematică directă a teoriei.
+  </div>
+</div>
+
+<!-- X — ANTAGONIST -->
+<div class="chapter">
+  <p class="ch-label">Capitolul X</p>
+  <h2 class="ch-title">Dr. Marcus Hoffmann și argumentul serios</h2>
+
+  <p>Conferința de fizică teoretică din Zurich, septembrie 2486. Layla prezentase o lucrare despre analogia Fourier-corzi. În sesiunea de întrebări, un fizician — Dr. Marcus Hoffmann, de la ETH, cu o reputație solidă în teoria câmpurilor — ridicase mâna.</p>
+
+  <p>— Domnișoară al-Mansouri. Înțeleg analogia. E elegantă. Dar eleganța nu e fizică. Ce predicții noi produce această perspectivă? Ce observații ar putea-o falsifica?</p>
+
+  <p>Layla stătuse cu întrebarea o secundă. Era o întrebare bună. Era cea mai bună întrebare din sesiune.</p>
+
+  <p>— Deocamdată, niciuna directe. E o reformulare, nu o extindere a teoriei.</p>
+
+  <p>— Atunci e metaforă, nu fizică, spusese Hoffmann. Cu tot respectul pentru frumusețea ei.</p>
+
+  <p>Layla nu răspunsese imediat. Audiența era liniștită — genul de liniște în care toată lumea știe că se spune ceva important și nimeni nu vrea să rateze.</p>
+
+  <p>— Aveți dreptate că nu produce predicții noi, spusese în final. Și aveți dreptate că fără predicții falsificabile nu e fizică în sens Popper. Dar teoria corzilor în forma actuală nu produce predicții falsificabile la scara experimentelor disponibile — și o numim fizică. Dacă standardul e predictie falsificabilă, aplicat consistent, excludem mai mult decât metaforele muzicale.</p>
+
+  <p>Hoffmann zâmbise — nu ironic, ci cu recunoașterea unui argument corect.</p>
+
+  <p>— Punct valid, spusese. Dar atenție la analogie ca substitut pentru teorie. Istoria fizicii e plină de analogii frumoase care au blocat mai degrabă decât au deschis.</p>
+
+  <p>Avusese dreptate. Layla știa asta. Scrisese în caiet, în seara aceea la hotel, fără să rezolve tensiunea:</p>
+
+  <div class="notebook">
+    <p>Hoffmann are dreptate. Analogia poate bloca. Poate produce impresia că ai înțeles când ai numai o imagine frumoasă a structurii.</p>
+    <p>Și totuși nu am convingerea că greșesc complet. Că Fourier e în muzică și în câmpuri cuantice și în corzi nu e o analogie — e aceeași structură matematică la scale diferite. Asta nu e metaforă. E consecința matematicii.</p>
+    <p>Tensiunea dintre mine și Hoffmann nu e între metaforă și fizică. E între două tipuri de fizicieni: unul care nu acceptă nimic fără predicție falsificabilă, altul care explorează structuri înainte de a ști dacă vor produce predicții. Ambele sunt necesare. Eu sunt al doilea tip. El e primul. Știința funcționează când există amândoi.</p>
+    <p>Nu l-am convins. El nu m-a convins. Amândoi am plecat din acea sală cu gândul că celălalt e parțial greșit. Poate că asta e cel mai bun semn că amândoi suntem parțial drepți.</p>
+  </div>
+</div>
+
+<!-- XI — TRANSMISSION -->
+<div class="chapter">
+  <p class="ch-label">Capitolul XI</p>
+  <h2 class="ch-title">Transmiterea · Kavya Nair · 2491</h2>
+
+  <p>Layla trimisese caietele la Kavya Nair din Kerala cu o scrisoare de două pagini. Nu o scrisoare despre fizică. O scrisoare despre oud — despre cum al-Kindi scrisese matematica armoniei și cum aceeași matematică era în teoria câmpurilor cuantice și cum o coardă ruptă tăiase degetul arătător drept și cum Mariam, sora ei, cântase patru note greșit și râsese și ea râsese.</p>
+
+  <p>Kavya răspunsese cu o propoziție: <em>„Tradiția muzicii carnatice din sudul Indiei e construită pe aceleași raporturi matematice. Poate că ne vom înțelege bine."</em></p>
+
+  <p>Layla citise mesajul și simțise ceva pe care nu știa să îl numească exact — nu satisfacție, nu ușurare. Poate recunoaștere: că ceea ce transmitea ajungea la cineva pentru care nu era un import cultural, ci o continuare naturală a propriei tradiții. Că matematica armoniei arabice și matematica armoniei carnatice erau, la un nivel suficient de profund, aceeași matematică. Că al-Kindi și tradițiile muzicale indiene studiau același realal din rădăcini diferite.</p>
+
+  <p>Pusese oudul în cutia lui. Acordase ultima dată corzile, în ordine, de la cea mai joasă la cea mai înaltă. Sunetul fiecărei corzi umplea biroul câteva secunde înainte să se stingă. Fiecare sunet cu armonicile lui — fundamentala și overtone-urile, suma lor Fourier, structura armonică a realului la scara unui instrument de lemn și nailon.</p>
+
+  <p>Scrisese ultimul rând al ultimului caiet:</p>
+
+  <div class="notebook">
+    <p>O coardă acordată la frecvența corectă nu întreabă de unde vine frecvența. Rezonează. Poate că asta e tot ce poate face o minte care a ajuns suficient de departe cu o întrebare: să rezoneze cu ea, nu să o rezolve. Și să transmită rezonanța, nu răspunsul.</p>
+  </div>
+
+  <div class="transfer">
+    Caietele Layla al-Mansouri · vol. I–II<br>
+    Baghdad / Oslo · 2481–2491 · 10 ani<br>
+    ────────────────────────────────────────<br>
+    Transmise lui Kavya Nair · Kerala · India · 2491<br>
+    împreună cu: tratatul de muzică al lui al-Kindi (facsimil)<br>
+    și cu: o coardă de oud (nouă, neutilizată, acordată la rast)
+  </div>
+</div>
+
+<div class="end-mark">· NOTA MUZICII · Layla al-Mansouri · 2481–2491 ·</div>
+
+<div class="footnote-block" style="margin-top:2rem">
+  <strong>NOTE FIZICE ȘI ISTORICE</strong> (starea cunoașterii la mai 2026, context pentru 2481 ficțional)<br><br>
+  <strong>Teoria corzilor / M-theory:</strong> Corzi unidimensionale vibrante ca constituenți fundamentali ai materiei. Modurile de vibrație determină tipul de particulă. Necesită 10–11 dimensiuni spațiale. Nicio predicție confirmată experimental la mai 2026. <em>Nambu (1970), Goto (1971), Veneziano (1968), Schwarz & Scherk (1974), Green & Schwarz (1984).</em><br><br>
+  <strong>Al-Kindi (801–873):</strong> Abu Yusuf Ya'qub ibn Ishaq al-Kindi — primul filosof arab sistematic. Scrieri: Kitab al-Musiqa (matematica muzicii), Fi al-Basar wa al-Masruh (optică), numeroase tratate de matematică și filozofie naturii. Manuscrisele sale includ prima analiză matematică arabă a intervalelor muzicale, anterioară oricărei formulări europene medievale.<br><br>
+  <strong>Al-Farabi (872–950) și Ibn Sina (980–1037):</strong> Tradiția arabă de acustică matematică, continuată în traduceri latine medievale (Gerard din Cremona, sec. XII). Transmiterea spre Europa e documentată dar sistematic sub-citată în curricula standard de acustică fizică occidentală.<br><br>
+  <strong>Fourier, Joseph (1768–1830):</strong> Teorema de descompunere — orice funcție periodică ca sumă de sinusoide. Baza matematică a acusticii, electronicii, mecanicii cuantice și, implicit, a teoriei corzilor.<br><br>
+  <strong>Memoria gravitațională (Christodoulou, 1991):</strong> Deformație permanentă reziduală a spațiu-timpului după trecerea unei unde gravitaționale. Confirmat teoretic; căutat experimental cu LIGO și LISA.<br><br>
+  <strong>Layla al-Mansouri, Mariam al-Mansouri, Dr. Marcus Hoffmann sunt personaje fictive.</strong> Seria Nota Zero este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu extensiile produse în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.
+</div>
+
+</div><!-- /container -->
+
+<footer>
+  Nota Muzicii · Vol. XVII-A · Alexandru Ionuț Chiuță · 2026<br>
+  în colaborare cu Claude Sonnet 4.6 · Seria Nota Zero
+</footer>
+
+<script>
+const bar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const s = document.documentElement.scrollTop;
+  const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  bar.style.width = (s/h*100)+'%';
+});
+</script>
+</body>
+</html>

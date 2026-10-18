@@ -30,6 +30,18 @@ Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o
 - `index.md` — textul poveștii în format Markdown (versiune în română).
 - `recenzie.html` — „Recenzie exhaustivă” a lucrării, **generată de un model AI (Claude Sonnet 4.6)**, nu critică literară independentă; scorurile (ex. 9,4/10) sunt generate automat și nu au fost validate de un evaluator uman. Eticheta „Recenzie generată de AI / AI-generated review” este afișată bilingv (RO/EN) în titlu, în antet, în notă și în subsol.
 
+## Seria completă (41 de volume)
+
+Pe lângă povestirea din `index.html` (volumul I), depozitul conține seria *Nota Zero* în română:
+
+- `serie/` — ediția finală (19 fișiere, 41 de volume), cu `index.html` ca cuprins. Începe la `serie/index.html`.
+- `serie/arhiva-initiala/` — seria inițială, cu volumele pe teme, și cele 10 analize critice (generate de un model AI).
+- `serie/suplimentare/` — *Nota Muzicii* (Vol. XVII-A), zece scene în proză, o recenzie ficțională din 2400 și ghidul de implementare.
+- `serie/COMPARATIE.md` — comparația dintre ediția finală și seria completă și ce s-a îmbinat.
+- `carte/Nota-Zero-carte-completa-ro.pdf` — cartea completă, 478 de pagini, format A5.
+
+Paginile ediției finale (`serie/*.html`) sunt statice, fără scripturi. Arhiva și materialele suplimentare conțin doar scripturi locale mici (bară de progres, animații), fără apeluri de rețea, cu o excepție: două analize din arhivă (`ANALIZA-clasamente-72-indicatori.html`, `ANALIZA-recenzie-titlologica.html`) încarcă Chart.js de la cdnjs.cloudflare.com pentru grafice (textul se citește și fără). Nicio pagină nu încarcă fonturi externe. Textele sunt ficțiune scrisă în colaborare cu Claude (Anthropic); recenziile și clasamentele sunt generate de un model AI și nu sunt critică independentă.
+
 ## Manual de utilizare
 
 1. Deschide pagina și alege limba cu butoanele **EN / FR / RO** din bara de sus (sau din meniul ☰ pe mobil).
@@ -66,6 +78,8 @@ Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ie
 - Teste: `tests/fff-r8.test.mjs` (rețea blocată, 1280 și 360 px, axe 0 violări cu dialogurile deschise, note adăugate/persistate/șterse/exportate).
 
 ## Istoric / Changelog
+
+- **18 octombrie 2026:** adăugate seria completă (`serie/`), arhiva inițială, materialele suplimentare și PDF-ul cărții; în ediția finală, cărțile II–V au textul integral în locul rezumatelor (vezi `serie/COMPARATIE.md`). Aplicația din `index.html` nu s-a schimbat.
 
 - **14 octombrie 2026 (versiunea 1.1.0):** căutare locală în text, marcaje și note exportabile, kit comun, teste.
 

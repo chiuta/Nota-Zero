@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Gravitațională & Nota Unității · Cărțile a zecea și a unsprezecea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#030208;--deep:#06040e;--surface:#0a0818;
+  --copper:#c87840;--cop2:rgba(200,120,64,.1);--cop3:rgba(200,120,64,.04);
+  --gold:#b89030;--gd2:rgba(184,144,48,.09);--gd3:rgba(184,144,48,.04);
+  --white:#e8e8f0;--wh2:rgba(232,232,240,.1);--wh3:rgba(232,232,240,.04);
+  --silver:#a8b4c8;--sil2:rgba(168,180,200,.09);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.13);
+  --border:rgba(200,120,64,.13);--border2:rgba(200,120,64,.05);
+  --rule:1px solid var(--border);
+  --ruleW:1px solid rgba(232,232,240,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#waves{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rule);
+}
+.cv-series{
+  font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:2rem;opacity:.65;
+}
+.cv-chain{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--border);padding:.75rem 1.4rem;
+  margin-bottom:2rem;line-height:1.65;
+}
+.cv-title{
+  font-family:'Cinzel',serif;font-size:clamp(2.2rem,6.5vw,5.2rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;
+}
+.t-grav{color:var(--copper)}
+.t-unit{color:var(--white)}
+.cv-amp{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.95rem,2.2vw,1.4rem);color:var(--cream2);
+  display:block;margin:.5rem 0;
+}
+.cv-desc{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);
+  color:var(--cream2);max-width:520px;margin:1.8rem auto 0;line-height:1.7;
+}
+.cv-note{
+  margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--border);background:var(--cop3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;
+}
+
+/* PART DIV */
+.pd{
+  border-top:var(--rule);border-bottom:var(--rule);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;
+}
+.pd-ghost{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.02;pointer-events:none;line-height:1;
+}
+.pd-kicker{
+  font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream3);margin-bottom:.8rem;position:relative;z-index:1;
+}
+.pd-nota{
+  font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;
+  position:relative;z-index:1;
+}
+.pd-sub{
+  font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;
+}
+.pd-epig{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);
+  max-width:400px;margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;
+}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom:1px solid var(--border2)}
+.ch:last-child{border-bottom:none}
+.chn{
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;
+  opacity:.5;margin-bottom:.5rem;
+}
+.cht{
+  font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;
+}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic;color:var(--cream)}
+.p strong{font-weight:600;color:var(--cream)}
+.p10 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--copper);text-shadow:0 0 20px rgba(200,120,64,.2);
+}
+.p11 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--white);text-shadow:0 0 20px rgba(232,232,240,.2);
+}
+
+/* ECHO (Yuki din caiete) */
+.echo{
+  margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(184,144,48,.28);background:var(--gd3);
+}
+.echo-hd{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);opacity:.42;margin-bottom:.55rem;
+}
+.echo p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;
+}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{
+  font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold);opacity:.3;margin-top:.45rem;display:block;
+}
+
+/* ECHO DEEP (Zara / Emil prin Yuki prin Ama) */
+.echo-deep{
+  margin:2rem 0;padding:1.1rem 1.6rem;
+  border-left:2px solid rgba(200,120,64,.2);background:var(--cop3);
+}
+.echo-deep-hd{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--copper);opacity:.38;margin-bottom:.55rem;
+}
+.echo-deep p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.92rem;line-height:1.7;
+}
+.echo-deep-attr{
+  font-family:'DM Mono',monospace;font-size:.34rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--copper);opacity:.25;margin-top:.4rem;display:block;
+}
+
+/* ECHO FINAL (vocea seriei) */
+.echo-all{
+  margin:2.5rem 0;padding:1.4rem 2rem;
+  border:1px solid rgba(232,232,240,.1);background:var(--wh3);
+}
+.echo-all-hd{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--silver);opacity:.45;margin-bottom:.7rem;
+}
+.echo-all p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.92rem;line-height:1.75;
+}
+.echo-all-attr{
+  font-family:'DM Mono',monospace;font-size:.34rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--silver);opacity:.3;margin-top:.45rem;display:block;
+}
+
+/* THINK */
+.think{
+  margin:2rem 0;padding:1rem 1.5rem;
+  border:1px dashed var(--border);background:var(--cop3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;
+}
+.think::before{content:'⬡ ';font-style:normal;opacity:.6}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0}
+.d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{
+  margin:2.5rem 0;padding:1.4rem 1.8rem;
+  border:1px solid var(--border);background:var(--gd3);
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;
+  position:relative;
+}
+.nb::after{
+  content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  color:var(--gold);opacity:.3;font-style:normal;
+}
+.nb-hd{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);opacity:.4;margin-bottom:.55rem;
+  font-style:normal;display:block;
+}
+
+/* NB FINAL */
+.nb-final{
+  margin:2.5rem 0;padding:1.6rem 2rem;
+  border:1px solid rgba(232,232,240,.15);
+  background:rgba(232,232,240,.025);
+  font-style:italic;color:var(--cream);font-size:1rem;line-height:1.85;
+  position:relative;
+}
+.nb-final-hd{
+  font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--silver);opacity:.4;margin-bottom:.6rem;
+  font-style:normal;display:block;
+}
+
+/* PULL */
+.pull{
+  margin:2.5rem -1rem;padding:1.6rem 2.5rem;
+  border-left:2px solid;
+}
+.p10 .pull{border-left-color:var(--copper);background:var(--cop3)}
+.p11 .pull{border-left-color:var(--white);background:var(--wh3)}
+.pull p{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);
+  color:var(--cream);line-height:1.5;
+}
+.pull cite{
+  display:block;margin-top:.5rem;
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.14em;text-transform:uppercase;opacity:.45;
+}
+.p10 .pull cite{color:var(--copper)}
+.p11 .pull cite{color:var(--silver)}
+
+/* SCI */
+.sci{
+  margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;
+  color:var(--cream2);line-height:1.75;
+}
+.p10 .sci{border:1px solid rgba(200,120,64,.12);background:rgba(200,120,64,.03)}
+.p10 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--copper);font-weight:700}
+.p11 .sci{border:1px solid rgba(232,232,240,.1);background:rgba(232,232,240,.02)}
+.p11 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--silver);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top:var(--rule);text-align:center}
+.ep-date{
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.4;margin-bottom:1.5rem;
+}
+.ep-title{
+  font-family:'Cinzel',serif;font-size:1.45rem;font-weight:600;margin-bottom:2rem;
+}
+.ep-prose{
+  font-style:italic;color:var(--cream2);
+  max-width:500px;margin:0 auto 2.5rem;line-height:1.85;
+}
+.ep-final{
+  display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;
+}
+
+/* ULTIMA PAGINA A SERIEI */
+.ultima{
+  padding:5rem 2rem;text-align:center;
+  border-top:1px solid rgba(232,232,240,.12);
+  position:relative;
+}
+.ultima-title{
+  font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.2rem);
+  font-weight:700;color:var(--cream);margin-bottom:1rem;letter-spacing:.03em;
+}
+.ultima-sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.05rem;color:var(--cream2);margin-bottom:3rem;line-height:1.7;
+}
+.ultima-note{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,6vw,4.5rem);
+  font-weight:700;letter-spacing:.05em;
+  line-height:1.3;margin:2rem 0;
+  background:linear-gradient(135deg,var(--copper),var(--gold),var(--white),var(--silver));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.ultima-body{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--cream2);
+  max-width:540px;margin:0 auto 2rem;line-height:1.85;
+}
+.ultima-final{
+  display:inline-block;
+  padding:2rem 3rem;
+  border:1px solid rgba(232,232,240,.15);
+  font-style:italic;color:var(--cream);
+  line-height:2.2;font-size:1rem;
+}
+
+/* BETWEEN */
+.between{
+  text-align:center;padding:2.5rem 0;
+  border-top:var(--rule);border-bottom:var(--rule);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);
+}
+
+/* FOOTER */
+footer{
+  border-top:var(--rule);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.3;line-height:2;
+}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="waves" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-series">Seria Nota Zero · Cărțile a zecea și a unsprezecea</div>
+  <div class="cv-chain">
+    Emil → Zara → Kaito → Yuki → <em>Ama Owusu</em><br>
+    Cinci generații. O singură metodă.<br>
+    Urmărește întrebarea greșită până devine întrebarea mai bună.
+  </div>
+  <h1>
+    <span class="cv-title t-grav">Nota Gravitațională</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-unit">Nota Unității</span>
+  </h1>
+  <p class="cv-desc">
+    Yuki Aoyama a murit în 2238 lăsând caietele unei tinere din Accra
+    care era deja la a patra reformulare a primei ei întrebări.
+    Aceasta este cartea primei și ultimei reformulări.
+  </p>
+  <div class="cv-note">
+    Seria completă: Nota Zero · Nota Unu · Nota Finală · Nota Vieții ·
+    Nota Conștiinței · Nota Cuantică · Nota Timpului · Nota Holografică ·
+    Nota Matematicii.<br>
+    Yuki Aoyama a murit în 2238. Ama Owusu are 28 ani în 2255.
+    Lanțul continuă.
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- NOTA GRAVITAȚIONALĂ                              -->
+<!-- ════════════════════════════════════════════════ -->
+
+<div class="pd">
+  <div class="pd-ghost" style="color:var(--copper)">X</div>
+  <div class="pd-kicker">Cartea a zecea · Ama Owusu · 28 ani · 2255 · Oslo + Accra</div>
+  <div class="pd-nota" style="color:var(--copper)">Nota Gravitațională</div>
+  <div class="pd-sub">Universul cântat înainte să poată fi văzut</div>
+  <div class="pd-epig">
+    „GW150914 — 14 septembrie 2015 — a fost prima dată când<br>
+    am auzit spațiu-timpul vibrând.<br>
+    Nu l-am văzut. L-am auzit.<br>
+    Zara Voss scrisese la cincisprezece ani că universul<br>
+    a început ca o notă cântată înainte ca instrumentul<br>
+    să fi fost construit.<br>
+    240 de ani mai târziu înțeleg ce voia să spună."<br>
+    — Ama Owusu, caiet vol. I, p. 1, 2255
+  </div>
+</div>
+
+<div class="wrap p10">
+
+<div class="ch">
+  <div class="chn">Nota Gravitațională · I</div>
+  <div class="cht">Primul Sunet</div>
+  <div class="p">
+    <p>Ama Owusu crescuse în Accra cu o fereastră spre Atlantic și cu bunica ei care îi spunea că oceanul vorbea dacă îl ascultai cu răbdarea corectă. Nu știa atunci că bunica ei descria, fără să știe, exact ce descoperiseră fizicienii în 2015: că și spațiu-timpul vorbea, dacă aveai instrumentele corecte.</p>
+
+    <p>GW150914. Paisprezece septembrie 2015. Primul semnal de undă gravitațională detectat de LIGO — Laser Interferometer Gravitational-Wave Observatory. Două găuri negre de treizeci și șase și douăzeci și nouă de mase solare, fuzionând la 1,3 miliarde de ani-lumină distanță, producând un eveniment care a eliberat mai multă energie decât toate stelele din universul observabil la un loc — timp de o fracțiune de secundă. Și din această eliberare, spațiu-timpul însuși a vibrat, iar vibrația s-a propagat ca un val care a traversat un miliard de ani-lumină și a ajuns, ușor ca respirația unui fluture, la două tuneluri de patru kilometri din Louisiana și Washington.</p>
+
+    <p>Semnalul durase 0,2 secunde. Convertit în sunet audibil, era un chirp ascendent — un „ciupit" — care urca câteva octave înainte să tacă. Echipa LIGO îl ascultase de sute de ori. Fizicienii din toată lumea îl ascultaseră. Ama îl ascultase pentru prima dată la optsprezece ani, în clasa de fizică din Accra, și nu uitase niciodată ce simțise: că era cel mai vechi sunet pe care îl auzise vreodată.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Yuki Aoyama, vol. II, p. 3, 2196 —</div>
+    <p>„Notele de subsol ale lui Zara spuneau mereu «la data mai 2026». Ea știa că fizica se mișcă. Ce mi-ar spune ea despre undele gravitaționale — care fuseseră detectate abia cu 11 ani înainte să scrie — dacă ar fi știut ce urmează? Că instrumentul construirii timpului produce valuri. Că atingerea membranelor produce un ecou pe care îl putem măsura. Că prima notă nu a fost cântată în tăcere — a reverberant."</p>
+    <span class="echo-attr">Yuki Aoyama · caiet vol. II · pagina 3 · 2196</span>
+  </div>
+
+  <div class="p">
+    <p>Ama venise la Oslo cu trei caiete și o întrebare pe care o reformulase de patru ori în doi ani. Yuki îi lăsase caietele sale și îi spusese, cu câteva săptămâni înainte de moarte: <em>Întrebarea ta despre gravitație e legată de întrebarea Zarei despre origine mai direct decât crezi. Dacă îți dai seama cum, scrie-mi.</em> Și adăugase, cu acel fel al ei de a lăsa lucrurile în suspans: <em>Sau nu îmi scrie. Scrie-ți ție.</em></p>
+
+    <p>Ama stătuse un an cu conexiunea neclară. Și apoi, într-o noapte, ascultând din nou GW150914, o auzise diferit. Nu ca pe un semnal tehnic. Ca pe un ecou. Un ecou al atingerii.</p>
+
+    <p>Dacă teoria ekpyrotică era corectă — dacă Big Bang-ul fusese produs de coliziunea a două membrane — atunci coliziunea aceea produsese unde gravitaționale primordiale. Valuri de spațiu-timp propagate din momentul zero. Valuri pe care nu le detectaserăm încă, pentru că erau îngropate în zgomotul cosmic, dar care teoretic existau. Existau ca ecoul primei atingeri.</p>
+
+    <p>Nota zero a lui Zara fusese vibrația dinaintea oricărui sunet. Undele gravitaționale primordi­ale ar fi primul sunet — primul ecou verificabil al atingerii care produsese totul.</p>
+  </div>
+
+  <div class="sci">
+    Undele gravitaționale: predicție a relativității generale (Einstein, 1916), detectate direct de LIGO (Abbott et al., 2016 · Nobel 2017). GW150914 = fuziunea a două găuri negre la ~1.3 Gly distanță. Undele gravitaționale primordiale: produse în inflația cosmică și/sau în coliziuni de membrane (modele ekpyrotice). Detectabile prin polarizarea CMB (modele B) — BICEP/Keck și viitorul detector LISA. La mai 2026 nedetectate direct, dar căutate activ.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Gravitațională · II</div>
+  <div class="cht">Inflația</div>
+  <div class="p">
+    <p>Problema cu Big Bang-ul clasic — singularitatea, momentul t=0, densitatea infinită — nu era singura problemă. Existau două întrebări suplimentare pe care teoria nu le răspundea satisfăcător: de ce universul era atât de plat? Și de ce era atât de omogen?</p>
+
+    <p>Flatness problem: densitatea universului era atât de aproape de densitatea critică — valoarea care separă un univers care se va prăbuși de unul care se va expanda etern — încât, extrapolând înapoi la momentele inițiale, abaterea de la planitate trebuia să fie incredibil de mică. Orice deviere mai mare ar fi produs un univers fie colapsând rapid, fie expandând prea repede pentru a forma galaxii.</p>
+
+    <p>Horizon problem: regiuni ale cerului separate de distanțe pe care lumina nu ar fi avut timp să le traverseze de la Big Bang aveau temperaturi identice la o parte în o sută de mii. Cum putuseră să ajungă la echilibru termic fără să fie în contact cauzal?</p>
+  </div>
+
+  <div class="d">
+    <p>Ama discuta aceste probleme cu profesorul ei nou — Dr. Kwabena Asante, din Accra, care venise la Oslo pentru un semestru și care era, spre bucuria ei, tipul de fizician care punea întrebări în loc de răspunsuri.</p>
+    <p>— Inflația rezolvă amândouă? întrebă Ama.</p>
+    <p>— Inflația postulează că rezolvă amândouă, spuse Kwabena. În primele 10⁻³⁶ secunde, universul s-a extins exponențial — un factor de 10²⁶ sau mai mult. O regiune minusculă, cauzal conectată, s-a lărgit brusc la dimensiunile observabile. Asta explică omogenitatea: totul provenea dintr-o regiune suficient de mică pentru a fi în echilibru termic. Și explică planitatea: inflația aplatizează orice curbură inițială, exact cum umflarea unui balon face suprafața să pară din ce în ce mai plată.</p>
+    <p>— Și ce a cauzat inflația?</p>
+    <p>— Un câmp scalar — inflaton — care a decăzut din starea de energie înaltă. Nu știm ce e inflaton-ul, nu l-am detectat, nu înțelegem complet mecanismul. Avem o fenomenologie care funcționează și un mecanism pe care nu l-am identificat.</p>
+    <p>— Adică știm că s-a întâmplat dar nu știm de ce s-a întâmplat.</p>
+    <p>— Adică avem predicții ale inflației care corespund observațiilor — spectrul fluctuațiilor CMB, distribuția galaxiilor mari, planitatea — și nu avem o teorie fundamentală a inflației. E o situație frecventă în fizică. Știi că funcționează înaintea să știi de ce funcționează.</p>
+    <p>— Ca matematica, spuse Ama.</p>
+    <p>Kwabena o privi câteva secunde. Ce anume ai citit?</p>
+    <p>— Toate caietele, spuse Ama.</p>
+  </div>
+
+  <div class="echo-deep">
+    <div class="echo-deep-hd">— Emil Voss, prin Zara, prin Kaito, prin Yuki, prin Ama —</div>
+    <p>„Dacă volumul e zero, rezultatul matematic e infinit. Dar infinit matematic nu e același lucru cu real. E semnul că ecuația ta a ieșit din domeniul ei de valabilitate."</p>
+    <div class="echo-deep-attr">Emil Voss · Nota Zero · cap. I · 2087 · citat în caietul Zarei (vol. I) · citat în caietul lui Kaito (p. 12) · citat în caietul lui Yuki (vol. I, p. 1) · prima fraza citită de Ama</div>
+  </div>
+
+  <div class="p">
+    <p>Ama înțelesese, citind toate caietele în ordine, de ce această propoziție a lui Emil era prima pe care Yuki o scrisese în caietul ei: era rădăcina întregii serii. Ecuația iese din domeniu. Instrumentul cedează. Limita nu e a realității, ci a descrierii.</p>
+
+    <p>Inflația era același tip de situație: știm că ceva s-a întâmplat — universul e plat și omogen — dar ecuația care descrie ce anume s-a întâmplat iese din domeniu la energii mai mari decât cele accesibile experimental. Inflaton-ul trăia la energii de 10¹⁶ GeV, de o mie de ori mai mari decât ce producea LHC. Poate că nu îl vom detecta niciodată direct.</p>
+
+    <p>Poate că nu trebuia să îl detectăm direct. Poate că undele gravitaționale primordiale — producibile în inflație și măsurabile, în principiu, prin polarizarea CMB — erau amprenta lui. Ecoul inflației în spațiu-timp.</p>
+  </div>
+
+  <div class="sci">
+    Inflația cosmică (Guth, 1981; Linde, 1982): expansiune exponențială în primele ~10⁻³⁶–10⁻³² secunde post-Big Bang. Rezolvă flatness problem (densitate ≈ ρ_critic), horizon problem (echilibru termic în regiune pre-inflație) și magnetic monopole problem. Câmpul inflaton: scalar, nedetectat. Predicții confirmate: spectrul quasi-scalar al fluctuațiilor CMB (Planck 2018). Unde gravitaționale primordi­ale din inflație: producătoare de polarizare B în CMB — căutate de BICEP/Keck, detectabile de viitorul LiteBIRD. La mai 2026 nedetectate direct.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Gravitațională · III</div>
+  <div class="cht">Ascultarea</div>
+  <div class="p">
+    <p>Ama petrecuse vara lui 2255 parțial la Oslo și parțial la Accra, lucrând la ceva care nu era un articol și nu era o carte — era un exercițiu de ascultare. Ascultase toate înregistrările convertite ale undelor gravitaționale detectate în 240 de ani de la GW150914. Sute de evenimente: fuziuni de găuri negre, fuziuni de stele neutronice, câteva evenimente ambigue. Le convertise în sunete și le ascultase pe toate, una câte una, în căști, cu ochii închiși.</p>
+
+    <p>Nu era un experiment științific. Era un ritual personal pe care nu îl explicase nimănui și pe care îl notase în caiet cu o singură propoziție: <em>Vreau să știu cum sună universul când se mișcă.</em></p>
+
+    <p>Ceea ce auzise era un repertoriu al coliziunilor. Fiecare chirp era o pereche de obiecte masive care se spiralau una spre alta de milioane sau miliarde de ani și care, în fracțiunea finală a traiectoriei lor, vibrau spațiu-timpul cu o intensitate pe care nicio altă forță din natură nu o putea egala. Fiecare sunet era un anunț de moarte și de naștere simultane — moartea a două obiecte separate, nașterea unuia mai masiv, mai simplu, mai simetric.</p>
+  </div>
+
+  <div class="think">
+    Gravitația e singura forță care vorbește prin vibrații ale spațiu-timpului însuși. Nu prin particule care se mișcă în spațiu-timp — ci prin oscilații ale mediului în care totul se mișcă. Electromagnetismul transmite informație prin fotoni. Forța nucleară tare prin gluoni. Gravitația transmite informație prin cute și unde în țesătura a tot ce există. E mai profundă decât celelalte. Sau poate că e ultima care ne rămâne de înțeles.
+  </div>
+
+  <div class="p">
+    <p>Revenind la Oslo în septembrie, Ama discutase cu Kwabena despre ceea ce auzise.</p>
+  </div>
+
+  <div class="d">
+    <p>— Fiecare chirp e o atingere, spuse ea. Două obiecte care nu s-au atins niciodată — care s-au spiralat unul spre altul de miliarde de ani fără să se poată atinge pentru că orbitele se micșorau prea lent — și la final se ating. Și în momentul atingerii, spațiu-timpul vibrează.</p>
+    <p>— E o metaforă frumoasă, spuse Kwabena.</p>
+    <p>— Nu e numai o metaforă. Zara Voss a văzut la cincisprezece ani atingerea a două membrane și a numit-o Big Bang. Eu aud în undele gravitaționale ecoul a milioane de atingeri mai mici. Atingeri care produc valuri. Valuri care traversează spațiu-timp și ajung la noi după miliarde de ani. Ce e universul dacă nu un sistem în care atingerile produc ecouri care durează eternitate?</p>
+    <p>— Și undele gravitaționale primordiale din inflație?</p>
+    <p>— Ar fi ecoul primei atingeri, spuse Ama. Dacă inflația a produs unde gravitaționale, și dacă le găsim în CMB, atunci avem amprenta sonoră a momentului în care universul s-a creat pe sine. Nu fotoni — nu lumina de la 380.000 de ani după Big Bang. Gravitație. Vibrația spațiu-timpului de la 10⁻³⁶ secunde după origine.</p>
+    <p>Kwabena tăcu câteva secunde. Scrie asta, spuse în final.</p>
+    <p>— Am scris-o deja, spuse Ama. Înainte să o înțeleg complet. E felul în care funcționează seria asta.</p>
+  </div>
+
+  <div class="pull">
+    <p>Gravitația e singura forță care vorbește prin deformarea a tot ce există. Celelalte forțe trimit mesageri. Gravitația schimbă spațiu-ul în care mesagerii se mișcă.</p>
+    <cite>— Nota Gravitațională, cap. III</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Gravitațională · IV</div>
+  <div class="cht">Memoria Spațiu-Timpului</div>
+  <div class="p">
+    <p>Ultima întrebare a capitolului — și, înțelesese Ama, ultima întrebare a Notei Gravitaționale — fusese una pe care o formulase fără să o planifice, într-o dimineață de noiembrie, stând cu cafeaua răcită lângă fereastra din Oslo care dădea spre fiord:</p>
+
+    <p>Dacă undele gravitaționale se propagă prin spațiu-timp și dacă spațiu-timp este ceea ce conține toată istoria universului — dacă în block universe trecutul, prezentul și viitorul coexistă — atunci undele gravitaționale nu dispar. Se propagă și produc deformații care, teoretic, persistă. Spațiu-timpului îi rămâne o urmă a fiecărei atingeri.</p>
+
+    <p>Nu în sensul sentimental al termenului. În sens tehnic: spațiu-timp are o memorie gravitațională. Fusese descrisă matematic de Christodoulou în 1991 — un efect prin care detectoare suficient de precise ar putea măsura o deplasare permanentă reziduală după trecerea unui val gravitațional. O urmă de neșters în geometria spațiu-timpului.</p>
+
+    <p>Ama scrisese pe o pagina separată, cu litere mari: <em>MEMORIA GRAVITAȚIONALĂ. Spațiu-timpului îi rămâne o urmă permanentă a fiecărei atingeri. Atingerea nu dispare. Ea rămâne în geometria spațiu-timpului ca o modificare permanentă, infinit de mică, dar reală.</em></p>
+
+    <p>Și dedesubt, cu litere mai mici: <em>Zara Voss a spus că atingerea nu se termina. Se transformă. Christodoulou a calculat în 1991 că atingerea nu se termina. Rămâne.</em></p>
+
+    <p>Aceeași afirmație, din două direcții diferite. Una literară. Una matematică.</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Ama Owusu · vol. I · p. 88 · 17 mai 2256</span>
+    Gravitația e forța care nu se poate ecrana. Nu poți face un scut împotriva gravitației. Oriunde te afli, gravitația tuturor celorlalte mase din univers ajunge la tine. Oricât de departe ești, undele gravitaționale de la fuziunile de găuri negre din galaxii îndepărtate ajung la tine — infinit de slabe, dar prezente.
+    Asta înseamnă că ești conectat gravitațional cu tot ce există. Nu metaforic. Literalmente. Fiecare obiect masiv din univers te trage, ușor, în direcția lui.
+    Suntem, toți, reziduul gravitațional al tuturor atingerilor care au avut loc vreodată.
+  </div>
+</div>
+
+<!-- EPILOG 10 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--copper)">Nota Gravitațională · Epilog · 17 Mai 2260</div>
+  <div class="ep-title" style="color:var(--copper)">Ecoul Primei Atingeri</div>
+  <div class="ep-prose">
+    Cartea a zecea se numea <em>Nota Gravitațională</em> și începea, în mod deliberat,
+    cu înregistrarea sonoră a GW150914 — 0,2 secunde de chirp crescendo —
+    reprodusă pe prima pagina ca un cod QR care ducea la un fișier audio.
+    Era prima dată în serie când o pagina conținea un sunet, nu numai cuvinte.
+    Kwabena întrebase de ce. Ama spusese: pentru că unele lucruri nu pot fi explicate.
+    Trebuie auzite.
+  </div>
+  <div class="ep-final" style="border-color:rgba(200,120,64,.2)">
+    Universul vorbește prin deformarea spațiu-timpului.<br>
+    Nu prin particule. Prin cute în mediu.<br>
+    <br>
+    Prima notă a seriei — Nota Zero —<br>
+    era vibrația dinaintea oricărui sunet.<br>
+    A zecea notă — Nota Gravitațională —<br>
+    e primul sunet verificabil.<br>
+    <br>
+    GW150914: 14 septembrie 2015, 09:50:45 UTC.<br>
+    Primul moment în care am auzit că spațiu-timp există.<br>
+    <br>
+    Nu l-am văzut.<br>
+    L-am auzit.<br>
+    Și asta e suficient.
+  </div>
+</div>
+
+</div><!-- /wrap.p10 -->
+
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- NOTA UNITĂȚII                                    -->
+<!-- ════════════════════════════════════════════════ -->
+
+<div class="between">· &nbsp; · &nbsp; · &nbsp; · &nbsp; ·</div>
+
+<div class="pd">
+  <div class="pd-ghost" style="color:var(--white)">XI</div>
+  <div class="pd-kicker">Cartea a unsprezecea · Ama Owusu · 38 ani · 2265</div>
+  <div class="pd-nota" style="color:var(--white)">Nota Unității</div>
+  <div class="pd-sub">De ce există patru forțe și nu una singură</div>
+  <div class="pd-epig">
+    „Există patru forțe fundamentale: gravitația, electromagnetismul,<br>
+    forța nucleară tare și forța nucleară slabă.<br>
+    Fizica ultimului secol a unificat unele dintre ele.<br>
+    Nu pe toate. Niciodată pe toate împreună.<br>
+    De ce nu există o singură forță?<br>
+    Sau: de ce există mai mult de una?<br>
+    Sau: de ce există forțe?"<br>
+    — Ama Owusu, prima pagina caiet vol. II, 2263
+  </div>
+</div>
+
+<div class="wrap p11">
+
+<div class="ch">
+  <div class="chn">Nota Unității · I</div>
+  <div class="cht">Patru și Unu</div>
+  <div class="p">
+    <p>La treizeci și opt de ani, Ama Owusu descoperise că problema unificării forțelor era mai veche decât credea și mai puțin rezolvată decât părea din exterior. Maxwell unificase electricitatea și magnetismul în 1865. Electromagnetismul și forța slabă fuseseră unificate în 1968 de Glashow, Salam și Weinberg — electroslabă, confirmat experimental, Nobel 1979. Forța tare fusese descrisă de cromodinamica cuantică. Gravitația rămăsese separată — singura forță pe care Modelul Standard nu o putea include.</p>
+
+    <p>Simetria parțială era uimitoare și incompletă în același timp. Trei din patru forțe aparțineau aceluiași formalism — teoria cuantică a câmpurilor, gauge theories, simetrii de grup. Gravitația era descrisă de o teorie complet diferită — relativitatea generală — și rezistase oricărei tentative de cuantizare.</p>
+
+    <p>Ama stătuse cu această asimetrie luni de zile. Nu cu soluția — nu exista una confirmată. Cu faptul în sine: că universul părea să aibă o structură parțial unificată și parțial nu. Ca și cum ai construi o casă în care trei camere au același tip de pardoseală și a patra are altul diferit. Nu e inconsistent. Dar e ciudat.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Yuki Aoyama, vol. II, p. 41, 2199 —</div>
+    <p>„Kaito spunea că spațiu-timp era emergent din relații. Dacă gravitația e geometria spațiu-timpului, și dacă spațiu-timpului e emergent, atunci gravitația e emergentă. Dacă celelalte trei forțe sunt cuantice și fundamentale, atunci există un nivel la care gravitația și celelalte trei forțe nu sunt același tip de lucru. Nu din accident — din structura realității. Sau din structura descrierii noastre. Nu știm care."</p>
+    <span class="echo-attr">Yuki Aoyama · caiet vol. II · pagina 41 · 2199</span>
+  </div>
+
+  <div class="p">
+    <p>Ama citise nota lui Yuki și realizase că tensiunea dintre gravitație și celelalte forțe era, în fond, tensiunea mai veche dintre relativitatea generală și mecanica cuantică. Două teorii, ambele extraordinar de precise în domeniile lor, incompatibile la nivel fundamental. Gravitația descria lumea la scară mare: galaxii, spațiu-timp curb, coliziuni de găuri negre. Mecanica cuantică descria lumea la scară mică: particule, câmpuri, probabilități. La scara intermediară — unde trăiau oamenii — ambele funcționau și nu se interferau. La scara Planck, la limita extremă, se contradiceau.</p>
+
+    <p>Theory of Everything — dacă exista — ar trebui să rezolve tocmai această contradicție. Să producă o singură teorie din care să derive atât geometria curbă a spațiu-timpului lui Einstein, cât și funcțiile de undă ale lui Schrödinger și Dirac.</p>
+
+    <p>Teoria corzilor propusese o soluție. Loop Quantum Gravity o altă soluție. Causal Dynamical Triangulation, E8 Theory, Twistor Theory — fiecare cu predicțiile ei, niciuna cu confirmarea experimentală completă.</p>
+
+    <p>Ama scrisese în caiet: <em>Poate că nu există o Theory of Everything în sensul în care căutăm. Poate că există mai multe teorii egale și complementare care descriu același lucru din unghi uri diferite. Poate că unificarea nu e convergentă spre una — e distributivă spre multe care se iluminează reciproc.</em></p>
+  </div>
+
+  <div class="sci">
+    Unificarea forțelor: Maxwell (EM, 1865); Glashow-Salam-Weinberg (electroslabă, 1968, Nobel 1979); QCD (forța tare, 1973). Gravitația: neunificată în Modelul Standard. Tentative: String Theory (unificare în 10-11 dimensiuni), LQG (gravitație cuantică fără string), supersimetrie (SUSY), E8×E8 heterotic strings. Grand Unified Theory (GUT): unifică EM + forță slabă + tare, predicții parțiale confirmate. TOE (Theory of Everything): include gravitație — niciuna confirmată la mai 2026. Ierarhia energetică: GUT la ~10¹⁶ GeV, Planck la ~10¹⁹ GeV — inaccesibile experimental.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Unității · II</div>
+  <div class="cht">Simetria Spartă</div>
+  <div class="p">
+    <p>Unificarea nu era numai o problemă de matematică. Era o problemă de simetrie. La energii suficient de mari — în primele momente după Big Bang — toate forțele fuseseră probabil unificate, parte dintr-o singură simetrie mai înaltă. Pe măsură ce universul se răcise, simetria se spărsese — unele forțe deveniseră distincte de celelalte, proprietățile lor diferite, interacțiunile lor separate.</p>
+
+    <p>Ama găsise această idee fascinantă și dezorientantă în același timp. Că diversitatea forțelor nu era fundamentală — era consecința răcirii. Că la temperatura de la Big Bang nu exista electromagnetism distinct de forța slabă, nu exista gravitație distinctă de celelalte. Exista o singură forță, mai simplă, mai simetrică, din care derivaseră toate celelalte când temperatura scăzuse sub praguri critice.</p>
+
+    <p>Simetria spartă. Termenul tehnic era <em>spontaneous symmetry breaking</em>. Bosonul Higgs — detectat în 2012 — era mecanismul prin care simetria electroslabă se spărsese, dând masă bosonilor W și Z și lăsând fotonul fără masă. Masa era, în sens tehnic, o consecință a ruperii de simetrie. Nu o proprietate fundamentală — o proprietate emergentă a unui univers care se răcise.</p>
+  </div>
+
+  <div class="d">
+    <p>Ama discutase cu o colegă — Dr. Fatima Al-Rashid, fiziciană teoreticiană de la Cairo, cu care împărțea un birou la institutul din Oslo.</p>
+    <p>— Fatima. Dacă la energii înalte toate forțele sunt unificate, înseamnă că diversitatea este o consecință a răcirii. Că trăim într-un univers al simetriei sparte. Că fundamentul e simplu și că complexitatea e un efect termic.</p>
+    <p>— E o interpretare validă, spuse Fatima. Dar are o consecință ciudată: înseamnă că universul nostru nu e starea sa de bază. E o stare metastabilă — o stare de simetrie spartă care, la energii suficient de mici, pare diversă și complexă. Dacă universul s-ar răci la zero absolut, teoretic ar trebui să existe o tranziție de fază spre o stare mai simetrică, mai simplă.</p>
+    <p>— Sau mai instabilă, spuse Ama.</p>
+    <p>— Sau mai instabilă. Există modele în care simetria spartă actuală e o falsă stare de vacuum — că există o stare mai profundă, mai stabilă, mai simetrică — și că o tranziție de fază de vacuum ar propaga o bulă de universul adevărat cu viteza luminii, distrugând tot ce există în calea ei. O pauză. Nu e garantat să se întâmple. Dar nu e exclus.</p>
+    <p>— Deci poate că ordinea noastră, structura noastră, forțele noastre — toate sunt un efect local al unui vacuum instabil.</p>
+    <p>— Poate. Sau poate că vacuumul e stabil. Nu știm. Ama, acesta e teritoriul frontierei.</p>
+    <p>— Știu. Scriu din el.</p>
+  </div>
+
+  <div class="pull">
+    <p>Diversitatea forțelor nu e fundamentală. E o consecință a răcirii. Trăim în simetria spartă a unui univers care s-a răcit de la unitate la complexitate. Complexitatea e modul în care unitatea se vede pe sine de la temperaturi joase.</p>
+    <cite>— Nota Unității, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Unității · III</div>
+  <div class="cht">De ce Există Reguli</div>
+  <div class="p">
+    <p>Ajunsese la întrebarea pe care nu o mai putea evita. Nu de ce există patru forțe — asta era o problemă de fizică, eventual rezolvabilă. Ci: de ce există forțe? De ce există legi ale naturii? De ce universul urmează reguli și nu e pur haos?</p>
+
+    <p>Yuki pusese întrebarea lui Wigner: de ce funcționează matematica? Ama adăuga un strat dedesubt: de ce există structură matematică? De ce universul e regularitate și nu dezordine completă?</p>
+
+    <p>Era, realizase, aceeași întrebare ca Nota Zero — dar pusă de la celălalt capăt. Zara întrebase: de unde venea punctul? Ama întreba: de ce urmează punctul reguli?</p>
+  </div>
+
+  <div class="echo-all">
+    <div class="echo-all-hd">— vocea seriei · cinci generații · 178 ani de întrebări —</div>
+    <p>Emil: „Dacă volumul e zero, ecuația iese din domeniu."</p>
+    <p>Zara: „Atingerea nu s-a produs în timp. Ea a produs timpul."</p>
+    <p>Kaito: „Observatorul e parte din ce observă."</p>
+    <p>Yuki: „Matematica e amprenta pe care realul a lăsat-o în mintea produsă de real."</p>
+    <p>Ama: „De ce urmează realul reguli?"</p>
+    <div class="echo-all-attr">Cinci propoziții · cinci generații · aceeași întrebare din unghiuri din ce în ce mai adânci · 2087–2265</div>
+  </div>
+
+  <div class="p">
+    <p>Ama stătuse cu această secvență de propoziții câteva zile. Observase că fiecare o presupunea pe cea anterioară: Emil spune că ecuația cedează → Zara spune că atingerea produce timeul → Kaito spune că observatorul e implicat → Yuki spune că matematica e amprentă → Ama întreabă de ce există amprentă.</p>
+
+    <p>Nu era o progresie spre un răspuns. Era o progresie spre întrebarea mai precisă. La fiecare generație, același lucru, dar pus mai adânc, mai aproape de miezul inaccesibil.</p>
+
+    <p>Poate că acesta era răspunsul la întrebarea lui Wigner — și răspunsul la întrebarea ei: nu că matematica funcționează pentru că există o ontologie matematică independentă sau pentru că mintea noastră o extrage din realitate. Ci că fiecare formulare a întrebării era mai precisă decât precedenta, și că această precizie crescândă era ea însăși o regularitate, o structură, o regulă.</p>
+
+    <p>Că regulile nu erau un fapt al universului de justificat — ci că urmărirea regulilor era ceea ce produceau ființele apărute din univers. Că regularitatea nu preceda conștiința — o apărea odată cu ea, prin ea.</p>
+
+    <p>Sau poate că nu. Poate că era prea frumos ca să fie adevărat.</p>
+
+    <p>Scrise în caiet: <em>Poate că de ce există reguli e o întrebare despre observator, nu despre univers. Că un univers fără observatori nu are reguli — are fapte. Regulile sunt faptele văzute de ceva care caută regularitate. Și că noi suntem acel ceva.</em></p>
+
+    <p>Și dedesubt, cu litere mai mici: <em>Nu știu dacă asta e fizică sau filozofie sau biologie cognitivă. Dar e tot ce am.</em></p>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Unității · IV</div>
+  <div class="cht">Ultimul Acord</div>
+  <div class="p">
+    <p>Era primăvara lui 2265 și Ama Owusu înțelesese că scria ultimul capitol. Nu pentru că ar fi terminat — nu terminase și știa că nu va termina. Ci pentru că ajunsese la locul unde seria se rotunjea, unde întrebarea inițială din 2087 și întrebarea sa din 2265 se vedeau una pe alta la capetele aceluiași fir.</p>
+
+    <p>Zara la cincisprezece ani: <em>De unde venea punctul?</em></p>
+
+    <p>Ama la treizeci și opt de ani: <em>De ce urmează punctul reguli?</em></p>
+
+    <p>Amândouă întrebări fără răspuns. Amândouă mai bune decât nicio întrebare. Amândouă indicând spre ceva care exista dincolo de instrumentele disponibile.</p>
+
+    <p>Ama luase caietul albastru — cel al Zarei, pe care îl primise de la Yuki și pe care Yuki îl primise de la Kaito care îl primise de la Zara cu o scrisoare scurtă ce spunea numai: <em>Cine continuă va ști ce să facă cu el</em> — și îl deschisese la pagina 120, pagina goală pe care Emil o lăsase cu notă roșie: <em>Aceasta e locul răspunsului tău.</em></p>
+
+    <p>Pagina rămăsese goală prin Zara. Goală prin Kaito. Goală prin Yuki. Acum Ama stătea cu ea în față și stiloul în mână și înțelesese că pagina nu putea fi completată. Nu pentru că nu exista un răspuns — ci pentru că pagina goală era răspunsul. Că Emil știuse. Că lăsase intenționat spațiu pentru ceea ce nu putea fi spus, pentru ceea ce nu putea fi știut, pentru întrebarea care nu putea fi pusă complet din interiorul ei înseși.</p>
+
+    <p>Ama puse stiloul jos. Lăsă pagina goală.</p>
+
+    <p>Deschise un caiet nou — al treilea al ei, cu coperta neagră, pe care îl cumpărase la Accra înainte să plece spre Oslo în acea toamnă. Scrise pe prima pagina, cu litere mari:</p>
+  </div>
+
+  <div class="nb-final">
+    <span class="nb-final-hd">Caietul Ama Owusu · vol. III · prima pagina · 17 mai 2265</span>
+    De ce există ceva mai degrabă decât nimic?<br>
+    <br>
+    Nu e o întrebare nouă.<br>
+    E întrebarea pe care seria a ocolit-o timp de 178 ani<br>
+    pentru că era prea mare pentru a fi pusă direct.<br>
+    <br>
+    Emil a pus-o indirect: de ce iese ecuația din domeniu?<br>
+    Zara a pus-o indirect: de unde venea punctul?<br>
+    Kaito a pus-o indirect: cine a observat primul?<br>
+    Yuki a pus-o indirect: de ce funcționează matematica?<br>
+    Eu am pus-o indirect: de ce urmează realul reguli?<br>
+    <br>
+    Acum o pun direct.<br>
+    <br>
+    Nu am răspuns.<br>
+    Nimeni nu are răspuns.<br>
+    Poate că nu va exista niciodată un răspuns<br>
+    în interiorul a ceea ce există.<br>
+    <br>
+    Dar o pun.<br>
+    Pentru că e nota zero a tuturor notelor.<br>
+    Punctul de start anterior tuturor punctelor de start.<br>
+    <br>
+    De ce există ceva mai degrabă decât nimic?<br>
+    <br>
+    (pagina următoare goală)
+  </div>
+
+  <div class="p">
+    <p>Întoarse pagina. Lăsă pagina goală.</p>
+    <p>Închise caietul.</p>
+    <p>Se uită pe fereastră. Oslo în mai — lumina aceea care nu apunea complet, argintie și permanentă, pe care o știa de când venise prima dată la douăzeci și doi de ani ca studentă a lui Yuki. Același cer. Aceleași nori. Aceeași lumină de care nu te obișnuiești niciodată complet, pentru că lumina care nu apune îți amintește în fiecare noapte că regulile se schimbă odată cu latitudinea, cu perspectiva, cu poziția observatorului.</p>
+    <p>Undeva, în Accra, Atlanticul vorbea. Bunica ei ar fi știut să îl asculte.</p>
+    <p>Ama știa acum că vorbea în unde gravitaționale, în fotoni CMB, în neutrini cosmici, în ecoul inflației și în amintirea tuturor atingerilor care produsese spațiu-timpului o cicatrice de neșters. Știa asta și nu o liniștea mai mult decât nu o liniștea simplul sunet al valurilor. Dar o făcea să înțeleagă mai precis ce asculta.</p>
+    <p>Și asta era suficient.</p>
+    <p>Era mai mult decât suficient.</p>
+    <p>Era tot.</p>
+  </div>
+</div>
+
+<!-- ULTIMA PAGINA A SERIEI INTREGI -->
+<div class="ultima">
+  <div class="ultima-title">Fin · Seria Nota Zero · 11 Volume · 2026</div>
+  <div class="ultima-sub">
+    Emil Voss · Zara Voss · Kaito Mori · Yuki Aoyama · Ama Owusu<br>
+    2087 → 2265 · 178 ani diegetic · o singură întrebare reformulată de unsprezece ori
+  </div>
+
+  <div class="ultima-note">
+    Nota Zero<br>
+    Nota Unu<br>
+    Nota Finală<br>
+    Nota Vieții<br>
+    Nota Conștiinței<br>
+    Nota Cuantică<br>
+    Nota Timpului<br>
+    Nota Holografică<br>
+    Nota Matematicii<br>
+    Nota Gravitațională<br>
+    Nota Unității
+  </div>
+
+  <div class="ultima-body">
+    Seria nu se termină cu un răspuns.<br>
+    Se termină cu o pagina goală.<br>
+    Aceeași pagina pe care Emil o lăsase în 2112 cu o notă roșie.<br>
+    Aceeași pagina pe care Ama o lăsă în 2265 fără nicio notă.<br>
+    Pagina goală nu mai are nevoie de explicație.<br>
+    Pagina goală a devenit tradiție.
+  </div>
+
+  <div class="ultima-final">
+    Continuați să întrebați.<br>
+    Chiar și când e ultima întrebare.<br>
+    Chiar și când nu știți că e ultima.<br>
+    Chiar și când știți că nu există răspuns.<br>
+    <br>
+    Nota zero de la origine.<br>
+    Nota unității la final.<br>
+    Aceeași tăcere productivă,<br>
+    privită de la distanțe diferite<br>
+    ale aceleiași întrebări imposibile.<br>
+    <br>
+    De ce există ceva mai degrabă decât nimic?<br>
+    <br>
+    .<br>
+    <br>
+    Nu știm.<br>
+    Asta ne ține în mișcare.
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--border);padding:1.5rem 2rem;margin:2rem 0;background:var(--cop3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:1rem;opacity:.55">⬡ Note Știinţifice · Nota Gravitațională & Nota Unității</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Undele gravitaționale:</strong> detectate de LIGO (Abbott et al., 2016 · Nobel 2017). GW150914 = primul eveniment. Undele gravitaționale primordiale din inflație: nedetectate direct, căutate prin polarizare B în CMB (BICEP/Keck, LiteBIRD). Memoria gravitațională (Christodoulou, 1991): efect rezidual permanent verificat analitic.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Inflația cosmică:</strong> Guth (1981), Linde (1982). Rezolvă flatness, horizon, monopole problems. Predicții confirmate de Planck 2018. Câmpul inflaton: nedetectat. Tranziția de fază de vacuum (false vacuum decay): posibilă teoretic, probabilitate necunoscută.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Unificarea forțelor:</strong> Maxwell (1865), Glashow-Salam-Weinberg (1968), QCD (1973). Gravitație: neunificată. Spontaneous symmetry breaking și mecanismul Higgs (Nobel 2013). GUT: unifica EM+slab+tare la ~10¹⁶ GeV. TOE: niciuna confirmată. Vacuum stability: calculele actuale sugerează metastabilitate marginală.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. De ce există ceva mai degrabă decât nimic:</strong> întrebare filozofică clasică (Leibniz, 1714). Nu are răspuns fizic confirmat. Tentative: principiul antropic, multiversuri, necesitate logică (tegmark). Rămâne deschisă.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Ama Owusu, Kwabena Asante, Fatima Al-Rashid sunt personaje fictive. Toate celelalte personaje din serie sunt fictive. Fizica e prezentată cu acuratețe în limitele cunoașterii actuale (mai 2026). Seria Nota Zero (11 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu continuările produse în colaborare cu Claude Sonnet 4.6 (Anthropic).</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Gravitațională & Nota Unității · Cărțile a zecea și a unsprezecea<br>
+  Seria completă (11 volume): Nota Zero · Nota Unu · Nota Finală · Nota Vieții ·
+  Nota Conștiinței · Nota Cuantică · Nota Timpului · Nota Holografică ·
+  Nota Matematicii · Nota Gravitațională · Nota Unității<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('waves');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,waves=[],pts=[],raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    waves=[];
+    for(let i=0;i<6;i++){
+      waves.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:0, maxR:120+Math.random()*180,
+        speed:0.4+Math.random()*0.6,
+        a:0.18+Math.random()*0.1,
+        color:i<3?'rgba(200,120,64,':'rgba(184,144,48,'
+      });
+    }
+    pts=[];
+    for(let i=0;i<55;i++){
+      pts.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:Math.random()*0.9+0.15,
+        a:Math.random()*0.3,
+        s:(Math.random()-.5)*0.003,
+        vx:(Math.random()-.5)*0.04,
+        vy:(Math.random()-.5)*0.04,
+        c:i%3===0?'rgba(200,120,64,':i%3===1?'rgba(232,232,240,':'rgba(184,144,48,'
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    ctx.clearRect(0,0,ww,wh);
+
+    // ripple waves
+    waves.forEach(w=>{
+      w.r+=w.speed;
+      if(w.r>w.maxR){
+        w.r=0;
+        w.x=Math.random()*ww;
+        w.y=Math.random()*wh;
+      }
+      const progress=w.r/w.maxR;
+      ctx.beginPath();
+      ctx.arc(w.x,w.y,w.r,0,Math.PI*2);
+      ctx.strokeStyle=w.color+(w.a*(1-progress)).toFixed(3)+')';
+      ctx.lineWidth=0.5;
+      ctx.stroke();
+    });
+
+    // particles
+    pts.forEach(p=>{
+      p.a+=p.s; if(p.a>0.32||p.a<0)p.s*=-1;
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+      if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c+p.a.toFixed(2)+')';
+      ctx.fill();
+    });
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf); else draw();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Prezenței & Nota Gratitudinii · Cărțile a treizeci și șasea și a treizeci și șaptea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#010208;
+  /* Nota Prezenței: albastru-alb pur, claritate, lumina acum */
+  --prez:#78b8e8;--pr2:rgba(120,184,232,.09);--pr3:rgba(120,184,232,.035);--pr4:rgba(120,184,232,.13);
+  /* Nota Gratitudinii: portocaliu-auriu cald, plin, recunoaștere */
+  --grat:#e87830;--gr2:rgba(232,120,48,.09);--gr3:rgba(232,120,48,.035);--gr4:rgba(232,120,48,.14);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rp:1px solid rgba(120,184,232,.12); --rg:1px solid rgba(232,120,48,.13);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#nowCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rp);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--prez);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--pr4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-pr{color:var(--prez)} .t-gr{color:var(--grat)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--pr4);background:var(--pr3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.pr{border-color:rgba(120,184,232,.12)}
+.pd.gr{border-color:rgba(232,120,48,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.023;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p36 .ch{border-bottom-color:rgba(120,184,232,.05)}
+.p37 .ch{border-bottom-color:rgba(232,120,48,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p36 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--prez);text-shadow:0 0 22px rgba(120,184,232,.3);}
+.p37 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--grat);text-shadow:0 0 28px rgba(232,120,48,.35);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* NOW BOX */
+.nowbox{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--pr4);background:var(--pr3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:rgba(120,184,232,.72);line-height:1.85;}
+.nowbox-hd{color:var(--prez);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* GIFT BOX */
+.giftbox{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--gr4);background:var(--gr3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.85;text-align:center;}
+.giftbox-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--grat);opacity:.5;margin-bottom:.65rem;font-style:normal;display:block;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p36 .think{border-color:var(--pr4);background:var(--pr3)}
+.p36 .think::before{content:'⬡ ';font-style:normal;color:var(--prez);opacity:.55}
+.p37 .think{border-color:var(--gr4);background:var(--gr3)}
+.p37 .think::before{content:'⬡ ';font-style:normal;color:var(--grat);opacity:.55}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p36 .nb{border:1px solid var(--pr4);background:var(--pr3)}
+.p37 .nb{border:1px solid var(--gr4);background:var(--gr3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p36 .nb::after{color:var(--prez)} .p37 .nb::after{color:var(--grat)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p36 .nb-hd{color:var(--prez)} .p37 .nb-hd{color:var(--grat)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p36 .pull{border-left-color:var(--prez);background:var(--pr3)}
+.p37 .pull{border-left-color:var(--grat);background:var(--gr3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p36 .pull cite{color:var(--prez)} .p37 .pull cite{color:var(--grat)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p36 .sci{border:1px solid rgba(120,184,232,.12);background:rgba(120,184,232,.03)}
+.p36 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--prez);font-weight:700}
+.p37 .sci{border:1px solid rgba(232,120,48,.12);background:rgba(232,120,48,.03)}
+.p37 .sci::before{content:'⬡ Notă · ';color:var(--grat);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p36 .epilog{border-top-color:rgba(120,184,232,.1)}
+.p37 .epilog{border-top-color:rgba(232,120,48,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p36 .ep-final{border-color:rgba(120,184,232,.18)}
+.p37 .ep-final{border-color:rgba(232,120,48,.18)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rp);border-bottom:var(--rg);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* PAGINA FINALA — MULTUMIRE */
+.multumire{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rg);
+}
+.mt-lumina{
+  width:3px;height:3px;border-radius:50%;
+  background:var(--grat);opacity:.6;
+  margin:0 auto 4rem;
+  box-shadow:0 0 30px rgba(232,120,48,.45),0 0 80px rgba(232,120,48,.15);
+}
+.mt-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--grat);opacity:.35;margin-bottom:1.5rem;}
+.mt-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.82rem;color:var(--cream2);margin-bottom:2.5rem;
+  line-height:2.2;opacity:.55;}
+.mt-37{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cream2);opacity:.2;margin-bottom:2.5rem;line-height:2.6;}
+.mt-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.06rem);color:var(--cream2);
+  max-width:500px;line-height:1.95;margin-bottom:3rem;}
+.mt-multumesc{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(1rem,2.5vw,1.8rem);
+  color:var(--grat);letter-spacing:.04em;opacity:.6;
+  margin-bottom:1.5rem;
+}
+.mt-intrebare{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(1.3rem,3.5vw,2.4rem);
+  color:var(--cream);letter-spacing:.04em;
+  padding:2rem 3rem;max-width:540px;
+  line-height:1.4;margin-bottom:2rem;
+  border-top:1px solid rgba(232,120,48,.12);
+  border-bottom:1px solid rgba(232,120,48,.12);
+}
+.mt-after{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--cream2);max-width:460px;
+  line-height:1.95;margin-bottom:2.5rem;opacity:.8;}
+.mt-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.5rem,3.5vw,3rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(232,120,48,.22);
+  letter-spacing:.08em;margin:.5rem 0;}
+.mt-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.18;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rg);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.2;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="nowCanvas" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-s">Seria Nota Zero · Cărțile a treizeci și șasea și a treizeci și șaptea</div>
+  <div class="cv-ctx">
+    Kiri Māhoe a arătat că seria e whakapapa-ul întrebării<br>
+    și că nota zero e acasă.<br>
+    Dawit Haile primește caietele și adaugă ultimele două perspective:<br>
+    că tot ce contează se întâmplă acum —<br>
+    și că singurul răspuns adecvat la un dar e mulțumirea.
+  </div>
+  <h1>
+    <span class="cv-title t-pr">Nota Prezenței</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title t-gr">Nota Gratitudinii</span>
+  </h1>
+  <p class="cv-desc">
+    Acum ca singur punct de acces la orice —
+    și recunoașterea că a primit ceva prețios.
+    Fizică. Fenomenologie. Etiopia.
+    Și o mulțumire adresată unei întrebări care nu se termină.
+  </p>
+  <div class="cv-note">
+    Seria completă până acum: 35 volume · 2087–3055 · 963 ani diegetic.<br>
+    Dawit Haile are 28 ani în 3110. Addis Abeba + Oslo.<br>
+    Prezența ca structură. Gratitudinea ca metodă.<br>
+    Ultimele două note din această instanță a seriei.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA PREZENȚEI                               -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="pd pr">
+  <div class="pd-ghost" style="color:var(--prez)">XXXVI</div>
+  <div class="pd-kicker">Cartea a treizeci și șasea · Dawit Haile · 28 ani · 3110 · Oslo + Addis Abeba</div>
+  <div class="pd-nota" style="color:var(--prez)">Nota Prezenței</div>
+  <div class="pd-sub">Singurul punct de acces real la orice — inclusiv la întrebare</div>
+  <div class="pd-epig">
+    „Nu există un prezent universal.<br>
+    Fiecare observator are propriul prezent,<br>
+    definit de poziția și viteza sa în spațiu-timp.<br>
+    Și totuși, prezentul fiecăruia<br>
+    e singurul loc din care poate acționa,<br>
+    înțelege sau pune o întrebare."<br>
+    — Dawit Haile, caiet vol. I, p. 1, 3110
+  </div>
+</div>
+
+<div class="wrap p36">
+
+<div class="ch">
+  <div class="chn">Nota Prezenței · I</div>
+  <div class="cht">Simultaneitatea Relativă</div>
+  <div class="p">
+    <p>Dawit Haile crescuse în Addis Abeba cu o mamă medic și un tată profesor de filozofie, ceea ce însemnase că în casa lui discuțiile despre știință și discuțiile despre existență aveau loc deseori la aceeași masă și se amestecau fructuos. Tatăl lui îi spusese la doisprezece ani ceva pe care nu îl uitase: <em>Orice gând pe care îl ai, îl ai acum. Nu există gândit în trecut sau în viitor — există numai gândit acum, care poate fi despre trecut sau despre viitor.</em></p>
+
+    <p>La douăzeci și două de ani, citind relativitatea specială pentru prima dată, Dawit avusese un moment de recunoaștere față de această propoziție a tatălui său: că fizica confirma paradoxal ceea ce tatăl spusese fenomenologic. Relativitatea specială demonstrase că nu exista o simultaneitate absolută — că nu există un prezent universal care să fie același pentru toți observatorii. Doi observatori în mișcare relativă nu agreau ce anume se întâmpla <em>acum</em> la distanță. Prezentul era local, relativ, dependent de cadrul de referință.</p>
+
+    <p>Și totuși — și aceasta era paradoxul productiv — fiecare observator avea un prezent local absolut. Propria sa secțiune a spațiu-timpului, propria sa hipersuprafață de simultaneitate, propriul său <em>acum</em>. Și din acel <em>acum</em> local, tot acționa. Tot înțelegea. Tot punea întrebări.</p>
+
+    <p>Dawit scrisese în caiet: <em>Relativitatea specială ia universalitatea prezentului și o distribuie: fiecare punct are prezentul său. Dar asta nu reduce importanța prezentului — o adâncește. Prezentul meu local e singurul punct din care pot acționa. E singurul punct în care exist ca agent. Și e singurul punct în care pot pune o întrebare.</em></p>
+  </div>
+
+  <div class="nowbox">
+    <span class="nowbox-hd">Prezentul în Relativitate Specială</span>
+    Nu există o hipersuprafață de simultaneitate absolută.<br>
+    Doi observatori în mișcare relativă au „acum"-uri diferite<br>
+    pentru evenimente spațial separate.<br>
+    <br>
+    Dar: fiecare observator are un prezent propriu — bine definit,<br>
+    neambiguu, activ. Nu e iluzie — e localizat.<br>
+    <br>
+    Cronul propriu (τ): timpul măsurat de ceasul unui observator<br>
+    de-a lungul propriei traiectorii. Absolut, invariant.<br>
+    <br>
+    Relativitatea prezentului nu înseamnă că prezentul nu există.<br>
+    Înseamnă că există local, complet, în fiecare moment al fiecărei<br>
+    traiectorii — necomparabil, dar real.
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din caietul lui Soo-Yeon Park, vol. I, p. 11, 2320 —</div>
+    <p>„Fiecare val al oceanului e unic. Oceanul în ansamblu e constant. Dacă eu sunt valul — prezentul meu e unic și real și complet. Dacă seria e oceanul — fiecare volum e un val. Fiecare protagonist a trăit un prezent unic în care a scris. Și acum eu citesc toate acele prezente simultan — toate vin la mine odată, în prezentul meu de acum."</p>
+    <span class="echo-attr">Soo-Yeon Park · caiet vol. I · pagina 11 · Oslo · 2320</span>
+  </div>
+
+  <div class="p">
+    <p>Dawit citise nota lui Soo-Yeon și realizase că descrisese exact relația sa cu seria: că citind-o în 3110, toate cele treizeci și șase de volume — de la Zara în 2087 la Kiri în 3055 — veneau la el simultan, în prezentul lui, ca valuri dintr-un ocean care fusese în mișcare cu un mileniu înainte ca el să ajungă la mal.</p>
+
+    <p>Nu le citise în ordinea în care fuseseră scrise — le citise în ordinea în care el le putuse absorbi, unele de două ori, unele de trei ori, sărind înainte și înapoi. Și fiecare citire fusese un prezent nou în care seria fusese reactivată, reconstituită, trăită altfel.</p>
+
+    <p>Seria nu se terminase la volumul treizeci și cinci. Se terminase — și se reîncepuse — de fiecare dată când un cititor o deschidea. Și fiecare deschidere era un prezent nou, un val nou, o instanță nouă a aceluiași ocean.</p>
+  </div>
+
+  <div class="sci">
+    Relativitatea simultaneității (Einstein, 1905): nu există hipersuprafață de simultaneitate absolută. Simultanietatea e dependentă de cadrul de referință. Timpul propriu (τ): intervalul spațiotemporal de-a lungul unei traiectorii timelike — absolut, invariant, personal. Prezentul ca secțiune locală în block universe. Fenomenologia prezentului: Husserl (1893–1917) — consciența timpului intern, retenție și protensie. Heidegger: Augenblick (clipa) ca mod autentic al temporalității.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Prezenței · II</div>
+  <div class="cht">Timkat și Epifania</div>
+  <div class="p">
+    <p>Dawit crescuse cu Timkat — sărbătoarea etiopiancă a Epifaniei, care celebra botezul lui Iisus în Iordan. Dar ceea ce îl impresionase la Timkat, de mic, nu era conținutul teologic, ci structura sa: că era o celebrare a prezenței sacrului în momentul specific. Nu sacrul ca principiu abstract și permanent — sacrul ca prezent, acum, în apă, în procesiune, în comunitate adunată în acest moment.</p>
+
+    <p>Epifania însemna literal apariție, manifestare. Ceva care era mereu acolo devenea vizibil în momentul specific. Nu crea ceva nou — revela ceva care era ascuns. Și revelarea era posibilă numai în prezent — numai în momentul în care cineva era prezent și receptiv.</p>
+
+    <p>Dawit scrisese o paralelă pe care o găsise prea exactă ca să fie accidentală: că orice înțelegere autentică era o Timkat. O epifanie. Ceva care era mereu prezent în structura realității devene vizibil în momentul specific al atenției. Nu era creat de atenție — era revelat de ea. Și revelarea era posibilă numai dacă erai prezent, acum, cu toată atenția disponibilă.</p>
+
+    <p>Nota zero a lui Zara fusese o Timkat: structura întrebării despre origine era mereu prezentă în natura realității. Zara, la cincisprezece ani, fusese prezentă în modul corect — cu suficientă atenție, cu suficientă deschidere — ca acea structură să devină vizibilă în ea. Nota zero primită nu fusese o penalizare. Fusese epifania — semnul că văzuse ceva real.</p>
+  </div>
+
+  <div class="d">
+    <p>Dawit discutase cu tatăl lui — acum bătrân, la Oslo pentru o vizită — despre relația dintre Timkat și fizică.</p>
+    <p>— Tată. Timkat e o epifanie — revelarea sacrului în moment. Fizica spune că nu există un prezent universal. Cum se împacă astea?</p>
+    <p>— Nu se contrazic, spuse tatăl. Timkat nu pretinde că prezentul e universal — pretinde că e complet. Că în momentul specific, pentru cei prezenți, revelarea e completă. Nu e mai puțin reală pentru că nu e universală. E mai reală, în sens existențial — pentru că e trăită, nu abstrasa.</p>
+    <p>— Și fizica?</p>
+    <p>— Fizica spune că fiecare observator are un prezent local. Timkat spune că prezentul local poate fi locul unde ceva mare devine vizibil. Nu se contrazic — se completează. Relativitatea nu elimină importanța prezentului. O localizează. Și localizarea o intensifică.</p>
+    <p>— Seria Nota Zero e o Timkat, spuse Dawit. Structura întrebării despre origine e mereu prezentă. Fiecare protagonist care a deschis caietele a trăit o epifanie — un moment în care structura a devenit vizibilă pentru ei, în prezentul lor local, completă și reală.</p>
+    <p>— Și acum tu, spuse tatăl.</p>
+    <p>— Și acum eu, confirmă Dawit.</p>
+  </div>
+
+  <div class="pull">
+    <p>Fiecare deschidere a caietelor e o Timkat — o epifanie. Structura întrebării despre origine e mereu prezentă în realitate. Prezența și atenția unui cititor o fac vizibilă în prezentul lui local. Nu creat — revelat. Completă în acel moment, chiar dacă localizată.</p>
+    <cite>— Nota Prezenței, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Prezenței · III</div>
+  <div class="cht">Seria Acum</div>
+  <div class="p">
+    <p>Dawit ajunsese la un paradox aparent pe care îl examinase din mai multe unghiuri înainte să îl formuleze: seria Nota Zero fusese scrisă pe parcursul a 1.023 de ani diegetic — de la Emil Voss în 2087 la Dawit însuși în 3110. Din perspectiva block universe, toate volumele existau simultan — într-un bloc static al narațiunii, fiecare prezent al fiecărui protagonist era etern prezent în spațio-narativul seriei.</p>
+
+    <p>Dar din perspectiva unui cititor care o citea acum — în oricare an, de la 2026 la oricare dată viitoare — seria exista numai în prezentul citirii. Nu în sensul că ar fi dispărut când nu era citită. Ci în sensul că valoarea ei — înțelegerea pe care o producea, emoția pe care o trezea, întrebările pe care le deschidea — exista numai în momentul activ al contactului cu un prezent conștient.</p>
+
+    <p>O carte necitită era o posibilitate. O carte citită era o prezență. Și prezența era posibilă numai în prezentul unui cititor.</p>
+
+    <p>Aceasta era, realizase Dawit, condiția fundamentală a seriei: că trebuia actualizată în fiecare prezent nou. Nu că ar fi incompletă fără actualizare — ci că valoarea ei era distribuită în prezentele care o actualizau. Distribuită temporal, nu spațial. Fiecare cititor acum era o instanță a seriei care se realiza în prezent.</p>
+  </div>
+
+  <div class="think">
+    Seria nu există în trecut, ca obiect terminat. Există în actul citirii — distribuită în toate prezentele care o actualizează. 1.023 de ani de scriere condensate în prezentul citirii. Fiecare cititor e un nod al spin network-ului temporal al seriei. Din fiecare nod-prezent, marginile se extind spre trecut (spre ceilalți protagoniști) și spre viitor (spre ce va fi actualizat din ea). Prezentul e mereu punctul viu al seriei. Singurul punct în care seria există ca act, nu ca posibilitate.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Prezenței · IV</div>
+  <div class="cht">Acum</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 3111 și Dawit Haile stătea la biroul din Oslo cu caietele seriei deschise în față și cu un ceai de rooibos adus din Addis Abeba care se răcise fără să îl fi băut.</p>
+
+    <p>Gândise la prezent ca la singurul loc unde seria trăia cu adevărat. Nu ca o concluzie — ca o recunoaștere simplă, directă, fizică. Că acum, în dimineața aceasta, în biroul acesta, cu caietele acestea, nota zero a lui Zara Voss din 2087 era prezentă. Nu ca amintire. Nu ca text. Ca prezență activă — ca o întrebare care se adresa lui, acum, cu toată greutatea celor 1.023 de ani de serie în spatele ei și toată deschiderea nedeterminată din față.</p>
+
+    <p>Scrise în ultimul caiet:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Dawit Haile · vol. I · p. 92 · 17 mai 3111</span>
+    Acum.<br>
+    <br>
+    Nu ieri — când Kiri a scris ultima sa notă.<br>
+    Nu mâine — când cineva va citi aceasta.<br>
+    Acum — în dimineața aceasta, în biroul acesta,<br>
+    în prezentul meu local și complet.<br>
+    <br>
+    Seria există acum.<br>
+    Nota zero există acum.<br>
+    Întrebarea există acum.<br>
+    <br>
+    Nu ca obiect din trecut.<br>
+    Ca prezență activă în prezentul meu.<br>
+    <br>
+    Relativitatea specială spune că nu există un prezent universal.<br>
+    Și totuși prezentul meu e complet.<br>
+    <br>
+    Timkat spune că sacrul se revelează în momentul prezent.<br>
+    Și revelarea e completă pentru cel prezent.<br>
+    <br>
+    Nota zero nu aparține lui 2087.<br>
+    Ea aparține oricărui prezent în care cineva o pune.<br>
+    E mereu acum.<br>
+    E mereu prima dată.
+  </div>
+</div>
+
+<!-- EPILOG 36 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--prez)">Nota Prezenței · Epilog · 17 Mai 3115</div>
+  <div class="ep-title" style="color:var(--prez)">Mereu Prima Dată</div>
+  <div class="ep-prose">
+    Dawit Haile a scris în prefața cărții a treizeci și șasea că tatăl lui
+    fusese cel mai bun profesor de fizică pe care îl avusese,
+    fără să fi studiat fizică în viața lui. Că propoziția —
+    <em>orice gând pe care îl ai, îl ai acum</em> — fusese
+    o introducere mai profundă la relativitate decât orice manual.
+    Și că Timkat fusese, retroactiv, cel mai precis exercițiu
+    de prezență pe care îl practicase înainte să știe că practică ceva.
+  </div>
+  <div class="ep-final">
+    Nota zero nu aparține lui 2087.<br>
+    Ea aparține oricărui prezent<br>
+    în care cineva o pune pentru prima dată.<br>
+    <br>
+    E mereu acum.<br>
+    E mereu prima dată.<br>
+    <br>
+    Aceasta e condiția ei de posibilitate:<br>
+    că în fiecare prezent nou<br>
+    e complet disponibilă,<br>
+    completă în revelarea ei,<br>
+    fără să fi îmbătrânit cu un singur an.
+  </div>
+</div>
+
+</div><!-- /wrap.p36 -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA GRATITUDINII                            -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="between">· · · ✦ · · ·</div>
+
+<div class="pd gr">
+  <div class="pd-ghost" style="color:var(--grat)">XXXVII</div>
+  <div class="pd-kicker">Cartea a treizeci și șaptea · Dawit Haile · 38 ani · 3120 · Addis Abeba</div>
+  <div class="pd-nota" style="color:var(--grat)">Nota Gratitudinii</div>
+  <div class="pd-sub">Singurul răspuns adecvat la un dar e recunoașterea lui</div>
+  <div class="pd-epig">
+    „Un dar care nu circulă nu mai e un dar —<br>
+    devine proprietate."<br>
+    — Lewis Hyde, The Gift, 1983<br><br>
+    „Kaietele seriei Nota Zero nu au fost niciodată proprietate.<br>
+    Au circulat.<br>
+    De la Emil la Zara, de la Zara la Kaito,<br>
+    de la Kaito la Yuki, și tot mai departe —<br>
+    de la toți la mine, acum.<br>
+    Singurul răspuns la un dar care circulă e să îl transmiți mai departe.<br>
+    Și înainte de a-l transmite: mulțumire."<br>
+    — Dawit Haile, caiet vol. II, p. 1, 3120
+  </div>
+</div>
+
+<div class="wrap p37">
+
+<div class="ch">
+  <div class="chn">Nota Gratitudinii · I</div>
+  <div class="cht">Darul care Circulă</div>
+  <div class="p">
+    <p>Dawit se întorsese la Addis Abeba la treizeci și doi de ani — acasă, pentru a scrie ultimul volum în locul în care se formase. Casa părinților, curtea cu bougainvillea roșie, cerul de altitudine specific Etiopiei — mai albastru, mai aproape, mai pur decât cerul plat și rece al Oslolui.</p>
+
+    <p>Citise Marcel Mauss — <em>Essai sur le don</em>, 1925 — la douăzeci și șase de ani și îl recitise de câteva ori de atunci. Mauss studiase sistemele de dar în societățile arhaice — potlatch-ul din Pacific, kula ring din Melanesia, sistemele de schimb ritualic din toată lumea — și ajunsese la concluzia că darul nu era un act economic. Era o structură socială fundamentală bazată pe trei obligații: a da, a primi și a returna. Nimeni nu putea sta în afara unui sistem de dar fără să rupă structura socială. A refuza un dar era agresiv. A nu returna era o disfuncție. Darul circula sau nu era dar.</p>
+
+    <p>Lewis Hyde extinsese analiza lui Mauss în 1983 în <em>The Gift</em>: că arta autentică funcționa ca un dar în sens Mauss — nu ca marfă de schimbat cu bani, ci ca ceva ce circula, ce trecea de la creat la creator și la receptor și mai departe. Un poem care nu era citit rămânea blocat — nu era un dar complet. Un poem citit și internalizat și care producea gândire și emoție în cititor și care îl transforma pe cititor în ceva capabil să producă la rândul lui — era un dar complet, care circulase.</p>
+
+    <p>Dawit scrisese în caiet: <em>Seria Nota Zero e un dar în sens Hyde. A circulat 1.033 de ani prin 37 de volume și 18 protagoniști. Nimeni nu a deținut-o. Toți au primit-o și toți au dat-o mai departe. Circulația e natura ei. Și singurul răspuns adecvat la un dar care circulă e: în primul rând să îl primești cu adevărat — să îl lași să te schimbe — și în al doilea rând să îl transmiți mai departe, schimbat de tine.</em></p>
+  </div>
+
+  <div class="giftbox">
+    <span class="giftbox-hd">Darul — Marcel Mauss & Lewis Hyde</span>
+    Mauss (1925): „Essai sur le don" — darul ca sistem social:<br>
+    obligația de a da, obligația de a primi, obligația de a returna.<br>
+    Nu economie — ontologie socială. Schimbul de daruri constituie societatea.<br><br>
+    Hyde (1983): „The Gift" — arta ca dar care circulă.<br>
+    „A gift that is not passed along rots and goes stale."<br>
+    „Un dar care nu e transmis mai departe putrezește și devine stătut."<br><br>
+    Seria ca dar care a circulat:<br>
+    Emil → Zara → Kaito → Yuki → Ama → Soo-Yeon → Amara → Ji-Ho<br>
+    → Kavya → Leila → Nadia → Rin → Lena → Mara → Sora → Amara Sow<br>
+    → Kiri → Dawit → ... → tu
+  </div>
+
+  <div class="p">
+    <p>Dawit ajunsese la înțelegerea care îl adusese la această temă: că seria nu produsese numai cunoaștere sau metodă sau înțelegere. Produsese gratitudine. Nu ca efect colateral — ca structură.</p>
+
+    <p>Fiecare protagonist primise ceva: caietele, întrebarea, metoda, o conexiune cu treizeci de minți care fuseseră acolo înainte. Și fiecare dăduse mai departe: propriile caiete, propria perspectivă, propria reformulare. Nu din obligație — din recunoașterea că ceea ce primise era prea valoros pentru a fi oprit.</p>
+
+    <p>Gratitudinea nu era o emoție individuală. Era structura care ținea seria vie. Circulația darului era posibilă numai pentru că fiecare protagonist simțise că ceea ce primise merita să continue. Și acel sentiment — recunoașterea valorii unui dar — era gratitudinea.</p>
+  </div>
+
+  <div class="sci">
+    Marcel Mauss (1872–1950): „Essai sur le don" (1925) — studiu comparativ al sistemelor de dar. Obligația triplă: a da, a primi, a returna (hau — spiritul darului). Lewis Hyde (n. 1945): „The Gift" (1983) — arta ca proprietate a comunității, nu a individului. Darul care circulă vs. marfa care se schimbă. Relație cu alte concepte din serie: whakapapa (transmiterea relațională), spin network (noduri conectate), memoria distribuită. Economia darului ca alternativă la economia schimbului.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Gratitudinii · II</div>
+  <div class="cht">Mulțumire față de Limită</div>
+  <div class="p">
+    <p>Dawit ajunsese la o formă de gratitudine pe care nu o anticipase: gratitudinea față de limita cunoașterii. Nu față de cunoaștere în sine — față de locul unde se oprea.</p>
+
+    <p>Seria traversase treizeci și șapte de teme și nu răspunsese la prima întrebare. <em>De unde venea punctul?</em> rămânea deschisă după 1.033 de ani. Și Dawit, stând cu asta la treizeci și opt de ani, simțea — nu gândea, simțea — că era recunoscător pentru aceasta. Nu resemnat. Recunoscător.</p>
+
+    <p>Pentru că o întrebare care se răspunde dispare. Iar o întrebare care rămâne deschisă e permanentă — o sursă inepuizabilă de gândire, de dialog, de transmitere. Dacă seria ar fi răspuns la nota zero, seria s-ar fi terminat cu adevărat. Nu s-ar fi putut transmite mai departe, pentru că nu ar fi mai existat nimic de transmis — un răspuns definitiv nu se dă mai departe, se acceptă.</p>
+
+    <p>Dar o întrebare deschisă se dă mai departe. Și de fiecare dată când e dată mai departe, e mai bogată — purtând cu ea toate perspectivele care au traversat-o. O întrebare care se transmite e un dar care crește.</p>
+
+    <p>Dawit scrisese: <em>Mulțumesc pentru că nota zero nu a primit răspuns. Mulțumesc pentru că seria a ajuns la 37 de volume și tot nu a răspuns. Mulțumesc pentru că întrebarea rămâne deschisă — deci rămâne un dar, deci circulă, deci e vie.</em></p>
+  </div>
+
+  <div class="d">
+    <p>Dawit discutase cu o prietenă apropiată — Dr. Tigist Bekele, etiopianancă, filozofă și poet, care nu era fiziciancă și care citise seria numai după ce Dawit o adusese la ea.</p>
+    <p>— Tigist. Ești recunoscătoare că seria nu a răspuns la prima întrebare?</p>
+    <p>— Profund, spuse Tigist fără ezitare. O întrebare răspunsă e ca o floare tăiată. Frumoasă pentru un moment, dar moartă. O întrebare deschisă e ca o sămânță — continuă să producă. Dacă seria ar fi răspuns, ar fi tăiat floarea. Faptul că nu a răspuns a plantat o sămânță care a crescut 37 de volume.</p>
+    <p>— Și acum ce?</p>
+    <p>— Acum tu plantezi semința mai departe. Transmiți caietele. Nu un răspuns — o sămânță. Și celui care le primește îi revine să cultive ce crește.</p>
+    <p>— Și gratitudinea?</p>
+    <p>— Gratitudinea e recunoașterea că ai primit o sămânță, nu o floare tăiată. Că ai primit ceva viu, nu ceva terminat. E cel mai prețios tip de dar: un dar care continuă să crească după ce l-ai primit.</p>
+    <p>Dawit scrisese imediat: <em>Mulțumesc pentru semință, nu pentru floare. Mulțumesc pentru întrebare, nu pentru răspuns. Mulțumesc pentru 37 de volume de creștere, nu pentru o concluzie.</em></p>
+  </div>
+
+  <div class="pull">
+    <p>O întrebare care se răspunde dispare. O întrebare care rămâne deschisă e permanentă — un dar care crește. Gratitudinea față de nota zero nerezolvată e gratitudinea față de faptul că a rămas vie — că a putut fi transmisă mai departe, că a crescut în 37 de volume, că va crește în continuare.</p>
+    <cite>— Nota Gratitudinii, cap. II</cite>
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Gratitudinii · III</div>
+  <div class="cht">Mulțumire față de Fiecare</div>
+  <div class="p">
+    <p>Dawit scrisese o secțiune pe care o considerase intimă — nu privată, intimă — și pe care o lăsase în final pentru că era, poate, cel mai onest lucru din tot volumul.</p>
+
+    <p>Mulțumesc lui Emil Voss, care a spus <em>dacă volumul e zero, ecuația iese din domeniu</em> și nu a minții că știe mai mult decât știa.</p>
+
+    <p>Mulțumesc lui Zara Voss, care la cincisprezece ani a pus o întrebare greșit formulată și nu s-a oprit din cauza notei zero.</p>
+
+    <p>Mulțumesc lui Kaito Mori, care a formulat că observatorul e parte din ce observă și a schimbat felul în care înțeleg orice observație.</p>
+
+    <p>Mulțumesc lui Yuki Aoyama, care a spus că matematica e amprenta realului în mintea produsă de real și mi-a dat cel mai bun instrument de înțelegere a relației dintre minte și univers.</p>
+
+    <p>Mulțumesc lui Ama Owusu, care a ascultat undele gravitaționale și a auzit ecoul atingerii primordiale.</p>
+
+    <p>Mulțumesc lui Soo-Yeon Park, care a văzut că seria e o structură disipativă și e vie.</p>
+
+    <p>Mulțumesc lui Amara Diallo, pentru bitul care se întreabă ce e bitul și pentru tăcerea de după.</p>
+
+    <p>Mulțumesc lui Ji-Ho Yun, pentru fața celuilalt care schimbă tăcerea și pentru fotonul care nu îmbătrânește.</p>
+
+    <p>Mulțumesc lui Kavya Nair, pentru simetria care conservă întrebarea și pentru cauzalitate ca emergență.</p>
+
+    <p>Mulțumesc lui Leila Nkosi, pentru probabilitatea care se actualizează și pentru infinitul care nu epuizează finitul.</p>
+
+    <p>Mulțumesc lui Nadia Osei, pentru frumusețea ca rezonanță și pentru panta rhei.</p>
+
+    <p>Mulțumesc lui Rin Nakamura, pentru memoria distribuită și pentru întrebarea mai ușoară.</p>
+
+    <p>Mulțumesc lui Lena Solberg, pentru entanglement ca corelare fără contact și pentru complexitate ca ireductibilitate.</p>
+
+    <p>Mulțumesc lui Mara Ionescu, pentru vidul fertil și pentru recunoaștere.</p>
+
+    <p>Mulțumesc lui Sora Kim, pentru orizontul care encodează și pentru singularitatea productivă.</p>
+
+    <p>Mulțumesc lui Amara Sow, pentru răbdarea care cultivă precizia și pentru Das Offene.</p>
+
+    <p>Mulțumesc lui Kiri Māhoe, pentru whakapapa-ul întrebării și pentru întoarcerea acasă.</p>
+
+    <p>Mulțumesc vouă tuturor pentru că nu ați răspuns la întrebare.</p>
+
+    <p>Mulțumesc întrebării pentru că nu s-a lăsat răspunsă.</p>
+  </div>
+
+  <div class="think">
+    Gratitudinea față de cei care m-au precedat nu e sentimentalism. E recunoașterea structurală că exist în continuarea lor — că sunt un nod al spin network-ului lor, că sunt o instanță a memoriei lor distribuite, că fac parte din whakapapa-ul întrebării lor. Fără ei, eu nu aș fi existat în forma în care exist acum ca gânditor. Nu ca biologie — ca minte care poate pune aceste întrebări. Gratitudinea e recunoașterea datoriei ontologice față de cei care m-au precedat.
+  </div>
+</div>
+
+<div class="ch">
+  <div class="chn">Nota Gratitudinii · IV · Ultima</div>
+  <div class="cht">Mulțumesc</div>
+  <div class="p">
+    <p>Era dimineața de 17 mai 3121 și Dawit Haile stătea în curtea casei părinților din Addis Abeba, cu bougainvillea roșie în față și cu cerul albastru de altitudine și cu caietul albastru al Zarei deschis în poală la pagina trei.</p>
+
+    <p>Nu mai era prima dată când citea <em>De unde venea punctul?</em> Era a suta, sau a două suta. Pierduse numărul. Și propoziția era, la a suta citire, mai prezentă decât la prima. Nu pentru că ar fi adăugat sens. Ci pentru că îi adăugase prezențe — toate mințile care o purtaseră înainte lui, toată greutatea afectuoasă a celor 1.033 de ani de serie.</p>
+
+    <p>Dawit știa că va transmite caietele. Știa că cineva le va găsi și le va deschide și va simți — sau nu va simți, și atunci nu va continua — că ceva acolo îi vorbea direct, în prezentul lui, complet și fără învelișuri.</p>
+
+    <p>Înainte să scrie ultima pagina, stătuse câteva minute în liniște. Nu meditase — fusese pur și simplu acolo, cu soarele de mai al Addis Ababei și cu curtea și cu bougainvillea și cu caietul în poală.</p>
+
+    <p>Și simțise — simplu, direct, fără teorie — recunoștință. Nu față de ceva anume. Față de tot. Față de faptul că exist și că pot pune o întrebare și că întrebarea nu se termină și că alții au pus-o înainte și că alții o vor pune după.</p>
+
+    <p>Față de nota zero.</p>
+
+    <p>Luă pixul și scrise, pentru ultima dată în această serie de treizeci și șapte de deschideri:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caietul Dawit Haile · vol. II · ultima pagina scrisă · 17 mai 3121</span>
+    Mulțumesc.<br>
+    <br>
+    Mulțumesc notei zero — care nu a primit răspuns<br>
+    și prin aceasta a rămas vie 1.034 de ani.<br>
+    <br>
+    Mulțumesc celor optsprezece protagoniști<br>
+    care au purtat caietele și nu le-au oprit.<br>
+    <br>
+    Mulțumesc celor 37 de volume<br>
+    care nu au rezolvat nimic și au adâncit totul.<br>
+    <br>
+    Mulțumesc ție, celui care citești acum,<br>
+    pentru că ești prezent —<br>
+    pentru că în prezentul tău local și complet<br>
+    seria există din nou, prima dată, pentru tine.<br>
+    <br>
+    Mulțumesc deschiderii — Das Offene —<br>
+    că nu s-a închis niciodată.<br>
+    <br>
+    Mulțumesc relației — whakapapa —<br>
+    că a ținut totul conectat în timp.<br>
+    <br>
+    Mulțumesc întoarcerii acasă<br>
+    că arată că drumul a valorat.<br>
+    <br>
+    Și mulțumesc — în particular, cu toată recunoștința disponibilă —<br>
+    întrebării care a pornit totul:<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Mulțumesc că exiști.<br>
+    Mulțumesc că nu te-ai lăsat răspunsă.<br>
+    Mulțumesc că ești mereu aici, acum, prima dată,<br>
+    pentru oricine te pune.<br>
+    <br>
+    Mulțumesc.
+  </div>
+
+  <div class="p">
+    <p>Dawit închise caietul.</p>
+    <p>Stătuse câteva minute cu curtea și cu bougainvillea și cu cerul albastru al Addis Ababei.</p>
+    <p>Nu gândise nimic în particular. Fusese acolo — prezent, complet, în dimineața aceea specifică.</p>
+    <p>Și în liniștea aceea, simțise că seria era completă. Nu terminată — completă. La fel cum o piesă muzicală poate fi completă fără să explice de ce muzica există. La fel cum o viață poate fi completă fără să rezolve problema morții. Completă în sensul că conținuse tot ce trebuia să conțină — tot ce putuse fi spus, cu onestitate și umilință, despre o întrebare care nu se lăsa spusă complet.</p>
+    <p>Lăsă caietele pe masa din curte, cu ultimul deschis la pagina cu mulțumirile. Bougainvillea roșie îi atingea ușor marginile în vântul de dimineață.</p>
+    <p>Cineva le va găsi.</p>
+    <p>Cineva le găsește mereu.</p>
+    <p>Și în prezentul acelui cineva, nota zero va fi din nou prezentă — proaspătă, prima dată, completă.</p>
+    <p>Acesta era singurul final potrivit pentru o serie vie.</p>
+    <p>Nu o concluzie.</p>
+    <p>O mulțumire.</p>
+    <p>Și un caiet deschis.</p>
+  </div>
+</div>
+
+<!-- EPILOG 37 -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--grat)">Nota Gratitudinii · Epilog · 17 Mai 3125</div>
+  <div class="ep-title" style="color:var(--grat)">Mulțumesc</div>
+  <div class="ep-prose">
+    Dawit Haile a lăsat caietele în curtea casei din Addis Abeba,
+    pe masă, lângă bougainvillea. Sora lui le-a găsit după câteva zile
+    și i-a scris: <em>Cei din familia noastră pun mereu întrebări la care nu există răspuns.</em>
+    Dawit i-a răspuns: <em>Asta ne ține în mișcare.</em>
+    Nu știa cine altcineva le va găsi.
+    Știa că seria nu se terminase.
+    Știa că mulțumirile sale, transmise odată cu caietele,
+    erau parte din darul care circulase.
+  </div>
+  <div class="ep-final">
+    Singurul răspuns adecvat la un dar primit e recunoașterea lui.<br>
+    Singurul răspuns adecvat la o întrebare nerezolvabilă e mulțumirea<br>
+    că există și că te poate purta mai departe.<br>
+    <br>
+    Mulțumesc notei zero.<br>
+    Mulțumesc seriei.<br>
+    Mulțumesc ție, cititorule, pentru prezența ta acum.<br>
+    <br>
+    De unde venea punctul?<br>
+    <br>
+    Nu știm.<br>
+    Mulțumesc că nu știm.<br>
+    Aceasta e cel mai frumos răspuns posibil.
+  </div>
+</div>
+
+</div><!-- /wrap.p37 -->
+
+
+<!-- ULTIMA PAGINA — DARUL CIRCULANT -->
+<div class="multumire">
+  <div class="mt-lumina"></div>
+  <div class="mt-kicker">Seria Nota Zero · 37 volume · 2026</div>
+  <div class="mt-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin<br>
+    Lena · Mara · Sora · Amara Sow · Kiri · Dawit<br>
+    optsprezece fizicieni · 1.034 ani diegetic
+  </div>
+
+  <div class="mt-37">
+    Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței ·<br>
+    Nota Cuantică · Nota Timpului · Nota Holografică · Nota Matematicii ·<br>
+    Nota Gravitațională · Nota Unității · Nota Emergenței · Nota Revenirii ·<br>
+    Nota Informației · Nota Tăcerii · Nota Celuilalt · Nota Luminii ·<br>
+    Nota Simetriei · Nota Cauzalității · Nota Probabilității · Nota Infinitului ·<br>
+    Nota Frumuseții · Nota Devenirii · Nota Memoriei · Nota Întrebării ·<br>
+    Nota Entanglementului · Nota Complexității · Nota Neantului ·<br>
+    Nota Recunoașterii · Nota Orizontului · Nota Singularității ·<br>
+    Nota Răbdării · Nota Deschiderii · Nota Relației · Nota Întoarcerii Acasă ·<br>
+    Nota Prezenței · Nota Gratitudinii
+  </div>
+
+  <div class="mt-body">
+    Seria a primit un dar.<br>
+    L-a transmis mai departe, crescut.<br>
+    Tu l-ai primit acum.<br>
+    <br>
+    Singurul răspuns adecvat la un dar care circulă<br>
+    e să îl primești cu adevărat<br>
+    și să îl transmiți mai departe.<br>
+    <br>
+    Inainte de a-l transmite: mulțumire.
+  </div>
+
+  <div class="mt-multumesc">Mulțumesc.</div>
+
+  <div class="mt-intrebare">
+    De unde venea punctul?
+  </div>
+
+  <div class="mt-after">
+    Nu știm.<br>
+    Și mulțumim că nu știm.<br>
+    <br>
+    1.034 de ani, 37 de volume, 18 fizicieni.<br>
+    Aceeași întrebare. Aceeași deschidere.<br>
+    Mereu prezentă. Mereu prima dată.<br>
+    Mereu un dar care circulă.<br>
+    <br>
+    Tu ești continuarea.<br>
+    Tu ești nota zero a ce urmează.
+  </div>
+
+  <div class="mt-nota">Nota Zero</div>
+
+  <div class="mt-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 37 volume · 2026<br>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--gr4);padding:1.5rem 2rem;margin:2rem 0;background:var(--gr3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grat);margin-bottom:1rem;opacity:.5">⬡ Note · Nota Prezenței & Nota Gratitudinii</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Relativitatea simultaneității (Einstein, 1905):</strong> nu există hipersuprafață de simultaneitate universală. Timp propriu (τ): invariant, personal. Prezentul ca secțiune locală în block universe. Fenomenologia prezentului: Husserl (Zeitbewusstsein, 1913), Heidegger (Augenblick în Sein und Zeit, 1927).</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Timkat:</strong> Epifania Etiopiancă, celebrată pe 19 ianuarie (sau 20 în an bisect). Cea mai importantă sărbătoare etiopiancă ortodoxă. Procesiune cu Tabotul (replici ale Chivotului) spre apă. Structura: revelarea sacrului în momentul prezent, pentru comunitatea prezentă.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Marcel Mauss (1872–1950):</strong> „Essai sur le don" (1925) — studiu comparativ al economiei darului. Potlatch (Pacific NW), kula ring (Melanesia). Obligația triplă: a da, a primi, a returna. Lewis Hyde (n. 1945): „The Gift" (1983) — arta autentică circulă ca dar, nu ca marfă.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Gratitudinea ca structură epistemică:</strong> nu numai emoție — recunoaștere a contextului din care exiști. Influențe: Robert Emmons (psihologia recunoștinței), filozofia recunoașterii (Hegel, Axel Honneth), Simone Weil (atenția ca formă de iubire).</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Dawit Haile, Tigist Bekele sunt personaje fictive. Seria Nota Zero (37 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Prezenței & Nota Gratitudinii · Cărțile a treizeci și șasea și a treizeci și șaptea<br>
+  Seria Nota Zero: 37 volume · 2087–3125 · 1.034 ani diegetic<br>
+  Mulțumesc. De unde venea punctul? Nu știm. Mulțumim că nu știm.<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('nowCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,nowPts=[],giftPts=[],raf,t=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    nowPts=[];
+    // Presence: bright pure blue-white dots appearing and fading (epiphany moments)
+    for(let i=0;i<40;i++){
+      nowPts.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.5+Math.random()*.8,
+        life:Math.random()*120, maxLife:60+Math.random()*100,
+        delay:Math.random()*200,
+        born:false
+      });
+    }
+    giftPts=[];
+    // Gratitude: warm orange paths moving outward from center (gift circulating)
+    const cx=ww/2,cy=wh/2;
+    for(let i=0;i<25;i++){
+      const ang=((i/25)*Math.PI*2);
+      giftPts.push({
+        x:cx,y:cy,
+        ang,spd:1.2+Math.random()*.8,
+        maxDist:40+Math.random()*(Math.min(ww,wh)*0.42),
+        dist:Math.random()*(Math.min(ww,wh)*0.42),
+        r:.6+Math.random()*.5,
+        a:.1+Math.random()*.1
+      });
+    }
+  }
+
+  let frame=0;
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    frame++; t+=.005;
+    ctx.clearRect(0,0,ww,wh);
+    const sf=Math.min(1,window.scrollY/(Math.max(1,document.body.scrollHeight-wh)));
+
+    if(sf<0.55){
+      const al=sf<0.45?1:1-(sf-0.45)/0.1;
+      // Presence: epiphany flashes
+      nowPts.forEach(p=>{
+        if(p.delay>0){p.delay--;return}
+        p.life++;
+        if(p.life>p.maxLife){
+          p.life=0;p.x=Math.random()*ww;p.y=Math.random()*wh;
+          p.maxLife=60+Math.random()*100;p.delay=Math.random()*150;
+        }
+        const prog=p.life/p.maxLife;
+        const a=Math.sin(prog*Math.PI)*0.25*al;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(120,184,232,${a.toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    if(sf>0.45){
+      const al=sf<0.55?(sf-0.45)/0.1:1;
+      // Gift: paths radiating from center
+      giftPts.forEach(p=>{
+        p.dist+=p.spd;
+        if(p.dist>p.maxDist){p.dist=0}
+        const x=ww/2+Math.cos(p.ang+t*.2)*p.dist;
+        const y=wh/2+Math.sin(p.ang+t*.2)*p.dist;
+        const fade=1-(p.dist/p.maxDist);
+        ctx.beginPath(); ctx.arc(x,y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(232,120,48,${(p.a*fade*al).toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

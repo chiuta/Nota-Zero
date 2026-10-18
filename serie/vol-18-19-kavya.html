@@ -1,0 +1,566 @@
+<!DOCTYPE html><html lang="ro"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nota Zero — Vol. XVIII–XIX · Nota Simetriei · Nota Cauzalității</title><style>
+:root{
+  --void:#030407; --deep:#06080f; --surface:#0d0f1c;
+  --gold:#c8a96e; --gold-dim:rgba(200,169,110,.38); --gold-faint:rgba(200,169,110,.07);
+  --cream:#ede3ce; --cream-dim:rgba(237,227,206,.62);
+  --cyan:#00e8ff; --cyan-dim:rgba(0,232,255,.18);
+  --border:rgba(200,169,110,.13); --border2:rgba(200,169,110,.07);
+  --ak:rgba(80,160,90,.6); --ak-dim:rgba(80,160,90,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--void); color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.17rem; line-height:1.92;
+  max-width:720px; margin:0 auto;
+  padding:4.5rem 2.5rem 9rem;
+}
+/* NAV */
+.nav{
+  font-family:'Space Mono',monospace; font-size:.58rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:3rem;
+  display:flex; gap:1.5rem; flex-wrap:wrap;
+}
+.nav a{color:var(--gold-dim);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:1px;}
+.nav a:hover{color:var(--gold); border-color:var(--gold);}
+/* HEADER */
+.vol-badge{
+  font-family:'Space Mono',monospace; font-size:.56rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--cyan); opacity:.65; margin-bottom:1.4rem;
+}
+h1{
+  font-size:clamp(2rem,5.5vw,3.4rem); font-weight:300;
+  line-height:1.12; margin-bottom:.7rem;
+}
+h1 strong{font-weight:600;}
+h1 em{font-style:italic; color:var(--cream-dim); font-weight:300;}
+.subtitlu{font-size:.98rem; color:var(--cream-dim); font-style:italic; margin-bottom:.5rem;}
+.meta{
+  font-family:'Space Mono',monospace; font-size:.56rem;
+  letter-spacing:.11em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:4.5rem;
+  padding-bottom:2rem; border-bottom:1px solid var(--border);
+}
+/* SECȚIUNI */
+.sec{
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin:4.5rem 0 1.8rem;
+  padding-bottom:.6rem; border-bottom:1px solid var(--border2);
+}
+h3{font-size:1.12rem; font-weight:600; margin:3rem 0 1rem;}
+/* PROZĂ */
+p{margin-bottom:1.45rem; text-align:justify; hyphens:auto;}
+p:last-child{margin-bottom:0;}
+em{font-style:italic;}
+strong{color:var(--cream);}
+/* DIALOG */
+.d{margin:1.8rem 0;}
+.d p{margin-bottom:.65rem; text-align:left;}
+.d p::before{content:'— ';}
+/* BLOCNOTES */
+.bn{
+  border:1px solid var(--border); border-left:2px solid var(--gold);
+  padding:1.3rem 1.7rem; background:var(--gold-faint);
+  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
+}
+.bn p{margin-bottom:.85rem; text-align:left;}
+.bn p:last-child{margin-bottom:0;}
+.bn-src{
+  font-family:'Space Mono',monospace; font-size:.54rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold-dim); margin-top:1rem;
+  font-style:normal; display:block; padding-top:.6rem;
+  border-top:1px solid var(--border2);
+}
+/* STRAT BRUT */
+.brut{
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  line-height:2.15; color:rgba(237,227,206,.5);
+  background:rgba(200,169,110,.035); border:1px solid var(--border);
+  padding:1.3rem 1.7rem; margin:2.2rem 0;
+}
+.brut-lbl{
+  font-size:.53rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block; opacity:.65;
+}
+.brut-a{opacity:.32; text-decoration:line-through;}
+.brut-p{color:var(--cyan); opacity:.45;}
+/* AKAN */
+.akan{
+  border:1px solid var(--ak-dim); border-left:2px solid var(--ak);
+  padding:1.3rem 1.7rem; background:rgba(80,160,90,.04);
+  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
+}
+.akan p{margin-bottom:.85rem; text-align:left;}
+.akan p:last-child{margin-bottom:0;}
+.akan-src{
+  font-family:'Space Mono',monospace; font-size:.54rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ak); margin-top:1rem; font-style:normal;
+  display:block; padding-top:.6rem; border-top:1px solid var(--ak-dim);
+}
+.akan-badge{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--ak); border:1px solid var(--ak-dim);
+  padding:.3rem .7rem; display:inline-block; margin-bottom:2rem;
+}
+/* NOTE ȘTIINȚIFICE */
+.ns{
+  border-top:1px solid var(--border); margin:2.5rem 0;
+  padding-top:1.3rem; font-size:.81rem;
+  color:var(--cream-dim); line-height:1.72;
+}
+.ns-lbl{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.55rem; display:block;
+}
+/* ECUAȚIE */
+.eq{
+  font-family:'Space Mono',monospace; font-size:.76rem;
+  border-left:2px solid var(--cyan-dim);
+  padding:.85rem 1.3rem; margin:1.8rem 0;
+  color:rgba(0,232,255,.68); background:rgba(0,232,255,.028);
+  line-height:2.1;
+}
+/* SEPARATORI */
+hr.sep{border:none; border-top:1px solid var(--border); margin:3.5rem 0;}
+.pauza{text-align:center; color:var(--border); margin:3rem 0; letter-spacing:.6rem; font-size:1.2rem;}
+/* PAGINA GOALĂ YUKI */
+.pg-goala{
+  border:1px dashed rgba(200,169,110,.18);
+  height:220px; margin:3.5rem 0;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold-dim); font-family:'Space Mono',monospace;
+  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
+  flex-direction:column; gap:.8rem;
+}
+/* BOX FINAL */
+.final{
+  border:1px solid rgba(200,169,110,.28);
+  padding:3rem 2.5rem; margin:4rem 0; text-align:center;
+}
+.final p{font-size:1.32rem; font-style:italic; line-height:2.15; color:var(--cream-dim); margin-bottom:1rem;}
+.final p:last-child{margin:0; font-size:.85rem; font-style:normal; color:var(--gold-dim); font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase;}
+/* EMAIL */
+.email{
+  background:rgba(200,169,110,.05); border:1px solid var(--border);
+  padding:1.5rem 2rem; margin:2.2rem 0;
+  font-family:'Space Mono',monospace; font-size:.76rem;
+  line-height:2.1; color:var(--cream-dim);
+}
+/* NOTA ARHIVISTICĂ */
+.nota-arh{
+  background:rgba(6,8,15,.8); border:1px solid var(--border);
+  padding:1.8rem 2.2rem; margin:3rem 0;
+}
+.nota-arh-lbl{
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block;
+}
+.nota-arh p{font-size:.85rem; color:var(--cream-dim); margin-bottom:.7rem; line-height:1.72;}
+/* FOOTER */
+footer{
+  margin-top:7rem; padding-top:2.5rem;
+  border-top:1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:.53rem;
+  color:var(--gold-dim); letter-spacing:.1em;
+  text-align:center; line-height:2.1;
+}
+@media(max-width:600px){
+  body{padding:3rem 1.4rem 6rem;}
+  h1{font-size:clamp(1.7rem,6vw,2.4rem);}
+}
+</style></head><body>
+<nav class="nav"><a href="index.html">↑ Cuprins</a> <a href="vol-16-17-ji-ho.html">← ← Vol. XVI–XVII</a> <a href="vol-20-21-leila.html">Vol. XX–XXI · Leila → →</a></nav>
+<div class="vol-badge">Seria Nota Zero · Cărțile XVIII–XIX</div>
+<h1><strong>Vol. XVIII–XIX</strong> · <em>Nota Simetriei</em> · <em>Nota Cauzalității</em></h1><div class="meta">Kavya Nair · 28 ani în 2510 · Kerala + Oslo</div>
+
+<div class="brut">
+<span class="brut-lbl">Caiet vol. I · Kavya Nair · Kerala + Oslo · 2510</span>
+Ji-Ho Yun a murit în 2505. 59 volume. 423 ani.<br>
+bunica: la fiecare masă dimineața — o întrebare pe masă, nesoluționată. nu subiect. prezență.<br>
+karma și Bell: cauzalitate locală vs. corelație non-locală.<br>
+<span class="brut-a">— dacă karma presupune cauzalitate și Bell demonstrează —</span><br>
+poate că „de unde vine" presupune cauzalitate locală iar particula nu e obligată.
+</div>
+
+<div class="sec">XVIII · Simetria · 2510</div>
+
+Nota Simetriei & Nota Cauzalității · Cărțile a optisprezecea și a nouăsprezecea · Alexandru Ionuț Chiuță
+
+Seria Nota Zero · Cărțile a optisprezecea și a nouăsprezecea
+
+Ji-Ho Yun a privit fotonii CMB și a văzut că lumina nu știe că vine.
+
+Kavya Nair primește caietele și întoarce întrebarea:
+
+de ce vine în direcția asta și nu în cealaltă?
+
+Conservarea și direcția. Oglinda și săgeata.
+
+De ce unele lucruri rămân la fel indiferent de unghi —
+
+și de ce totul se mișcă doar într-o singură direcție.
+
+Seria completă până acum: 17 volume · 2087–2465 · 378 ani diegetic.
+
+Kavya Nair are 28 ani în 2510. Oslo + Kerala.
+
+Noether. Wheeler. Zara. Aceeași întrebare — alt capăt.
+
+Cartea a optisprezecea · Kavya Nair · 28 ani · 2510 · Oslo + Kerala
+
+Fiecare simetrie conservă ceva, fiecare conservare trădează o simetrie
+
+„If the laws of physics remain the same
+
+— Kavya Nair, caiet vol. I, p. 1, 2510
+
+Kavya Nair crescuse în Kerala cu o mamă matematiciană și un tată oceanograf, ceea ce însemna că în casa ei existau două tipuri de tăcere: tăcerea ecuațiilor și tăcerea mării. Nu credea că sunt diferite. Ecuațiile aveau și ele un fel de maree — refluxul și fluxul simplificării, alternarea între complexitate și eleganță, ritmul în care o problemă se strângea înainte să se deschidă.
+
+Venise la Oslo cu o întrebare pe care o formulase la douăzeci și doi de ani și nu o abandonase: de ce există legi de conservare? De ce energia se conservă, impulsul se conservă, momentul cinetic se conservă? Nu era evident. Putea exista un univers în care nimic nu se conserva — în care energia dispărea și apărea arbitrar, în care mișcarea se oprea fără motiv, în care rotația nu producea nicio invarianță. Un astfel de univers ar fi haos complet. Dar universul nostru nu era haos.
+
+Emmy Noether demonstrase în 1915, la Göttingen, că nu era o coincidență. Teorema Noether: orice simetrie continuă diferențiabilă a acțiunii unui sistem fizic produce o cantitate conservată corespunzătoare. Nu era un postulat — era o teoremă. Dacă legile fizicii nu se schimbau în timp, energia se conserva. Dacă nu se schimbau în spațiu, impulsul se conserva. Dacă nu se schimbau la rotație, momentul cinetic se conserva.
+
+Conservarea nu era un fapt separat al naturii. Era o consecință a simetriei. Și simetria era o proprietate a legilor, nu a obiectelor.
+
+Teorema Noether — corespondențe fundamentale
+
+Simetrie la translație în timp     →  Conservarea energiei
+
+Simetrie la translație în spațiu   →  Conservarea impulsului (p = mv)
+
+Simetrie la rotație                →  Conservarea momentului cinetic
+
+Simetrie de gauge U(1)             →  Conservarea sarcinii electrice
+
+Simetrie de gauge SU(2)            →  Izospin (forța nucleară slabă)
+
+Simetrie de gauge SU(3)            →  Culoare (forța nucleară tare)
+
+Concluzie: orice cantitate conservată reflectă o simetrie a naturii.
+
+Dacă există o conservare necunoscută → există o simetrie necunoscută.
+
+Kavya stătuse cu această corespondență câteva săptămâni. Nu era numai frumoasă — era profundă în sens tehnic. Înainte de Noether, legile de conservare erau postulate separate: energia se conservă, ți se spunea, și trebuia să crezi. După Noether, nu mai trebuia să crezi nimic separat: dacă acceptai că legile fizicii nu se schimbau în timp, energia trebuia să se conserve — matematic, inevitabil, fără excepție.
+
+Și inversul era la fel de puternic: dacă descopereai experimental o cantitate conservată pe care nu o înțelegeai, teorema Noether îți spunea că trebuia să existe undeva o simetrie corespunzătoare pe care nu o văzuseși încă. Conservarea era o urmă a simetriei, chiar și când simetria era invizibilă.
+
+Teorema Noether e cel mai frumos lucru din fizică pe care l-am știut. Nu pentru că e eleganță decorativă — ci pentru că transformă o observație empirică brută (energia se conservă) într-o necesitate matematică (dacă există simetrie temporală). Frumosul devine necesar. E singurul loc unde am văzut asta cu adevărat.
+
+Teorema Noether (Emmy Noether, 1915, publicată 1918): dacă acțiunea unui sistem fizic este invariantă sub o simetrie de Lie continuă, există o cantitate conservată corespunzătoare. Generalizare: teorema Noether 2 se aplică teoriilor de gauge. Aplicații: QED (sarcina electrică), QCD (culoarea), Model Standard. Noether, Emmy (1882–1935): una dintre cele mai importante matematiciene ale secolului XX, lucrare în algebră abstractă și fizică teoretică, expulzată din Germania 1933, decedat 1935.
+
+Dar universul nu era perfect simetric. Și aceasta era la fel de fascinantă ca simetria sa: că unele simetrii erau sparte — că realul deviase de la simetria perfectă în moduri specifice, și că devierile produceau structura pe care o cunoaștem.
+
+Cel mai flagrant: materia și antimateria. Teoretic, Big Bang-ul trebuia să producă cantități egale. Fiecare particulă de materie trebuia să fie însoțită de o antiparticulă corespunzătoare. La anihilare, materia și antimateria se transformau mutual în fotoni — fără urmă, fără structură, fără nimic din ce numim univers. Și totuși existam. Ceea ce însemna că Big Bang-ul produsese cu o fracțiune mai multă materie decât antimaterie — un dezechilibru de aproximativ un miliard și unu la un miliard. Această fracțiune infinitezimală rămăsese după ce tot restul se anihilase. Noi eram reziduul dezechilibrului.
+
+Dezechilibrul provenea din violarea simetriei CP — simetria combinată particolă/antiparticulă și paritate spațială. James Cronin și Val Fitch demonstraseră în 1964 că kaonii neutri violau CP. Nobelul în 1980. Dar magnitudinea violării CP în Modelul Standard era insuficientă pentru a explica dezechilibrul observat. Era un alt mister deschis.
+
+Kavya discuta cu profesorul ei de fizică particulelor — Dr. Ravi Shankar, din Mumbai, care conducea la Oslo un grup de cercetare pe fizica hadronică.
+
+— Ravi. Dacă simetria CP ar fi perfectă, nu am exista.
+
+— Exact, spuse Ravi. Existența noastră e dovada că simetria CP e violată. E unul dintre cele mai ciudate argumente antropice din fizică: nu argumentăm că fine-tuning-ul constantelor permite viața. Argumentăm că violarea unei simetrii fundamentale e condiția de posibilitate a oricărei materii. Fără violarea CP, universul ar fi un gaz de fotoni în echilibru perfect.
+
+— Imperfecțiunea e ceea ce există, spuse Ravi. Simetria perfectă ar fi un univers gol de structură. Tot ce avem — galaxii, stele, planete, oameni, caietele seriei tale — e rezultatul devierilor de la simetria perfectă. Imperfecțiunile simetriei sunt punctele de start ale complexității.
+
+— Ca nota zero a lui Zara Voss, spuse Kavya.
+
+Ravi o privi câteva secunde. Ai citit toate volumele?
+
+— Toate șaptesprezece, spuse Kavya. Și nota zero nu era un eșec — era punctul de start. La fel cum violarea CP nu e un eșec al simetriei — e punctul de start al materiei.
+
+Simetria perfectă ar produce un univers gol de structură. Tot ce există — galaxii, viață, întrebări — e rezultatul devierilor de la simetria perfectă. Imperfecțiunile simetriei sunt punctele de start ale complexității. Ca nota zero: greșeala originară care produce totul.
+
+Violarea CP (Cronin & Fitch, 1964, Nobel 1980): kaonii neutri prezintă asimetrie particulă/antiparticulă. Bariogeneză: mecanismul prin care materia a depășit antimateria în universul timpuriu. Condiții Sakharov (1967): (1) violarea bariogenezei, (2) violarea CP, (3) dezechilibru termic. Toate trei îndeplinite în Standard Model — dar magnitudinea insuficientă. Dezechilibrul actual: ~1 barion la 10⁹ fotoni. O simetrie perfectă ar fi eliminat toată materia. Noi suntem reziduul dezechilibrului.
+
+Kavya revenise la întrebarea de pe prima pagina a caietului ei: ce conservă seria Nota Zero? Nu era o întrebare retorică — era o extensie directă a logicii Noether. Dacă seria avea o simetrie — dacă se comporta la fel privită din 2087 sau din 2510 sau de la oricare protagonist — atunci trebuia să existe o cantitate conservată.
+
+Simetria seriei era evidentă: indiferent de protagonist, indiferent de epocă, indiferent de temă fizică, seria punea aceeași întrebare și ajungea la aceeași limită. Nu răspunsul variase — limitele variaseră în precizie, nu în natură. La orice volum, observatorul ajungea la un gard.
+
+Deci simetria era: invarianța față de rotirea perspectivei. La fel indiferent de cine priveau.
+
+Și cantitatea conservată, prin teorema Noether aplicată la serie — metaforic, dar precis — era:
+
+. De unde venea punctul? rămânea conservată de-a lungul tuturor transformărilor seriei. Fusese pusă din unghiuri diferite, cu instrumente diferite, la distanțe de sute de ani — și rămăsese intactă. Nu se epuizase. Nu se răspunsese. Rămăsese.
+
+Seria Nota Zero are o simetrie: invarianța față de observator. Și prin teorema Noether a seriei, cantitatea conservată e întrebarea originară. Fiecare protagonist a transformat perspectiva. Întrebarea a rămas neschimbată. Aceasta e conservarea.
+
+Caietul Kavya Nair · vol. I · p. 55 · 17 mai 2511
+
+Emmy Noether a demonstrat că simetriile produc conservări.
+
+Seria noastră are simetria invarianței față de observator.
+
+Conservata corespunzătoare e întrebarea originară.
+
+Zara la 15 ani: De unde venea punctul?
+
+Kavya la 28 ani: De unde venea punctul?
+
+Întrebarea e invariantă sub toate transformările seriei.
+
+Simetria de reflexie — paritatea P — fusese considerată timp de decenii absolut conservată. Intuiția era: dacă oglindești un experiment, obții un experiment la fel de valid. Natura nu distingea stânga de dreapta. Fizica era chirality-neutră.
+
+Chien-Shiung Wu demonstrase în 1956 că nu era adevărat. Dezintegrarea beta a cobaltului-60 emitea electroni preferențial într-o direcție față de spin — nu simetric. Oglinda nu producea un experiment valid. Natura distingea stânga de dreapta. Paritatea era violată. Nobel 1957 pentru Lee și Yang — care preziseseră. Wu, care demonstrase, nu primise Nobel. Ironie sau simetrie spartă a premiilor, depinde cum privești.
+
+Kavya gândise mult la violarea parității. Nu ca fapt tehnic — ci ca implicație. Că universul nu era simetric față de oglindire. Că existau procese naturale care se desfășurau altfel decât imaginea lor în oglindă. Că natura, la nivel fundamental, avea o mână dominantă.
+
+Și că aceasta era fascinantă nu numai fizic, ci existențial: că universul în care trăim nu e echivalent cu universul-oglindă. Că sunt lumi posibile structurate diferit de a noastră — nu mai puțin coerente, dar fundamental asimetrice față de noi. Că nu eram în centrul nici unei simetrii — eram o instanță particulară, chirală, orientată, unică.
+
+Violarea parității înseamnă că universul are o orientare. Nu suntem în centru — suntem pe o parte. Și asta înseamnă că există un alt univers posibil, în oglindă, care nu suntem noi și care nu ne știe. Alteritatea e fundamentală la nivel de legi fizice, nu numai la nivel de conștiință (cum spunea Ji-Ho în Nota Celuilalt).
+
+Nota Simetriei · Epilog · 17 Mai 2515
+
+despre care Kavya scrisese în prefață că era, probabil, cea mai importantă
+
+matematiciană din istoria fizicii și că era corelat să primești mai puțin credit
+
+cu cât demonstrai mai mult lucruri fundamentale fără să fii în categoria așteptată.
+
+Editorul o întrebase dacă vrea să modereze tonul.
+
+Seria noastră are o simetrie: invarianța față de observator.
+
+rămâne conservată la fiecare transformare.
+
+Cartea a nouăsprezecea · Kavya Nair · 38 ani · 2520 · Kerala + Oslo
+
+„Zara a întrebat de unde venea punctul.
+
+Dar «de unde» presupune cauzalitate.
+
+Ce dacă nici cauzalitatea nu e fundamentală?"
+
+— Kavya Nair, caiet vol. II, p. 1, 2520
+
+Kavya descoperise delayed-choice experiment-ul lui Wheeler la treizeci și doi de ani, citind un articol pe care profesorul ei îl recomandase cu cuvintele:
+
+Citește asta și spune-mi dacă încă crezi că știi ce e trecutul.
+
+Experimentul era o variantă a interferenței cu două fante, dar cu un twist temporal. Fotonul trecea prin aparatul experimental. Dacă îl lăsai să interfereze — să se comporte ca undă — obțineai franjeuri de interferență. Dacă măsurai prin care fantă trecuse — îl tratai ca particulă — obțineai două pete clare, fără interferență. Standard.
+
+Twist-ul lui Wheeler: ce dacă alegerea — undă sau particulă — se făcea
+
+ce fotonul trecuse de
+
+<div class="sec">XIX · Cauzalitatea · 2520</div>
+
+ja prin fante? Ce dacă experimentatorul decidea, în ultimul moment, dacă să măsoare sau să lase să interfereze, dar fotonul ajunsese deja la detectorii de după fante?
+
+Rezultatul experimental, confirmat în 1984 și de atunci de multiple ori: nu conta. Fotonul se comporta ca undă sau ca particulă depinzând de alegerea
+
+a experimentatorului. Ca și cum fotonul știa dinainte ce se va decide și se comportase corespunzător de la bun început. Ca și cum viitorul influenșase trecutul.
+
+Delayed-Choice Experiment — logica temporală
+
+t=0: fotonul emis și trece prin fanteele duble
+
+t=1: fotonul ajunge la detectori (după fante)
+
+t=2: experimentatorul alege dacă măsoară sau nu
+
+Rezultat: comportamentul la t=0–1 depinde de alegerea de la t=2
+
+A) Fotonul nu a existat ca undă sau particulă până la t=2 (Copenhagen)
+
+B) Alegerea de la t=2 schimbă retroactiv starea de la t=0 (retrocauzalitate)
+
+C) Toate ramurile există; alegerea selectează ramura (Many-Worlds)
+
+D) Proprietățile sunt relaționale, nu absolute (QM relațională)
+
+Nicio interpretare nu e falsificabilă față de celelalte.
+
+Kavya stătuse cu această situație câteva luni. Nu cu disconfort — cu fascinație rece. Fiecare interpretare era coerentă. Niciuna nu putea fi distinsă experimental de celelalte. Și fiecare implica ceva radical diferit despre natura cauzalității.
+
+Dacă interpretarea Copenhaga era corectă, fotonul nu avusese o stare definită până la măsurătoare — cauzalitatea clasică nu se aplica la nivel cuantic, realul apărea în momentul observării. Dacă retrocauzalitatea era corectă, viitorul influența trecutul — cauzalitatea nu era unidirecțională. Dacă Many-Worlds era corect, toate ramurile existau — cauzalitatea se ramifica. Dacă QM relațională era corectă, cauzalitatea era o relație, nu o proprietate absolută.
+
+Indiferent de interpretare, cauzalitatea clasică — cauza precede efectul, efectul nu influențează cauza — era cel puțin parțial incorectă la nivel cuantic.
+
+Și dacă la nivel cuantic cauzalitatea era altfel — iar nivelul cuantic era nivelul fundamental — atunci cauzalitatea macroscopică era, la fel ca timpul și entropia, un fenomen emergent.
+
+Delayed-choice experiment (Wheeler, 1978; confirmat experimental Aspect et al., 1982; Jacques et al., 2007): alegerea de a măsura „care cale" sau „interferență" făcută după ce fotonul pare să fi trecut deja prin fante produce aceleași rezultate ca alegerea pre-emisie. Interpretări: Copenhaga, retrocauzalitate slabă, Many-Worlds, QM relațională. Niciuna falsificabilă față de celelalte. La mai 2026: dezbatere filosofică deschisă.
+
+Kaito Mori spusese în Nota Timpului că timpul era emergent din relații cauzale. Kavya acum inversa argumentul: dacă timpul era emergent, și dacă cauzalitatea era definită prin ordine temporală — cauza precede efectul în timp — atunci și cauzalitatea era emergentă.
+
+Aceasta nu era o concluzie trivială. Cauzalitatea era, poate, conceptul pe care se sprijinea orice știință, orice raționament, orice sens al frazei
+
+. Fără cauzalitate, nu existau explicații — existau numai corelații. Fără cauzalitate, nu existau experimente — existau numai observații. Fără cauzalitate, nu exista narațiune — existau numai succesiuni.
+
+Și Kavya realizase că întrebarea originară a seriei —
+
+— era o întrebare cauzală. Presupunea că Big Bang-ul avusese o cauză. Presupunea că există ceva care
+
+Dacă cauzalitatea era emergentă — dacă apărea din structura statistică a interacțiunilor în sisteme mari, la fel cum temperatura apărea din mișcarea particulelor — atunci la nivelul Big Bang-ului însuși, cauzalitatea putea să nu existe.
+
+putea să nu fie o întrebare cu sens la acel nivel.
+
+Ceea ce ar fi însemnat că Zara pusese o întrebare nu numai greșit formulată tehnic — ci imposibilă în principiu la nivelul la care se referea. Iar nota zero pe care o primise era, în acest sens, cel mai corect răspuns posibil: nu există un
+
+Kavya discuta cu o colegă — Dr. Priya Ramachandran, fiziciană teoretică la Chennai, cu care colabora la o lucrare despre cauzalitate în gravitația cuantică.
+
+— Priya. Dacă cauzalitatea e emergentă, întrebarea lui Zara Voss din 2087 era imposibilă prin natură, nu numai tehnic.
+
+— Da, spuse Priya. Dar asta nu înseamnă că era lipsită de valoare. Dimpotrivă. O întrebare imposibilă e mai valoroasă decât una posibilă, dacă e pusă cu onestitate. Pentru că te forțează să înțelegi de ce e imposibilă. Și înțelegând asta, înveți structura realității mai profund decât dacă ai fi primit un răspuns.
+
+— Adică nota zero pe care a primit-o Zara era o formă de cunoaștere.
+
+— Nota zero era confirmarea că întrebarea atinsese o limită reală, nu numai o limită a instrumentelor. E cel mai bun rezultat pe care o întrebare îl poate produce.
+
+Kavya tăcu câteva secunde. Asta schimbă tot sensul seriei, spuse în final.
+
+— Nu îl schimbă, spuse Priya. Îl adâncește. Seria știa asta de la primul volum. Îți trebuia un volum nouăsprezece ca să o formulezi explicit.
+
+O întrebare imposibilă e mai valoroasă decât una posibilă, dacă e pusă cu onestitate. Nota zero era confirmarea că întrebarea atinsese o limită reală. E cel mai bun rezultat pe care o întrebare îl poate produce.
+
+Kavya ajunsese, în primăvara lui 2521, la o înțelegere pe care o amânase să o scrie — nu pentru că ar fi fost neclară, ci pentru că era genul de înțelegere pe care o simți că o pierzi dacă o spui prea devreme. Voise să stea cu ea, să o verifice, să vadă dacă rezista sau dacă era numai frumoasă.
+
+Cauzalitatea era emergentă. Timpul era emergent. Spațiul era emergent. Simetria era fundamentală și simetriile sparte produceau structura. Informația era fizică și uitarea costa energie. Conștiința era locul unde fizica se vedea pe sine. Celălalt era constitutiv. Lumina era primul și ultimul mesager. Emergența producea nivele noi. Matematica era amprenta realului în mintea produsă de real. Vibrațiile spațiu-timpului purtau memoria fiecărei atingeri.
+
+Și la capătul tuturor acestora, o singură observație pe care seria o demonstrase prin însuși corpul ei, prin existența ei ca serie:
+
+Zara Voss pusese o întrebare greșit formulată și primise nota zero. Nota zero produsese dorința de a înțelege. Dorința de a înțelege produsese întrebări mai bune. Întrebările mai bune produsese alte volume. Alte volume produsese alte generații de întrebări. Altele generații produsese structura pe care acum o numim serie.
+
+La fel cum violarea simetriei CP produsese materia.
+
+La fel cum imperfecțiunile densității primordiale produsese galaxiile.
+
+La fel cum simetria spartă produsese structura.
+
+La fel cum nota zero nu era absența — era punctul de start.
+
+Nu era o metaforă. Era structura reală a seriei, oglindind structura reală a universului.
+
+Universul a pornit dintr-o imperfecțiune: dezechilibrul materie-antimaterie. Seria a pornit dintr-o imperfecțiune: o întrebare greșit formulată. Ambele imperfecțiuni au produs tot ce urmează. Poate că imperfecțiunea nu e contrariul perfecțiunii. Poate că e modul în care perfecțiunea devine productivă. Simetria perfectă = nimic. Simetria spartă = tot.
+
+Era seara de 17 mai 2521 și Kavya Nair stătea pe terasa casei din Kerala — nu la Oslo, acasă, cu marea Arabiei în față și cu aerul cald care mirosea a sare și florile de jasmin pe care le știa de mică. Caietul albastru al Zarei era pe masă, deschis la pagina trei.
+
+Kavya privea pagina și știa acum că răspunsul corect la această întrebare era: întrebarea presupune o cauzalitate care nu există la acel nivel. Nu există un
+
+nicăieri — a apărut odată cu spațiul și timpul din care o astfel de întrebare ar putea fi pusă.
+
+Și totuși întrebarea fusese pusă. Și totuși produsese 434 de ani de investigație și nouăsprezece volume și opt fizicieni și o sută de caietele și mii de pagini și un număr incalculabil de ore de gândire și conversație și tăcere productivă.
+
+O întrebare imposibilă care produsese un corp de cunoaștere real. O cauză care nu exista, producând un efect real. Cauzalitate inversă sau emergentă sau fictivă sau mai profundă decât înțelesese — nu știa. Știa numai că funcționase.
+
+Scrisese, cu pixul verde pe care îl adusese din Oslo:
+
+Caietul Kavya Nair · vol. II · ultima pagina · 17 mai 2521
+
+Zara Voss a pus o întrebare imposibilă în 2087.
+
+Întrebarea imposibilă a produs optsprezece continuări.
+
+Optsprezece continuări au produs înțelegerea că întrebarea era imposibilă.
+
+Înțelegerea că era imposibilă e cel mai bun rezultat posibil.
+
+care a dovedit că cauza nu putea fi cauza.
+
+La fel cum violarea CP a produs materia.
+
+La fel cum simetria spartă a produs structura.
+
+La fel cum nota zero a produs toate notele.
+
+Nota zero e cauza care nu știa că e cauza.
+
+Exact cum fotonul nu știe că e mesager.
+
+Exact cum universul nu știe că există.
+
+Închisese caietul. Stătuse câteva minute cu marea în față.
+
+Valurile veneau și plecau cu ritmul lor indiferent la orice înțelegere omenească. Veneau din larg — din perturbații de vânt de la mii de kilometri distanță, propagate prin apă cu mecanica fluidelor lui Newton și Bernoulli, ajunse la această plajă după drumuri curbe prin ocean.
+
+Valurile nu știau că veneau. Kavya știa că veneau. Și diferența dintre cele două era toată seria.
+
+Nu răspunsul la întrebarea lui Zara — conștiința că există o diferență între un sistem care vine și un sistem care știe că vine. Și că această diferență, oricât de neexplicată, era reală.
+
+Lăsă caietul deschis la pagina goală.
+
+Nota Cauzalității · Epilog · 17 Mai 2525
+
+Kavya Nair a lăsat caietele pe biroul din Oslo cu un bilet scris pe o foaie simplă:
+
+Există cineva care are o întrebare pe care o reformulează de mai mult de o dată.
+
+Nu știa cine va fi. Nu trebuia să știe.
+
+Seria nu funcționase niciodată prin știință despre viitor.
+
+Funcționase prin curiozitate prezentă.
+
+Imposibilul a produs douăzeci de volume.
+
+întrebarea inițială nu putea fi răspunsă.
+
+O cauza imposibilă care produce un efect real.
+
+O notă zero care deschide toate notele.
+
+Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon
+
+nouă fizicieni · 434 ani diegetic · o singură întrebare invariantă
+
+Seria are o simetrie prin teorema Noether:
+
+o cauză imposibilă care produce efecte reale.
+
+La fel ca violarea CP produse materia.
+
+La fel ca imperfecțiunea produse structura.
+
+Nota zero e simetria spartă care produce totul.
+
+De la o întrebare imposibilă la o simetrie conservată.
+
+De la un punct originar la structura care îl face posibil.
+
+Seria continuă pentru că întrebarea se conservă.
+
+Întrebarea se conservă pentru că are simetrie.
+
+Simetria e nota zero a oricărei conservări.
+
+Alexandru Ionuț Chiuță · Seria Nota Zero · 19 volume · 2026
+
+în colaborare cu Claude Sonnet 4.6 · Anthropic
+
+⬡ Note Știinţifice · Nota Simetriei & Nota Cauzalității
+
+1. Teorema Noether (1915, publicată 1918):
+
+orice simetrie continuă diferențiabilă a acțiunii produce o cantitate conservată. Emmy Noether (1882–1935), Göttingen. Aplicații în toată fizica modernă. Inversul: orice conservare reflectă o simetrie.
+
+2. Violarea CP (Cronin & Fitch, 1964, Nobel 1980):
+
+kaonii neutri prezintă asimetrie CP. Condiții Sakharov (1967) pentru bariogeneză. Dezechilibrul materie-antimaterie: ~1 barion la 10⁹ fotoni. Fără violarea CP, nicio materie reziduală.
+
+3. Violarea parității P (Wu, 1956; Lee & Yang Nobel 1957):
+
+dezintegrarea beta a Co-60 emite electroni asimetric față de spin. Natura distinge stânga de dreapta. Wu Chien-Shiung nu a primit Nobel — omisiune notorie.
+
+4. Delayed-choice experiment (Wheeler, 1978; confirmat experimental 1982, 2007):
+
+alegerea post-trecere a fotonului prin fante determină comportamentul de undă sau particulă. Interpretări multiple, nedistinguibile experimental. Sugerează că cauzalitatea clasică nu se aplică la nivel cuantic.
+
+Kavya Nair, Ravi Shankar, Priya Ramachandran sunt personaje fictive. Seria Nota Zero (19 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Fizica e prezentată cu acuratețe la mai 2026.
+
+Nota Simetriei & Nota Cauzalității · Cărțile a optisprezecea și a nouăsprezecea
+
+Seria Nota Zero: 19 volume · 2087–2525 · 438 ani diegetic
+
+Simetria conservă întrebarea. Cauzalitatea e emergentă. Nota zero produce totul.
+
+<footer>Nota Zero · <strong>Vol. XVIII–XIX</strong> · <em>Nota Simetriei</em> · <em>Nota Cauzalității</em> · Alexandru Ionuț Chiuță · implementări I–V integrate</footer></body></html>

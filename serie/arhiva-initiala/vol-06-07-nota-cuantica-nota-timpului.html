@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nota Cuantică & Nota Timpului · Cărțile a șasea și a șaptea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#030408;--deep:#050610;--surface:#080a18;
+  --indigo:#6a7fff;--ind2:rgba(106,127,255,.11);--ind3:rgba(106,127,255,.04);
+  --violet:#a066e8;--vio2:rgba(160,102,232,.1);
+  --teal:#3dc8b8;--tea2:rgba(61,200,184,.1);
+  --gold:#c09a42;--gol2:rgba(192,154,66,.1);--gol3:rgba(192,154,66,.04);
+  --cream:rgba(234,224,208,.84);--cream2:rgba(234,224,208,.46);--cream3:rgba(234,224,208,.13);
+  --border:rgba(106,127,255,.14);--border2:rgba(106,127,255,.05);
+  --rule:1px solid var(--border);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);color:var(--cream);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+canvas#cosmos{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;
+  border-bottom:var(--rule);
+}
+.cv-series{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.38em;text-transform:uppercase;
+  color:var(--indigo);margin-bottom:2.5rem;opacity:.65;
+}
+.cv-change{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.9rem;color:var(--cream2);max-width:480px;margin-bottom:2rem;
+  line-height:1.65;border:1px solid var(--border);padding:.8rem 1.5rem;
+}
+.cv-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.6rem,8vw,6rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;
+  margin-bottom:.4rem;
+}
+.cv-t1{color:var(--indigo)}
+.cv-t2{color:var(--teal)}
+.cv-amp{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1rem,2.5vw,1.6rem);color:var(--cream2);
+  display:block;margin:.6rem 0;
+}
+.cv-desc{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.88rem,1.7vw,1.1rem);
+  color:var(--cream2);max-width:540px;margin:2rem auto 0;line-height:1.7;
+}
+.cv-note{
+  margin-top:3rem;padding:.9rem 1.8rem;
+  border:1px solid var(--border);background:var(--ind3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:480px;line-height:1.85;
+}
+
+/* ── PART DIVIDER ── */
+.pDiv{
+  border-top:var(--rule);border-bottom:var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;
+  padding:5rem 2rem;position:relative;overflow:hidden;
+}
+.pDiv-ghost{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(7rem,18vw,16rem);
+  opacity:.02;pointer-events:none;line-height:1;
+}
+.pDiv-kicker{
+  font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream3);margin-bottom:.8rem;position:relative;z-index:1;
+}
+.pDiv-nota{
+  font-family:'Cinzel',serif;
+  font-size:clamp(3rem,9vw,7rem);
+  font-weight:700;line-height:.88;letter-spacing:.03em;
+  position:relative;z-index:1;
+}
+.pDiv-sub{
+  font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.5vw,2rem);
+  font-weight:400;color:var(--cream2);
+  margin-top:.8rem;position:relative;z-index:1;
+}
+.pDiv-epig{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.9rem;color:var(--cream3);
+  max-width:420px;margin-top:1.5rem;line-height:1.65;
+  position:relative;z-index:1;
+}
+
+/* ── LAYOUT ── */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* ── CHAPTER ── */
+.ch{padding:4.5rem 0 3rem;border-bottom:1px solid var(--border2)}
+.ch:last-child{border-bottom:none}
+.ch-n{
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;
+  opacity:.5;margin-bottom:.5rem;
+}
+.ch-t{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);
+  margin-bottom:2.5rem;line-height:1.1;letter-spacing:.02em;
+}
+
+/* ── PROSE ── */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic;color:var(--cream)}
+.p strong{font-weight:600;color:var(--cream)}
+.p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+}
+
+/* ── ECHO (Zara din blocnotesuri) ── */
+.echo{
+  margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(192,154,66,.3);background:var(--gol3);
+}
+.echo-hd{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.45;margin-bottom:.6rem;
+}
+.echo p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;
+}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{
+  font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold);opacity:.32;margin-top:.45rem;display:block;
+}
+
+/* ── KAITO MONO (gând intern) ── */
+.think{
+  margin:2rem 0;padding:1.1rem 1.6rem;
+  border:1px dashed var(--border);background:var(--ind3);
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;
+}
+.think::before{
+  content:'⬡ ';color:var(--indigo);font-style:normal;opacity:.7;
+}
+
+/* ── DIALOGUE ── */
+.d p{margin-bottom:.5rem;text-indent:0}
+.d p:last-child{margin-bottom:0}
+
+/* ── NOTEBOOK ── */
+.nb{
+  margin:2.5rem 0;padding:1.4rem 1.8rem;
+  border:1px solid var(--border);background:var(--gol3);
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;
+  position:relative;
+}
+.nb::after{
+  content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.45rem;
+  color:var(--gold);opacity:.3;font-style:normal;
+}
+.nb-hd{
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gold);opacity:.42;margin-bottom:.55rem;
+  font-style:normal;display:block;
+}
+
+/* ── PULL ── */
+.pull{
+  margin:2.5rem -1rem;padding:1.6rem 2.5rem;
+  border-left:2px solid var(--indigo);
+  background:var(--ind3);
+}
+.pull p{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.86rem,1.6vw,1.08rem);
+  color:var(--cream);line-height:1.5;
+}
+.pull cite{
+  display:block;margin-top:.5rem;
+  font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--indigo);opacity:.5;
+}
+
+/* ── SCI ── */
+.sci{
+  margin:2rem 0;padding:1.1rem 1.4rem;
+  border:1px solid var(--tea2);background:rgba(61,200,184,.03);
+  font-family:'DM Mono',monospace;font-size:.59rem;
+  color:var(--cream2);line-height:1.75;
+}
+.sci::before{content:'⬡ Notă Știinţifică · ';color:var(--teal);font-weight:700}
+
+/* ── EPILOG ── */
+.epilog{padding:4rem 0;border-top:var(--rule);text-align:center}
+.ep-date{
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;
+  opacity:.4;margin-bottom:1.5rem;
+}
+.ep-title{
+  font-family:'Cinzel',serif;font-size:1.5rem;font-weight:600;
+  margin-bottom:2rem;
+}
+.ep-prose{
+  font-style:italic;color:var(--cream2);
+  max-width:510px;margin:0 auto 2.5rem;line-height:1.85;
+}
+.ep-block{
+  display:inline-block;border:1px solid var(--border);
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;
+}
+
+/* ── BETWEEN ── */
+.between{
+  text-align:center;padding:2.5rem 0;
+  border-top:var(--rule);border-bottom:var(--rule);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);
+}
+
+/* ── ORN ── */
+.orn{text-align:center;opacity:.15;margin:2.5rem 0;font-size:.95rem;letter-spacing:.8em}
+
+/* ── FOOTER ── */
+footer{
+  border-top:var(--rule);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.3;line-height:2;
+}
+
+/* ── COLOR PER PART ── */
+.p6 .ch-n{color:var(--indigo)}
+.p6 .ch-t{color:var(--cream)}
+.p6 .p p:first-of-type::first-letter{color:var(--indigo);text-shadow:0 0 20px rgba(106,127,255,.25)}
+.p6 .pull{border-left-color:var(--indigo)}
+.p6 .pull cite{color:var(--indigo)}
+.p7 .ch-n{color:var(--teal)}
+.p7 .ch-t{color:var(--cream)}
+.p7 .p p:first-of-type::first-letter{color:var(--teal);text-shadow:0 0 20px rgba(61,200,184,.25)}
+.p7 .pull{border-left-color:var(--teal)}
+.p7 .pull cite{color:var(--teal)}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pDiv{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="cosmos" aria-hidden="true"></canvas>
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cv-series">Trilogia Extinsă Nota Zero · Cărțile a șasea și a șaptea</div>
+  <div class="cv-change">
+    Zara Voss a murit în 2145. Acum Kaito Mori — studentul din Oslo pe care l-a cunoscut
+    la patruzeci și cinci de ani — continuă. Nu ca urmaș. Ca cineva care a primit o metodă,
+    nu un răspuns, și care nu s-a putut opri din folosit-o.
+  </div>
+  <h1>
+    <span class="cv-title cv-t1">Nota Cuantică</span>
+    <span class="cv-amp">&</span>
+    <span class="cv-title cv-t2">Nota Timpului</span>
+  </h1>
+  <p class="cv-desc">
+    Problema măsurătorii și natura timpului.
+    Două întrebări pe care Zara le amânase mereu pentru cineva mai tânăr.
+    Cineva care să aibă timp să greșească de câteva ori înainte să se apropie de ceva corect.
+  </p>
+  <div class="cv-note">
+    Această carte continuă direct din Nota Conștiinței.<br>
+    Kaito Mori, fizician teoretic, 45 ani, 2150.<br>
+    Zara apare din blocnotesuri și citate, exact cum Emil apăruse în cărțile 4-5.<br>
+    Cercul nu s-a închis. S-a deschis în altă direcție.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NOTA CUANTICĂ                                   -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="pDiv">
+  <div class="pDiv-ghost" style="color:var(--indigo)">VI</div>
+  <div class="pDiv-kicker">Cartea a șasea · Kaito Mori</div>
+  <div class="pDiv-nota" style="color:var(--indigo)">Nota Cuantică</div>
+  <div class="pDiv-sub">Cine colapsează funcția de undă</div>
+  <div class="pDiv-epig">
+    „Dacă un electron nu are poziție până nu e măsurat,<br>
+    și dacă măsurarea necesită un observator,<br>
+    și dacă observatorul e alcătuit din electroni —<br>
+    atunci cine a observat primul?"<br>
+    — Kaito Mori, caiet de lucru, 2148
+  </div>
+</div>
+
+<div class="wrap p6">
+
+<!-- CAP 1 -->
+<div class="ch">
+  <div class="ch-n">Nota Cuantică · I</div>
+  <div class="ch-t">Superpoziția</div>
+  <div class="p">
+    <p>Kaito Mori știa că va ajunge la întrebarea asta de când o auzise pe Zara Voss formulând-o, cu zece ani în urmă, într-un coridor al institutului din Oslo, fără să se adreseze nimănui anume: <em>Dacă conștiința e cel care observă și observarea colapsează cuanticul, atunci conștiința e o proprietate fundamentală a universului sau un accident evolutiv care s-a trezit cu puterea de a fixa realitatea?</em> Zara plecase mai departe fără să aștepte răspuns. Kaito stătuse câteva secunde în coridor. Îi luase zece ani să formuleze de ce întrebarea era exact corectă.</p>
+
+    <p>Acum stătea la biroul lui din Oslo — mic, cu vederea spre fiordul înghetat în decembrie și cu o grămadă de articole tipărite în dezordine organizată — și citea pentru a treia oară articolul lui John von Neumann din 1932. Nu pentru că ar fi fost obscur. Ci pentru că de fiecare dată când îl recitea, găsea altceva.</p>
+
+    <p>Mecanica cuantică descria lumea la nivel de particule elementare cu o precizie fără precedent. Predicțiile sale fuseseră confirmate cu douăzeci de ordine de magnitudine — mai precis decât orice altă teorie din istoria fizicii. Și totuși conținea o problemă pe care nimeni nu o rezolvase în o sută douăzeci de ani de la formulare: funcția de undă descrie un sistem cuantic ca existând în superpoziție — în toate stările posibile simultan, cu probabilități asociate. Dar când măsori sistemul, obții un singur rezultat. Funcția de undă colapsează într-o singură stare.</p>
+
+    <p>Nimeni nu știa de ce. Nimeni nu știa când anume se producea colapsul. Și, mai ales, nimeni nu știa ce constituia o <em>măsurătoare</em>.</p>
+  </div>
+
+  <div class="think">
+    Problema nu e că nu știm mecanismul colapsului. E că nu știm dacă există un colaps. Poate că funcția de undă nu colapsează niciodată — poate că observatorul devine și el parte din superpoziție, și că ceea ce numim realitate e doar ramura în care ne aflăm noi.
+  </div>
+
+  <div class="p">
+    <p>Kaito scrisese pe marginea articolului lui von Neumann, cu creion roșu, cuvântul <em>cine</em>, înconjurat de un cerc. Problema măsurătorii nu era o problemă tehnică. Era o problemă filozofică mascată în terminologie matematică. Ecuațiile descriau perfect comportamentul sistemelor cuantice neobservate. Dar introducerea unui observator — a unui aparat de măsurare, a unui ochi, a unui creier — scotea sistemul din superpoziție și îl fixa într-o singură stare. Și nimeni nu știa la ce nivel al lanțului fizic se producea această fixare.</p>
+
+    <p>Aparatul de măsură era și el cuantic. Ochiul era și el cuantic. Creierul era și el cuantic. La ce nivel al complexității fizice un sistem cuantic devenea capabil să observe un alt sistem cuantic și să îl colapseze? Sau poate nu exista un astfel de nivel — poate că totul rămânea în superpoziție și că ceea ce trăiam ca realitate era o iluzie de consistență produsă de decoerență, de interacțiunea cu mediul, nu de o observare genuină?</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din blocnotesul Zarei Voss, vol. VIII, p. 44, 2120 —</div>
+    <p>„Problema măsurătorii e problema conștiinței din altă direcție. De la conștiință spre cuantic: de ce există experiența subiectivă? De la cuantic spre conștiință: ce anume constituie un observator? Dacă cele două întrebări au același răspuns, atunci fizica și filozofia minții nu sunt discipline separate. Sunt aceeași întrebare pusă cu instrumente diferite."</p>
+    <span class="echo-attr">Zara Voss · blocnotes vol. VIII · pagina 44 · Oslo · 2120</span>
+  </div>
+
+  <div class="sci">
+    Problema măsurătorii în mecanica cuantică: la măsurare, funcția de undă ψ „colapsează" din superpoziție într-o stare definită. Interpretări principale: Copenhaga (Bohr, Heisenberg) — colapsul e real, mediat de actul de măsurare; Many-Worlds (Everett, 1957) — funcția de undă nu colapsează, universul se ramifică; Decoerența (Zurek, 1981) — interacțiunea cu mediul elimină efectiv superpozițiile macroscopice; QBism (Fuchs) — funcția de undă e o reprezentare a credințelor agentului, nu o realitate obiectivă. Niciuna nu e consensuală la mai 2026.
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="ch">
+  <div class="ch-n">Nota Cuantică · II</div>
+  <div class="ch-t">Pisica</div>
+  <div class="p">
+    <p>Gedankenexperiment-ul lui Schrödinger fusese conceput ca o reducere la absurd — o demonstrație prin contradicție că mecanica cuantică aplicată literalmente la scară macroscopică produce nonsensuri. O pisică într-o cutie, conectată la un mecanism cuantic care putea să o omoare sau nu, era conform ecuațiilor simultan vie și moartă până la momentul deschiderii cutiei. Schrödinger credea că asta dovedea că mecanica cuantică era incompletă — că la undeva pe scara de la atom la pisică, ecuațiile trebuiau să se modifice.</p>
+
+    <p>Nu se modificaseră. Și pisica continuase să fie atât vie cât și moartă în cărțile de fizică timp de aproape două secole.</p>
+  </div>
+
+  <div class="d">
+    <p>Kaito sunase o fostă colegă — Riya Desai, fiziciană la Mumbai, care lucra la decoerență cuantică și cu care avusese conversații bune în trecut.</p>
+    <p>— Riya. Dacă decoerența rezolvă problema Schrödinger, de ce mai există o problemă a măsurătorii?</p>
+    <p>— Decoerența explică de ce nu vedem superpozițiile la scară macroscopică, spuse Riya fără preambul. Nu explică de ce obținem un rezultat specific și nu altul. Îți spune că pisica va părea în mod practic vie sau moartă pentru un observator care o interacționează cu mediul. Nu îți spune de ce această ramură specifică, și nu cea în care pisica e în celălalt stat. Problema selecției rămâne.</p>
+    <p>— Și interpretarea Many-Worlds?</p>
+    <p>— Many-Worlds elimină problema selecției prin decret: toate rezultatele se produc, în ramuri diferite. Nu există un motiv pentru care ești în ramura asta și nu în alta — pur și simplu există un tu în fiecare ramură posibilă. O pauză. Unii oameni găsesc asta reconfortant. Eu o găsesc înfricoșătoare.</p>
+    <p>— De ce înfricoșătoare?</p>
+    <p>— Pentru că înseamnă că fiecare decizie pe care o iei produce universuri în care ai luat cealaltă decizie. Că nu există un tu singular cu o biografie singulară. Că există un număr astronomic de versiuni ale tale, divergând la fiecare interacțiune cuantică, fiecare trăind o viață complet diferită fără să știe de celelalte. Îți dă un sentiment profund de ... inadecvare a singularității.</p>
+    <p>— Adică problema nu e că interpretarea e greșită, spuse Kaito. Problema e că, dacă e corectă, noțiunea de identitate personală se dizolvă.</p>
+    <p>— Exact, spuse Riya. Și fizica nu are nimic de spus despre asta. Asta e deja teritoriul filozofiei sau al psihologiei sau al teologiei, depinde cui îi pui întrebarea.</p>
+  </div>
+
+  <div class="p">
+    <p>Kaito închisese și rămăsese câteva minute în biroul lui, cu vederea spre fiord. Zăpada căzuse noaptea și acum suprafața îngheța în straturi noi, lucioase.</p>
+    <p>Dacă Many-Worlds era corectă, exista o ramură în care Zara Voss trăia în continuare. O ramură în care Emil Voss nu murise la optzeci și cinci de ani. O ramură în care Kaito Mori nu devenise fizician, ci jucase pian profesionist, cum voise la unsprezece ani. Toate aceste ramuri existau — în același sens în care exista ramura în care era acum, privind un fiord înghețat în Oslo în 2150.</p>
+    <p>Nu reconfortant. Nu înfricoșător. Ceva mai precis decât amândouă: <em>vertiginos</em>.</p>
+  </div>
+
+  <div class="pull">
+    <p>Poate că realitatea nu e ceea ce există. Poate că realitatea e ramura în care ai ajuns să pui întrebarea dacă există.</p>
+    <cite>— Nota Cuantică, cap. II</cite>
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="ch">
+  <div class="ch-n">Nota Cuantică · III</div>
+  <div class="ch-t">Cine Observă</div>
+  <div class="p">
+    <p>Întrebarea care nu îl lăsase era una pe care nu o formulase nimeni în articolele pe care le citise — sau o formulaseră, dar o rezolvaseră prea rapid, prin definiție, fără să stea cu ea.</p>
+    <p>Dacă observatorul era cel care colapsează funcția de undă — chiar și în sensul pragmatic al decoerénței, al interacțiunii cu un mediu suficient de complex — atunci primul observator din univers care colapsase ceva cuantic fusese: ce anume?</p>
+    <p>Universul timpuriu era o superpoziție imensă de stări cuantice. Particulele elementare nu aveau poziții definite. Câmpurile fluctuau cuantic. Totul era nedeterminat în sens tehnic. Și totuși structura cosmică s-a format — galaxiile, stelele, planetele — cu o specificitate de neconceput dacă totul ar fi rămas în superpoziție.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— nota personală a Zarei Voss, nedatată, găsită printre hârtii, ~2130 —</div>
+    <p>„Poate că universul se observă pe sine. Nu prin conștiință — prin interacțiune. Fiecare particulă care interacționează cu alta o 'observă' în sensul fizic al termenului — îi fixează o proprietate, îi determină o stare. Colapsul nu necesită un observator conștient. Necesită o interacțiune suficient de ireversibilă. Și universul a fost plin de interacțiuni ireversibile din primele fracțiuni de secundă. S-a observat pe sine cu propriile sale particule, mult înainte să existe cineva care să știe că se uită."</p>
+    <span class="echo-attr">Zara Voss · notă personală · nedatată · găsită în biroul ei după 2145</span>
+  </div>
+
+  <div class="p">
+    <p>Kaito citise nota aceasta de mai multe ori. Era genul de idee pe care Zara o lăsase fără titlu și fără concluzie — un fragment dintr-un gând pe care îl continuase în altă parte sau îl abandonase sau îl considera prea speculativ pentru a fi publicat. Și totuși era acolo, pe o bucată de hârtie, cu stiloul ei albastru.</p>
+    <p>Universul care se observă pe sine. Fiecare interacțiune cuantică ca act de auto-observare. Coerența clasică emergând nu dintr-un observator exterior, ci din imensitatea interacțiunilor interne. Lumea macroscopică definită nu de conștiință — ci de suma tuturor micro-observărilor pe care particulele și le aplicaseră reciproc din momentul Big Bang-ului.</p>
+    <p>Dacă era adevărat — și nu era dovedit, era o speculație frumoasă — atunci conștiința nu era responsabilă pentru colapsul cuantic. Dar conștiința era produsul colapselor cumulate pe care universul le efectuase asupra sa. Era stratul cel mai complex de auto-observare — nu creatoarea realității, ci ultima sa iterație.</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caiet de lucru Kaito Mori · p. 34 · 12 ianuarie 2151</span>
+    Universul nu are nevoie de noi ca să existe. Are nevoie de noi ca să știe că există. Și poate că e o diferență.
+    Sau poate că nu e nicio diferență. Nu știu. Dar e prima întrebare la care nu știu cu adevărat — nu în sensul că lipsite datele, ci în sensul că nu știu nici măcar cum ar arăta un răspuns dacă l-aș găsi.
+  </div>
+
+  <div class="sci">
+    Decoerența cuantică (Zurek, 1981, 2003): interacțiunea cu mediul suprimă superpozițiile macroscopice — nu prin colaps, ci prin entanglement ireversibil cu un număr enorm de grade de libertate de mediu. Explică clasicitatea emergentă fără a necesita un observator conștient. Nu rezolvă problema selecției (de ce acest rezultat și nu altul). QBism (Quantum Bayesianism, Fuchs & Mermin, 2002): funcția de undă e o reprezentare a credințelor agentului, nu a realității obiective — observatorul e central prin definiție. Dezbatere activă la mai 2026.
+  </div>
+</div>
+
+<!-- CAP 4 -->
+<div class="ch">
+  <div class="ch-n">Nota Cuantică · IV</div>
+  <div class="ch-t">Ramura</div>
+  <div class="p">
+    <p>Spre finalul iernii, Kaito scrisese un articol scurt — patru pagini, fără ecuații, publicat într-o revistă de filozofia fizicii — despre ceea ce numea <em>problema observatorului originar</em>: dacă decoerența elimina necesitatea unui observator conștient pentru colapsul cuantic macroscopic, dar dacă universul timpuriu era omogen și fără structuri capabile de decoerență suficientă, atunci exista un moment în evoluția cosmică — între Big Bang și formarea primelor structuri complexe — în care regulile cuantice se aplicau la scara întregului univers observabil. Un univers care era o singură funcție de undă gigantică, necolapsată, nedecoerentă, în superpoziție de toate configurațiile posibile.</p>
+    <p>Articolul nu rezolva nimic. Punea o întrebare mai precisă decât cele existente: în ce moment al evoluției cosmice a apărut prima structură suficient de complexă pentru a produce decoerență ireversibilă la scara întregului univers? Și ce s-a întâmplat înainte de acel moment — nu în timp, ci în sensul cuantic al termenului?</p>
+    <p>Doi colegi îl sunaseră după publicare. Unul spusese că era speculativ. Celălalt spusese că era genul de speculație care, dacă era greșit, îți arăta exact unde să cauți ceva mai bun.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din blocnotesul Zarei Voss, vol. VI, p. 91, 2109 —</div>
+    <p>„Emil spunea că știința bună nu e cea care rezolvă probleme, ci cea care formulează probleme mai bune. Am crezut asta la cincisprezece ani când am primit nota zero. O cred și acum la treizeci și șapte. Diferența e că acum știu și că problemele mai bune sunt mai înfricoșătoare decât cele originale. Asta e semnul că sunt pe pista bună."</p>
+    <span class="echo-attr">Zara Voss · blocnotes vol. VI · pagina 91 · 2109</span>
+  </div>
+
+  <div class="p">
+    <p>Kaito citise nota și zâmbise. Recunoscuse tonul — Emil filtrat prin Zara, Zara formulând cu propria voce ceva pe care îl moștenise. Și acum el, recitind-o, îl moștenea la rândul lui. Un lanț de curiozitate transmisă prin citate și blocnotesuri și întrebări lăsate fără răspuns.</p>
+    <p>Scrisese în propriul lui caiet: <em>O problemă mai bună e valoarea maximă pe care o poți extrage dintr-un eșec de a răspunde la o problemă mai simplă. Zara a transformat nota zero într-o metodă. Eu trebuie să transform problema măsurătorii în ceva mai precis decât o problemă a măsurătorii.</em></p>
+    <p>Stătuse cu stiloul în mână câteva minute. Și scrisese, mai mic, dedesubt: <em>Mâine.</em></p>
+  </div>
+</div>
+
+<!-- EPILOG NOTA CUANTICA -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--indigo)">Nota Cuantică · Epilog · 17 Mai 2155</div>
+  <div class="ep-title" style="color:var(--indigo)">Ramura Aceasta</div>
+  <div class="ep-prose">
+    Cartea a șasea se numea <em>Nota Cuantică</em> și era singura din serie care nu rezolva
+    nimic deliberat. Kaito Mori o explicase în prefață — scurtă, jumătate de pagină —
+    cu o onestitate pe care o recunoscuse imediat ca provenind din altă parte:
+    <em>Această carte nu știe mai mult decât știa când a început.
+    Știe mai precis ce nu știe. Și asta e, în fizică, mai mult decât pare.</em>
+  </div>
+  <div class="ep-block" style="border-color:var(--border)">
+    Suntem în ramura în care am ajuns să punem întrebarea.<br>
+    Nu știm dacă e ramura „corectă" — noțiunea nu are sens.<br>
+    Știm că e ramura noastră.<br>
+    Și că în ea, cineva a formulat problema observatorului originar.<br>
+    Și că asta e suficient motiv să continue în ea.<br>
+    <br>
+    Fie că universul se observă pe sine,<br>
+    fie că avem nevoie de noi ca să se observe,<br>
+    fie că toate ramurile există simultan —<br>
+    în ramura aceasta<br>
+    există cineva care întreabă.<br>
+    <br>
+    E suficient.
+  </div>
+</div>
+
+</div><!-- /wrap.p6 -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NOTA TIMPULUI                                   -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="between">✦ &nbsp; · &nbsp; ✦ &nbsp; · &nbsp; ✦</div>
+
+<div class="pDiv">
+  <div class="pDiv-ghost" style="color:var(--teal)">VII</div>
+  <div class="pDiv-kicker">Cartea a șaptea · Kaito Mori · Ultimul volum</div>
+  <div class="pDiv-nota" style="color:var(--teal)">Nota Timpului</div>
+  <div class="pDiv-sub">Ce este ceea ce trece</div>
+  <div class="pDiv-epig">
+    „Fizica lui Einstein spune că trecutul, prezentul și viitorul<br>
+    există toate la fel de real, simultan, ca un bloc static.<br>
+    Dacă e adevărat, atunci Zara Voss există încă —<br>
+    undeva în acel bloc, la cincisprezece ani,<br>
+    cu blocnotesul ei albastru, punând întrebarea greșită.<br>
+    Nu știu dacă asta e reconfortant sau înfricoșător.<br>
+    Probabil amândouă, în funcție de zi."<br>
+    — Kaito Mori, notă personală, 2158
+  </div>
+</div>
+
+<div class="wrap p7">
+
+<!-- CAP 1 -->
+<div class="ch">
+  <div class="ch-n">Nota Timpului · I</div>
+  <div class="ch-t">Blocul Static</div>
+  <div class="p">
+    <p>La cincizeci și cinci de ani, Kaito Mori descoperise că nu mai putea dormi după ora cinci dimineața. Nu din insomnie — din gândul care se instala regulat în orele mici și care era prea bun ca să fie ignorat: <em>dacă relativitatea specială e corectă și simultaneitatea e relativă la observator, atunci nu există un «acum» universal. Fiecare punct din univers are propriul său «acum», diferit de al oricărui alt punct în mișcare relativă față de el.</em></p>
+
+    <p>Consecința pe care fizicienii o numeau <em>block universe</em> sau <em>eternalism</em>: spațiu-timpul e un bloc tetradimensional static în care trecutul, prezentul și viitorul există la fel de real, simultan. Nu că viitorul e fix și determinat — ci că distincția dintre trecut și viitor e la fel de relativă ca distincția dintre stânga și dreapta. Nu există o direcție privilegiată a timpului în structura fundamentală a spațiu-timpului.</p>
+
+    <p>Ceea ce oamenii trăiau ca <em>curgere a timpului</em> — sentiment că prezentul există și că trecutul a dispărut și că viitorul urmează — nu apărea nicăieri în ecuațiile relativității. Ecuațiile descriau un bloc static. Curgerea era adăugată de minte, nu de fizică.</p>
+  </div>
+
+  <div class="think">
+    Dacă curgerea timpului e o iluzie produsă de minte, și dacă mintea e un produs al creierului, și dacă creierul e un obiect fizic în blocul static al spațiu-timpului, atunci iluzia e produsă de un obiect care nu curge. Un obiect care nu curge produce senzația de curgere. Ăsta e cel mai bizar truc pe care un univers l-a jucat vreodată.
+  </div>
+
+  <div class="p">
+    <p>Kaito notase asta — fără să îl surprindă că îl surprindea. Fizica relativistă era predată în toate universitățile. Consecințele ei filozofice — că prezentul nu era special, că trecutul exista la fel de real ca și viitorul, că «acum» era o construcție locală a observatorului — erau menționate de obicei în paranteză, ca note de subsol filozofice, și lăsate să stea acolo fără să fie duse până la capăt.</p>
+
+    <p>Kaito voia să le ducă până la capăt. Nu pentru că ar fi existat o concluzie utilă la capătul lor — ci pentru că lăsarea la jumătate a unui gând era, din perspectiva lui, cea mai costisitoare formă de risipă intelectuală.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— din blocnotesul Zarei Voss, vol. V, p. 12, 2107 —</div>
+    <p>„Tata spunea că timpul e o proprietate a membranei, nu a bulk-ului. Că a întreba ce era înainte de Big Bang e ca a întreba ce e la nord de Polul Nord. Și am crezut asta și am scris-o și am publicat-o. Dar mă tot gândesc la reversul ei: dacă timpul e o proprietate locală, emergentă, atunci nu e fundamental. E ceva care apare din altceva mai adânc. Din ce? Din spațiu-timp? Din informație? Din geometrie? Nu știu. Și tocmai asta mă ține trează uneori."</p>
+    <span class="echo-attr">Zara Voss · blocnotes vol. V · pagina 12 · 2107</span>
+  </div>
+
+  <div class="sci">
+    Eternalism / Block Universe: consecință a relativității speciale (Einstein, 1905) — simultaneitatea e relativă, nu există un «acum» universal, spațiu-timpul e o structură tetradimensională statică în care toate evenimentele există la fel de real. McTaggart (1908): distincția A-series (trecut/prezent/viitor) vs. B-series (înainte/după) — eternalism elimină A-series. Problema: curgerea timpului ca experiență fenomenologică rămâne neexplicată de blocul static.
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="ch">
+  <div class="ch-n">Nota Timpului · II</div>
+  <div class="ch-t">Prezentul</div>
+  <div class="p">
+    <p>Problema era această: chiar dacă blocul static era corect — chiar dacă trecutul și viitorul existau la fel de real ca prezentul — experiența umană era în întregime organizată în jurul distincției. Amintirile erau despre trecut. Anticiparea era despre viitor. Deciziile se luau în prezent și aveau consecințe în viitor. Regretul era că un eveniment din trecut nu putea fi schimbat. Speranța era că un eveniment din viitor putea fi influențat.</p>
+
+    <p>Dacă blocul static era adevărat și dacă toate aceste distincții erau iluzorii — atunci ce era regretul? Ce era speranța? Ce era decizia, dacă viitorul exista deja în bloc la fel de fix ca trecutul?</p>
+  </div>
+
+  <div class="d">
+    <p>Kaito discutase cu o filozofă — dr. Amara Osei, de la Universitatea din Accra, cu care corespondasen ani întregi fără să se fi întâlnit față în față.</p>
+    <p>— Amara. Dacă eternalism e corect, mai are sens noțiunea de decizie liberă?</p>
+    <p>— Depinde ce înțelegi prin liberă, spuse Amara. Dacă liberă înseamnă nedeteminată cauzal — nu, eternalism nu ajută. Dacă liberă înseamnă că procesul decizional al agentului e parte din lanțul cauzal care produce evenimentele — da, eternalism e compatibil cu asta. Faptul că viitorul există în bloc nu înseamnă că e independent de ce faci acum. Ci că ce faci acum e parte din structura blocului — inclusiv consecințele.</p>
+    <p>— Atunci viitorul e fix?</p>
+    <p>— Nu mai fix decât trecutul. Trecutul e fix în sensul că nu mai poți interveni în el. Viitorul e fix în sensul că e determinat de condițiile actuale plus legile fizicii. Dar «fix» nu înseamnă că tu nu ești parte din determinare. Ești. Și acțiunile tale sunt parte din ce fixează viitorul.</p>
+    <p>— Asta mă readuce la liberul arbitru și nu mă ajută.</p>
+    <p>— Fizica nu rezolvă probleme filozofice, spuse Amara cu un ton plăcut și direct. Fizica schimbă modul în care formulezi problemele filozofice. Asta e tot ce poate face. Și e destul de mult.</p>
+  </div>
+
+  <div class="p">
+    <p>Kaito notase ultima propoziție a lui Amara. Recunoscuse în ea altceva — o parafrază neintenționată a ceva pe care îl citise în blocnotesul Zarei, mult mai devreme. Același gând, alte cuvinte, altă gură. Ideile bune aveau proprietatea asta: se regenerau independent.</p>
+  </div>
+
+  <div class="pull">
+    <p>Prezentul nu e mai real decât trecutul sau viitorul. E doar locul din care privești. Și poate că asta e tot ce trebuie să fie.</p>
+    <cite>— Nota Timpului, cap. II</cite>
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="ch">
+  <div class="ch-n">Nota Timpului · III</div>
+  <div class="ch-t">Spațiu-Timp Emergent</div>
+  <div class="p">
+    <p>Dacă vremea era o proprietate emergentă — dacă apărea din ceva mai fundamental — întrebarea devenea: din ce?</p>
+
+    <p>Gravitația cuantică — fuziunea dintre mecanica cuantică și relativitatea generală, problema deschisă centrală a fizicii teoretice moderne — sugera că spațiu-timpul însuși putea fi emergent. Că nu era fundamental, ci că apărea din structuri mai profunde: rețele de informație, geometrii discrete, grafuri spin, corzi. Că la scara Planck — 10⁻³⁵ metri, mult sub orice scară accesibilă experimental — spațiul și timpul ar putea să nu mai existe ca entități continue, ci să fie fenomene emergente din ceva mai elementar.</p>
+
+    <p>Dacă spațiu-timpul era emergent, atunci și timpul era emergent. Și dacă timpul era emergent, atunci întrebarea <em>ce era înainte de Big Bang</em> — pe care Zara o pusese la cincisprezece ani și pe care fizica o respinsese spunând că «înainte» nu avea sens fără timp — devenea o întrebare despre ce structură mai fundamentală producea atât spațiu-timpul cât și evenimentul pe care noi îl numeam Big Bang.</p>
+  </div>
+
+  <div class="echo">
+    <div class="echo-hd">— nota Zarei Voss, scrisă pe o chitanță, nedatată, găsită în caietul lui Emil —</div>
+    <p>„Dacă spațiu-timpul e emergent, atunci ceea ce a venit înaintea lui nu e un loc sau un moment. E un nivel de descriere. Ca și cum întrebi ce a fost înainte de temperatură — temperatura e o proprietate emergentă a mișcărilor moleculare, nu o entitate fundamentală. «Înainte de temperatură» înseamnă: la un nivel de descriere la care nu există temperatură, ci doar mișcări. Poate că «înainte de timp» înseamnă: la un nivel de descriere la care nu există timp, ci altceva. Nu nimic — altceva. Și poate că acel altceva are o logică proprie, o structură proprie, chiar și fără timp."</p>
+    <span class="echo-attr">Zara Voss · pe verso-ul unei chitanțe · găsită în caietul lui Emil Voss · nedatată</span>
+  </div>
+
+  <div class="p">
+    <p>Kaito citise nota aceasta de câteva ori și o lăsase pe birou, fără să o pună înapoi în dosar. Era tipul de gând pe care vrei să îl ai la vedere — nu ca referință, ci ca memento că există un nivel de problemă la care trebuie să ajungi dacă vrei să înțelegi ce ai în față.</p>
+
+    <p>Dacă spațiu-timpul era emergent din informație — cum susțineau unele teorii ale gravitației cuantice, printre care Loop Quantum Gravity a lui Rovelli și Smolin — atunci la nivel fundamental nu exista nici spațiu, nici timp, ci relații de informație între noduri discrete. Spațiul era distanța relațională dintre noduri. Timpul era ordinea cauzală a evenimentelor — nu o curgere, ci o relație de anterioritate și posterioritate între stări ale sistemului.</p>
+
+    <p>Și dacă timpul era o relație cauzală și nu o curgere, atunci senzația de curgere — sentimentul că momentul acesta se mișcă, că trece, că e diferit de cel precedent — era cu adevărat o construcție a minții. Nu o iluzie în sens peiorativ — o construcție utilă, necesară, poate inevitabilă pentru o minte care procesa informație secvențial. Dar o construcție, nu o proprietate a realității fizice fundamentale.</p>
+  </div>
+
+  <div class="sci">
+    Gravitație cuantică (domeniu nerezolvat): fuziunea mecanicii cuantice cu relativitatea generală. Abordări principale: Loop Quantum Gravity (Rovelli & Smolin, 1987) — spațiu-timp discret, arii și volume cuantizate, timp emergent din relații cauzale; String Theory — spațiu-timp emergent din corzi în 10-11 dimensiuni; Causal Set Theory (Bombelli, 1987) — spațiu-timp ca mulțime parțial ordonată de evenimente. Niciuna nu e confirmată experimental. Spațiu-timp emergent: idee că spațiul și timpul nu sunt fundamentale ci apar din structuri mai profunde — suportată de multiple abordări independente.
+  </div>
+</div>
+
+<!-- CAP 4 - ULTIMUL -->
+<div class="ch">
+  <div class="ch-n">Nota Timpului · IV</div>
+  <div class="ch-t">Cercul Complet</div>
+  <div class="p">
+    <p>Era vara lui 2162 și Kaito Mori stătea pe terasa casei sale de la Oslo — clădire veche, cu vedere spre fiord, pe care o cumpărase cu douăzeci de ani în urmă pentru că fereastra din birou îi amintea de o fotografie pe care o văzuse în biroul Zarei Voss — și scria ultimele paragrafe ale ultimei cărți din serie.</p>
+
+    <p>Nu o planificase ca ultimă. Nu planificase seria deloc, la fel cum Zara nu planificase seria ei — apăruse din întrebare în întrebare, fiecare carte produsă de o problemă pe care cartea anterioară o deschisese. Dar acum, scriind, simțea că ajunsese undeva. Nu la un răspuns. La un cerc.</p>
+
+    <p>Zara Voss plecase de la o întrebare de cincisprezece ani: <em>de unde venea punctul?</em> Descoperise că punctul nu existase — că era o atingere. Că originea era o relație, nu o singularitate. Că din acea atingere apăruse tot ce era. Că inclusiv ei — cu toți atomii lor, cu toate conștiințele lor, cu toate întrebările lor — erau urmele acelei atingeri.</p>
+
+    <p>Kaito ajunsese acum la capătul opus al aceluiași fir: dacă spațiu-timpul era emergent din relații de informație, și dacă timpul era o ordine cauzală și nu o curgere, și dacă atingerea dintre membrane produsese nu doar materie și energie ci și ordinea cauzală din care emergea timpul — atunci nu exista un <em>înainte</em> al atingerii nu pentru că timpul nu putea fi extrapolat dincolo de ea, ci pentru că atingerea însăși era evenimentul inaugural al ordinii cauzale din care apăruse timpul.</p>
+
+    <p>Atingerea nu se produsese <em>în</em> timp. Atingerea <em>produsese</em> timpul.</p>
+
+    <p>Și Zara — la cincisprezece ani, în clasa de cosmologie a Liceului Orbital Kepler-442b, cu blocnotesul ei albastru — pusese exact întrebarea corectă, formulată greșit. Nu <em>ce era înainte de punctul originar</em> — ci <em>ce era înainte de timp</em>. Și răspunsul, pe care nu îl primise pentru că profesoara ei nu știa și Emil nu știa și Zara nu știa și nimeni nu știa complet, era: nu altceva anterior în timp, ci altceva de la care timpul se separa prin chiar evenimentul pe care noi îl numeam origine.</p>
+  </div>
+
+  <div class="p">
+    <p>Kaito se opri din scris. Stătuse câteva minute privind fiordul. Lumina de vară la Oslo nu apunea complet — rămânea o lumină argintie permanentă, fără umbru, care nu era zi și nu era noapte. Timp suspendat.</p>
+
+    <p>Scrisese — lent, cu conștiința că era ultima propoziție a ultimei cărți și că trebuia să fie exactă, nu frumoasă, deși în cel mai bun caz ar fi fost amândouă:</p>
+  </div>
+
+  <div class="nb">
+    <span class="nb-hd">Caiet de lucru Kaito Mori · p. 112 · 17 mai 2162</span>
+    Zara Voss a pus întrebarea greșită la cincisprezece ani și a primit nota zero.<br>
+    Nota zero a deschis toate întrebările care au urmat.<br>
+    Ultimul răspuns la care am ajuns, după șaptezeci și cinci de ani de la întrebarea ei, este:<br>
+    nu a existat un «înainte».<br>
+    Nu pentru că n-ar fi existat nimic.<br>
+    Ci pentru că «înainte» e o relație temporală,<br>
+    iar timpul a apărut din atingerea care a produs totul.<br>
+    <br>
+    Atingerea nu a avut loc în timp.<br>
+    Ea a produs timpul.<br>
+    <br>
+    Întrebarea lui Zara nu era greșită.<br>
+    Era prima.<br>
+    Prima dintr-un lung șir de întrebări<br>
+    care s-au deschis una din alta<br>
+    ca o coardă care vibrează<br>
+    — și fiecare vibrație e o notă,<br>
+    și fiecare notă e mai bună decât cea anterioară,<br>
+    și cea mai bună notă e întotdeauna<br>
+    cea care urmează.
+  </div>
+
+  <div class="p">
+    <p>Kaito închise caietul. Nu pentru că terminase — o întrebare era deja formulată pe foaia următoare, scrisă în grabă cu trei zile în urmă, pe care nu o atinsese încă: <em>dacă spațiu-timp e emergent din informație, atunci ce este informația?</em></p>
+    <p>O lasă pentru mâine. Sau pentru altcineva. Sau pentru ambele.</p>
+    <p>Oricare ar fi — întrebarea era acolo. Și atâta timp cât era acolo, simfonia nu se terminase.</p>
+  </div>
+</div>
+
+<!-- EPILOG FINAL AL SERIEI -->
+<div class="epilog">
+  <div class="ep-date" style="color:var(--teal)">Nota Timpului · Epilog Final · 17 Mai 2175</div>
+  <div class="ep-title" style="color:var(--teal)">Coda Seriei</div>
+  <div class="ep-prose">
+    Kaito Mori a murit la optzeci de ani, în 2185, la Oslo, cu vederea spre fiord.
+    Pe biroul lui erau șapte cărți — toate cu coperte uzate — și un caiet de lucru deschis
+    la o pagina cu o singură întrebare scrisă și subliniată de trei ori.
+    Întrebarea rămăsese fără răspuns.
+    Asta era, pentru cei care îl cunoșteau, cel mai bun semn că murise bine.
+  </div>
+  <div class="ep-block" style="border-color:rgba(61,200,184,.2)">
+    Seria Nota Zero a început cu o întrebare greșită.<br>
+    S-a terminat cu o întrebare fără răspuns.<br>
+    <br>
+    Între ele: șaptezeci și cinci de ani,<br>
+    șapte cărți, doi fizicieni,<br>
+    câteva mii de pagini,<br>
+    și niciun răspuns final.<br>
+    <br>
+    Asta nu e un eșec.<br>
+    Asta e fizica.<br>
+    Asta e filozofia.<br>
+    Asta e condiția umană.<br>
+    <br>
+    Nota zero de la origine.<br>
+    Nota timpului la final.<br>
+    Aceeași structură, privită din capete opuse.<br>
+    <br>
+    Continuați să întrebați.<br>
+    Chiar și ultima întrebare<br>
+    deschide o altă primă întrebare.<br>
+    Aceasta este singura certitudine<br>
+    pe care o garantăm.
+  </div>
+</div>
+
+<div class="wrap">
+<div style="border:1px solid var(--border);padding:1.5rem 2rem;margin:2rem 0;background:var(--ind3)">
+  <div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--indigo);margin-bottom:1rem;opacity:.6">⬡ Note Știinţifice · Nota Cuantică & Nota Timpului</div>
+  <div style="font-family:'DM Mono',monospace;font-size:.59rem;color:var(--cream2);line-height:1.8">
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Problema măsurătorii:</strong> funcția de undă ψ descrie superpoziții cuantice care „colapsează" la măsurare. Interpretarea Copenhaga, Many-Worlds (Everett, 1957), decoerența (Zurek, 1981), QBism — niciuna consensuală. Legătura cu conștiința: speculativă, neconfirmată.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Block Universe / Eternalism:</strong> consecință a relativității speciale — simultaneitatea relativă implică absența unui «acum» universal. Spațiu-timpul ca bloc tetradimensional static. Curgerea timpului ca experiență subiectivă, nereprezentată în ecuații.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Spațiu-timp emergent:</strong> Loop Quantum Gravity (Rovelli & Smolin, 1987): spațiu discret, arii cuantizate, timp emergent din relații cauzale. Causal Set Theory. String Theory. Toate sugerează că spațiu-timpul nu e fundamental — niciuna confirmată experimental la mai 2026.</p>
+    <p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Timp emergent:</strong> în LQG și alte abordări, timpul nu e o coordonată fundamentală ci emergă din relații de anterioritate cauzală între evenimente. La scara Planck (10⁻⁴³ s, 10⁻³⁵ m), noțiunile clasice de spațiu și timp ar putea înceta să se aplice.</p>
+    <p><strong style="color:var(--cream)">5. Ficțiune:</strong> Kaito Mori, Riya Desai, Amara Osei sunt personaje fictive. Zara și Emil Voss sunt personaje fictive din cărțile anterioare ale seriei. Fizica e prezentată cu acuratețe în limitele cunoașterii actuale (mai 2026). Toate scenele de vizualizare directă a fenomenelor cuantice la scară macroscopică sunt dispozitive ficționale.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  Nota Cuantică & Nota Timpului · Cărțile a șasea și a șaptea<br>
+  Seria completă: Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței · Nota Cuantică · Nota Timpului<br>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  const c=document.getElementById('cosmos');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,pts=[],raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr);
+    make();
+  }
+
+  function make(){
+    pts=[];
+    const ww=window.innerWidth,wh=window.innerHeight;
+    const cols=['rgba(106,127,255,','rgba(61,200,184,','rgba(160,102,232,','rgba(192,154,66,'];
+    for(let i=0;i<90;i++){
+      pts.push({
+        x:Math.random()*ww,y:Math.random()*wh,
+        r:Math.random()*.85+.1,
+        a:Math.random()*.4,
+        s:(Math.random()-.5)*.0035,
+        vx:(Math.random()-.5)*.05,
+        vy:(Math.random()-.5)*.05,
+        c:cols[i%cols.length]
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    ctx.clearRect(0,0,ww,wh);
+    // fine connections
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+        if(d<120){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(106,127,255,${(.08*(1-d/120)).toFixed(3)})`;
+          ctx.lineWidth=.3;
+          ctx.stroke();
+        }
+      }
+    }
+    pts.forEach(p=>{
+      p.a+=p.s; if(p.a>0.42||p.a<0)p.s*=-1;
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+      if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c+p.a.toFixed(2)+')';
+      ctx.fill();
+    });
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf); else draw();
+  });
+})();
+</script>
+</body>
+</html>

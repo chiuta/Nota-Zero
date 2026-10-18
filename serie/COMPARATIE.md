@@ -1,0 +1,33 @@
+# Comparație: ediția finală și seria completă (18 octombrie 2026)
+
+Surse: `nota_zero_serie_completa_final.zip` (21 de fișiere, în `serie/`) și `seria-nota-zero-completa.zip` (în `serie/arhiva-initiala/`).
+Metodă: fiecare paragraf de cel puțin 15 cuvinte din seria completă a fost căutat în ediția finală, după secvențe de câte 4 cuvinte; un paragraf cu sub 50% potrivire a fost socotit lipsă.
+
+## Rezultat
+
+| Volume | Paragrafe în seria completă | Lipsă în ediția finală |
+| --- | --- | --- |
+| VI–XLI (36 de volume) | 1.400 aprox. | 3, toate trei de câte 15–16 cuvinte (titluri și legături) |
+| II–III (Nota Unu, Nota Finală) | 105 | 49 (circa 2.200 de cuvinte) |
+| IV–V (Nota Vieții, Nota Conștiinței) | 94 | 58 (circa 2.700 de cuvinte) |
+| I (Nota Zero) | 346 | conține și variantele EN/FR; textul românesc este în `index.html` din rădăcina depozitului |
+
+Volumele VI–XLI din ediția finală conțin deci tot textul seriei, plus intervențiile ediției finale.
+
+## Ce s-a găsit în ediția finală (fișierul `vol-01-05-zara.html`)
+
+Secțiunile II–V erau rezumate prescurtate, cu fragmente rupte (de exemplu „Această carte este continuarea directă a lui” fără continuare, „— existau răspunsuri parțiale pentru asta. Ci de ce”). Lipseau, printre altele: pasajul cu Freeman Dyson, cosmologia ekpyrotică ciclică, moartea lui Emil, conferința despre fine-tuning, problema dificilă a conștiinței (Chalmers), paradoxul informației (Hawking), moartea Zarei și notele științifice ale celor patru cărți. Titlul paginii conținea și etichete HTML.
+
+## Ce s-a făcut
+
+- `serie/vol-01-05-zara.html`: secțiunile I și Interludiul Emil au rămas din ediția finală; în locul rezumatelor II–V s-a pus textul integral al cărților II–V din seria completă, cu stilul lor propriu (CSS izolat în `.s23` și `.s45`). Rămâne la sfârșit nota de arhivă din ediția finală. După îmbinare, 0 din cele 199 de paragrafe ale cărților II–V nu mai au potrivire.
+- Titlul paginii a fost curățat de etichete HTML (la toate fișierele din `serie/`).
+- Fonturile Google (`@import` și `<link>`) au fost scoase din toate paginile adăugate, în acord cu „fără dependențe externe”; paginile folosesc fonturi serif de sistem.
+- `serie/arhiva-initiala/`: seria inițială fără volumul I (volumul I este `index.html` din rădăcină) și cele 10 analize critice.
+- `serie/suplimentare/`: Nota Muzicii (Vol. XVII-A), cele zece scene, recenzia din 2400 și ghidul de implementare, recuperate din conversația de implementare din mai 2026.
+- `carte/Nota-Zero-carte-completa-ro.pdf`: cartea completă în română, 478 de pagini.
+
+## Rămas de verificat
+
+- Cele 18 fișiere `vol-06…41` din ediția finală nu au fost modificate; diferențele față de seria completă (rescrieri, scene noi) nu au fost judecate literar, doar acoperite ca text.
+- Textele noi din ediția finală (scene adăugate în rundele de revizie) nu au fost comparate invers cu seria; ele se păstrează.
