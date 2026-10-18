@@ -652,7 +652,7 @@ Nu vedem 95% din univers. Și totuși existăm în el. Și totuși îl putem gâ
 
 Emil împlinise șaptezeci de ani în primăvară și Zara organizase, spre surprinderea lui, o petrecere. Mică — șapte oameni, toți din fizică sau din vecinătatea ei
 
-— pe terasa din Baza Artemis VII, cu vedere spre câmpia Oceanus Procellarum și spre Pământ pe orizontul selenar. Emil nu voia discurs și Zara nu ținuse. Ridicase un pahar de vin cu gust ușor metalic din cauza presiunii și spusese doar: La mulți ani. Mai avem lucruri de discutat.
+— pe terasa din Baza Artemis VII, cu vedere spre câmpia Oceanus Procellarum și spre Pământul sus pe cerul selenar. Emil nu voia discurs și Zara nu ținuse. Ridicase un pahar de vin cu gust ușor metalic din cauza presiunii și spusese doar: La mulți ani. Mai avem lucruri de discutat.
 
 Acum, la trei săptămâni după, cu Emil în fața ecranului și Zara la biroul de pe L2, aveau conversația pe care o amânaseră de câteva ori: moartea termică a universului. Nota zero a viitorului, cum îi spusese Zara data trecută.
 

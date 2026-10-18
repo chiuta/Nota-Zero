@@ -5,8 +5,8 @@
    "en": "Nota Muzicii · Hijaz"
   },
   "desc": {
-   "ro": "Modul Hijaz din Nota Muzicii (Layla al-Mansouri, 2481). mod exact în 12-TET (frigian dominant).",
-   "en": "The Hijaz mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: mod exact în 12-TET (frigian dominant)."
+   "ro": "Modul Hijaz din Nota Muzicii (Layla al-Mansouri, 2481). Exact în 12-TET (frigian dominant).",
+   "en": "The Hijaz mode from Nota Muzicii (Layla al-Mansouri, 2481). Exact in 12-TET (Phrygian dominant)."
   },
   "glyph": {
    "freq": 2.2,
@@ -55,8 +55,8 @@
    "en": "Nota Muzicii · Rast"
   },
   "desc": {
-   "ro": "Modul Rast din Nota Muzicii (Layla al-Mansouri, 2481). aproximare 12-TET: treapta a III-a și a VII-a „neutre” devin majore.",
-   "en": "The Rast mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: aproximare 12-TET: treapta a III-a și a VII-a „neutre” devin majore."
+   "ro": "Modul Rast din Nota Muzicii (Layla al-Mansouri, 2481). Aproximat în 12-TET: treapta a III-a și a VII-a „neutre” devin majore.",
+   "en": "The Rast mode from Nota Muzicii (Layla al-Mansouri, 2481). Approximated in 12-TET: the neutral 3rd and 7th degrees become major."
   },
   "glyph": {
    "freq": 2.2,
@@ -105,8 +105,8 @@
    "en": "Nota Muzicii · Bayati"
   },
   "desc": {
-   "ro": "Modul Bayati din Nota Muzicii (Layla al-Mansouri, 2481). aproximare 12-TET: secunda „neutră” devine mică/mare, aici dorică.",
-   "en": "The Bayati mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: aproximare 12-TET: secunda „neutră” devine mică/mare, aici dorică."
+   "ro": "Modul Bayati din Nota Muzicii (Layla al-Mansouri, 2481). Aproximat în 12-TET: secunda „neutră” devine mică/mare, aici dorică.",
+   "en": "The Bayati mode from Nota Muzicii (Layla al-Mansouri, 2481). Approximated in 12-TET: the neutral 2nd becomes minor or major, here Dorian."
   },
   "glyph": {
    "freq": 2.2,
@@ -155,8 +155,8 @@
    "en": "Nota Muzicii · Kurd"
   },
   "desc": {
-   "ro": "Modul Kurd din Nota Muzicii (Layla al-Mansouri, 2481). aproximare 12-TET: modul kurd (≈ frigian) devine minor natural.",
-   "en": "The Kurd mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: aproximare 12-TET: modul kurd (≈ frigian) devine minor natural."
+   "ro": "Modul Kurd din Nota Muzicii (Layla al-Mansouri, 2481). Aproximat în 12-TET: modul kurd (≈ frigian) devine minor natural.",
+   "en": "The Kurd mode from Nota Muzicii (Layla al-Mansouri, 2481). Approximated in 12-TET: the Kurd mode (≈ Phrygian) becomes natural minor."
   },
   "glyph": {
    "freq": 2.2,
