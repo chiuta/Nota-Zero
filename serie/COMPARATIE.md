@@ -31,3 +31,7 @@ Secțiunile II–V erau rezumate prescurtate, cu fragmente rupte (de exemplu „
 
 - Cele 18 fișiere `vol-06…41` din ediția finală nu au fost modificate; diferențele față de seria completă (rescrieri, scene noi) nu au fost judecate literar, doar acoperite ca text.
 - Textele noi din ediția finală (scene adăugate în rundele de revizie) nu au fost comparate invers cu seria; ele se păstrează.
+
+## PDF-ul cărții (adăugat ulterior)
+
+Tot textul din `carte/Nota-Zero-carte-completa-ro.pdf` a fost extras în `carte/Nota-Zero-carte-completa-ro.md` (aprox. 93.000 de cuvinte, 21 de volume-fișier, cuprins inclus). Față de paginile HTML din depozit, circa 4% din secvențele de 5 cuvinte ale PDF-ului nu s-au regăsit; cea mai mare parte sunt rupturi de pagină și cuvinte despărțite de textul justificat, dar câteva pasaje (de exemplu din cărțile V, IX și XXI) par să existe doar în PDF sau în altă formulare. Ele sunt acum în fișierul Markdown.

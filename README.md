@@ -38,7 +38,7 @@ Pe lângă povestirea din `index.html` (volumul I), depozitul conține seria *No
 - `serie/arhiva-initiala/` — seria inițială, cu volumele pe teme, și cele 10 analize critice (generate de un model AI).
 - `serie/suplimentare/` — *Nota Muzicii* (Vol. XVII-A), zece scene în proză, o recenzie ficțională din 2400 și ghidul de implementare.
 - `serie/COMPARATIE.md` — comparația dintre ediția finală și seria completă și ce s-a îmbinat.
-- `carte/Nota-Zero-carte-completa-ro.pdf` — cartea completă, 478 de pagini, format A5.
+- `carte/Nota-Zero-carte-completa-ro.pdf` — cartea completă, 478 de pagini, format A5; `carte/Nota-Zero-carte-completa-ro.md` — tot textul din PDF, în Markdown.
 
 Paginile ediției finale (`serie/*.html`) sunt statice, fără scripturi. Arhiva și materialele suplimentare conțin doar scripturi locale mici (bară de progres, animații), fără apeluri de rețea, cu o excepție: două analize din arhivă (`ANALIZA-clasamente-72-indicatori.html`, `ANALIZA-recenzie-titlologica.html`) încarcă Chart.js de la cdnjs.cloudflare.com pentru grafice (textul se citește și fără). Nicio pagină nu încarcă fonturi externe. Textele sunt ficțiune scrisă în colaborare cu Claude (Anthropic); recenziile și clasamentele sunt generate de un model AI și nu sunt critică independentă.
 
