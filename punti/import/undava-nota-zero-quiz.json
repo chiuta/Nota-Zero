@@ -1,0 +1,190 @@
+{
+ "title": "Nota Zero · știință și glosar",
+ "desc": "9 întrebări din notele științifice și Glosarul Akan ale seriei Nota Zero (probă).",
+ "color": "#2f6bff",
+ "questions": [
+  {
+   "text": "Câte procente din densitatea energetică a universului reprezintă materia întunecată, după nota științifică din Vol. I?",
+   "type": "quiz",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "~5%",
+     "correct": false
+    },
+    {
+     "text": "~27%",
+     "correct": true
+    },
+    {
+     "text": "~68%",
+     "correct": false
+    },
+    {
+     "text": "~95%",
+     "correct": false
+    }
+   ],
+   "explain": "Nota din Vol. I (vol-01-05-zara.html): „~27% din densitatea energetică totală”; energia întunecată: ~68%."
+  },
+  {
+   "text": "Adevărat sau fals: nota din Vol. I afirmă că, la data mai 2026, un candidat pentru materia întunecată fusese detectat direct în laborator.",
+   "type": "tf",
+   "time": 20,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "Adevărat",
+     "correct": false
+    },
+    {
+     "text": "Fals",
+     "correct": true
+    }
+   ],
+   "explain": "Fals. Nota spune: „La data mai 2026, niciun candidat nu a fost detectat direct în laborator.”"
+  },
+  {
+   "text": "În nota Zarei din Vol. I, ce este energia de punct zero?",
+   "type": "quiz",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "Energia minimă a unui sistem cuantic, chiar la zero absolut",
+     "correct": true
+    },
+    {
+     "text": "Energia eliberată de Big Bang",
+     "correct": false
+    },
+    {
+     "text": "Energia unui sistem la 0 °C",
+     "correct": false
+    },
+    {
+     "text": "Absența oricărei energii",
+     "correct": false
+    }
+   ],
+   "explain": "Nota Zarei Voss, 2087: „energia minimă a unui sistem cuantic chiar și la temperatura absolută zero. Nimic nu poate fi mai jos.”"
+  },
+  {
+   "text": "În Glosarul Akan din caietele lui Ama Owusu (Vol. X–XI), ce înseamnă „sankofa”?",
+   "type": "quiz",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "„întoarce-te și ia”",
+     "correct": true
+    },
+    {
+     "text": "„mergi înainte fără să privești”",
+     "correct": false
+    },
+    {
+     "text": "„sângele mamei”",
+     "correct": false
+    },
+    {
+     "text": "„povestea tuturor”",
+     "correct": false
+    }
+   ],
+   "explain": "Glosar Akan: sankofa — „întoarce-te și ia”; pasărea cu capul întors purtând oul viitorului."
+  },
+  {
+   "text": "Care termen din Glosarul Akan denumește sângele matrilinear care leagă individul de clan?",
+   "type": "quiz",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "okra",
+     "correct": false
+    },
+    {
+     "text": "sunsum",
+     "correct": false
+    },
+    {
+     "text": "mogya",
+     "correct": true
+    },
+    {
+     "text": "Nyame",
+     "correct": false
+    }
+   ],
+   "explain": "Glosar Akan: mogya — sângele matrilinear; leagă individul de clan. (okra = sufletul divin; sunsum = spiritul personal.)"
+  },
+  {
+   "text": "Cum se numesc, în Glosarul Akan, poveștile cu Anansi, păianjenul trickster? (un cuvânt)",
+   "type": "type",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "anansesem",
+     "correct": true
+    }
+   ],
+   "explain": "Glosar Akan: anansesem — poveștile cu Anansi, păianjenul trickster."
+  },
+  {
+   "text": "Vol. I se încheie cu „Epilog · 17 Mai …”. În ce an are loc Epilogul Notei Zero?",
+   "type": "num",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "2087",
+     "correct": true
+    }
+   ],
+   "explain": "Antetul „Epilog · 17 Mai 2087” din povestirea Nota Zero (nz/index.html, capitolul final).",
+   "tol": 0
+  },
+  {
+   "text": "Epigraful din Vol. X–XI amintește de GW150914. În ce an a fost „auzit” spațiu-timpul vibrând pentru prima dată?",
+   "type": "num",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "2015",
+     "correct": true
+    }
+   ],
+   "explain": "Epigraful: „GW150914 — 14 septembrie 2015 — a fost prima dată când am auzit spațiu-timpul vibrând.”",
+   "tol": 0
+  },
+  {
+   "text": "Care e ordinea cosmogoniei māori prezentate în Vol. XXXIV–XXXV?",
+   "type": "quiz",
+   "time": 30,
+   "points": 1000,
+   "answers": [
+    {
+     "text": "Te Kore → Te Pō → Te Ao",
+     "correct": true
+    },
+    {
+     "text": "Te Ao → Te Pō → Te Kore",
+     "correct": false
+    },
+    {
+     "text": "Te Pō → Te Kore → Te Ao",
+     "correct": false
+    },
+    {
+     "text": "Te Ao → Te Kore → Te Pō",
+     "correct": false
+    }
+   ],
+   "explain": "Nota 3: Te Kore (vid primordial), Te Pō (noapte/gestație), Te Ao (lumina/revelarea)."
+  }
+ ]
+}

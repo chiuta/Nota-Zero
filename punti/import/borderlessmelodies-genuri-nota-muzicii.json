@@ -1,0 +1,202 @@
+{
+ "custom_nota_muzicii_hijaz": {
+  "name": {
+   "ro": "Nota Muzicii · Hijaz",
+   "en": "Nota Muzicii · Hijaz"
+  },
+  "desc": {
+   "ro": "Modul Hijaz din Nota Muzicii (Layla al-Mansouri, 2481). mod exact în 12-TET (frigian dominant).",
+   "en": "The Hijaz mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: mod exact în 12-TET (frigian dominant)."
+  },
+  "glyph": {
+   "freq": 2.2,
+   "amp": 9,
+   "jitter": 4,
+   "wave": "sine"
+  },
+  "scale": "phrygianDominant",
+  "progression": "modalVamp",
+  "tempoRange": [
+   56,
+   68
+  ],
+  "barsPerChord": 6,
+  "lead": {
+   "use": true,
+   "density": 0.32,
+   "octave": 5,
+   "swing": false,
+   "wave": "triangle",
+   "detune": 6
+  },
+  "pad": {
+   "attack": 2.5,
+   "release": 4,
+   "seventh": false,
+   "octave": 3,
+   "wave": "sine"
+  },
+  "bass": {
+   "octave": 2,
+   "pattern": "sustain"
+  },
+  "filterCutoff": 1700,
+  "reverbMix": 0.45,
+  "arp": true,
+  "arpPattern": "random",
+  "arpStepsPerBar": 10,
+  "texture": null,
+  "recommendedEntrainment": "theta",
+  "category": "custom"
+ },
+ "custom_nota_muzicii_rast": {
+  "name": {
+   "ro": "Nota Muzicii · Rast",
+   "en": "Nota Muzicii · Rast"
+  },
+  "desc": {
+   "ro": "Modul Rast din Nota Muzicii (Layla al-Mansouri, 2481). aproximare 12-TET: treapta a III-a și a VII-a „neutre” devin majore.",
+   "en": "The Rast mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: aproximare 12-TET: treapta a III-a și a VII-a „neutre” devin majore."
+  },
+  "glyph": {
+   "freq": 2.2,
+   "amp": 9,
+   "jitter": 4,
+   "wave": "sine"
+  },
+  "scale": "major",
+  "progression": "modalVamp",
+  "tempoRange": [
+   58,
+   70
+  ],
+  "barsPerChord": 6,
+  "lead": {
+   "use": true,
+   "density": 0.32,
+   "octave": 5,
+   "swing": false,
+   "wave": "triangle",
+   "detune": 6
+  },
+  "pad": {
+   "attack": 2.5,
+   "release": 4,
+   "seventh": false,
+   "octave": 3,
+   "wave": "sine"
+  },
+  "bass": {
+   "octave": 2,
+   "pattern": "sustain"
+  },
+  "filterCutoff": 1700,
+  "reverbMix": 0.45,
+  "arp": true,
+  "arpPattern": "random",
+  "arpStepsPerBar": 10,
+  "texture": null,
+  "recommendedEntrainment": "theta",
+  "category": "custom"
+ },
+ "custom_nota_muzicii_bayati": {
+  "name": {
+   "ro": "Nota Muzicii · Bayati",
+   "en": "Nota Muzicii · Bayati"
+  },
+  "desc": {
+   "ro": "Modul Bayati din Nota Muzicii (Layla al-Mansouri, 2481). aproximare 12-TET: secunda „neutră” devine mică/mare, aici dorică.",
+   "en": "The Bayati mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: aproximare 12-TET: secunda „neutră” devine mică/mare, aici dorică."
+  },
+  "glyph": {
+   "freq": 2.2,
+   "amp": 9,
+   "jitter": 4,
+   "wave": "sine"
+  },
+  "scale": "dorian",
+  "progression": "modalVamp",
+  "tempoRange": [
+   54,
+   66
+  ],
+  "barsPerChord": 6,
+  "lead": {
+   "use": true,
+   "density": 0.32,
+   "octave": 5,
+   "swing": false,
+   "wave": "triangle",
+   "detune": 6
+  },
+  "pad": {
+   "attack": 2.5,
+   "release": 4,
+   "seventh": false,
+   "octave": 3,
+   "wave": "sine"
+  },
+  "bass": {
+   "octave": 2,
+   "pattern": "sustain"
+  },
+  "filterCutoff": 1700,
+  "reverbMix": 0.45,
+  "arp": true,
+  "arpPattern": "random",
+  "arpStepsPerBar": 10,
+  "texture": null,
+  "recommendedEntrainment": "theta",
+  "category": "custom"
+ },
+ "custom_nota_muzicii_kurd": {
+  "name": {
+   "ro": "Nota Muzicii · Kurd",
+   "en": "Nota Muzicii · Kurd"
+  },
+  "desc": {
+   "ro": "Modul Kurd din Nota Muzicii (Layla al-Mansouri, 2481). aproximare 12-TET: modul kurd (≈ frigian) devine minor natural.",
+   "en": "The Kurd mode from Nota Muzicii (Layla al-Mansouri, 2481). 12-TET: aproximare 12-TET: modul kurd (≈ frigian) devine minor natural."
+  },
+  "glyph": {
+   "freq": 2.2,
+   "amp": 9,
+   "jitter": 4,
+   "wave": "sine"
+  },
+  "scale": "minor",
+  "progression": "modalVamp",
+  "tempoRange": [
+   52,
+   64
+  ],
+  "barsPerChord": 6,
+  "lead": {
+   "use": true,
+   "density": 0.32,
+   "octave": 5,
+   "swing": false,
+   "wave": "triangle",
+   "detune": 6
+  },
+  "pad": {
+   "attack": 2.5,
+   "release": 4,
+   "seventh": false,
+   "octave": 3,
+   "wave": "sine"
+  },
+  "bass": {
+   "octave": 2,
+   "pattern": "sustain"
+  },
+  "filterCutoff": 1700,
+  "reverbMix": 0.45,
+  "arp": true,
+  "arpPattern": "random",
+  "arpStepsPerBar": 10,
+  "texture": null,
+  "recommendedEntrainment": "theta",
+  "category": "custom"
+ }
+}

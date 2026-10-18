@@ -1,0 +1,440 @@
+{
+ "format": "fabrica-course",
+ "schema": 1,
+ "app": "Fabrica",
+ "version": "1.0.0",
+ "saved": "2026-10-18T00:00:00.000Z",
+ "course": {
+  "id": "nota-zero-stiinta-proba",
+  "title": "Nota Zero · știința din caiete (probă)",
+  "description": "Mini-curs construit din notele științifice, Glosarul Akan și caietele seriei Nota Zero. Probă de import: toate textele sunt extrase din depozitul nz/serie.",
+  "author": "Alexandru-Ionuț Chiuță (textele Nota Zero); structurare: probă automată",
+  "license": "MIT (depozitul Nota Zero)",
+  "lang": "ro",
+  "version": "0.1.0",
+  "disclaimers": [
+   {
+    "id": "d1",
+    "kind": "info",
+    "text": "Ficțiune speculativă: personajele sunt fictive. Notele științifice au scop explicativ și nu înlocuiesc surse academice."
+   }
+  ],
+  "domains": {
+   "health": false,
+   "legal": false,
+   "financial": false
+  },
+  "settings": {
+   "accent": "indigo",
+   "srs": true,
+   "certificate": false
+  },
+  "levels": [
+   {
+    "id": "n1",
+    "title": "Caietele",
+    "lessons": [
+     {
+      "id": "l1",
+      "title": "Blocnotes vol. I · 14 mai 2087",
+      "body": "*Blocnotes vol. I · Zara Voss · 14 mai 2087 · ora 22:14*\n\n> De unde vine punctul?\n\n> Nu „ce era înainte\" — aia presupune timp. Nu „ce l-a creat\" — aia presupune cauza.\n\n> De unde VINE? Ca în: de unde e posibil că există?\n\n> — poate că întrebarea e greșit pusă și —\n\n> sau poate că E greșit pusă și ăsta e exact răspunsul.\n\n> tată — sună mâine · pizza pe Lună · râs bun\n\nSursă: seria Nota Zero, Vol. I, `serie/vol-01-05-zara.html` (blocnotesul brut al Zarei).",
+      "questions": [
+       {
+        "id": "q16",
+        "type": "tf",
+        "text": "Blocnotesul Zarei din 14 mai 2087 începe cu întrebarea „De unde vine punctul?”.",
+        "explain": "Prima linie a intrării din Vol. I.",
+        "okMsg": "",
+        "badMsg": "",
+        "answer": true
+       },
+       {
+        "id": "q17",
+        "type": "short",
+        "text": "Ce întrebare pune Zara în prima linie a intrării? (primele patru cuvinte)",
+        "explain": "Prima linie: „De unde vine punctul?”",
+        "okMsg": "",
+        "badMsg": "",
+        "answers": [
+         "De unde vine punctul",
+         "de unde vine punctul?"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "l2",
+      "title": "Materia întunecată",
+      "body": "## Materia întunecată\n\nMateria întunecată (dark matter): ~27% din densitatea energetică totală a universului. Evidențiată prin curbele de rotație ale galaxiilor (Rubin & Ford, 1970–1978), lentile gravitaționale și formarea structurii cosmice la scară mare. Candidați teoretici: WIMPs (particule masive cu interacțiune slabă), axioni, neutrinos sterili. La data mai 2026, niciun candidat nu a fost detectat direct în laborator. Natura exactă a materiei întunecate rămâne una dintre cele mai mari întrebări deschise ale fizicii. {ev:e1}\n\nConexiune: {gl:Fine-tuning} și {gl:Principiul holografic} apar în notele aceluiași volum.\n\n- Primul volum al seriei: *Nota Zero*.\n- Nota științifică are scop explicativ și nu înlocuiește surse academice.",
+      "questions": [
+       {
+        "id": "q21",
+        "type": "single",
+        "text": "Câte procente din densitatea energetică a universului reprezintă materia întunecată?",
+        "explain": "Nota din Vol. I: ~27%.",
+        "okMsg": "",
+        "badMsg": "",
+        "options": [
+         {
+          "id": "o18",
+          "text": "~5%",
+          "correct": false
+         },
+         {
+          "id": "o19",
+          "text": "~27%",
+          "correct": true
+         },
+         {
+          "id": "o20",
+          "text": "~68%",
+          "correct": false
+         }
+        ]
+       },
+       {
+        "id": "q22",
+        "type": "fill",
+        "text": "Materia întunecată: [[27|~27]]% din densitatea energetică totală a universului.",
+        "explain": "Nota din Vol. I.",
+        "okMsg": "",
+        "badMsg": ""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "n2",
+    "title": "Voci din alte culturi",
+    "lessons": [
+     {
+      "id": "l3",
+      "title": "Glosar Akan (Ama Owusu)",
+      "body": "## Termeni din caietele lui Ama Owusu\n\n- {gl:sunsum} — spiritul personal, caracterul ireductibil (distinct de okra)\n- {gl:okra} — sufletul divin, principiul vital; vine de la Nyame, comun tuturor\n- {gl:mogya} — sângele matrilinear; leagă individul de clan\n- {gl:sankofa} — „întoarce-te și ia\"; pasărea cu capul întors purtând oul viitorului\n- {gl:ebe/mmebusem} — proverbe narative de înțelepciune\n- {gl:anansesem} — poveștile cu Anansi, păianjenul trickster\n- {gl:Agoo/Amee} — formulă de inițiere a narațiunii orale\n- {gl:Akosua} — femeie născută duminica\n- {gl:Nyame} — divinitatea supremă Akan\n\n> Sankofa: pasărea care merge înainte și se uită înapoi. Care poartă un ou în cioc — viitorul, fragil, ținut cu grijă.\n\nSursa: Glosar Akan, `serie/vol-10-11-ama.html`.",
+      "questions": [
+       {
+        "id": "q23",
+        "type": "match",
+        "text": "Potrivește termenul Akan cu sensul din glosar.",
+        "explain": "Glosar Akan, Vol. X–XI.",
+        "okMsg": "",
+        "badMsg": "",
+        "pairs": [
+         {
+          "l": "sankofa",
+          "r": "„întoarce-te și ia”"
+         },
+         {
+          "l": "mogya",
+          "r": "sângele matrilinear"
+         },
+         {
+          "l": "anansesem",
+          "r": "poveștile cu Anansi"
+         },
+         {
+          "l": "Nyame",
+          "r": "divinitatea supremă Akan"
+         }
+        ]
+       },
+       {
+        "id": "q29",
+        "type": "multi",
+        "text": "Care dintre acești termeni apar în Glosarul Akan?",
+        "explain": "sunsum, okra și mogya sunt în glosar; whakapapa și Te Kore sunt māori.",
+        "okMsg": "",
+        "badMsg": "",
+        "options": [
+         {
+          "id": "o24",
+          "text": "sunsum",
+          "correct": true
+         },
+         {
+          "id": "o25",
+          "text": "okra",
+          "correct": true
+         },
+         {
+          "id": "o26",
+          "text": "mogya",
+          "correct": true
+         },
+         {
+          "id": "o27",
+          "text": "whakapapa",
+          "correct": false
+         },
+         {
+          "id": "o28",
+          "text": "Te Kore",
+          "correct": false
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "id": "l4",
+      "title": "Cosmogonia māori (Kiri Māhoe)",
+      "body": "## Cosmogonia māori\n\nTe Kore (vid primordial), Te Pō (noapte/gestație), Te Ao (lumina/revelarea). Multiple straturi ale lui Te Kore în diferite tradiții tribale. Structura Te Kore → Te Pō → Te Ao e prezentă în cosmogoniile din întregul Pacific polinezian.\n\n## Whakapapa\n\nprincipiu ontologic-genealogic fundamental în cultura māori. Documentat de Grey (1855), Best (1907–1929), Mātāmua (contemporan). Linda Tuhiwai Smith (1999): „Decolonizing Methodologies\". Identitate relațională, nu substanțială. Analogie LQG: un nod fără margini = identitate fără whakapapa. {ev:e4}\n\nVezi și {gl:Whakapapa}.",
+      "questions": [
+       {
+        "id": "q30",
+        "type": "order",
+        "text": "Pune în ordine cosmogonia māori din Vol. XXXIV–XXXV.",
+        "explain": "Te Kore (vid) → Te Pō (noapte) → Te Ao (lumina).",
+        "okMsg": "",
+        "badMsg": "",
+        "items": [
+         "Te Kore",
+         "Te Pō",
+         "Te Ao"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "glossary": [
+   {
+    "id": "g1",
+    "term": "sunsum",
+    "def": "Spiritul personal, caracterul ireductibil (distinct de okra). (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g2",
+    "term": "okra",
+    "def": "Sufletul divin, principiul vital; vine de la Nyame, comun tuturor. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g3",
+    "term": "mogya",
+    "def": "Sângele matrilinear; leagă individul de clan. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g4",
+    "term": "sankofa",
+    "def": "„întoarce-te și ia\"; pasărea cu capul întors purtând oul viitorului. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g5",
+    "term": "ebe/mmebusem",
+    "def": "Proverbe narative de înțelepciune. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g6",
+    "term": "anansesem",
+    "def": "Poveștile cu Anansi, păianjenul trickster. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g7",
+    "term": "Agoo/Amee",
+    "def": "Formulă de inițiere a narațiunii orale. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g8",
+    "term": "Akosua",
+    "def": "Femeie născută duminica. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g9",
+    "term": "Nyame",
+    "def": "Divinitatea supremă Akan. (Glosar Akan, Vol. X–XI, caietele lui Ama Owusu)"
+   },
+   {
+    "id": "g10",
+    "term": "Fine-tuning",
+    "def": "constantele fizicale fundamentale par ajustate cu precizie pentru a permite complexitate. Constanta cosmologică e mai mică cu ~10¹²⁰ față de predicțiile QFT. Explicații propuse: multivers (selecție antropică), necesitate logică, design. Niciuna confirmată. (Note științifice, vol-01-05-zara.html)"
+   },
+   {
+    "id": "g11",
+    "term": "Principiul holografic",
+    "def": "Bekenstein (1972), 't Hooft (1993), Susskind (1995). AdS/CFT: Maldacena (1997). Entropia găurii negre ∝ suprafață, nu volum. Informația se conservă holografic. Extinderea la cosmologia de Sitter (universul real) — deschisă la mai 2026. (Note științifice, vol-08-09-yuki.html)"
+   },
+   {
+    "id": "g12",
+    "term": "Vidul cuantic",
+    "def": "fluctuații garantate de ΔEΔt ≥ ℏ/2. Efectul Casimir (1948, confirmat 1997). Deplasarea Lamb (1947). Energia de punct zero E = ½ℏω. Constanta cosmologică: discrepanța de ~10¹²⁰ față de predicțiile QFT — „worst prediction in physics\". (Note științifice, vol-28-29-mara.html)"
+   },
+   {
+    "id": "g13",
+    "term": "Orizontul evenimentelor",
+    "def": "Schwarzschild (1916): r_s = 2GM/c². Orizont ca limită cauzală, nu fizică. Radiația Hawking (1974): T_H = ℏc³/(8πGMk_B) — găurile negre evaporează lent. Paradoxul informației: rezolvare parțială prin holografie/AdS-CFT (Maldacena, 1997). (Note științifice, vol-30-31-sora.html)"
+   },
+   {
+    "id": "g14",
+    "term": "Whakapapa",
+    "def": "principiu ontologic-genealogic fundamental în cultura māori. Documentat de Grey (1855), Best (1907–1929), Mātāmua (contemporan). Linda Tuhiwai Smith (1999): „Decolonizing Methodologies\". Identitate relațională, nu substanțială. Analogie LQG: un nod fără margini = identitate fără whakapapa. (Note științifice, vol-34-35-kiri.html)"
+   },
+   {
+    "id": "g15",
+    "term": "Cosmogonia māori",
+    "def": "Te Kore (vid primordial), Te Pō (noapte/gestație), Te Ao (lumina/revelarea). Multiple straturi ale lui Te Kore în diferite tradiții tribale. Structura Te Kore → Te Pō → Te Ao e prezentă în cosmogoniile din întregul Pacific polinezian. (Note științifice, vol-34-35-kiri.html)"
+   }
+  ],
+  "evidence": [
+   {
+    "id": "e1",
+    "claim": "Materia întunecată reprezintă ~27% din densitatea energetică a universului.",
+    "level": "observational",
+    "sources": "Curbe de rotație galactice (Rubin & Ford, 1970–1978); lentile gravitaționale; structura la scară mare. Sursa în text: Vol. I, nota „Materia întunecată”.",
+    "note": "La data mai 2026 niciun candidat (WIMP, axioni, neutrini sterili) nu fusese detectat direct, spune aceeași notă."
+   },
+   {
+    "id": "e2",
+    "claim": "Undele gravitaționale au fost detectate direct de LIGO (primul eveniment: GW150914).",
+    "level": "observational",
+    "sources": "Abbott et al., 2016 · Nobel 2017 (Vol. X–XI, Note științifice, nr. 1).",
+    "note": "Undele gravitaționale primordiale din inflație: nedetectate direct (aceeași notă)."
+   },
+   {
+    "id": "e3",
+    "claim": "Loop Quantum Gravity: geometria spațiu-timpului ca proprietate emergentă (spin networks).",
+    "level": "none",
+    "sources": "",
+    "note": "Textul seriei: „La mai 2026: teorie activă, neconfirmată experimental.” (Vol. XXXIV–XXXV, nota 1)."
+   },
+   {
+    "id": "e4",
+    "claim": "Whakapapa: identitate relațională, nu substanțială, ca principiu ontologic māori.",
+    "level": "traditional",
+    "sources": "Documentat de Grey (1855), Best (1907–1929), Mātāmua (contemporan); L. T. Smith (1999). Sursa: Vol. XXXIV–XXXV, nota 2.",
+    "note": ""
+   },
+   {
+    "id": "e5",
+    "claim": "Violarea CP în dezintegrarea kaonilor neutri.",
+    "level": "observational",
+    "sources": "Cronin & Fitch, 1964, Nobel 1980 (Vol. XVIII–XIX, nota 2).",
+    "note": ""
+   },
+   {
+    "id": "e6",
+    "claim": "Ajustarea fină a constantelor fizice cere explicație.",
+    "level": "none",
+    "sources": "",
+    "note": "Nota din Vol. I: „dezbătut activ”; principiul antropic: „tautologie utilă sau explicație reală”."
+   }
+  ],
+  "finalTest": {
+   "enabled": true,
+   "threshold": 70,
+   "count": 5,
+   "seed": "nota-zero-0001",
+   "shuffle": true,
+   "reseed": true,
+   "includeLessonQuestions": false,
+   "bank": [
+    {
+     "id": "q34",
+     "type": "single",
+     "text": "Cine scrie în caiet întrebarea „De unde vine punctul?”",
+     "explain": "Intrarea din 14 mai 2087.",
+     "okMsg": "",
+     "badMsg": "",
+     "options": [
+      {
+       "id": "o31",
+       "text": "Zara Voss",
+       "correct": true
+      },
+      {
+       "id": "o32",
+       "text": "Kaito Mori",
+       "correct": false
+      },
+      {
+       "id": "o33",
+       "text": "Ama Owusu",
+       "correct": false
+      }
+     ]
+    },
+    {
+     "id": "q35",
+     "type": "tf",
+     "text": "Conform Glosarului Akan, „mogya” este sângele matrilinear.",
+     "explain": "",
+     "okMsg": "",
+     "badMsg": "",
+     "answer": true
+    },
+    {
+     "id": "q39",
+     "type": "single",
+     "text": "Care e primul termen al cosmogoniei māori din note?",
+     "explain": "",
+     "okMsg": "",
+     "badMsg": "",
+     "options": [
+      {
+       "id": "o36",
+       "text": "Te Kore",
+       "correct": true
+      },
+      {
+       "id": "o37",
+       "text": "Te Ao",
+       "correct": false
+      },
+      {
+       "id": "o38",
+       "text": "Te Pō",
+       "correct": false
+      }
+     ]
+    },
+    {
+     "id": "q40",
+     "type": "short",
+     "text": "Cum se numesc poveștile cu Anansi, păianjenul trickster (Glosar Akan)?",
+     "explain": "",
+     "okMsg": "",
+     "badMsg": "",
+     "answers": [
+      "anansesem"
+     ]
+    },
+    {
+     "id": "q41",
+     "type": "tf",
+     "text": "Nota din Vol. I spune că la mai 2026 un candidat WIMP fusese detectat direct.",
+     "explain": "Fals: „niciun candidat nu a fost detectat direct”.",
+     "okMsg": "",
+     "badMsg": "",
+     "answer": false
+    },
+    {
+     "id": "q45",
+     "type": "single",
+     "text": "Ce nivel de dovezi corespunde, în nota Vol. XXXIV–XXXV, pentru LQG la mai 2026?",
+     "explain": "„teorie activă, neconfirmată experimental”.",
+     "okMsg": "",
+     "badMsg": "",
+     "options": [
+      {
+       "id": "o42",
+       "text": "neconfirmată experimental",
+       "correct": true
+      },
+      {
+       "id": "o43",
+       "text": "confirmată la LIGO",
+       "correct": false
+      },
+      {
+       "id": "o44",
+       "text": "demonstrată în laborator",
+       "correct": false
+      }
+     ]
+    }
+   ]
+  },
+  "assets": {}
+ }
+}

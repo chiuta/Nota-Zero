@@ -1,0 +1,11 @@
+{
+ "format": "fff-bundle",
+ "schema": 1,
+ "app": "asmr",
+ "version": "1.1.0",
+ "updated": "2026-10-14",
+ "exported": "2026-10-18T00:00:00.000Z",
+ "data": {
+  "asmr_ff_presets": "[{\"name\": \"Kiri · XXXIV–XXXV\", \"layers\": {\"rain\": 0, \"ocean\": 60, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Halima · XXXVIII–XXXIX\", \"layers\": {\"rain\": 0, \"ocean\": 43, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Soo-Yeon · XII–XIII\", \"layers\": {\"rain\": 0, \"ocean\": 34, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Amara · XIV–XV\", \"layers\": {\"rain\": 0, \"ocean\": 34, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Amara · XXXII–XXXIII\", \"layers\": {\"rain\": 0, \"ocean\": 34, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Ama · X–XI\", \"layers\": {\"rain\": 0, \"ocean\": 31, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Dawit · XXXVI–XXXVII\", \"layers\": {\"rain\": 0, \"ocean\": 28, \"fire\": 0, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}, {\"name\": \"Nadia · XXII–XXIII\", \"layers\": {\"rain\": 0, \"ocean\": 0, \"fire\": 25, \"wind\": 0, \"night\": 0, \"white\": 0, \"pink\": 0, \"brown\": 15}, \"binaural\": \"theta\"}]"
+ }
+}
