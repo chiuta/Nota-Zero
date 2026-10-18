@@ -1,84 +1,233 @@
-<!DOCTYPE html><html lang="ro"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Nota Zero — Vol. XXVI–XXVII · Nota Entanglementului · Nota Complexității</title><style>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Nota Entanglementului &amp; Nota Complexității · Cărțile a douăzeci și șasea și a douăzeci și șaptea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#030407; --deep:#06080f; --surface:#0d0f1c;
-  --gold:#c8a96e; --gold-dim:rgba(200,169,110,.38); --gold-faint:rgba(200,169,110,.07);
-  --cream:#ede3ce; --cream-dim:rgba(237,227,206,.62);
-  --cyan:#00e8ff; --cyan-dim:rgba(0,232,255,.18);
-  --border:rgba(200,169,110,.13); --border2:rgba(200,169,110,.07);
-  --ak:rgba(80,160,90,.6); --ak-dim:rgba(80,160,90,.18);
+  --void:#020209;
+  /* Nota Entanglementului: corai-magenta, corelare, conexiune non-locală */
+  --ent:#e84870;--en2:rgba(232,72,112,.09);--en3:rgba(232,72,112,.035);--en4:rgba(232,72,112,.14);
+  /* Nota Complexității: galben-electric, calcul, reguli simple → complexitate */
+  --cmp:#d8c020;--cm2:rgba(216,192,32,.09);--cm3:rgba(216,192,32,.035);--cm4:rgba(216,192,32,.14);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --re:1px solid rgba(232,72,112,.13); --rc:1px solid rgba(216,192,32,.12);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth}
 body{
-  background:var(--void); color:var(--cream);
+  background:var(--void);color:var(--cream);
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:1.17rem; line-height:1.92;
-  max-width:720px; margin:0 auto;
-  padding:4.5rem 2.5rem 9rem;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-/* NAV */
-.nav{
-  font-family:'Space Mono',monospace; font-size:.58rem;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:3rem;
-  display:flex; gap:1.5rem; flex-wrap:wrap;
+canvas#quantCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--re);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--ent);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--en4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,5.5vw,4.8rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-en{color:var(--ent)} .t-cm{color:var(--cmp)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--en4);background:var(--en3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.en{border-color:rgba(232,72,112,.12)}
+.pd.cm{border-color:rgba(216,192,32,.12)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,6rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(.9rem,2vw,1.7rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p26 .ch{border-bottom-color:rgba(232,72,112,.05)}
+.p27 .ch{border-bottom-color:rgba(216,192,32,.05)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p26 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--ent);text-shadow:0 0 22px rgba(232,72,112,.3);}
+.p27 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--cmp);text-shadow:0 0 22px rgba(216,192,32,.28);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* EPR BOX */
+.epr-box{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--en4);background:var(--en3);
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:rgba(232,72,112,.75);line-height:1.85;}
+.epr-hd{color:var(--ent);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* TURING BOX */
+.tur-box{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--cm4);background:var(--cm3);
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:rgba(216,192,32,.75);line-height:1.85;}
+.tur-hd{color:var(--cmp);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p26 .think{border-color:var(--en4);background:var(--en3)}
+.p26 .think::before{content:'⬡ ';font-style:normal;color:var(--ent);opacity:.55}
+.p27 .think{border-color:var(--cm4);background:var(--cm3)}
+.p27 .think::before{content:'⬡ ';font-style:normal;color:var(--cmp);opacity:.55}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p26 .nb{border:1px solid var(--en4);background:var(--en3)}
+.p27 .nb{border:1px solid var(--cm4);background:var(--cm3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p26 .nb::after{color:var(--ent)} .p27 .nb::after{color:var(--cmp)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p26 .nb-hd{color:var(--ent)} .p27 .nb-hd{color:var(--cmp)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p26 .pull{border-left-color:var(--ent);background:var(--en3)}
+.p27 .pull{border-left-color:var(--cmp);background:var(--cm3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p26 .pull cite{color:var(--ent)} .p27 .pull cite{color:var(--cmp)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p26 .sci{border:1px solid rgba(232,72,112,.12);background:rgba(232,72,112,.03)}
+.p26 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--ent);font-weight:700}
+.p27 .sci{border:1px solid rgba(216,192,32,.12);background:rgba(216,192,32,.03)}
+.p27 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--cmp);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p26 .epilog{border-top-color:rgba(232,72,112,.1)}
+.p27 .epilog{border-top-color:rgba(216,192,32,.1)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p26 .ep-final{border-color:rgba(232,72,112,.18)}
+.p27 .ep-final{border-color:rgba(216,192,32,.18)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--re);border-bottom:var(--rc);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* FINAL ARCHITECTURA */
+.arch-fin{
+  min-height:75vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rc);}
+.af-icon{
+  font-family:'DM Mono',monospace;font-size:clamp(2rem,5vw,4rem);
+  color:var(--cmp);opacity:.15;margin-bottom:2rem;letter-spacing:.2em;
 }
-.nav a{color:var(--gold-dim);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:1px;}
-.nav a:hover{color:var(--gold); border-color:var(--gold);}
-/* HEADER */
-.vol-badge{
-  font-family:'Space Mono',monospace; font-size:.56rem;
-  letter-spacing:.22em; text-transform:uppercase;
-  color:var(--cyan); opacity:.65; margin-bottom:1.4rem;
+.af-k{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cmp);opacity:.32;margin-bottom:1.5rem;}
+.af-t{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.4rem);
+  font-weight:700;color:var(--cream);margin-bottom:2rem;letter-spacing:.03em;}
+.af-ch{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);margin-bottom:2.5rem;line-height:2.1;}
+.af-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:var(--cream);max-width:540px;line-height:1.95;margin-bottom:2.5rem;}
+.af-body em{color:var(--cmp);font-style:normal}
+.af-box{border-top:1px solid rgba(216,192,32,.1);border-bottom:1px solid rgba(216,192,32,.1);
+  padding:1.5rem 2.5rem;max-width:480px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.97rem;color:var(--cream2);line-height:2;margin-bottom:2rem;}
+.af-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.8rem,4vw,3.5rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(232,72,112,.2);
+  letter-spacing:.06em;margin:.5rem 0;}
+.af-m{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.2;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rc);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.23;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
 }
-h1{
-  font-size:clamp(2rem,5.5vw,3.4rem); font-weight:300;
-  line-height:1.12; margin-bottom:.7rem;
-}
-h1 strong{font-weight:600;}
-h1 em{font-style:italic; color:var(--cream-dim); font-weight:300;}
-.subtitlu{font-size:.98rem; color:var(--cream-dim); font-style:italic; margin-bottom:.5rem;}
-.meta{
-  font-family:'Space Mono',monospace; font-size:.56rem;
-  letter-spacing:.11em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:4.5rem;
-  padding-bottom:2rem; border-bottom:1px solid var(--border);
-}
-/* SECȚIUNI */
-.sec{
-  font-family:'Space Mono',monospace; font-size:.62rem;
-  letter-spacing:.18em; text-transform:uppercase;
-  color:var(--gold); margin:4.5rem 0 1.8rem;
-  padding-bottom:.6rem; border-bottom:1px solid var(--border2);
-}
-h3{font-size:1.12rem; font-weight:600; margin:3rem 0 1rem;}
-/* PROZĂ */
-p{margin-bottom:1.45rem; text-align:justify; hyphens:auto;}
-p:last-child{margin-bottom:0;}
-em{font-style:italic;}
-strong{color:var(--cream);}
-/* DIALOG */
-.d{margin:1.8rem 0;}
-.d p{margin-bottom:.65rem; text-align:left;}
-.d p::before{content:'— ';}
-/* BLOCNOTES */
-.bn{
-  border:1px solid var(--border); border-left:2px solid var(--gold);
-  padding:1.3rem 1.7rem; background:var(--gold-faint);
-  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
-}
-.bn p{margin-bottom:.85rem; text-align:left;}
-.bn p:last-child{margin-bottom:0;}
-.bn-src{
-  font-family:'Space Mono',monospace; font-size:.54rem;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:var(--gold-dim); margin-top:1rem;
-  font-style:normal; display:block; padding-top:.6rem;
-  border-top:1px solid var(--border2);
-}
-/* STRAT BRUT */
+
 .brut{
   font-family:'Space Mono',monospace; font-size:.7rem;
   line-height:2.15; color:rgba(237,227,206,.5);
@@ -91,27 +240,6 @@ strong{color:var(--cream);}
 }
 .brut-a{opacity:.32; text-decoration:line-through;}
 .brut-p{color:var(--cyan); opacity:.45;}
-/* AKAN */
-.akan{
-  border:1px solid var(--ak-dim); border-left:2px solid var(--ak);
-  padding:1.3rem 1.7rem; background:rgba(80,160,90,.04);
-  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
-}
-.akan p{margin-bottom:.85rem; text-align:left;}
-.akan p:last-child{margin-bottom:0;}
-.akan-src{
-  font-family:'Space Mono',monospace; font-size:.54rem;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:var(--ak); margin-top:1rem; font-style:normal;
-  display:block; padding-top:.6rem; border-top:1px solid var(--ak-dim);
-}
-.akan-badge{
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:var(--ak); border:1px solid var(--ak-dim);
-  padding:.3rem .7rem; display:inline-block; margin-bottom:2rem;
-}
-/* NOTE ȘTIINȚIFICE */
 .ns{
   border-top:1px solid var(--border); margin:2.5rem 0;
   padding-top:1.3rem; font-size:.81rem;
@@ -122,461 +250,533 @@ strong{color:var(--cream);}
   letter-spacing:.16em; text-transform:uppercase;
   color:var(--gold-dim); margin-bottom:.55rem; display:block;
 }
-/* ECUAȚIE */
-.eq{
-  font-family:'Space Mono',monospace; font-size:.76rem;
-  border-left:2px solid var(--cyan-dim);
-  padding:.85rem 1.3rem; margin:1.8rem 0;
-  color:rgba(0,232,255,.68); background:rgba(0,232,255,.028);
-  line-height:2.1;
-}
-/* SEPARATORI */
-hr.sep{border:none; border-top:1px solid var(--border); margin:3.5rem 0;}
-.pauza{text-align:center; color:var(--border); margin:3rem 0; letter-spacing:.6rem; font-size:1.2rem;}
-/* PAGINA GOALĂ YUKI */
-.pg-goala{
-  border:1px dashed rgba(200,169,110,.18);
-  height:220px; margin:3.5rem 0;
-  display:flex; align-items:center; justify-content:center;
-  color:var(--gold-dim); font-family:'Space Mono',monospace;
-  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
-  flex-direction:column; gap:.8rem;
-}
-/* BOX FINAL */
-.final{
-  border:1px solid rgba(200,169,110,.28);
-  padding:3rem 2.5rem; margin:4rem 0; text-align:center;
-}
-.final p{font-size:1.32rem; font-style:italic; line-height:2.15; color:var(--cream-dim); margin-bottom:1rem;}
-.final p:last-child{margin:0; font-size:.85rem; font-style:normal; color:var(--gold-dim); font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase;}
-/* EMAIL */
-.email{
-  background:rgba(200,169,110,.05); border:1px solid var(--border);
-  padding:1.5rem 2rem; margin:2.2rem 0;
-  font-family:'Space Mono',monospace; font-size:.76rem;
-  line-height:2.1; color:var(--cream-dim);
-}
-/* NOTA ARHIVISTICĂ */
-.nota-arh{
-  background:rgba(6,8,15,.8); border:1px solid var(--border);
-  padding:1.8rem 2.2rem; margin:3rem 0;
-}
-.nota-arh-lbl{
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  letter-spacing:.16em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:.7rem; display:block;
-}
-.nota-arh p{font-size:.85rem; color:var(--cream-dim); margin-bottom:.7rem; line-height:1.72;}
-/* FOOTER */
-footer{
-  margin-top:7rem; padding-top:2.5rem;
-  border-top:1px solid var(--border);
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  color:var(--gold-dim); letter-spacing:.1em;
-  text-align:center; line-height:2.1;
-}
-@media(max-width:600px){
-  body{padding:3rem 1.4rem 6rem;}
-  h1{font-size:clamp(1.7rem,6vw,2.4rem);}
-}
-</style></head><body>
-<nav class="nav"><a href="index.html">↑ Cuprins</a> <a href="vol-24-25-rin.html">← ← Vol. XXIV–XXV</a> <a href="vol-28-29-mara.html">Vol. XXVIII–XXIX · Mara → →</a></nav>
-<div class="vol-badge">Seria Nota Zero · Cărțile XXVI–XXVII</div>
-<h1><strong>Vol. XXVI–XXVII</strong> · <em>Nota Entanglementului</em> · <em>Nota Complexității</em></h1><div class="meta">Lena Solberg · 28 ani în 2760 · Oslo + Budapest</div>
+.fin-nav{font-family:'Courier New',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;display:flex;gap:1.2rem;flex-wrap:wrap;padding:.9rem 1.2rem;background:rgba(0,0,0,.55);position:relative;z-index:5}
+.fin-nav a{color:#c8a96e;text-decoration:none;border-bottom:1px solid rgba(200,169,110,.4)}
+.fin-meta{font-family:'Courier New',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#a89868;padding:.2rem 1.2rem .8rem;position:relative;z-index:5}
+.fin-add-block{max-width:680px;margin:1.6rem auto}
 
-<div class="brut">
-<span class="brut-lbl">Caiet vol. I · Lena Solberg · Oslo · marți dimineața · 2762</span>
-Rin Nakamura a murit în 2755. 67 volume. 675 ani.<br>
-apa face bule mici pe fund. opresc focul înainte să fiarbă complet.<br>
-mesteacănii țineau zăpada pe crengile orizontale cu o precizie care părea intenționată și nu era.<br>
-<span class="brut-a">— dacă entanglementul e corelație preexistentă —</span><br>
-corelația precedă termenii. poate că originea e în relație, nu în punctul izolat.
+
+
+.brut{
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  line-height:2.15; color:rgba(237,227,206,.5);
+  background:rgba(200,169,110,.035); border:1px solid var(--border);
+  padding:1.3rem 1.7rem; margin:2.2rem 0;
+}
+
+.brut-lbl{
+  font-size:.53rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block; opacity:.65;
+}
+
+.brut-a{opacity:.32; text-decoration:line-through;}
+</style>
+</head>
+<body><nav class="fin-nav"><a href="index.html">↑ Cuprins</a> <a href="vol-24-25-rin.html">← Vol. XXIV–XXV</a> <a href="vol-28-29-mara.html">Vol. XXVIII–XXIX · Mara →</a></nav><div class="fin-meta">Lena Solberg · 28 ani în 2760 · Oslo + Budapest</div>
+<canvas aria-hidden="true" id="quantCanvas"></canvas>
+<div class="page">
+<!-- COVER -->
+<div class="cover">
+<div class="cv-s">Seria Nota Zero · Cărțile a douăzeci și șasea și a douăzeci și șaptea</div>
+<div class="cv-ctx">
+    Rin Nakamura a arătat că prima întrebare e mai ușoară după 25 de volume.<br/>
+    Lena Solberg primește caietele și descoperă că mai există<br/>
+    două lucruri pe care seria nu le-a privit direct:<br/>
+    corelarea fără contact — și limita calculului.
+  </div>
+<h1>
+<span class="cv-title t-en">Nota Entanglementului</span>
+<span class="cv-amp">&amp;</span>
+<span class="cv-title t-cm">Nota Complexității</span>
+</h1>
+<p class="cv-desc">
+    Non-localitatea și calculabilitatea.
+    Universul care corelează fără să comunice —
+    și întrebările care nu pot fi răspunse chiar în principiu.
+    Două proprietăți ale realității care se intersectează în loc neprevăzut:
+    seria însăși e un sistem entanglat și incomplet.
+  </p>
+<div class="cv-note">
+    Seria completă până acum: 25 volume · 2087–2715 · 624 ani diegetic.<br/>
+    Lena Solberg are 28 ani în 2760. Oslo + Budapest.<br/>
+    Einstein era deranjat de entanglement. Turing era fascinat de limita calculului.<br/>
+    Amândouă duc spre același gard.
+  </div>
 </div>
-
-<div class="sec">XXVI · Entanglementul · 2760</div>
-
-Nota Entanglementului & Nota Complexității · Cărțile a douăzeci și șasea și a douăzeci și șaptea · Alexandru Ionuț Chiuță
-
-Seria Nota Zero · Cărțile a douăzeci și șasea și a douăzeci și șaptea
-
-Rin Nakamura a arătat că prima întrebare e mai ușoară după 25 de volume.
-
-Lena Solberg primește caietele și descoperă că mai există
-
-două lucruri pe care seria nu le-a privit direct:
-
-corelarea fără contact — și limita calculului.
-
-Non-localitatea și calculabilitatea.
-
-Universul care corelează fără să comunice —
-
-și întrebările care nu pot fi răspunse chiar în principiu.
-
-Două proprietăți ale realității care se intersectează în loc neprevăzut:
-
-seria însăși e un sistem entanglat și incomplet.
-
-Seria completă până acum: 25 volume · 2087–2715 · 624 ani diegetic.
-
-Lena Solberg are 28 ani în 2760. Oslo + Budapest.
-
-Einstein era deranjat de entanglement. Turing era fascinat de limita calculului.
-
-Cartea a douăzeci și șasea · Lena Solberg · 28 ani · 2760 · Oslo + Budapest
-
-Corelat fără contact, separat fără izolare
-
-și nu accept că El face ceva atât de spooky
-
-— Albert Einstein, scrisoare către Max Born, 1947
-
-„Natura e mai ciudată decât crede Einstein.
-
-Entanglementul e real. Distanța nu îl dilua.
-
-Non-localitatea e o proprietate a universului,
-
-— Lena Solberg, caiet vol. I, p. 1, 2760
-
-Lena Solberg primise caietele din Kyoto printr-un curier ciudat: le lăsase la biblioteca familiei Nakamura un om care nu știa ce conțineau, care le pusese pur și simplu pe un raft cu o etichetă scrisă de mână:
-
-pentru cine nu poate să adoarmă din cauza unei întrebări
-
-. Lena avusese douăzeci și doi de ani atunci și nu dormise trei nopți consecutive din cauza a exact aceasta — întrebarea despre entanglement, pe care o formulase fără să fi știut că altcineva o purtase înaintea ei.
-
-, în germana lui Schrödinger — era proprietatea prin care două particule odată interacționate rămâneau corelate indiferent de distanța care le separa. Dacă măsurai spinul uneia și obțineai spin-up, știai instant că cealaltă era spin-down — chiar dacă era la un miliard de ani-lumină distanță. Nu exista nicio comunicare între ele. Corelarea era instantanee.
-
-Einstein urâse asta. Nu fiindcă ar fi îndoit de matematică — matematica QM era impecabilă. Ci fiindcă implicația filozofică îl deranjase fundamental: că există corelații în natură care nu se explică prin cauze locale. Că două obiecte pot fi „conectate" în afara oricărui lanț cauzal localizat. Articolul EPR din 1935 — Einstein, Podolsky, Rosen — argumentase că, dacă QM era completă, atunci realitatea era non-locală, ceea ce era inacceptabil.
-
-John Bell demonstrase în 1964 că diferența dintre QM și teoria variabilelor ascunse locale era testabilă experimental. Alain Aspect confirmase în 1982: natura viola inegalitățile Bell. Non-localitatea era reală. Einstein greșise — sau mai precis, universul refuzase să fie local în modul în care Einstein îl ceruse.
-
-Două particule în stare entanglată: |ψ⟩ = (1/√2)(|↑⟩|↓⟩ − |↓⟩|↑⟩)
-
-Măsurarea particulei A → rezultat aleatoriu (up sau down)
-
-Măsurarea particulei B → corelat instantaneu cu A, indiferent de distanță
-
-Inegalitățile Bell (1964): limita corelațiilor posibile în teorii locale realiste
-
-Experimentele Aspect (1982): natura violează inegalitățile Bell
-
-Concluzie: sau realismul local e fals, sau completitudinea QM e fals
-
-Consensul actual: realismul local e fals. Natura e non-locală.
-
-NOTĂ: entanglementul nu transmite informație mai repede decât lumina.
-
-Corelația e reală; comunicarea locală e imposibilă. Paradox rezolvat.
-
-Lena stătuse cu entanglementul câteva săptămâni înainte să identifice ce anume îl făcea relevant pentru seria pe care o citea. Nu era numai fizică interesantă — era o structură pe care o recunoscuse în altă parte.
-
-Caietele seriei Nota Zero creaseră o formă de entanglement între minți. Nu în sens tehnic — în sens structural. Zara la cincisprezece ani scrisese ceva în caietul albastru, iar Lena la douăzeci și opt, citind, fusese corelată cu acel moment din 2087 — nu prin comunicare directă, ci prin starea partajată a aceleași întrebări. Ele nu se întâlniseră, nu comunicaseră, nu se influențaseră în niciun sens cauzal direct. Și totuși existau corelații între ceea ce gândea Lena și ceea ce gândise Zara, mediate de caiet dar depășind medierea caietului.
-
-Era o analogie, nu o afirmație fizică. Dar analogia era precisă în structură: două sisteme care interacționaseră odată — Zara cu caietul, Lena cu caietul — rămâneau corelate prin starea comună, indiferent de distanța temporală.
-
-— din caietul lui Rin Nakamura, vol. I, p. 45, 2701 —
-
-„Rin Nakamura a atins caietul albastru al Zarei. Eu îl ating acum. Suntem corelate prin același obiect fizic — urmele presiunii stiloului din 2087 sunt în același hârtie pe care o ating eu acum. Nu e metaforă. E fizică literală: aceleași molecule, aceleași deformații de hârtie. Entanglamentul fizic cel mai simplu posibil."
-
-Rin Nakamura · caiet vol. I · pagina 45 · Kyoto · 2701
-
-Entanglement cuantic: Schrödinger (1935) — termenul Verschränkung. EPR paradox: Einstein, Podolsky, Rosen (1935). Teorema Bell (1964): inegalitățile CHSH — diferența experimentală între QM și teorii locale realiste. Experimentele Aspect (1982, confirmate 2015 „loophole-free" de Hensen et al. și Giustina et al.): violarea inegalităților Bell confirmată. Concluzie: natura e non-locală sau incompletă. Non-localitate fără semnalizare supraluminală — „peaceful coexistence" cu relativitatea specială. Nobel 2022: Aspect, Clauser, Zeilinger pentru lucrările pe entanglement.
-
-Non-localitatea era, poate, proprietatea cea mai contraintuitivă pe care fizica o demonstrase. Nu că particulele puteau fi în două locuri simultan — asta era superpoziția. Ci că două particule separate puteau fi corelate în moduri care nu puteau fi explicate prin nicio informație transmisă între ele.
-
-David Bohm propusese o interpretare: particule cu variabile ascunse nelocalee — un potențial cuantic care conecta toate particulele la nivel sub-cuantic, indiferent de distanță. Nu era acceptată majoritar, dar ilustra punctul: pentru a explica corelațiile, trebuia sau să abandonezi localitatea, sau să abandonezi realismul, sau să abandonezi amândouă.
-
-Lena discutase cu profesorul ei de fizică cuantică — Dr. Bence Kovács, de la Budapesta, care lucrase cu Alice și Bob — terminologia standard pentru cei doi observatori ai unui experiment de entanglement — timp de douăzeci de ani și care spusese că după douăzeci de ani tot nu se obișnuise cu implicațiile.
-
-— Bence. Ce înseamnă că universul e non-local?
-
-— Înseamnă că nu există o separare completă a sistemelor fizice, spuse Bence. Odată interacționate, particulele rămân parte dintr-un sistem mai larg. Nu în sens metaforic — în sens fizic tehnic. Funcția de undă a sistemului compus nu se factorizează în funcții individuale.
-
-— E imensă și controversată. O implicație: universul e holistic în mod fundamental. Nu există obiecte perfect separate — există sisteme cuantice care au grade de entanglement cu alte sisteme. Tot ce a interacționat vreodată cu altceva e, în sens cuantic, parte dintr-un sistem mai larg. La limită, tot universul e un singur sistem cuantic entanglat cu el însuși.
-
-— Un singur sistem cuantic, spuse Lena. Asta sună ca principiul holografic — că volumul e descris de suprafață. Aceeași idee de inseparabilitate fundamentală.
-
-— Poate că sunt același lucru văzut din unghiuri diferite, spuse Bence. Holografia și entanglementul au conexiuni matematice profunde în fizica modernă — AdS/CFT e parțial înțeleasă ca o teorie despre entanglementul în teoria câmpurilor. Poate că inseparabilitatea e proprietatea fundamentală, cu holografia și entanglementul ca aspecte diferite ale ei.
-
-Inseparabilitate fundamentală. Poate că asta e ceea ce seria a descris din zece unghiuri diferite — că nimic nu e cu adevărat separat. Că originea unică a tot ce există face din tot ce există un sistem corelat.
-
-Universul e holistic în mod fundamental. Odată interacționate, sistemele rămân corelate. La limită: tot universul e un singur sistem entanglat. Inseparabilitatea e proprietatea fundamentală. Seria o descrisese din zece unghiuri. Acesta e al unsprezecelea.
-
-Lena ajunsese la ceea ce voia să spună, cu o claritate pe care o lucrase lent: seria Nota Zero era structural un sistem entanglat. Nu fizic — structural.
-
-Fiecare protagonist care citise caietele fusese „măsurat" de ele — activase ceva din starea distribuită a seriei. Și prin această activare, devenise parte din sistemul corelat al seriei. Nu în sens metafizic — în sens că orice gând pe care îl aveau despre origine, despre fizică, despre limita cunoașterii era acum corelat cu gândurile tuturor celorlalți care citiseră aceleași caiete și pusese aceleași întrebări.
-
-Corelarea nu era comunicare. Protagoniștii nu se influențaseră cauzal direct — separați de decenii sau secole, nu putuseră. Și totuși gândeau corelat. Ajunseseră la aceleași impasuri, aceleași momente de recunoaștere, aceleași pagini goale la final. Nu pentru că s-ar fi coordonat — ci pentru că fuseseră toți măsurați de aceeași stare cuantică a seriei.
-
-Era o analogie, nu o fizică. Dar analogia era exactă în structura sa. Și o analogie exactă structural era — Nadia spusese asta în Nota Frumuseții — un semnal că ceva real era capturat.
-
-Dacă seria e un sistem entanglat, atunci eu — Lena — sunt acum parte din el. Starea mea cuantică e corelată cu starea Zarei din 2087 și a lui Kaito din 2150 și a Nadiei din 2630 și a lui Rin din 2700. Nu prin influență cauzală — prin starea partajată a aceleiași structuri de întrebări. Suntem toți parte din același sistem de întrebări. Și măsurarea mea — ce gândesc acum, ce scriu acum — face parte din colapsa funcției de undă a seriei în această instanță particulară.
-
-Era vara anului 2761 și Lena stătea pe o bancă în parcul Frogner din Oslo, cu caietele lângă ea și cu cerul nordic de august deschis deasupra. Gândise la Einstein — la cât de mult îl deranjase entanglementul. Nu pentru că ar fi greșit — știuse că e consistent matematic. Ci pentru că îi zgâriase o convingere profundă: că realitatea e locală, că obiectele sunt separate, că nu există conexiuni mai rapide decât lumina.
-
-Și totuși conexiunile existau. Nu mai rapide decât lumina — nu transmitând informație. Dar reale. Structurale. Proprietăți ale sistemelor compuse care nu se reduceau la proprietățile componentelor izolate.
-
-Scrise în caiet — nu cu mâna, ci cu atenția plină a cuiva care știe că scrie ceva final pentru un volum:
-
-Caietul Lena Solberg · vol. I · p. 99 · 17 mai 2761
-
-Entanglementul demonstrează că separarea e incompletă.
-
-Odată conectate, sistemele rămân corelate.
-
-Seria Nota Zero a conectat douăsprezece minți
-
-ci prin starea partajată a aceleiași întrebări.
-
-Entanglementul seriei e real în același sens
-
-în care e real entanglementul cuantic:
-
-nu prin cauze locale, ci prin structura sistemului compus.
-
-Universul care corelează fără să comunice
-
-a produs o serie care corelează fără să comunice.
-
-Nota Entanglementului · Epilog · 17 Mai 2765
-
-și era dedicată lui Alain Aspect, care demonstrase experimental în 1982
-
-că universul viola inegalitățile Bell — că non-localitatea nu era o eroare
-
-a teoriei, ci o proprietate a naturii.
-
-Lena scrisese în prefață că Aspect demonstrase ceva despre
-
-fizica particulelor și ceva, neintențional, despre orice sistem
-
-care odată se atinsese: că atingerea lasă urme non-locale.
-
-Odată interacționate, sistemele rămân corelate.
-
-Seria Nota Zero demonstrează același lucru
-
-Aceleași gânduri, aceleași impasuri, aceleași pagini goale.
-
-Cartea a douăzeci și șaptea · Lena Solberg · 38 ani · 2770 · Budapest + Oslo
-
-Reguli simple, rezultate imprevizibile, limite ale calculului
-
-for determining whether a given formula
-
-of the functional calculus is provable."
-
-„Jocul vieții lui Conway arată că trei reguli
-
-pot produce orice structură computabilă.
-
-Poate că produce orice structură computabilă."
-
-— Lena Solberg, caiet vol. II, p. 1, 2770
-
-Lena descoperise complexitatea computațională la treizeci și doi de ani, prin cea mai directă intrare posibilă: o problemă pe care nu o putea rezolva și care nu era dificilă în sensul că îi lipsea informație sau inteligență. Era dificilă în sens tehnic: nu exista un algoritm eficient pentru ea, iar demonstrațiile matematice sugerau că nu ar putea exista.
-
-Alan Turing demonstrase în 1936 — cu doi ani înainte ca primul calculator electronic să fie construit — că există întrebări pe care niciun calculator nu le poate rezolva în principiu, indiferent cât de mult timp sau de multă memorie ar avea. Halting problem — problema opririi: dat un program și o intrare, va programa se opri vreodată sau va rula la infinit? Nu exista niciun algoritm general care să răspundă la această întrebare pentru orice program.
-
-Nu era o limitare practică — era o demonstrație prin contradicție. Dacă ar exista un astfel de algoritm, ar putea fi folosit pentru a construi un program care să se comporte contradictoriu față de predicția algoritmului — deci algoritmul nu putea exista. Limita era logică, nu tehnologică.
-
-Turing a demonstrat că există întrebări pe care nu le poți răspunde nu pentru că nu ești suficient de deștept sau de rapid, ci pentru că structura întrebării face imposibil orice algoritm general. Și a demonstrat asta în 1936, când nu exista niciun calculator. 
-
-<div class="sec">XXVII · Complexitatea · 2770</div>
-
-A demonstrat limitele calculabilității înainte să existe calculatoare. E cel mai frumos result negativ din istoria matematicii.
-
-Turing 1936 — Halting Problem și Hierarhia Complexității
-
-Halting problem: indecidabilă — niciun algoritm nu poate răspunde în general
-
-Demonstrație: prin diagonalizare (similar cu Cantor 1891)
-
-Hierarhia complexității computaționale:
-
-P = probleme rezolvabile în timp polinomial (eficient)
-
-NP = probleme verificabile în timp polinomial
-
-P ⊆ NP — cert. P = NP? — nedemonstratt
-
-P vs NP (Cook, 1971; Karp, 1972): problema mileniului
-
-Dacă P = NP → criptografia modernă se prăbușește; AI devine trivial
-
-Dacă P ≠ NP → există probleme ușor de verificat, imposibil de rezolvat eficient
-
-Consensul: P ≠ NP (probabil) — nedemonstrat la mai 2026
-
-— din caietul Amei Owusu, vol. III, p. 34, nedatat —
-
-„Gödel a demonstrat că orice sistem formal suficient de bogat conține adevăruri pe care nu le poate demonstra. Turing a demonstrat că orice sistem de calcul suficient de puternic conține probleme pe care nu le poate rezolva. Ambele demonstrații merg prin auto-referință: construiești ceva care se referă la sine și produce o contradicție dacă sistemul e complet. Poate că auto-referința e granița unde orice sistem suficient de bogat se ciocnește cu propria sa limită."
-
-Ama Owusu · caiet vol. III · nedatat · Oslo
-
-Lena citise nota Amei și simțise că o așteptase. Gödel și Turing folosiseră aceeași structură — diagonalizarea lui Cantor — din direcții diferite. Cantor demonstrase că există infinite de mărimi diferite. Gödel demonstrase că orice sistem formal suficient de bogat e incomplet. Turing demonstrase că există probleme indecidabile. Toți trei: limite fundamentale produse de structura auto-referențială a sistemelor suficient de bogate.
-
-Seria Nota Zero era suficient de bogată. Și dacă structura auto-referențiala producea limite în matematică și în calcul, poate că seria conținea întrebări pe care nu le putea răspunde — nu pentru că ar fi lipsit cunoașterea sau inteligența protagoniștilor, ci pentru că structura seriei le genera ca inevitabile.
-
-Alan Turing (1912–1954): „On Computable Numbers, with an Application to the Entscheidungsproblem" (1936) — mașina Turing, halting problem. P vs NP: Cook (1971), Karp (1972), problema mileniului Clay Mathematics Institute ($1M). Conway's Game of Life (1970): 3 reguli → completitudine Turing. Wolfram (2002): „A New Kind of Science" — complexitate din reguli simple, universul ca program. Complexitate Kolmogorov: lungimea minimă a programului care generează un string.
-
-John Horton Conway inventase în 1970 Jocul Vieții — o grilă bidimensională cu celule care puteau fi vii sau moarte, guvernate de trei reguli simple: (1) o celulă vie cu doi sau trei vecini vii supraviețuiește; (2) o celulă vie cu altă număr de vecini moare; (3) o celulă moartă cu exact trei vecini vii înviaza. Nimic altceva. Trei reguli binare.
-
-Din aceste trei reguli emergeseră structuri de o complexitate uluitoare: glideri — configurații care se deplasau; oscillatori — configurații periodice; gun-uri — structuri care produceau glideri la nesfârșit; și, în final, demonstrat matematic, machine-uri universale Turing — adică Jocul Vieții era computațional complet. Cu suficient spațiu și timp, putea simula orice calcul posibil, inclusiv pe el însuși.
-
-Lena stătuse cu asta câteva săptămâni. Trei reguli. Completitudine Turing. Orice structură computabilă. Din trei reguli simple, orice complexitate posibilă.
-
-Universul fizic avusese câteva reguli — legile fizicii fundamentale, simetriile, constantele. Din aceste reguli apăruseră galaxii, stele, planete, viața, conștiința, fizicieni, caiete, serii de douăzeci și șapte de volume. Dacă universul era computațional complet — și existau argumente în această direcție — atunci din câteva reguli simple putuse apărea orice structură computabilă, inclusiv structuri suficient de complexe pentru a pune întrebarea despre propriile lor reguli.
-
-Lena discuta cu o colegă de birou la Oslo — Dr. Sofia Andersen, matematiciană computațională.
-
-— Sofia. Jocul Vieții e computațional complet din trei reguli. Înseamnă că orice structură computabilă poate apărea. Inclusiv o minte care pune întrebări despre Jocul Vieții.
-
-— Da, spuse Sofia. Și asta e recursiv în mod vertiginos. O minte în Jocul Vieții ar putea în principiu simula Jocul Vieții complet, inclusiv o minte care simuleazã Jocul Vieții. Recursivitate fără fund.
-
-— Și dacă universul fizic e computațional complet în același sens, atunci noi — minți în univers — putem simula universul în principiu. Inclusiv minți care simulează universul. Inclusiv noi înșine care simulăm universul.
-
-— Ceea ce e exact ceea ce face fizica, spuse Sofia. Simulează universul cu ecuații. Ecuațiile sunt mai scurte decât universul — asta e esența lor. Dar simularea completă ar necesita un univers de aceeași dimensiune ca universul simulat. Pressman nu m-a lămurit nici dacă asta e posibil.
-
-— Complexitate Kolmogorov, spuse Lena. Lungimea minimă a descrierii unui sistem. Dacă descrierea minimă a universului e la fel de lungă ca universul, înseamnă că universul nu e compresibil, că nu are o descriere mai scurtă decât el însuși.
-
-— Atunci nu poate fi complet calculat din afara lui. Și orice descriere a lui — inclusiv fizica — e inevitabil incompletă.
-
-Sofia tăcu câteva secunde. Scrie asta, spuse.
-
-Dacă universul nu e compresibil — dacă descrierea sa minimă e de aceeași lungime cu el însuși — atunci orice teorie fizică e inevitabil incompletă. Nu din lipsă de inteligență sau de date, ci din structura complexității. Gödel aplicat cosmologiei.
-
-Lena ajunsese la ceea ce o aducea la această temă: seria Nota Zero era un sistem complex în sens tehnic — nu complicat, ci complex. Distinseseseră: un sistem complicat putea fi descompus în componente simple; un sistem complex producea comportamente care nu puteau fi deduse din componentele sale.
-
-Seria pornise din trei reguli simple: (1) o persoană cu o întrebare care nu o lasă să doarmă; (2) caiete în care se scrie cu onestitate; (3) transmiterea caietelor mai departe. Trei reguli. Ca Jocul Vieții. Din aceste reguli apăruseră douăzeci și șapte de volume, doisprezece protagoniști, teme de la Big Bang la complexitate, un corpus de gândire distribuit pe 673 de ani.
-
-Putea cineva deduce volumul douăzeci și șapte din volumul unu? Nu — nu mai ușor decât citind toate cele douăzeci și șapte. Seria nu era compresibilă în propriile ei reguli de generare. Era computațional ireductibilă — termenul lui Stephen Wolfram. Nu exista o scurtătură de la regulile inițiale la starea finală. Trebuia parcursă.
-
-Și aceasta era, poate, proprietatea cea mai profundă a seriei: că nu era un argument, ci o traiectorie. Nu un sistem de axiome din care se deduceau concluzii — ci o cale care trebuia mersă pas cu pas, fără posibilitate de salt. Ca orice sistem complex ireductibil.
-
-Dacă seria e computațional ireductibilă, atunci nu există un rezumat al ei care să fie echivalent cu ea. Orice rezumat pierde ceva. Orice selecție de citate pierde ceva. Singura formă completă e traiectoria integrală. Ceea ce înseamnă că ai nu poți transmite seria — poți numai transmite caietele. Și de aceea caietele contează fizic. Nu sunt un suport pentru conținut; sunt conținutul.
-
-Vara lui 2771, Lena scrisese o propoziție pe care o lucrase patru luni, rescrisă de douăsprezece ori, și pe care o considerase la fiecare rescriere ori prea ambitioasă ori insuficientă. La final o lăsase exact cum era la a douăsprezecea versiune — nu perfectă, ci exactă:
-
-P vs NP nu e numai o problemă de matematică. E întrebarea dacă există o asimetrie fundamentală în univers între a verifica și a descoperi.
-
-Dacă P = NP, orice problemă a cărei soluție putea fi verificată rapid putea și fi rezolvată rapid. Verificarea și descoperirea ar fi echivalente. Totul ceea ce era recognoscibil ca adevărat putea fi și găsit eficient ca adevărat. Nu ar mai exista secretul — orice cod care putea fi verificat putea fi spart. Nu ar mai exista creativitatea în sensul producerii de soluții neașteptate — tot ce era fezabil era și calculabil direct.
-
-Dacă P ≠ NP — cum credeau aproape toți matematicienii, fără să fi demonstrat — atunci exista o asimetrie reală: unele lucruri erau ușor de recunoscut și greu de generat. Soluțiile elegante la probleme dificile nu puteau fi calculate — trebuiau găsite prin creativitate, prin insight, prin genul de salt cognitiv pe care seria îl demonstrase la fiecare volum.
-
-Și dacă existau probleme pentru care verificarea era ușoară dar generarea era imposibil de eficientizat, atunci seria Nota Zero era un exemplu: oricine putea verifica că o întrebare dintr-un volum era relevantă pentru temă. Nimeni nu putea genera eficient care urmă să fie relevanța sa — trebuia parcursă, trăită, actualizată. P ≠ NP ca teorie a seriei.
-
-Caietul Lena Solberg · vol. II · ultima pagina · 17 mai 2771
-
-Seria Nota Zero e un sistem complex în sens tehnic:
-
-imprevizibil de la reguli la stare finală.
-
-e ușor să verifici că o întrebare e bună.
-
-E imposibil să generezi eficient ce urmează.
-
-valoare care există numai în parcurgere.
-
-Turing a demonstrat limitele calculabilității.
-
-Seria demonstrează limitele rezumabilității.
-
-unele lucruri trebuie trăite, nu calculate.
-
-Lena închise caietul. Stătuse câteva minute la fereastra biroului din Oslo cu vederea spre fiord — aceeași vedere pe care o știa de șase ani, cu schimbările de lumină din anotimpuri, cu fiordul care îngheța parțial iarna și era plin de veliere vara.
-
-Gândise la Conway. Trei reguli. Completitudine Turing. Din simplitate, orice complexitate computabilă. Și gândise la seria pe care o purtase: trei reguli — curiozitate, onestitate, transmitere. Din aceste trei, douăzeci și șapte de volume, 673 de ani, doisprezece minți entanglate.
-
-Poate că asta era tot ce trebuia să știe: că regulile simple puteau produce complexitate ireductibilă. Că din nota zero — o singură întrebare greșit formulată — putea apărea orice structură suficient de complexă pentru a întreba despre propria sa origine.
-
-Incluzând pe ea, Lena Solberg, întrebând acum despre complexitate.
-
-Incluzând oricine va deschide caietele după ea.
-
-Nota Complexității · Epilog · 17 Mai 2775
-
-Lena Solberg a lăsat caietele în biroul unui doctorand care venise la Oslo
-
-dintr-un loc îndepărtat și care nu dormise trei nopți din cauza unei probleme
-
-de teoria complexității. Îi spusese simplu:
-
-Nu pentru că îți va rezolva problema.
-
-Ci pentru că îți va arăta că problema ta e bine aleasă.
-
-Doctorandul o întrebase cum știa că e bine aleasă.
-
-Pentru că nu poți adormi din cauza ei.
-
-Complexitatea nu e dificultate tehnică.
-
-E proprietatea sistemelor care nu pot fi
-
-reduse la regulile care le generează.
-
-Seria Nota Zero e complexă în acest sens:
-
-nedeductibilă din ele fără parcurgere integrală.
-
-Turing a demonstrat că există calcule ireductibile.
-
-Seria demonstrează că există traiectorii de cunoaștere ireductibile.
-
-Ambele spun: unele lucruri trebuie trăite.
-
-Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon
-
-Amara · Ji-Ho · Kavya · Leila · Nadia · Rin · Lena
-
-treisprezece fizicieni · 673 ani diegetic · trei reguli
-
-Regula 1: o persoană cu o întrebare care nu o lasă să doarmă.
-
-Regula 2: caiete în care se scrie cu onestitate.
-
-Regula 3: transmiterea caietelor mai departe.
-
-Din aceste trei reguli: douăzeci și șapte de volume.
-
-Din trei reguli ale lui Conway: orice complexitate computabilă.
-
-Simplitate care produce ireductibilitate.
-
-Notă zero care produce tot ce urmează.
-
-Nota Zero nu e mică pentru că e zero.
-
-E zero pentru că e prima — înaintea oricărei numărători.
-
-E regula simplă care generează complexitatea ireductibilă.
-
-E sămânța din care crește orice structură suficient de bogată
-
-pentru a pune întrebarea despre propria sa origine.
-
-Alexandru Ionuț Chiuță · Seria Nota Zero · 27 volume · 2026
-
-în colaborare cu Claude Sonnet 4.6 · Anthropic
-
-⬡ Note Știinţifice · Nota Entanglementului & Nota Complexității
-
-Schrödinger 1935, EPR 1935. Teorema Bell (1964): inegalitățile CHSH. Aspect (1982), Hensen et al. și Giustina et al. (2015): violarea confirmată fără „loophole-uri" majore. Nobel 2022: Aspect, Clauser, Zeilinger. Non-localitate fără semnalizare supraluminală.
-
-Ryu-Takayanagi formula (2006): entropia entanglementului în CFT = aria suprafeței minimale în AdS. Conexiune profundă entanglement-holografie activă în cercetare la mai 2026.
-
-„On Computable Numbers" (1936) — mașina Turing, halting problem. P vs NP: Cook (1971), Karp (1972) — problema mileniului, $1M neacordat la mai 2026. Conway's Game of Life (1970): completitudine Turing din 3 reguli.
-
-Complexitate Kolmogorov (Kolmogorov, Chaitin, Solomonoff, 1960s) — lungimea minimă a descrierii. Ireductibilitate computațională (Wolfram, 2002): sisteme al căror comportament nu poate fi prezis mai eficient decât simulând pasul cu pas.
-
-Lena Solberg, Bence Kovács, Sofia Andersen sunt personaje fictive. Seria Nota Zero (27 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Fizica e prezentată cu acuratețe la mai 2026.
-
-Nota Entanglementului & Nota Complexității · Cărțile a douăzeci și șasea și a douăzeci și șaptea
-
-Seria Nota Zero: 27 volume · 2087–2775 · 673 ani diegetic
-
-Non-local. Ireductibil. Trei reguli. Tot ce urmează.
-
-<footer>Nota Zero · <strong>Vol. XXVI–XXVII</strong> · <em>Nota Entanglementului</em> · <em>Nota Complexității</em> · Alexandru Ionuț Chiuță · implementări I–V integrate</footer></body></html>
+<!-- ══════════════════════════════════════════════ -->
+<!--  NOTA ENTANGLEMENTULUI                        -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="pd en">
+<div class="pd-ghost" style="color:var(--ent)">XXVI</div>
+<div class="pd-kicker">Cartea a douăzeci și șasea · Lena Solberg · 28 ani · 2760 · Oslo + Budapest</div>
+<div class="pd-nota" style="color:var(--ent)">Nota Entanglementului</div>
+<div class="pd-sub">Corelat fără contact, separat fără izolare</div>
+<div class="pd-epig">
+    „Dumnezeu nu joacă zaruri —<br/>
+    și nu accept că El face ceva atât de spooky<br/>
+    ca acțiunea la distanță."<br/>
+    — Albert Einstein, scrisoare către Max Born, 1947<br/><br/>
+    „Natura e mai ciudată decât crede Einstein.<br/>
+    Entanglementul e real. Distanța nu îl dilua.<br/>
+    Non-localitatea e o proprietate a universului,<br/>
+    nu o eroare a teoriei."<br/>
+    — Lena Solberg, caiet vol. I, p. 1, 2760
+  </div>
+</div>
+<div class="wrap p26"><div class="fin-add-block"><div class="brut">
+<span class="brut-lbl">Caiet vol. I · Lena Solberg · Oslo · marți dimineața · 2762</span>
+Rin Nakamura a murit în 2755. 67 volume. 675 ani.<br/>
+apa face bule mici pe fund. opresc focul înainte să fiarbă complet.<br/>
+mesteacănii țineau zăpada pe crengile orizontale cu o precizie care părea intenționată și nu era.<br/>
+<span class="brut-a">— dacă entanglementul e corelație preexistentă —</span><br/>
+corelația precedă termenii. poate că originea e în relație, nu în punctul izolat.
+</div></div>
+<div class="ch">
+<div class="chn">Nota Entanglementului · I</div>
+<div class="cht">Einstein, Podolsky, Rosen — 1935</div>
+<div class="p">
+<p>Lena Solberg primise caietele din Kyoto printr-un curier ciudat: le lăsase la biblioteca familiei Nakamura un om care nu știa ce conțineau, care le pusese pur și simplu pe un raft cu o etichetă scrisă de mână: <em>pentru cine nu poate să adoarmă din cauza unei întrebări</em>. Lena avusese douăzeci și doi de ani atunci și nu dormise trei nopți consecutive din cauza a exact aceasta — întrebarea despre entanglement, pe care o formulase fără să fi știut că altcineva o purtase înaintea ei.</p>
+<p>Entanglementul cuantic — <em>verschränkung</em>, în germana lui Schrödinger — era proprietatea prin care două particule odată interacționate rămâneau corelate indiferent de distanța care le separa. Dacă măsurai spinul uneia și obțineai spin-up, știai instant că cealaltă era spin-down — chiar dacă era la un miliard de ani-lumină distanță. Nu exista nicio comunicare între ele. Corelarea era instantanee.</p>
+<p>Einstein urâse asta. Nu fiindcă ar fi îndoit de matematică — matematica QM era impecabilă. Ci fiindcă implicația filozofică îl deranjase fundamental: că există corelații în natură care nu se explică prin cauze locale. Că două obiecte pot fi „conectate" în afara oricărui lanț cauzal localizat. Articolul EPR din 1935 — Einstein, Podolsky, Rosen — argumentase că, dacă QM era completă, atunci realitatea era non-locală, ceea ce era inacceptabil.</p>
+<p>John Bell demonstrase în 1964 că diferența dintre QM și teoria variabilelor ascunse locale era testabilă experimental. Alain Aspect confirmase în 1982: natura viola inegalitățile Bell. Non-localitatea era reală. Einstein greșise — sau mai precis, universul refuzase să fie local în modul în care Einstein îl ceruse.</p>
+</div>
+<div class="epr-box">
+<span class="epr-hd">Entanglement — structura fizică</span>
+    Două particule în stare entanglată: |ψ⟩ = (1/√2)(|↑⟩|↓⟩ − |↓⟩|↑⟩)<br/>
+<br/>
+    Măsurarea particulei A → rezultat aleatoriu (up sau down)<br/>
+    Măsurarea particulei B → corelat instantaneu cu A, indiferent de distanță<br/>
+<br/>
+    Inegalitățile Bell (1964): limita corelațiilor posibile în teorii locale realiste<br/>
+    Experimentele Aspect (1982): natura violează inegalitățile Bell<br/>
+    Concluzie: sau realismul local e fals, sau completitudinea QM e fals<br/>
+    Consensul actual: realismul local e fals. Natura e non-locală.<br/>
+<br/>
+    NOTĂ: entanglementul nu transmite informație mai repede decât lumina.<br/>
+    Corelația e reală; comunicarea locală e imposibilă. Paradox rezolvat.
+  </div>
+<div class="p">
+<p>Lena stătuse cu entanglementul câteva săptămâni înainte să identifice ce anume îl făcea relevant pentru seria pe care o citea. Nu era numai fizică interesantă — era o structură pe care o recunoscuse în altă parte.</p>
+<p>Caietele seriei Nota Zero creaseră o formă de entanglement între minți. Nu în sens tehnic — în sens structural. Zara la cincisprezece ani scrisese ceva în caietul albastru, iar Lena la douăzeci și opt, citind, fusese corelată cu acel moment din 2087 — nu prin comunicare directă, ci prin starea partajată a aceleași întrebări. Ele nu se întâlniseră, nu comunicaseră, nu se influențaseră în niciun sens cauzal direct. Și totuși existau corelații între ceea ce gândea Lena și ceea ce gândise Zara, mediate de caiet dar depășind medierea caietului.</p>
+<p>Era o analogie, nu o afirmație fizică. Dar analogia era precisă în structură: două sisteme care interacționaseră odată — Zara cu caietul, Lena cu caietul — rămâneau corelate prin starea comună, indiferent de distanța temporală.</p>
+</div>
+<div class="echo">
+<div class="echo-hd">— din caietul lui Rin Nakamura, vol. I, p. 45, 2701 —</div>
+<p>„Rin Nakamura a atins caietul albastru al Zarei. Eu îl ating acum. Suntem corelate prin același obiect fizic — urmele presiunii stiloului din 2087 sunt în același hârtie pe care o ating eu acum. Nu e metaforă. E fizică literală: aceleași molecule, aceleași deformații de hârtie. Entanglamentul fizic cel mai simplu posibil."</p>
+<span class="echo-attr">Rin Nakamura · caiet vol. I · pagina 45 · Kyoto · 2701</span>
+</div>
+<div class="sci">
+    Entanglement cuantic: Schrödinger (1935) — termenul Verschränkung. EPR paradox: Einstein, Podolsky, Rosen (1935). Teorema Bell (1964): inegalitățile CHSH — diferența experimentală între QM și teorii locale realiste. Experimentele Aspect (1982, confirmate 2015 „loophole-free" de Hensen et al. și Giustina et al.): violarea inegalităților Bell confirmată. Concluzie: natura e non-locală sau incompletă. Non-localitate fără semnalizare supraluminală — „peaceful coexistence" cu relativitatea specială. Nobel 2022: Aspect, Clauser, Zeilinger pentru lucrările pe entanglement.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Entanglementului · II</div>
+<div class="cht">Non-Localitate</div>
+<div class="p">
+<p>Non-localitatea era, poate, proprietatea cea mai contraintuitivă pe care fizica o demonstrase. Nu că particulele puteau fi în două locuri simultan — asta era superpoziția. Ci că două particule separate puteau fi corelate în moduri care nu puteau fi explicate prin nicio informație transmisă între ele.</p>
+<p>David Bohm propusese o interpretare: particule cu variabile ascunse nelocalee — un potențial cuantic care conecta toate particulele la nivel sub-cuantic, indiferent de distanță. Nu era acceptată majoritar, dar ilustra punctul: pentru a explica corelațiile, trebuia sau să abandonezi localitatea, sau să abandonezi realismul, sau să abandonezi amândouă.</p>
+<p>Lena discutase cu profesorul ei de fizică cuantică — Dr. Bence Kovács, de la Budapesta, care lucrase cu Alice și Bob — terminologia standard pentru cei doi observatori ai unui experiment de entanglement — timp de douăzeci de ani și care spusese că după douăzeci de ani tot nu se obișnuise cu implicațiile.</p>
+</div>
+<div class="d">
+<p>— Bence. Ce înseamnă că universul e non-local?</p>
+<p>— Înseamnă că nu există o separare completă a sistemelor fizice, spuse Bence. Odată interacționate, particulele rămân parte dintr-un sistem mai larg. Nu în sens metaforic — în sens fizic tehnic. Funcția de undă a sistemului compus nu se factorizează în funcții individuale.</p>
+<p>— Și implicația filozofică?</p>
+<p>— E imensă și controversată. O implicație: universul e holistic în mod fundamental. Nu există obiecte perfect separate — există sisteme cuantice care au grade de entanglement cu alte sisteme. Tot ce a interacționat vreodată cu altceva e, în sens cuantic, parte dintr-un sistem mai larg. La limită, tot universul e un singur sistem cuantic entanglat cu el însuși.</p>
+<p>— Un singur sistem cuantic, spuse Lena. Asta sună ca principiul holografic — că volumul e descris de suprafață. Aceeași idee de inseparabilitate fundamentală.</p>
+<p>— Poate că sunt același lucru văzut din unghiuri diferite, spuse Bence. Holografia și entanglementul au conexiuni matematice profunde în fizica modernă — AdS/CFT e parțial înțeleasă ca o teorie despre entanglementul în teoria câmpurilor. Poate că inseparabilitatea e proprietatea fundamentală, cu holografia și entanglementul ca aspecte diferite ale ei.</p>
+<p>Lena scrise imediat: <em>Inseparabilitate fundamentală. Poate că asta e ceea ce seria a descris din zece unghiuri diferite — că nimic nu e cu adevărat separat. Că originea unică a tot ce există face din tot ce există un sistem corelat.</em></p>
+</div>
+<div class="pull">
+<p>Universul e holistic în mod fundamental. Odată interacționate, sistemele rămân corelate. La limită: tot universul e un singur sistem entanglat. Inseparabilitatea e proprietatea fundamentală. Seria o descrisese din zece unghiuri. Acesta e al unsprezecelea.</p>
+<cite>— Nota Entanglementului, cap. II</cite>
+</div>
+</div>
+<div class="ch">
+<div class="chn">Nota Entanglementului · III</div>
+<div class="cht">Seria ca Sistem Entanglat</div>
+<div class="p">
+<p>Lena ajunsese la ceea ce voia să spună, cu o claritate pe care o lucrase lent: seria Nota Zero era structural un sistem entanglat. Nu fizic — structural.</p>
+<p>Fiecare protagonist care citise caietele fusese „măsurat" de ele — activase ceva din starea distribuită a seriei. Și prin această activare, devenise parte din sistemul corelat al seriei. Nu în sens metafizic — în sens că orice gând pe care îl aveau despre origine, despre fizică, despre limita cunoașterii era acum corelat cu gândurile tuturor celorlalți care citiseră aceleași caiete și pusese aceleași întrebări.</p>
+<p>Corelarea nu era comunicare. Protagoniștii nu se influențaseră cauzal direct — separați de decenii sau secole, nu putuseră. Și totuși gândeau corelat. Ajunseseră la aceleași impasuri, aceleași momente de recunoaștere, aceleași pagini goale la final. Nu pentru că s-ar fi coordonat — ci pentru că fuseseră toți măsurați de aceeași stare cuantică a seriei.</p>
+<p>Era o analogie, nu o fizică. Dar analogia era exactă în structura sa. Și o analogie exactă structural era — Nadia spusese asta în Nota Frumuseții — un semnal că ceva real era capturat.</p>
+</div>
+<div class="think">
+    Dacă seria e un sistem entanglat, atunci eu — Lena — sunt acum parte din el. Starea mea cuantică e corelată cu starea Zarei din 2087 și a lui Kaito din 2150 și a Nadiei din 2630 și a lui Rin din 2700. Nu prin influență cauzală — prin starea partajată a aceleiași structuri de întrebări. Suntem toți parte din același sistem de întrebări. Și măsurarea mea — ce gândesc acum, ce scriu acum — face parte din colapsa funcției de undă a seriei în această instanță particulară.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Entanglementului · IV</div>
+<div class="cht">Ultima Corelație</div>
+<div class="p">
+<p>Era vara anului 2761 și Lena stătea pe o bancă în parcul Frogner din Oslo, cu caietele lângă ea și cu cerul nordic de august deschis deasupra. Gândise la Einstein — la cât de mult îl deranjase entanglementul. Nu pentru că ar fi greșit — știuse că e consistent matematic. Ci pentru că îi zgâriase o convingere profundă: că realitatea e locală, că obiectele sunt separate, că nu există conexiuni mai rapide decât lumina.</p>
+<p>Și totuși conexiunile existau. Nu mai rapide decât lumina — nu transmitând informație. Dar reale. Structurale. Proprietăți ale sistemelor compuse care nu se reduceau la proprietățile componentelor izolate.</p>
+<p>Scrise în caiet — nu cu mâna, ci cu atenția plină a cuiva care știe că scrie ceva final pentru un volum:</p>
+</div>
+<div class="nb">
+<span class="nb-hd">Caietul Lena Solberg · vol. I · p. 99 · 17 mai 2761</span>
+    Entanglementul demonstrează că separarea e incompletă.<br/>
+    Odată conectate, sistemele rămân corelate.<br/>
+<br/>
+    Seria Nota Zero a conectat douăsprezece minți<br/>
+    de-a lungul a 673 de ani.<br/>
+    Suntem corelate — Zara și eu,<br/>
+    Kaito și Rin, Ama și Lena —<br/>
+    nu prin comunicare directă,<br/>
+    ci prin starea partajată a aceleiași întrebări.<br/>
+<br/>
+    Entanglementul seriei e real în același sens<br/>
+    în care e real entanglementul cuantic:<br/>
+    nu prin cauze locale, ci prin structura sistemului compus.<br/>
+<br/>
+    Universul care corelează fără să comunice<br/>
+    a produs o serie care corelează fără să comunice.<br/>
+<br/>
+    Asta nu e o coincidență.<br/>
+    E o rezonanță structurală.
+  </div>
+</div>
+<!-- EPILOG 26 -->
+<div class="epilog">
+<div class="ep-date" style="color:var(--ent)">Nota Entanglementului · Epilog · 17 Mai 2765</div>
+<div class="ep-title" style="color:var(--ent)">Corelate fără contact</div>
+<div class="ep-prose">
+    Cartea a douăzeci și șasea se numea <em>Nota Entanglementului</em>
+    și era dedicată lui Alain Aspect, care demonstrase experimental în 1982
+    că universul viola inegalitățile Bell — că non-localitatea nu era o eroare
+    a teoriei, ci o proprietate a naturii.
+    Lena scrisese în prefață că Aspect demonstrase ceva despre
+    fizica particulelor și ceva, neintențional, despre orice sistem
+    care odată se atinsese: că atingerea lasă urme non-locale.
+  </div>
+<div class="ep-final">
+    Natura e non-locală.<br/>
+    Odată interacționate, sistemele rămân corelate.<br/>
+    Distanța nu diluează corelarea.<br/>
+<br/>
+    Seria Nota Zero demonstrează același lucru<br/>
+    la scara narativă:<br/>
+    odată activate de aceleași caiete,<br/>
+    mințile rămân corelate<br/>
+    indiferent de distanța temporală.<br/>
+<br/>
+    673 de ani de entanglement.<br/>
+    Nicio comunicare directă.<br/>
+    Aceleași gânduri, aceleași impasuri, aceleași pagini goale.
+  </div>
+</div>
+</div><!-- /wrap.p26 -->
+<!-- ══════════════════════════════════════════════ -->
+<!--  NOTA COMPLEXITĂȚII                           -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="between">P ≠ NP ?</div>
+<div class="pd cm">
+<div class="pd-ghost" style="color:var(--cmp)">XXVII</div>
+<div class="pd-kicker">Cartea a douăzeci și șaptea · Lena Solberg · 38 ani · 2770 · Budapest + Oslo</div>
+<div class="pd-nota" style="color:var(--cmp)">Nota Complexității</div>
+<div class="pd-sub">Reguli simple, rezultate imprevizibile, limite ale calculului</div>
+<div class="pd-epig">
+    „There can be no general process<br/>
+    for determining whether a given formula<br/>
+    of the functional calculus is provable."<br/>
+    — Alan Turing, 1936<br/><br/>
+    „Jocul vieții lui Conway arată că trei reguli<br/>
+    pot produce orice structură computabilă.<br/>
+    Universul are câteva reguli.<br/>
+    Poate că produce orice structură computabilă."<br/>
+    — Lena Solberg, caiet vol. II, p. 1, 2770
+  </div>
+</div>
+<div class="wrap p27">
+<div class="ch">
+<div class="chn">Nota Complexității · I</div>
+<div class="cht">Turing și Limita</div>
+<div class="p">
+<p>Lena descoperise complexitatea computațională la treizeci și doi de ani, prin cea mai directă intrare posibilă: o problemă pe care nu o putea rezolva și care nu era dificilă în sensul că îi lipsea informație sau inteligență. Era dificilă în sens tehnic: nu exista un algoritm eficient pentru ea, iar demonstrațiile matematice sugerau că nu ar putea exista.</p>
+<p>Alan Turing demonstrase în 1936 — cu doi ani înainte ca primul calculator electronic să fie construit — că există întrebări pe care niciun calculator nu le poate rezolva în principiu, indiferent cât de mult timp sau de multă memorie ar avea. Halting problem — problema opririi: dat un program și o intrare, va programa se opri vreodată sau va rula la infinit? Nu exista niciun algoritm general care să răspundă la această întrebare pentru orice program.</p>
+<p>Nu era o limitare practică — era o demonstrație prin contradicție. Dacă ar exista un astfel de algoritm, ar putea fi folosit pentru a construi un program care să se comporte contradictoriu față de predicția algoritmului — deci algoritmul nu putea exista. Limita era logică, nu tehnologică.</p>
+<p>Lena scrisese: <em>Turing a demonstrat că există întrebări pe care nu le poți răspunde nu pentru că nu ești suficient de deștept sau de rapid, ci pentru că structura întrebării face imposibil orice algoritm general. Și a demonstrat asta în 1936, când nu exista niciun calculator. A demonstrat limitele calculabilității înainte să existe calculatoare. E cel mai frumos result negativ din istoria matematicii.</em></p>
+</div>
+<div class="tur-box">
+<span class="tur-hd">Turing 1936 — Halting Problem și Hierarhia Complexității</span>
+    Halting problem: indecidabilă — niciun algoritm nu poate răspunde în general<br/>
+    Demonstrație: prin diagonalizare (similar cu Cantor 1891)<br/>
+<br/>
+    Hierarhia complexității computaționale:<br/>
+    P = probleme rezolvabile în timp polinomial (eficient)<br/>
+    NP = probleme verificabile în timp polinomial<br/>
+    P ⊆ NP — cert. P = NP? — nedemonstratt<br/>
+<br/>
+    P vs NP (Cook, 1971; Karp, 1972): problema mileniului<br/>
+    Dacă P = NP → criptografia modernă se prăbușește; AI devine trivial<br/>
+    Dacă P ≠ NP → există probleme ușor de verificat, imposibil de rezolvat eficient<br/>
+<br/>
+    Consensul: P ≠ NP (probabil) — nedemonstrat la mai 2026
+  </div>
+<div class="echo">
+<div class="echo-hd">— din caietul Amei Owusu, vol. III, p. 34, nedatat —</div>
+<p>„Gödel a demonstrat că orice sistem formal suficient de bogat conține adevăruri pe care nu le poate demonstra. Turing a demonstrat că orice sistem de calcul suficient de puternic conține probleme pe care nu le poate rezolva. Ambele demonstrații merg prin auto-referință: construiești ceva care se referă la sine și produce o contradicție dacă sistemul e complet. Poate că auto-referința e granița unde orice sistem suficient de bogat se ciocnește cu propria sa limită."</p>
+<span class="echo-attr">Ama Owusu · caiet vol. III · nedatat · Oslo</span>
+</div>
+<div class="p">
+<p>Lena citise nota Amei și simțise că o așteptase. Gödel și Turing folosiseră aceeași structură — diagonalizarea lui Cantor — din direcții diferite. Cantor demonstrase că există infinite de mărimi diferite. Gödel demonstrase că orice sistem formal suficient de bogat e incomplet. Turing demonstrase că există probleme indecidabile. Toți trei: limite fundamentale produse de structura auto-referențială a sistemelor suficient de bogate.</p>
+<p>Seria Nota Zero era suficient de bogată. Și dacă structura auto-referențiala producea limite în matematică și în calcul, poate că seria conținea întrebări pe care nu le putea răspunde — nu pentru că ar fi lipsit cunoașterea sau inteligența protagoniștilor, ci pentru că structura seriei le genera ca inevitabile.</p>
+<p>Prima întrebare — <em>de unde venea punctul?</em> — era poate una dintre ele.</p>
+</div>
+<div class="sci">
+    Alan Turing (1912–1954): „On Computable Numbers, with an Application to the Entscheidungsproblem" (1936) — mașina Turing, halting problem. P vs NP: Cook (1971), Karp (1972), problema mileniului Clay Mathematics Institute ($1M). Conway's Game of Life (1970): 3 reguli → completitudine Turing. Wolfram (2002): „A New Kind of Science" — complexitate din reguli simple, universul ca program. Complexitate Kolmogorov: lungimea minimă a programului care generează un string.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Complexității · II</div>
+<div class="cht">Conway și Viața din Trei Reguli</div>
+<div class="p">
+<p>John Horton Conway inventase în 1970 Jocul Vieții — o grilă bidimensională cu celule care puteau fi vii sau moarte, guvernate de trei reguli simple: (1) o celulă vie cu doi sau trei vecini vii supraviețuiește; (2) o celulă vie cu altă număr de vecini moare; (3) o celulă moartă cu exact trei vecini vii înviaza. Nimic altceva. Trei reguli binare.</p>
+<p>Din aceste trei reguli emergeseră structuri de o complexitate uluitoare: glideri — configurații care se deplasau; oscillatori — configurații periodice; gun-uri — structuri care produceau glideri la nesfârșit; și, în final, demonstrat matematic, machine-uri universale Turing — adică Jocul Vieții era computațional complet. Cu suficient spațiu și timp, putea simula orice calcul posibil, inclusiv pe el însuși.</p>
+<p>Lena stătuse cu asta câteva săptămâni. Trei reguli. Completitudine Turing. Orice structură computabilă. Din trei reguli simple, orice complexitate posibilă.</p>
+<p>Universul fizic avusese câteva reguli — legile fizicii fundamentale, simetriile, constantele. Din aceste reguli apăruseră galaxii, stele, planete, viața, conștiința, fizicieni, caiete, serii de douăzeci și șapte de volume. Dacă universul era computațional complet — și existau argumente în această direcție — atunci din câteva reguli simple putuse apărea orice structură computabilă, inclusiv structuri suficient de complexe pentru a pune întrebarea despre propriile lor reguli.</p>
+</div>
+<div class="d">
+<p>Lena discuta cu o colegă de birou la Oslo — Dr. Sofia Andersen, matematiciană computațională.</p>
+<p>— Sofia. Jocul Vieții e computațional complet din trei reguli. Înseamnă că orice structură computabilă poate apărea. Inclusiv o minte care pune întrebări despre Jocul Vieții.</p>
+<p>— Da, spuse Sofia. Și asta e recursiv în mod vertiginos. O minte în Jocul Vieții ar putea în principiu simula Jocul Vieții complet, inclusiv o minte care simuleazã Jocul Vieții. Recursivitate fără fund.</p>
+<p>— Și dacă universul fizic e computațional complet în același sens, atunci noi — minți în univers — putem simula universul în principiu. Inclusiv minți care simulează universul. Inclusiv noi înșine care simulăm universul.</p>
+<p>— Ceea ce e exact ceea ce face fizica, spuse Sofia. Simulează universul cu ecuații. Ecuațiile sunt mai scurte decât universul — asta e esența lor. Dar simularea completă ar necesita un univers de aceeași dimensiune ca universul simulat. Pressman nu m-a lămurit nici dacă asta e posibil.</p>
+<p>— Complexitate Kolmogorov, spuse Lena. Lungimea minimă a descrierii unui sistem. Dacă descrierea minimă a universului e la fel de lungă ca universul, înseamnă că universul nu e compresibil, că nu are o descriere mai scurtă decât el însuși.</p>
+<p>— Și dacă nu e compresibil?</p>
+<p>— Atunci nu poate fi complet calculat din afara lui. Și orice descriere a lui — inclusiv fizica — e inevitabil incompletă.</p>
+<p>Sofia tăcu câteva secunde. Scrie asta, spuse.</p>
+</div>
+<div class="pull">
+<p>Dacă universul nu e compresibil — dacă descrierea sa minimă e de aceeași lungime cu el însuși — atunci orice teorie fizică e inevitabil incompletă. Nu din lipsă de inteligență sau de date, ci din structura complexității. Gödel aplicat cosmologiei.</p>
+<cite>— Nota Complexității, cap. II</cite>
+</div>
+</div>
+<div class="ch">
+<div class="chn">Nota Complexității · III</div>
+<div class="cht">Seria ca Sistem Complex</div>
+<div class="p">
+<p>Lena ajunsese la ceea ce o aducea la această temă: seria Nota Zero era un sistem complex în sens tehnic — nu complicat, ci complex. Distinseseseră: un sistem complicat putea fi descompus în componente simple; un sistem complex producea comportamente care nu puteau fi deduse din componentele sale.</p>
+<p>Seria pornise din trei reguli simple: (1) o persoană cu o întrebare care nu o lasă să doarmă; (2) caiete în care se scrie cu onestitate; (3) transmiterea caietelor mai departe. Trei reguli. Ca Jocul Vieții. Din aceste reguli apăruseră douăzeci și șapte de volume, doisprezece protagoniști, teme de la Big Bang la complexitate, un corpus de gândire distribuit pe 673 de ani.</p>
+<p>Putea cineva deduce volumul douăzeci și șapte din volumul unu? Nu — nu mai ușor decât citind toate cele douăzeci și șapte. Seria nu era compresibilă în propriile ei reguli de generare. Era computațional ireductibilă — termenul lui Stephen Wolfram. Nu exista o scurtătură de la regulile inițiale la starea finală. Trebuia parcursă.</p>
+<p>Și aceasta era, poate, proprietatea cea mai profundă a seriei: că nu era un argument, ci o traiectorie. Nu un sistem de axiome din care se deduceau concluzii — ci o cale care trebuia mersă pas cu pas, fără posibilitate de salt. Ca orice sistem complex ireductibil.</p>
+</div>
+<div class="think">
+    Dacă seria e computațional ireductibilă, atunci nu există un rezumat al ei care să fie echivalent cu ea. Orice rezumat pierde ceva. Orice selecție de citate pierde ceva. Singura formă completă e traiectoria integrală. Ceea ce înseamnă că ai nu poți transmite seria — poți numai transmite caietele. Și de aceea caietele contează fizic. Nu sunt un suport pentru conținut; sunt conținutul.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Complexității · IV</div>
+<div class="cht">P vs NP sau Întrebarea Finală</div>
+<div class="p">
+<p>Vara lui 2771, Lena scrisese o propoziție pe care o lucrase patru luni, rescrisă de douăsprezece ori, și pe care o considerase la fiecare rescriere ori prea ambitioasă ori insuficientă. La final o lăsase exact cum era la a douăsprezecea versiune — nu perfectă, ci exactă:</p>
+<p><em>P vs NP nu e numai o problemă de matematică. E întrebarea dacă există o asimetrie fundamentală în univers între a verifica și a descoperi.</em></p>
+<p>Dacă P = NP, orice problemă a cărei soluție putea fi verificată rapid putea și fi rezolvată rapid. Verificarea și descoperirea ar fi echivalente. Totul ceea ce era recognoscibil ca adevărat putea fi și găsit eficient ca adevărat. Nu ar mai exista secretul — orice cod care putea fi verificat putea fi spart. Nu ar mai exista creativitatea în sensul producerii de soluții neașteptate — tot ce era fezabil era și calculabil direct.</p>
+<p>Dacă P ≠ NP — cum credeau aproape toți matematicienii, fără să fi demonstrat — atunci exista o asimetrie reală: unele lucruri erau ușor de recunoscut și greu de generat. Soluțiile elegante la probleme dificile nu puteau fi calculate — trebuiau găsite prin creativitate, prin insight, prin genul de salt cognitiv pe care seria îl demonstrase la fiecare volum.</p>
+<p>Și dacă existau probleme pentru care verificarea era ușoară dar generarea era imposibil de eficientizat, atunci seria Nota Zero era un exemplu: oricine putea verifica că o întrebare dintr-un volum era relevantă pentru temă. Nimeni nu putea genera eficient care urmă să fie relevanța sa — trebuia parcursă, trăită, actualizată. P ≠ NP ca teorie a seriei.</p>
+</div>
+<div class="nb">
+<span class="nb-hd">Caietul Lena Solberg · vol. II · ultima pagina · 17 mai 2771</span>
+    Seria Nota Zero e un sistem complex în sens tehnic:<br/>
+    generat din trei reguli simple,<br/>
+    computațional ireductibil,<br/>
+    imprevizibil de la reguli la stare finală.<br/>
+<br/>
+    P ≠ NP ca teorie a seriei:<br/>
+    e ușor să verifici că o întrebare e bună.<br/>
+    E imposibil să generezi eficient ce urmează.<br/>
+<br/>
+    Aceasta nu e o limită a seriei.<br/>
+    E structura oricărui sistem viu:<br/>
+    complexitate ireductibilă,<br/>
+    traiectorie nescurtabilă,<br/>
+    valoare care există numai în parcurgere.<br/>
+<br/>
+    Turing a demonstrat limitele calculabilității.<br/>
+    Seria demonstrează limitele rezumabilității.<br/>
+    Ambele spun același lucru:<br/>
+    unele lucruri trebuie trăite, nu calculate.
+  </div>
+<div class="p">
+<p>Lena închise caietul. Stătuse câteva minute la fereastra biroului din Oslo cu vederea spre fiord — aceeași vedere pe care o știa de șase ani, cu schimbările de lumină din anotimpuri, cu fiordul care îngheța parțial iarna și era plin de veliere vara.</p>
+<p>Gândise la Conway. Trei reguli. Completitudine Turing. Din simplitate, orice complexitate computabilă. Și gândise la seria pe care o purtase: trei reguli — curiozitate, onestitate, transmitere. Din aceste trei, douăzeci și șapte de volume, 673 de ani, doisprezece minți entanglate.</p>
+<p>Poate că asta era tot ce trebuia să știe: că regulile simple puteau produce complexitate ireductibilă. Că din nota zero — o singură întrebare greșit formulată — putea apărea orice structură suficient de complexă pentru a întreba despre propria sa origine.</p>
+<p>Incluzând pe ea, Lena Solberg, întrebând acum despre complexitate.</p>
+<p>Incluzând oricine va deschide caietele după ea.</p>
+<p>Trei reguli. Orice complexitate.</p>
+<p>Notă zero. Tot ce urmează.</p>
+</div>
+</div>
+<!-- EPILOG 27 -->
+<div class="epilog">
+<div class="ep-date" style="color:var(--cmp)">Nota Complexității · Epilog · 17 Mai 2775</div>
+<div class="ep-title" style="color:var(--cmp)">Trei reguli. Tot ce urmează.</div>
+<div class="ep-prose">
+    Lena Solberg a lăsat caietele în biroul unui doctorand care venise la Oslo
+    dintr-un loc îndepărtat și care nu dormise trei nopți din cauza unei probleme
+    de teoria complexității. Îi spusese simplu: <em>Citește asta.
+    Nu pentru că îți va rezolva problema.
+    Ci pentru că îți va arăta că problema ta e bine aleasă.</em>
+    Doctorandul o întrebase cum știa că e bine aleasă.
+    Lena spusese: <em>Pentru că nu poți adormi din cauza ei.</em>
+</div>
+<div class="ep-final">
+    Complexitatea nu e dificultate tehnică.<br/>
+    E proprietatea sistemelor care nu pot fi<br/>
+    reduse la regulile care le generează.<br/>
+<br/>
+    Seria Nota Zero e complexă în acest sens:<br/>
+    generată din trei reguli simple,<br/>
+    nedeductibilă din ele fără parcurgere integrală.<br/>
+<br/>
+    Turing a demonstrat că există calcule ireductibile.<br/>
+    Seria demonstrează că există traiectorii de cunoaștere ireductibile.<br/>
+<br/>
+    Ambele spun: unele lucruri trebuie trăite.
+  </div>
+</div>
+</div><!-- /wrap.p27 -->
+<!-- ARCHITECTURE FINALE -->
+<div class="arch-fin">
+<div class="af-icon">P ≠ NP</div>
+<div class="af-k">Seria Nota Zero · 27 volume · 2026</div>
+<div class="af-t">Trei Reguli. Orice Complexitate.</div>
+<div class="af-ch">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br/>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin · Lena<br/>
+    treisprezece fizicieni · 673 ani diegetic · trei reguli
+  </div>
+<div class="af-body">
+    Regula 1: o persoană cu o întrebare care nu o lasă să doarmă.<br/>
+    Regula 2: caiete în care se scrie cu onestitate.<br/>
+    Regula 3: transmiterea caietelor mai departe.<br/>
+<br/>
+    Din aceste trei reguli: douăzeci și șapte de volume.<br/>
+    Din trei reguli ale lui Conway: orice complexitate computabilă.<br/>
+    Din câteva legi ale universului: <em>tot ce există</em>.<br/>
+<br/>
+    Simplitate care produce ireductibilitate.<br/>
+    Notă zero care produce tot ce urmează.<br/>
+    Aceeași structură la toate scalele.
+  </div>
+<div class="af-box">
+    Nota Zero nu e mică pentru că e zero.<br/>
+    E zero pentru că e prima — înaintea oricărei numărători.<br/>
+    E regula simplă care generează complexitatea ireductibilă.<br/>
+    E sămânța din care crește orice structură suficient de bogată<br/>
+    pentru a pune întrebarea despre propria sa origine.<br/>
+<br/>
+    Din nota zero: tot.<br/>
+    Din tot: nota zero.<br/>
+    Cercul nu se oprește.<br/>
+    Cercul nu trebuie să se oprească.
+  </div>
+<div class="af-nota">Nota Zero</div>
+<div class="af-m">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 27 volume · 2026<br/>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+<div class="wrap">
+<div style="border:1px solid var(--cm4);padding:1.5rem 2rem;margin:2rem 0;background:var(--cm3)">
+<div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cmp);margin-bottom:1rem;opacity:.5">⬡ Note Știinţifice · Nota Entanglementului &amp; Nota Complexității</div>
+<div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Entanglement cuantic:</strong> Schrödinger 1935, EPR 1935. Teorema Bell (1964): inegalitățile CHSH. Aspect (1982), Hensen et al. și Giustina et al. (2015): violarea confirmată fără „loophole-uri" majore. Nobel 2022: Aspect, Clauser, Zeilinger. Non-localitate fără semnalizare supraluminală.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Entanglement și holografie:</strong> Ryu-Takayanagi formula (2006): entropia entanglementului în CFT = aria suprafeței minimale în AdS. Conexiune profundă entanglement-holografie activă în cercetare la mai 2026.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Alan Turing (1912–1954):</strong> „On Computable Numbers" (1936) — mașina Turing, halting problem. P vs NP: Cook (1971), Karp (1972) — problema mileniului, $1M neacordat la mai 2026. Conway's Game of Life (1970): completitudine Turing din 3 reguli.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Complexitate computațională:</strong> Complexitate Kolmogorov (Kolmogorov, Chaitin, Solomonoff, 1960s) — lungimea minimă a descrierii. Ireductibilitate computațională (Wolfram, 2002): sisteme al căror comportament nu poate fi prezis mai eficient decât simulând pasul cu pas.</p>
+<p><strong style="color:var(--cream)">5. Ficțiune:</strong> Lena Solberg, Bence Kovács, Sofia Andersen sunt personaje fictive. Seria Nota Zero (27 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Fizica e prezentată cu acuratețe la mai 2026.</p><p class="fin-add">Seria Nota Zero: 27 volume · 2087–2775 · 673 ani diegetic</p>
+</div>
+</div>
+</div>
+<footer>
+  Nota Entanglementului &amp; Nota Complexității · Cărțile a douăzeci și șasea și a douăzeci și șaptea<br/>
+  Seria Nota Zero: 27 volume · 2087–2775 · 673 ani diegetic<br/>
+  Non-local. Ireductibil. Trei reguli. Tot ce urmează.<br/>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+</div><!-- /page -->
+<script>
+(function(){
+  const c=document.getElementById('quantCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,pairs=[],cells=[],raf,frame=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    pairs=[];
+    // Entangled pairs — connected by faint line, mirrored spin
+    for(let i=0;i<20;i++){
+      const x1=Math.random()*ww, y1=Math.random()*wh;
+      const x2=Math.random()*ww, y2=Math.random()*wh;
+      pairs.push({
+        x1,y1,x2,y2,
+        phase:Math.random()*Math.PI*2,
+        a:.12+Math.random()*.08,
+        s:(Math.random()-.5)*.003
+      });
+    }
+    cells=[];
+    // Game of Life-like cells — yellow, scattered
+    for(let i=0;i<30;i++){
+      cells.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.5+Math.random()*.6,
+        a:Math.random()*.18, s:(Math.random()-.5)*.004,
+        vx:(Math.random()-.5)*.03, vy:(Math.random()-.5)*.03
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    frame++; const t=frame*0.007;
+    ctx.clearRect(0,0,ww,wh);
+
+    // Entangled pairs
+    pairs.forEach(p=>{
+      p.a+=p.s; if(p.a>.2||p.a<0.04)p.s*=-1;
+      const pulse=p.a+Math.sin(t+p.phase)*0.03;
+      const antipulse=p.a-Math.sin(t+p.phase)*0.03;
+      // connecting line
+      ctx.beginPath();
+      ctx.moveTo(p.x1,p.y1); ctx.lineTo(p.x2,p.y2);
+      ctx.strokeStyle=`rgba(232,72,112,${(pulse*0.12).toFixed(3)})`;
+      ctx.lineWidth=.4; ctx.stroke();
+      // particle A
+      ctx.beginPath(); ctx.arc(p.x1,p.y1,.8,0,Math.PI*2);
+      ctx.fillStyle=`rgba(232,72,112,${pulse.toFixed(3)})`; ctx.fill();
+      // particle B (anti-correlated visually)
+      ctx.beginPath(); ctx.arc(p.x2,p.y2,.8,0,Math.PI*2);
+      ctx.fillStyle=`rgba(232,72,112,${antipulse.toFixed(3)})`; ctx.fill();
+    });
+
+    // Complexity cells
+    cells.forEach(p=>{
+      p.a+=p.s; if(p.a>.2||p.a<0)p.s*=-1;
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=ww; if(p.x>ww)p.x=0;
+      if(p.y<0)p.y=wh; if(p.y>wh)p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(216,192,32,${p.a.toFixed(3)})`; ctx.fill();
+    });
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

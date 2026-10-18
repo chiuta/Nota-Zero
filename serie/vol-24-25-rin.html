@@ -1,84 +1,240 @@
-<!DOCTYPE html><html lang="ro"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Nota Zero — Vol. XXIV–XXV · Nota Memoriei · Nota Întrebării</title><style>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Nota Memoriei &amp; Nota Întrebării · Cărțile a douăzeci și patra și a douăzeci și cincea · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#030407; --deep:#06080f; --surface:#0d0f1c;
-  --gold:#c8a96e; --gold-dim:rgba(200,169,110,.38); --gold-faint:rgba(200,169,110,.07);
-  --cream:#ede3ce; --cream-dim:rgba(237,227,206,.62);
-  --cyan:#00e8ff; --cyan-dim:rgba(0,232,255,.18);
-  --border:rgba(200,169,110,.13); --border2:rgba(200,169,110,.07);
-  --ak:rgba(80,160,90,.6); --ak-dim:rgba(80,160,90,.18);
+  --void:#020209;
+  /* Nota Memoriei: lavandă-sumbru, urmă, persistență */
+  --mem:#9878d8;--me2:rgba(152,120,216,.09);--me3:rgba(152,120,216,.035);--me4:rgba(152,120,216,.14);
+  /* Nota Întrebării: alb pur, deschidere, spațiu */
+  --ask:#e8e4d8;--as2:rgba(232,228,216,.09);--as3:rgba(232,228,216,.03);--as4:rgba(232,228,216,.12);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --rm:1px solid rgba(152,120,216,.13); --rq:1px solid rgba(232,228,216,.1);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth}
 body{
-  background:var(--void); color:var(--cream);
+  background:var(--void);color:var(--cream);
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:1.17rem; line-height:1.92;
-  max-width:720px; margin:0 auto;
-  padding:4.5rem 2.5rem 9rem;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-/* NAV */
-.nav{
-  font-family:'Space Mono',monospace; font-size:.58rem;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:3rem;
-  display:flex; gap:1.5rem; flex-wrap:wrap;
+canvas#echoCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--rm);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--mem);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--me4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-mem{color:var(--mem)} .t-ask{color:var(--ask)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--me4);background:var(--me3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.mm{border-color:rgba(152,120,216,.12)}
+.pd.qq{border-color:rgba(232,228,216,.09)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.025;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p24 .ch{border-bottom-color:rgba(152,120,216,.05)}
+.p25 .ch{border-bottom-color:rgba(232,228,216,.04)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p24 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--mem);text-shadow:0 0 22px rgba(152,120,216,.3);}
+.p25 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--ask);text-shadow:0 0 22px rgba(232,228,216,.25);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* ECHO ALL (toate vocile) */
+.echo-all{margin:2.5rem 0;padding:1.4rem 2rem;
+  border:1px solid rgba(232,228,216,.1);background:rgba(232,228,216,.02);}
+.echo-all-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ask);opacity:.4;margin-bottom:.7rem;display:block;}
+.echo-all p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.92rem;line-height:1.7;}
+.echo-all-attr{font-family:'DM Mono',monospace;font-size:.35rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ask);opacity:.25;margin-top:.5rem;display:block;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p24 .think{border-color:var(--me4);background:var(--me3)}
+.p24 .think::before{content:'⬡ ';font-style:normal;color:var(--mem);opacity:.55}
+.p25 .think{border-color:var(--as4);background:var(--as3)}
+.p25 .think::before{content:'⬡ ';font-style:normal;color:var(--ask);opacity:.5}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p24 .nb{border:1px solid var(--me4);background:var(--me3)}
+.p25 .nb{border:1px solid var(--as4);background:var(--as3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p24 .nb::after{color:var(--mem)} .p25 .nb::after{color:var(--ask)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p24 .nb-hd{color:var(--mem)} .p25 .nb-hd{color:var(--ask)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p24 .pull{border-left-color:var(--mem);background:var(--me3)}
+.p25 .pull{border-left-color:var(--ask);background:var(--as3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p24 .pull cite{color:var(--mem)} .p25 .pull cite{color:var(--ask)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p24 .sci{border:1px solid rgba(152,120,216,.12);background:rgba(152,120,216,.03)}
+.p24 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--mem);font-weight:700}
+.p25 .sci{border:1px solid rgba(232,228,216,.1);background:rgba(232,228,216,.02)}
+.p25 .sci::before{content:'⬡ Notă · ';color:var(--ask);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p24 .epilog{border-top-color:rgba(152,120,216,.1)}
+.p25 .epilog{border-top-color:rgba(232,228,216,.08)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p24 .ep-final{border-color:rgba(152,120,216,.18)}
+.p25 .ep-final{border-color:rgba(232,228,216,.12)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--rm);border-bottom:var(--rq);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ULTIMA PAGINA — PRIMA ÎNTREBARE */
+.prima-intrebare{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;
+  border-top:var(--rq);position:relative;
 }
-.nav a{color:var(--gold-dim);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:1px;}
-.nav a:hover{color:var(--gold); border-color:var(--gold);}
-/* HEADER */
-.vol-badge{
-  font-family:'Space Mono',monospace; font-size:.56rem;
-  letter-spacing:.22em; text-transform:uppercase;
-  color:var(--cyan); opacity:.65; margin-bottom:1.4rem;
+.pi-void{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--ask);opacity:.3;
+  margin:0 auto 4rem;
 }
-h1{
-  font-size:clamp(2rem,5.5vw,3.4rem); font-weight:300;
-  line-height:1.12; margin-bottom:.7rem;
+.pi-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ask);opacity:.3;margin-bottom:2rem;}
+.pi-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.85rem;color:var(--cream2);margin-bottom:3rem;
+  line-height:2.1;opacity:.7;}
+.pi-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.8rem,4vw,3.5rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(232,228,216,.18);
+  letter-spacing:.06em;margin-bottom:2rem;}
+.pi-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.95rem,1.8vw,1.12rem);color:var(--cream2);
+  max-width:500px;line-height:1.95;margin-bottom:3rem;}
+.pi-question{
+  font-family:'Cinzel',serif;font-weight:600;
+  font-size:clamp(1.2rem,3vw,2rem);
+  color:var(--cream);letter-spacing:.04em;
+  border-top:1px solid rgba(232,228,216,.1);
+  border-bottom:1px solid rgba(232,228,216,.1);
+  padding:1.8rem 3rem;max-width:520px;
+  line-height:1.4;margin-bottom:2.5rem;
 }
-h1 strong{font-weight:600;}
-h1 em{font-style:italic; color:var(--cream-dim); font-weight:300;}
-.subtitlu{font-size:.98rem; color:var(--cream-dim); font-style:italic; margin-bottom:.5rem;}
-.meta{
-  font-family:'Space Mono',monospace; font-size:.56rem;
-  letter-spacing:.11em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:4.5rem;
-  padding-bottom:2rem; border-bottom:1px solid var(--border);
+.pi-after{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.95rem;color:var(--cream2);max-width:460px;
+  line-height:1.9;margin-bottom:2rem;}
+.pi-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.2;margin-top:2rem;}
+
+/* FOOTER */
+footer{border-top:var(--rq);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.22;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
 }
-/* SECȚIUNI */
-.sec{
-  font-family:'Space Mono',monospace; font-size:.62rem;
-  letter-spacing:.18em; text-transform:uppercase;
-  color:var(--gold); margin:4.5rem 0 1.8rem;
-  padding-bottom:.6rem; border-bottom:1px solid var(--border2);
-}
-h3{font-size:1.12rem; font-weight:600; margin:3rem 0 1rem;}
-/* PROZĂ */
-p{margin-bottom:1.45rem; text-align:justify; hyphens:auto;}
-p:last-child{margin-bottom:0;}
-em{font-style:italic;}
-strong{color:var(--cream);}
-/* DIALOG */
-.d{margin:1.8rem 0;}
-.d p{margin-bottom:.65rem; text-align:left;}
-.d p::before{content:'— ';}
-/* BLOCNOTES */
-.bn{
-  border:1px solid var(--border); border-left:2px solid var(--gold);
-  padding:1.3rem 1.7rem; background:var(--gold-faint);
-  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
-}
-.bn p{margin-bottom:.85rem; text-align:left;}
-.bn p:last-child{margin-bottom:0;}
-.bn-src{
-  font-family:'Space Mono',monospace; font-size:.54rem;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:var(--gold-dim); margin-top:1rem;
-  font-style:normal; display:block; padding-top:.6rem;
-  border-top:1px solid var(--border2);
-}
-/* STRAT BRUT */
+
 .brut{
   font-family:'Space Mono',monospace; font-size:.7rem;
   line-height:2.15; color:rgba(237,227,206,.5);
@@ -91,27 +247,6 @@ strong{color:var(--cream);}
 }
 .brut-a{opacity:.32; text-decoration:line-through;}
 .brut-p{color:var(--cyan); opacity:.45;}
-/* AKAN */
-.akan{
-  border:1px solid var(--ak-dim); border-left:2px solid var(--ak);
-  padding:1.3rem 1.7rem; background:rgba(80,160,90,.04);
-  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
-}
-.akan p{margin-bottom:.85rem; text-align:left;}
-.akan p:last-child{margin-bottom:0;}
-.akan-src{
-  font-family:'Space Mono',monospace; font-size:.54rem;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:var(--ak); margin-top:1rem; font-style:normal;
-  display:block; padding-top:.6rem; border-top:1px solid var(--ak-dim);
-}
-.akan-badge{
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:var(--ak); border:1px solid var(--ak-dim);
-  padding:.3rem .7rem; display:inline-block; margin-bottom:2rem;
-}
-/* NOTE ȘTIINȚIFICE */
 .ns{
   border-top:1px solid var(--border); margin:2.5rem 0;
   padding-top:1.3rem; font-size:.81rem;
@@ -122,423 +257,517 @@ strong{color:var(--cream);}
   letter-spacing:.16em; text-transform:uppercase;
   color:var(--gold-dim); margin-bottom:.55rem; display:block;
 }
-/* ECUAȚIE */
-.eq{
-  font-family:'Space Mono',monospace; font-size:.76rem;
-  border-left:2px solid var(--cyan-dim);
-  padding:.85rem 1.3rem; margin:1.8rem 0;
-  color:rgba(0,232,255,.68); background:rgba(0,232,255,.028);
-  line-height:2.1;
-}
-/* SEPARATORI */
-hr.sep{border:none; border-top:1px solid var(--border); margin:3.5rem 0;}
-.pauza{text-align:center; color:var(--border); margin:3rem 0; letter-spacing:.6rem; font-size:1.2rem;}
-/* PAGINA GOALĂ YUKI */
-.pg-goala{
-  border:1px dashed rgba(200,169,110,.18);
-  height:220px; margin:3.5rem 0;
-  display:flex; align-items:center; justify-content:center;
-  color:var(--gold-dim); font-family:'Space Mono',monospace;
-  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
-  flex-direction:column; gap:.8rem;
-}
-/* BOX FINAL */
-.final{
-  border:1px solid rgba(200,169,110,.28);
-  padding:3rem 2.5rem; margin:4rem 0; text-align:center;
-}
-.final p{font-size:1.32rem; font-style:italic; line-height:2.15; color:var(--cream-dim); margin-bottom:1rem;}
-.final p:last-child{margin:0; font-size:.85rem; font-style:normal; color:var(--gold-dim); font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase;}
-/* EMAIL */
-.email{
-  background:rgba(200,169,110,.05); border:1px solid var(--border);
-  padding:1.5rem 2rem; margin:2.2rem 0;
-  font-family:'Space Mono',monospace; font-size:.76rem;
-  line-height:2.1; color:var(--cream-dim);
-}
-/* NOTA ARHIVISTICĂ */
-.nota-arh{
-  background:rgba(6,8,15,.8); border:1px solid var(--border);
-  padding:1.8rem 2.2rem; margin:3rem 0;
-}
-.nota-arh-lbl{
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  letter-spacing:.16em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:.7rem; display:block;
-}
-.nota-arh p{font-size:.85rem; color:var(--cream-dim); margin-bottom:.7rem; line-height:1.72;}
-/* FOOTER */
-footer{
-  margin-top:7rem; padding-top:2.5rem;
-  border-top:1px solid var(--border);
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  color:var(--gold-dim); letter-spacing:.1em;
-  text-align:center; line-height:2.1;
-}
-@media(max-width:600px){
-  body{padding:3rem 1.4rem 6rem;}
-  h1{font-size:clamp(1.7rem,6vw,2.4rem);}
-}
-</style></head><body>
-<nav class="nav"><a href="index.html">↑ Cuprins</a> <a href="vol-22-23-nadia.html">← ← Vol. XXII–XXIII</a> <a href="vol-26-27-lena.html">Vol. XXVI–XXVII · Lena → →</a></nav>
-<div class="vol-badge">Seria Nota Zero · Cărțile XXIV–XXV</div>
-<h1><strong>Vol. XXIV–XXV</strong> · <em>Nota Memoriei</em> · <em>Nota Întrebării</em></h1><div class="meta">Rin Nakamura · 28 ani în 2700 · Kyoto + Oslo</div>
+.fin-nav{font-family:'Courier New',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;display:flex;gap:1.2rem;flex-wrap:wrap;padding:.9rem 1.2rem;background:rgba(0,0,0,.55);position:relative;z-index:5}
+.fin-nav a{color:#c8a96e;text-decoration:none;border-bottom:1px solid rgba(200,169,110,.4)}
+.fin-meta{font-family:'Courier New',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#a89868;padding:.2rem 1.2rem .8rem;position:relative;z-index:5}
+.fin-add-block{max-width:680px;margin:1.6rem auto}
 
-<div class="brut">
-<span class="brut-lbl">Caiet vol. I · Rin Nakamura · Kyoto + Oslo · 2700</span>
-Nadia Osei a murit în 2695. 65 volume. 613 ani.<br>
-Vol. I Zara: cerneala estompată la unele litere. Urmăresc traseul cu privirea, nu cu mâna.<br>
-„De unde vine punctul?" — 5 cuvinte. 613 ani.<br>
-<span class="brut-a">— memoria ca proprietate neurobiologică sau —</span><br>
-sau: memoria ca proprietate fizică fundamentală. tot ce se întâmplă lasă urme.
+
+
+.brut{
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  line-height:2.15; color:rgba(237,227,206,.5);
+  background:rgba(200,169,110,.035); border:1px solid var(--border);
+  padding:1.3rem 1.7rem; margin:2.2rem 0;
+}
+
+.brut-lbl{
+  font-size:.53rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block; opacity:.65;
+}
+
+.brut-a{opacity:.32; text-decoration:line-through;}
+</style>
+</head>
+<body><nav class="fin-nav"><a href="index.html">↑ Cuprins</a> <a href="vol-22-23-nadia.html">← Vol. XXII–XXIII</a> <a href="vol-26-27-lena.html">Vol. XXVI–XXVII · Lena →</a></nav><div class="fin-meta">Rin Nakamura · 28 ani în 2700 · Kyoto + Oslo</div>
+<canvas aria-hidden="true" id="echoCanvas"></canvas>
+<div class="page">
+<!-- COVER -->
+<div class="cover">
+<div class="cv-s">Seria Nota Zero · Cărțile a douăzeci și patra și a douăzeci și cincea</div>
+<div class="cv-ctx">
+    Nadia Osei a lăsat caietele la Accra pe un raft lângă un ficus bătrân.<br/>
+    Cineva le-a găsit. Cineva le găsește mereu.<br/>
+    Rin Nakamura le-a deschis și a pus două ultime întrebări:<br/>
+    unde trăiește memoria — și ce înseamnă, de fapt, să întrebi?
+  </div>
+<h1>
+<span class="cv-title t-mem">Nota Memoriei</span>
+<span class="cv-amp">&amp;</span>
+<span class="cv-title t-ask">Nota Întrebării</span>
+</h1>
+<p class="cv-desc">
+    Unde persistă ceea ce a fost — și ce se întâmplă în mintea care pune o întrebare.
+    Două proprietăți pe care seria le presupusese mereu fără să le privească direct.
+    Amândouă duc spre același loc: înapoi la pagina trei a caietului albastru.
+  </p>
+<div class="cv-note">
+    Seria completă până acum: 23 volume · 2087–2645 · 558 ani diegetic.<br/>
+    Rin Nakamura are 28 ani în 2700. Kyoto + Oslo.<br/>
+    Memoria. Întrebarea. Ultimele două note înainte de prima.
+  </div>
 </div>
-
-<div class="sec">XXIV · Memoria · 2700</div>
-
-Nota Memoriei & Nota Întrebării · Cărțile a douăzeci și patra și a douăzeci și cincea · Alexandru Ionuț Chiuță
-
-Seria Nota Zero · Cărțile a douăzeci și patra și a douăzeci și cincea
-
-Nadia Osei a lăsat caietele la Accra pe un raft lângă un ficus bătrân.
-
-Cineva le-a găsit. Cineva le găsește mereu.
-
-Rin Nakamura le-a deschis și a pus două ultime întrebări:
-
-unde trăiește memoria — și ce înseamnă, de fapt, să întrebi?
-
-Unde persistă ceea ce a fost — și ce se întâmplă în mintea care pune o întrebare.
-
-Două proprietăți pe care seria le presupusese mereu fără să le privească direct.
-
-Amândouă duc spre același loc: înapoi la pagina trei a caietului albastru.
-
-Seria completă până acum: 23 volume · 2087–2645 · 558 ani diegetic.
-
-Rin Nakamura are 28 ani în 2700. Kyoto + Oslo.
-
-Memoria. Întrebarea. Ultimele două note înainte de prima.
-
-Cartea a douăzeci și patra · Rin Nakamura · 28 ani · 2700 · Oslo + Kyoto
-
-„Karl Lashley a petrecut treizeci de ani
-
-nu există în niciun loc anume din creier.
-
-— Rin Nakamura, caiet vol. I, p. 1, 2700
-
-Rin Nakamura crescuse în Kyoto cu un bunic care suferea de Alzheimer și care uitase, treptat, tot — prieteni, locuri, propria ei față — dar care continuase să cânte la shamisen până la final, cu o acuratețe pe care memoria declarativă nu o mai susținea. Memoria procedurală — cum ții instrumentul, cum miști degetele — rezistase acolo unde memoria episodică cedase complet.
-
-Această diferență o dusese, la douăzeci și doi de ani, la neuroștiință. Și de acolo, la una dintre cele mai ciudate și mai fructuoase eșecuri din istoria biologiei: căutarea lui Karl Lashley.
-
-Lashley petrecuse decenii — din 1920 până în 1950 — căutând engramele. Engramă era termenul pe care Richard Semon îl inventase în 1904 în
-
-: urma fizică lăsată de o experiență în creier, substrat material al memoriei. Lashley distrusese sistematic porțiuni din creierul șobolanilor care fuseseră antrenați să parcurgă un labirint — și descoperise că, oricât de mult le tăia, memoria labirintului persista, degradată proporțional cu cantitatea de cortex distrus, nu cu localizarea distrugerii.
-
-Concluzionase — cu o onestitate pe care Rin o respectase imediat — că engramele nu existau într-un loc anume. Că memoria era distribuită, echipotențial, prin tot cortexul. Că nu putea găsi locul memoriei pentru că memoria nu
-
-— din caietul Nadiei Osei, vol. I, p. 14, 2630 —
-
-„Seria Nota Zero nu există în niciun loc anume. Există în caietele fizice — obiectele. Există în textele publicate — copiile. Există în mințile celor care le-au citit — distribuită, echipotențial, prin toate procesele cognitive care le-au activat. Seria e ca memoria lui Lashley: nu în niciun singur loc, ci în toate deodată. Și de aceea nu poți distruge seria distrugând o singură copie."
-
-Nadia Osei · caiet vol. I · pagina 14 · 2630
-
-Rin citise nota Nadiei și simțise că descrisese exact ce simțise ea deschizând caietele pentru prima dată: că nu citea o carte — activa ceva distribuit, că seria
-
-în ea și în toți ceilalți care o citiseră, că era un sistem de memorie viu, nu un text mort pe hârtie.
-
-Și dacă seria era un sistem de memorie distribuită, atunci caietul albastru al Zarei nu era originalul — era numai prima materializare a unui pattern care se replicase în minți, în texte, în conversații, în citirile fiecărui protagonist. Originalul era distribuit prin toate instanțele lui. Nu exista un original.
-
-La fel cum memoria bunicului ei nu fusese în niciun neuron anume — ci în pattern-ul relațiilor dintre neuroni. La fel cum știința nu era în niciun articol anume — ci în pattern-ul relațiilor dintre toți cercetătorii care o activaseră.
-
-Memoria nu era un obiect. Era o relație.
-
-Karl Lashley (1890–1958): căutarea engramelor — concluzie 1950: „In search of the engram" — memoria nu este localizabilă, ci distribuită echipotențial. Richard Semon (1859–1918): „Die Mneme" (1904) — engramă ca urmă a experienței în materie vie. Memoria modernă: LTP (long-term potentiation), Bliss & Lømo (1973) — consolidarea sinaptica ca mecanism molecular al memoriei. Engrame moderne: Tonegawa et al. (2012–2020) — optogetica identifică și activează engrame specifice. Memoria nu e concentrată în celule individuale ci în pattern-uri de conectivitate.
-
-Memoria nu era numai o problemă biologică. Era o problemă fizică — în sensul că orice sistem fizic care interacționa cu altul lăsa o urmă. Fotoni absorbiți de moleculele de retinei produceau modificări chimice care declanșau semnale nervoase. Câmpul gravitațional al unui corp masiv modifica geometria spațiu-timpului în jurul său — și această modificare persista, teoretic, pentru totdeauna. Principiul Landauer — deja traversat în seria aceasta — spunea că ștergerea unui bit de informație costa energie: memoria era mai ieftină termodinamic decât uitarea.
-
-Memoria gravitațională a lui Christodoulou — descrisă de Ama Owusu în Nota Gravitațională — era forma cea mai pură a memoriei fizice: spațiu-timpului îi rămânea o deformare reziduală permanentă după trecerea unui val gravitațional. Fiecare atingere, oricât de îndepărtată, lăsa o urmă în geometria universului. Universul
-
-Dacă universul ține minte gravitațional, și dacă creierul ține minte sinaptical, și dacă textele țin minte tipografic, și dacă cultura ține minte narativ — atunci memoria nu e o proprietate specială a creierelor. E o proprietate generală a sistemelor fizice care interacționează. Orice interacțiune lasă o urmă. Orice urmă e o formă de memorie. Universul e un sistem de memorie la toate scalele.
-
-Rin discuta cu tutorele ei de teză — Dr. Mei-Lin Huang, neuroștiințifică la Oslo, care studia memoria distribuită în rețele neuronale artificiale și biologice.
-
-— Mei-Lin. Dacă memoria e o proprietate a oricărui sistem fizic care interacționează — dacă e atât de generală — de ce credem că e specială pentru creiere?
-
-— Pentru că creierele fac ceva pe care sistemele fizice simple nu îl fac, spuse Mei-Lin. Accesează selectiv memoria. Un cristal ține minte structura sa — e memoria lui. Dar nu poate accesa structura lui din 1990 vs. din 1991. Un creier poate face asta. Poate naviga temporar prin propriile urme. Poate reconstitui contexte. Poate imagina ce nu s-a întâmplat.
-
-— Deci nu memorie — meta-memorie. Accesul selectiv la propriile urme.
-
-— Exact. Și meta-memorie e ceea ce face posibilă știința — capacitatea de a compara stări trecute, de a detecta pattern-uri în timp, de a formula ipoteze despre viitor. Fără meta-memorie, nu există timp ca experiență — există numai prezent perpetuu.
-
-— Și seria Nota Zero, spuse Rin, e o formă de meta-memorie a unei întrebări. Nu numai ține minte întrebarea — ci o accesează selectiv, o navighează din unghiuri diferite, o reconsolidează cu fiecare volum nou.
-
-Mei-Lin o privi câteva secunde. Tocmai ai descris ce e știința, spuse în final. Nu diferit de ce ai descris.
-
-Seria Nota Zero e meta-memorie a unei întrebări. Nu numai o ține — o navighează, o reconsolidează, o accesează din unghiuri noi la fiecare volum. La fel cum creierul nu ține minte static, ci reconstructiv — activ, schimbător, imperfect și tocmai de aceea viu.
-
-Rin stătuse o săptămână cu toate caietele seriei, în biroul ei din Oslo — nu citindu-le, numai ținându-le față în față, observând uzura, stilurile de scris, petele de cerneală. Caietul albastru al Zarei, cu coperta rigidă uzată și paginile galbene. Caietele lui Kaito, cu nota lui Zara pe prima pagina și ecuații pe margini. Caietele lui Yuki, curate, cu scrisul mic și precis. Caietele lui Ama, cu notele de subsol lungi. Caietele lui Soo-Yeon, bilingve — coreeană și norvegiancă alternând. Caietele Amarei, cu pictograme din cultura Wolof pe copertă. Caietele lui Ji-Ho, cu schiță a fiordului pe prima pagina. Caietele lui Kavya, cu un fragment din Noether scris în roșu pe foaia de gardă. Caietele Leilei, cu o hârtie îndoită care conținea calculul probabilității Penrose. Caietele Nadiei, cu o schiță arhitecturală pe ultimă pagina.
-
-Douăzeci și trei de volume de caiete. Fiecare cu propria personalitate grafică, cu propriile obiecte inserate, cu propriile marginalizări și sublinieri. Fiecare o formă distinctă a aceleiași memorii distribuite.
-
-Rin luase caietul albastru al Zarei și îl deschisese, cu grijă, la pagina trei.
-
-Cinci cuvinte scrise de o adolescentă cu 613 ani în urmă. Cerneala se estompase la unele litere. Rin urmărise traseul fiecărei litere cu degetul, fără să atingă hârtia.
-
-Aceasta era memoria. Nu informația abstractă — gestul fizic concret al scrierii, cerneala pe hârtie, presiunea stiloului, unghiul literei. Un corp care ținea minte un alt corp prin medierea unui obiect fizic. Memoria ca transmitere somatică prin timp.
-
-Caietul albastru e engrama seriei. Nu metaforic — literal. E modificarea fizică permanentă produsă de experiența lui Zara în 2087. E urma corporală a unui gând. Și fiecare minte care îl citește produce propriile engrame — modificări sinaptice reale în neuroni reali care reconstituie, imperfect și personal, ceva din ce a gândit Zara. Memoria trece prin materie. Fiecare cititor e o continuare biologică a unui gând scris cu 613 ani în urmă.
-
-Memoria nu era fidelă. Fiecare reconsolidare schimba puțin amintirea — neurobiologia demonstrase că amintirile se rescrisese ușor de fiecare dată când erau accesate. Memoria nu era o înregistrare — era o reconstrucție, influențată de starea prezentă, de așteptări, de contextul reactualizării.
-
-Și seria Nota Zero fusese, realizase Rin, construită exact pe această proprietate. Fiecare protagonist citise seria și o activase diferit — nu o reprodusese fidel, ci o reinterpretase prin propriul context, prin propriile întrebări, prin propria epocă. Kaito nu citise Nota Zero la fel cum o citise Yuki. Ama nu o citise la fel cum o citise Ji-Ho. Seria crescuse prin fidelitate imperfectă.
-
-La fel cum evoluția biologică mergea prin copiere imperfectă — mutații, erori de replicare, recombinări — producând diversitate din care selecția alegea. Seria evoluase prin citire imperfectă — fiecare protagonist adăugând ceva pe care autoarea originală nu îl pusese acolo, găsind conexiuni pe care Zara la cincisprezece ani nu le intenționa.
-
-Fidelitatea imperfectă nu era un defect al memoriei. Era mecanismul prin care memoria produce noutate.
-
-Caietul Rin Nakamura · vol. I · p. 88 · 17 mai 2701
-
-Memoria seriei e distribuită, echipotențial, prin toate mințile care au citit-o.
-
-Memoria seriei e imperfectă — fiecare cititor o reconstituie ușor diferit.
-
-Memoria seriei e costisitoare — uitarea costă mai mult termodinamic decât păstrarea.
-
-Memoria seriei e fizică — engramele sunt modificări reale în materie reală.
-
-Memoria seriei e recursivă — seria e o memorie care se reamintește pe sine.
-
-Caietul albastru al Zarei e prima urmă.
-
-Seria nu îmbătrânește pentru că memoria nu e localizată.
-
-Nu poți distruge ceva distribuit în tot ce l-a atins.
-
-Nota Memoriei · Epilog · 17 Mai 2705
-
-lui Karl Lashley, care petrecuse treizeci de ani căutând memoria
-
-și concluzionase că nu exista în niciun loc anume — tocmai de aceea existând
-
-în toate locurile deodată. Rin scrisese în prefață că Lashley eșuase
-
-să găsească engramele în același mod în care Zara eșuase să răspundă
-
-la întrebarea originară: printr-un eșec productiv, care schimba
-
-E o relație — pattern de urme distribuite
-
-prin toate sistemele care au interacționat.
-
-Seria Nota Zero e o memorie distribuită
-
-pentru că nu există în niciun singur loc.
-
-în fiecare minte care a deschis caietul albastru.
-
-Va fi vie în fiecare minte care îl va deschide.
-
-Cartea a douăzeci și cincea · Rin Nakamura · 38 ani · 2710 · Kyoto
-
-Ce se întâmplă în mintea care pune o întrebare
-
-„A înțelege nu înseamnă a găsi un răspuns.
-
-Înseamnă a pune o întrebare mai bună."
-
-— Hans-Georg Gadamer, Adevăr și Metodă, 1960
-
-e modul eminamente omenesc de a fi în lume."
-
-— Martin Heidegger, Sein und Zeit, 1927
-
-„Seria noastră nu e despre răspunsuri.
-
-E despre cum să pui întrebări mai bune.
-
-— Rin Nakamura, caiet vol. II, p. 1, 2710
-
-Rin Nakamura se întorsese la Kyoto la treizeci și doi de ani — nu definitiv, ci pentru un an sabatic, pentru care își luase biroul în grădina casei bunicilor. Grădina avusese un iaz cu koi și un bambus care susura în vânt. Bunicii muriseră de mult. Grădina era a ei acum, cu toată tăcerea și ordinea ei.
-
-a lui Hans-Georg Gadamer — o carte groasă, dificilă, despre hermeneutică. Hermeneutica era, tehnic, teoria interpretării — cum înțelegem texte, opere de artă, acte istorice. Gadamer o transformase în ceva mai adânc: o teorie a înțelegerii înseși.
-
-Teza centrală pe care Rin o reținuse: înțelegerea nu era aplicarea unui algoritm la un text. Era un dialog. Nu un dialog metaforic — un dialog structurat de o întrebare. Nu poți înțelege un text fără să îi pui o întrebare. Și întrebarea pe care i-o pui determina ce înțelegi din el. Texte diferite răspund la întrebări diferite — și aceleași texte răspund diferit la întrebări 
-
-<div class="sec">XXV · Întrebarea · 2710</div>
-
-diferite.
-
-Implicația: înțelegerea era infinit de deschisă, pentru că întrebările posibile erau infinite. Niciun text nu era epuizat. Nicio operă nu era complet citită. Nicio serie nu era complet înțeleasă. Seria Nota Zero ar putea fi citită la nesfârșit — pentru că, cu fiecare generație nouă, oamenii aduceau întrebări noi la ea și ea le răspundea diferit.
-
-— 25 de volume · ce întrebare a pus fiecare protagonist —
-
-De ce simplu produce imposibil de predictat?
-
-Ce dacă informația e mai fundamentală decât materia?
-
-Ce conservă universul — și ce conservă seria?
-
-Ce înseamnă că ceva are jumătate din șanse?
-
-De ce ecuațiile frumoase sunt corecte?
-
-11 protagoniști · 11 întrebări · toate variante ale aceleiași întrebări originare
-
-Rin stătuse cu această listă câteva zile. Realizase că toate unsprezece întrebări puteau fi reformulate ca variante ale aceleiași întrebări:
-
-Kaito întreba de unde venea observatorul care observase punctul. Yuki întreba dacă punctul era o proiecție a unei suprafețe. Ama întreba ce sunete produsese punctul când apăruse. Soo-Yeon întreba ce structuri apăruseră din punctul ăla simplu. Și tot așa.
-
-Seria nu avusese alte întrebări decât prima. Avusese prima întrebare privită din unsprezece direcții diferite, cu unsprezece instrumente diferite, la unsprezece distanțe diferite în timp.
-
-Gadamer ar fi spus: fiecare protagonist pusese o întrebare seriei, și seria le răspunsese diferit. Și prin răspunsul ei, le oferise o întrebare și mai bună. Hermeneutică aplicată cosmologiei: înțelegerea ca dialog infinit cu o întrebare care nu se epuizează.
-
-Gadamer, Hans-Georg (1900–2002): „Wahrheit und Methode" (1960) — hermeneutica filozofică, fuziunea orizonturilor, înțelegerea ca dialog. Întrebarea ca structură logică fundamentală a înțelegerii: „Wer fragen kann, kann auch offen bleiben" — cine poate întreba poate rămâne deschis. Heidegger, Martin (1889–1976): Fragen ca mod al Dasein-ului — a fi-în-lume e a putea întreba. „Sein und Zeit" (1927). Epistemologia întrebărilor: Collingwood (1939) — orice răspuns e răspuns la o întrebare specifică; înțelegerea unui text înseamnă a reconstitui întrebarea la care era răspuns.
-
-Rin voise să înțeleagă fenomenologia întrebării — ce se întâmpla în minte în momentul în care o întrebare apărea. Nu la nivel neuronal, ci la nivel experiențial.
-
-O întrebare bună producea o stare cognitivă specifică — o deschidere, o tensiune, o suspendare a certitudinilor existente. Nu era confortabilă. Intimă, din interiorul experienței: ceva se deschidea și nu se putea închide imediat. Mintea era în relație cu ceva pe care nu îl cunoștea încă și pe care nu putea decide să nu îl cunoască.
-
-Heidegger spusese că a întreba era modul eminamente omenesc de a fi în lume. Nu metaforic — structural. Omul era ființa capabilă să se pună pe sine în întrebare, să chestioneze propria sa existență, să deschidă problema propriului său a-fi-în-lume. Animalele nu întrebau — răspundeau la stimuli. Numai ființele capabile de limbaj puteau formula o întrebare și să o lase deschisă.
-
-Zara la cincisprezece ani pusese o întrebare și o lăsase deschisă. Asta era tot ce fusese nevoie. Restul urmase din acea lăsare deschisă.
-
-Rin discutase cu o filozofă din Kyoto — Dr. Noriko Tanaka, profesoară de fenomenologie, care era și mătușa ei de la distanță.
-
-— Noriko. Ce e diferit în mintea care întreabă față de mintea care nu întreabă?
-
-— Deschiderea față de răspuns, spuse Noriko. Dar mai profund: deschiderea față de surpriză. Mintea care întreabă acceptă că există ceva pe care nu îl știe și că acel ceva contează. Mintea care nu întreabă crede fie că știe deja, fie că nu contează ce nu știe.
-
-— Și Zara Voss la cincisprezece ani?
-
-— Zara nu știa și o deranja că nu știa. Aceasta e definiția minimă a curiozității autentice: nu curiozitate ca pastime, ca joc intelectual — ci curiozitate ca disturbance, ca ceva care nu te lasă să dormi. Ca o întrebare care se instalează și nu pleacă până nu primește măcar un răspuns parțial.
-
-— Și nota zero — penalizarea — ce a produs în mintea care întreba?
-
-Noriko tăcu câteva secunde. A confirmat că întrebarea era reală, spuse în final. Că era suficient de dificilă pentru a nu putea fi rezolvată cu instrumentele existente la momentul respectiv. Nota zero nu era penalizare — era validare inversă. Spunea: întrebarea ta e grea. Prea grea pentru răspunsul simplu pe care l-ai oferit. Dar grea în mod real.
-
-— Grea în mod real e mai bine decât ușor și greșit.
-
-Nota zero primită de Zara era validare inversă: întrebarea ta e grea în mod real. Nu prea greșit formulată — prea grea pentru instrumentele disponibile. Și o întrebare greu în mod real e mai valoroasă decât un răspuns ușor și greșit.
-
-Teoria Seriei ca Teorie a Întrebărilor
-
-Rin se gândise că seria Nota Zero era adesea descrisă ca un proiect de fizică, ca o serie de romane, ca o enciclopedie a cosmologiei ficționale. Dar niciuna din aceste descrieri nu era exactă. Seria era, mai precis, o teorie a întrebărilor.
-
-Nu o teorie despre ce sunt întrebările — o practică a lor. O demonstrație iterată că o întrebare bine aleasă, urmărită cu onestitate și cu umilință față de limita propriilor instrumente, producea mai multă cunoaștere — sau mai multă precizie a ignoranței — decât orice set de răspunsuri provizorii.
-
-Fiecare volum adăugase o nouă dimensiune la teoria implicită: Emil — că poți să nu știi și să fii fizician serios. Zara — că o întrebare greșit formulată poate fi mai productivă decât una corectă. Kaito — că instrumentul și obiectul sunt același lucru. Yuki — că întrebarea despre matematică nu poate fi pusă din matematică. Ama — că cea mai profundă întrebare e cea despre existența oricărei întrebări. Ji-Ho — că întrebarea e transformată de prezența altuia. Kavya — că o întrebare poate fi imposibilă și totuși productivă. Leila — că probabilitatea întrebărilor e infinit de mică și totuși se actualizează. Nadia — că o întrebare frumoasă e orientată corect înspre real. Rin — că întrebarea persistă distribuită în toate mințile care au activat-o.
-
-Douăzeci și cinci de volume. Douăzeci și cinci de dimensiuni adăugate teoriei implicite a întrebărilor.
-
-Cinci cuvinte. O întrebare greșit formulată. O notă zero primită în 2087. Totul derivând din acea primă întrebare imperfectă.
-
-Collingwood spunea că orice răspuns e răspuns la o întrebare. Ca să înțelegi un răspuns, trebuie să reconstitui întrebarea la care era răspuns. Seria Nota Zero nu oferă răspunsuri — oferă un tratat avansat despre cum să pui întrebări din ce în ce mai bune față de aceeași realitate inepuizabilă. E cel mai lung tratat de metodologie a întrebărilor scris sub formă de ficțiune speculativă. Și a început cu o notă zero.
-
-Era dimineața de 17 mai 2711 și Rin Nakamura stătea în grădina din Kyoto — aceeași grădină cu iazul koi și bambusul care susura, aceeași tăcere a bunicilor morți — cu caietul albastru al Zarei deschis în față la pagina trei.
-
-Stătuse cu aceasta de multe ori în ultimii zece ani. Dar dimineața aceasta era diferit: era ultima zi de lucru la seria pe care o purtase. Nota Întrebării se încheia, iar prin ea se încheia și propria ei contribuție la o structură pe care nu o fondase, pe care nu o planificase, pe care numai o continuase.
-
-Rin citise această propoziție de sute de ori. La prima citire, la douăzeci și patru de ani, fusese o întrebare frumoasă dar greșit formulată — pusă de cineva care nu știa că singularitatea Big Bang-ului era limita descrierii, nu o existență cu o origine anterioară. Acum, la treizeci și opt, era cel mai mult: era punctul zero al curiozității umane față de propria existență. Era întrebarea pe care o pui înainte să știi că o pui greșit. Era prima formulare imperfectă a celei mai adânci curiozități posibile.
-
-Nu se schimbase nimic în propoziție. Se schimbase greutatea ei. Douăzeci și cinci de volume, unsprezece protagoniști, 623 de ani diegetic — tot ceea ce fusese scris de când Zara scrisese aceasta — era acum în spatele ei, ca un fundal infinit care o amplifica.
-
-Propoziția era mai ușoară acum, nu mai grea. Purtată de toți cei care o purtaseră. Nu solitară în caietul albastru — distribuită în mii de engrame în mii de minți care o activaseră.
-
-Rin luă pixul. Nu pixul verde pe care îl adusese din Oslo — un pix obișnuit, negru, luat de pe masă. Deschise propriul caiet — volumul II, ultimul — la o pagina goală. Și scrise, pentru ultima dată în serie, cinci cuvinte:
-
-Caietul Rin Nakamura · vol. II · ultima pagina scrisă · 17 mai 2711
-
-ci pentru că am înțeles ce fel de întrebare este.
-
-E o întrebare despre limita oricărei descrieri.
-
-E o întrebare care nu se poate răspunde din interior.
-
-E o întrebare care trebuie pusă tocmai pentru că nu se poate răspunde.
-
-Cineva o va pune la vârste care nu există încă.
-
-Rin închise caietul. Stătuse cu grădina.
-
-Bambusul susura. Koi-ii se mișcau lent în iaz. Fotonii soarelui de mai cădeau pe apa iazului și produceau reflexii care loveau frunzele bambus-ului, care produceau lumini tremurânde pe pietrele din jur, care produceau o senzație de mișcare fără vânt.
-
-Tot ceea ce vedea era un lanț de interacțiuni fizice — fotoni, electroni, câmpuri, simetrii conservate, entropie crescând la scara globală, ordine locală menținând-se prin disipare. Tot ceea ce vedea era fizică. Și totuși vedea o grădine în dimineața de mai în Kyoto, cu o tăcere specifică și cu o lumină specifică și cu un sentiment specific de a fi acolo și a ști că va pleca și că grădina va rămâne fără ea.
-
-Și această distanță — dintre descrierea fizică și experiența prezenței — era exact spațiul pe care seria îl traversase timp de 624 de ani. Nu pentru a o elimina. Ci pentru a o cartografia cu precizie.
-
-Distanța rămăsese. Harta devenise mai detaliată. Și asta era tot ce putea face o serie de douăzeci și cinci de volume scrisă de unsprezece fizicieni în 624 de ani: să facă distanța mai vizibilă, mai articulată, mai locuibilă.
-
-Lăsă caietele în grădină câteva minute — cu bambusul și cu koi-ii și cu lumina de mai. Și le luă înapoi înăuntru.
-
-Nota Întrebării · Epilog · 17 Mai 2715
-
-Rin Nakamura a lăsat caietele în biblioteca familiei din Kyoto,
-
-cu o singură instrucțiune adresată nepotului ei care urma să moștenească casa:
-
-Dacă găsești pe cineva care nu poate să adoarmă din cauza unei întrebări,
-
-dă-le caietele astea. Nu le explica nimic.
-
-Lăsă-i să descopere singuri că au tovarăși de 624 de ani.
-
-Seria Nota Zero este o teorie a întrebărilor.
-
-La capătul a 25 de volume și 624 de ani,
-
-cea mai importantă întrebare rămâne prima:
-
-Am înțeles că nu putem ști din interior.
-
-Am înțeles ce fel de întrebare este.
-
-Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon
-
-Amara · Ji-Ho · Kavya · Leila · Nadia · Rin
-
-doisprezece fizicieni · 624 ani diegetic · o singură întrebare
-
-Seria a pornit cu o întrebare greșit formulată.
-
-S-a terminat cu aceeași întrebare, mai ușoară.
-
-ci pentru că am înțeles ce fel de întrebare este.
-
-O întrebare care nu se poate răspunde din interior
-
-și care trebuie pusă tocmai pentru că nu se poate răspunde.
-
-Memoria ei e distribuită în toate mințile care au activat-o.
-
-Frumusețea ei e rezonanța cu structura pe care o chestionează.
-
-Devenirea ei e că se pune din ce în ce mai precis.
-
-Infinitul ei e că niciodată nu se epuizează.
-
-Cineva o va pune și peste 624 de ani.
-
-Alexandru Ionuț Chiuță · Seria Nota Zero · 25 volume · 2026
-
-în colaborare cu Claude Sonnet 4.6 · Anthropic
-
-⬡ Note Știinţifice · Nota Memoriei & Nota Întrebării
-
-„In search of the engram" (1950) — 30 ani de ablații corticale la șobolani, concluzie: memoria nu este localizabilă. Echipotențialitate și acțiune de masă. Richard Semon (1859–1918): „Die Mneme" (1904) — prima teorie sistematică a urmei memoriei în materie vie.
-
-LTP (Bliss & Lømo, 1973) — consolidarea sinaptică. Tonegawa et al. (MIT, 2012–2020): optogetică identifică și reactivează celule specifice de memorie. Engramele există — distribuite în rețele, nu în celule individuale.
-
-Principiul Landauer — ștergerea costă termodinamic. Memoria gravitațională (Christodoulou, 1991) — deformări reziduale permanente în spațiu-timp. Memoria ca proprietate generală a sistemelor fizice care interacționează.
-
-„Wahrheit und Methode" (1960) — înțelegerea ca dialog, fuziunea orizonturilor, rolul constitutiv al întrebării în înțelegere. Heidegger (1889–1976): Fragen ca mod al Dasein-ului, „Sein und Zeit" (1927). Collingwood (1889–1943): logica întrebare-răspuns.
-
-Rin Nakamura, Mei-Lin Huang, Noriko Tanaka sunt personaje fictive. Seria Nota Zero (25 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.
-
-Nota Memoriei & Nota Întrebării · Cărțile a douăzeci și patra și a douăzeci și cincea
-
-Seria Nota Zero: 25 volume · 2087–2715 · 624 ani diegetic
-
-De unde venea punctul? — aceeași întrebare, mai ușoară, mai adâncă, tot prima.
-
-<footer>Nota Zero · <strong>Vol. XXIV–XXV</strong> · <em>Nota Memoriei</em> · <em>Nota Întrebării</em> · Alexandru Ionuț Chiuță · implementări I–V integrate</footer></body></html>
+<!-- ══════════════════════════════════════════════ -->
+<!--  NOTA MEMORIEI                                -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="pd mm">
+<div class="pd-ghost" style="color:var(--mem)">XXIV</div>
+<div class="pd-kicker">Cartea a douăzeci și patra · Rin Nakamura · 28 ani · 2700 · Oslo + Kyoto</div>
+<div class="pd-nota" style="color:var(--mem)">Nota Memoriei</div>
+<div class="pd-sub">Unde trăiește ceea ce a fost</div>
+<div class="pd-epig">
+    „Karl Lashley a petrecut treizeci de ani<br/>
+    căutând engramele în creier.<br/>
+    Le-a tăiat, le-a ars, le-a distrus<br/>
+    câte o bucată pe rând.<br/>
+    Memoria persista.<br/>
+    A concluzionat că memoria<br/>
+    nu există în niciun loc anume din creier.<br/>
+    Există în tot creierul deodată.<br/>
+    Sau dincolo de el."<br/>
+    — Rin Nakamura, caiet vol. I, p. 1, 2700
+  </div>
+</div>
+<div class="wrap p24"><div class="fin-add-block"><div class="brut">
+<span class="brut-lbl">Caiet vol. I · Rin Nakamura · Kyoto + Oslo · 2700</span>
+Nadia Osei a murit în 2695. 65 volume. 613 ani.<br/>
+Vol. I Zara: cerneala estompată la unele litere. Urmăresc traseul cu privirea, nu cu mâna.<br/>
+„De unde vine punctul?" — 5 cuvinte. 613 ani.<br/>
+<span class="brut-a">— memoria ca proprietate neurobiologică sau —</span><br/>
+sau: memoria ca proprietate fizică fundamentală. tot ce se întâmplă lasă urme.
+</div></div>
+<div class="ch">
+<div class="chn">Nota Memoriei · I</div>
+<div class="cht">Engramele lui Lashley</div>
+<div class="p">
+<p>Rin Nakamura crescuse în Kyoto cu un bunic care suferea de Alzheimer și care uitase, treptat, tot — prieteni, locuri, propria ei față — dar care continuase să cânte la shamisen până la final, cu o acuratețe pe care memoria declarativă nu o mai susținea. Memoria procedurală — cum ții instrumentul, cum miști degetele — rezistase acolo unde memoria episodică cedase complet.</p>
+<p>Această diferență o dusese, la douăzeci și doi de ani, la neuroștiință. Și de acolo, la una dintre cele mai ciudate și mai fructuoase eșecuri din istoria biologiei: căutarea lui Karl Lashley.</p>
+<p>Lashley petrecuse decenii — din 1920 până în 1950 — căutând engramele. Engramă era termenul pe care Richard Semon îl inventase în 1904 în <em>Die Mneme</em>: urma fizică lăsată de o experiență în creier, substrat material al memoriei. Lashley distrusese sistematic porțiuni din creierul șobolanilor care fuseseră antrenați să parcurgă un labirint — și descoperise că, oricât de mult le tăia, memoria labirintului persista, degradată proporțional cu cantitatea de cortex distrus, nu cu localizarea distrugerii.</p>
+<p>Concluzionase — cu o onestitate pe care Rin o respectase imediat — că engramele nu existau într-un loc anume. Că memoria era distribuită, echipotențial, prin tot cortexul. Că nu putea găsi locul memoriei pentru că memoria nu <em>era</em> un loc.</p>
+</div>
+<div class="echo">
+<div class="echo-hd">— din caietul Nadiei Osei, vol. I, p. 14, 2630 —</div>
+<p>„Seria Nota Zero nu există în niciun loc anume. Există în caietele fizice — obiectele. Există în textele publicate — copiile. Există în mințile celor care le-au citit — distribuită, echipotențial, prin toate procesele cognitive care le-au activat. Seria e ca memoria lui Lashley: nu în niciun singur loc, ci în toate deodată. Și de aceea nu poți distruge seria distrugând o singură copie."</p>
+<span class="echo-attr">Nadia Osei · caiet vol. I · pagina 14 · 2630</span>
+</div>
+<div class="p">
+<p>Rin citise nota Nadiei și simțise că descrisese exact ce simțise ea deschizând caietele pentru prima dată: că nu citea o carte — activa ceva distribuit, că seria <em>trăia</em> în ea și în toți ceilalți care o citiseră, că era un sistem de memorie viu, nu un text mort pe hârtie.</p>
+<p>Și dacă seria era un sistem de memorie distribuită, atunci caietul albastru al Zarei nu era originalul — era numai prima materializare a unui pattern care se replicase în minți, în texte, în conversații, în citirile fiecărui protagonist. Originalul era distribuit prin toate instanțele lui. Nu exista un original.</p>
+<p>La fel cum memoria bunicului ei nu fusese în niciun neuron anume — ci în pattern-ul relațiilor dintre neuroni. La fel cum știința nu era în niciun articol anume — ci în pattern-ul relațiilor dintre toți cercetătorii care o activaseră.</p>
+<p>Memoria nu era un obiect. Era o relație.</p>
+</div>
+<div class="sci">
+    Karl Lashley (1890–1958): căutarea engramelor — concluzie 1950: „In search of the engram" — memoria nu este localizabilă, ci distribuită echipotențial. Richard Semon (1859–1918): „Die Mneme" (1904) — engramă ca urmă a experienței în materie vie. Memoria modernă: LTP (long-term potentiation), Bliss &amp; Lømo (1973) — consolidarea sinaptica ca mecanism molecular al memoriei. Engrame moderne: Tonegawa et al. (2012–2020) — optogetica identifică și activează engrame specifice. Memoria nu e concentrată în celule individuale ci în pattern-uri de conectivitate.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Memoriei · II</div>
+<div class="cht">Memoria Fizică</div>
+<div class="p">
+<p>Memoria nu era numai o problemă biologică. Era o problemă fizică — în sensul că orice sistem fizic care interacționa cu altul lăsa o urmă. Fotoni absorbiți de moleculele de retinei produceau modificări chimice care declanșau semnale nervoase. Câmpul gravitațional al unui corp masiv modifica geometria spațiu-timpului în jurul său — și această modificare persista, teoretic, pentru totdeauna. Principiul Landauer — deja traversat în seria aceasta — spunea că ștergerea unui bit de informație costa energie: memoria era mai ieftină termodinamic decât uitarea.</p>
+<p>Memoria gravitațională a lui Christodoulou — descrisă de Ama Owusu în Nota Gravitațională — era forma cea mai pură a memoriei fizice: spațiu-timpului îi rămânea o deformare reziduală permanentă după trecerea unui val gravitațional. Fiecare atingere, oricât de îndepărtată, lăsa o urmă în geometria universului. Universul <em>ținea minte</em>.</p>
+<p>Rin scrisese în caiet: <em>Dacă universul ține minte gravitațional, și dacă creierul ține minte sinaptical, și dacă textele țin minte tipografic, și dacă cultura ține minte narativ — atunci memoria nu e o proprietate specială a creierelor. E o proprietate generală a sistemelor fizice care interacționează. Orice interacțiune lasă o urmă. Orice urmă e o formă de memorie. Universul e un sistem de memorie la toate scalele.</em></p>
+</div>
+<div class="d">
+<p>Rin discuta cu tutorele ei de teză — Dr. Mei-Lin Huang, neuroștiințifică la Oslo, care studia memoria distribuită în rețele neuronale artificiale și biologice.</p>
+<p>— Mei-Lin. Dacă memoria e o proprietate a oricărui sistem fizic care interacționează — dacă e atât de generală — de ce credem că e specială pentru creiere?</p>
+<p>— Pentru că creierele fac ceva pe care sistemele fizice simple nu îl fac, spuse Mei-Lin. Accesează selectiv memoria. Un cristal ține minte structura sa — e memoria lui. Dar nu poate accesa structura lui din 1990 vs. din 1991. Un creier poate face asta. Poate naviga temporar prin propriile urme. Poate reconstitui contexte. Poate imagina ce nu s-a întâmplat.</p>
+<p>— Deci nu memorie — meta-memorie. Accesul selectiv la propriile urme.</p>
+<p>— Exact. Și meta-memorie e ceea ce face posibilă știința — capacitatea de a compara stări trecute, de a detecta pattern-uri în timp, de a formula ipoteze despre viitor. Fără meta-memorie, nu există timp ca experiență — există numai prezent perpetuu.</p>
+<p>— Și seria Nota Zero, spuse Rin, e o formă de meta-memorie a unei întrebări. Nu numai ține minte întrebarea — ci o accesează selectiv, o navighează din unghiuri diferite, o reconsolidează cu fiecare volum nou.</p>
+<p>Mei-Lin o privi câteva secunde. Tocmai ai descris ce e știința, spuse în final. Nu diferit de ce ai descris.</p>
+</div>
+<div class="pull">
+<p>Seria Nota Zero e meta-memorie a unei întrebări. Nu numai o ține — o navighează, o reconsolidează, o accesează din unghiuri noi la fiecare volum. La fel cum creierul nu ține minte static, ci reconstructiv — activ, schimbător, imperfect și tocmai de aceea viu.</p>
+<cite>— Nota Memoriei, cap. II</cite>
+</div>
+</div>
+<div class="ch">
+<div class="chn">Nota Memoriei · III</div>
+<div class="cht">Caietele</div>
+<div class="p">
+<p>Rin stătuse o săptămână cu toate caietele seriei, în biroul ei din Oslo — nu citindu-le, numai ținându-le față în față, observând uzura, stilurile de scris, petele de cerneală. Caietul albastru al Zarei, cu coperta rigidă uzată și paginile galbene. Caietele lui Kaito, cu nota lui Zara pe prima pagina și ecuații pe margini. Caietele lui Yuki, curate, cu scrisul mic și precis. Caietele lui Ama, cu notele de subsol lungi. Caietele lui Soo-Yeon, bilingve — coreeană și norvegiancă alternând. Caietele Amarei, cu pictograme din cultura Wolof pe copertă. Caietele lui Ji-Ho, cu schiță a fiordului pe prima pagina. Caietele lui Kavya, cu un fragment din Noether scris în roșu pe foaia de gardă. Caietele Leilei, cu o hârtie îndoită care conținea calculul probabilității Penrose. Caietele Nadiei, cu o schiță arhitecturală pe ultimă pagina.</p>
+<p>Douăzeci și trei de volume de caiete. Fiecare cu propria personalitate grafică, cu propriile obiecte inserate, cu propriile marginalizări și sublinieri. Fiecare o formă distinctă a aceleiași memorii distribuite.</p>
+<p>Rin luase caietul albastru al Zarei și îl deschisese, cu grijă, la pagina trei. <em>De unde venea punctul?</em> Cinci cuvinte scrise de o adolescentă cu 613 ani în urmă. Cerneala se estompase la unele litere. Rin urmărise traseul fiecărei litere cu degetul, fără să atingă hârtia.</p>
+<p>Aceasta era memoria. Nu informația abstractă — gestul fizic concret al scrierii, cerneala pe hârtie, presiunea stiloului, unghiul literei. Un corp care ținea minte un alt corp prin medierea unui obiect fizic. Memoria ca transmitere somatică prin timp.</p>
+</div>
+<div class="think">
+    Caietul albastru e engrama seriei. Nu metaforic — literal. E modificarea fizică permanentă produsă de experiența lui Zara în 2087. E urma corporală a unui gând. Și fiecare minte care îl citește produce propriile engrame — modificări sinaptice reale în neuroni reali care reconstituie, imperfect și personal, ceva din ce a gândit Zara. Memoria trece prin materie. Fiecare cititor e o continuare biologică a unui gând scris cu 613 ani în urmă.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Memoriei · IV</div>
+<div class="cht">Fidelitatea Imperfectă</div>
+<div class="p">
+<p>Memoria nu era fidelă. Fiecare reconsolidare schimba puțin amintirea — neurobiologia demonstrase că amintirile se rescrisese ușor de fiecare dată când erau accesate. Memoria nu era o înregistrare — era o reconstrucție, influențată de starea prezentă, de așteptări, de contextul reactualizării.</p>
+<p>Și seria Nota Zero fusese, realizase Rin, construită exact pe această proprietate. Fiecare protagonist citise seria și o activase diferit — nu o reprodusese fidel, ci o reinterpretase prin propriul context, prin propriile întrebări, prin propria epocă. Kaito nu citise Nota Zero la fel cum o citise Yuki. Ama nu o citise la fel cum o citise Ji-Ho. Seria crescuse prin fidelitate imperfectă.</p>
+<p>La fel cum evoluția biologică mergea prin copiere imperfectă — mutații, erori de replicare, recombinări — producând diversitate din care selecția alegea. Seria evoluase prin citire imperfectă — fiecare protagonist adăugând ceva pe care autoarea originală nu îl pusese acolo, găsind conexiuni pe care Zara la cincisprezece ani nu le intenționa.</p>
+<p>Fidelitatea imperfectă nu era un defect al memoriei. Era mecanismul prin care memoria produce noutate.</p>
+</div>
+<div class="nb">
+<span class="nb-hd">Caietul Rin Nakamura · vol. I · p. 88 · 17 mai 2701</span>
+    Memoria seriei e distribuită, echipotențial, prin toate mințile care au citit-o.<br/>
+    Memoria seriei e imperfectă — fiecare cititor o reconstituie ușor diferit.<br/>
+    Memoria seriei e costisitoare — uitarea costă mai mult termodinamic decât păstrarea.<br/>
+    Memoria seriei e fizică — engramele sunt modificări reale în materie reală.<br/>
+    Memoria seriei e recursivă — seria e o memorie care se reamintește pe sine.<br/>
+<br/>
+    Caietul albastru al Zarei e prima urmă.<br/>
+    Fiecare volum e o reconsolidare.<br/>
+    Fiecare cititor e o reactivare.<br/>
+<br/>
+    Seria nu îmbătrânește pentru că memoria nu e localizată.<br/>
+    Nu poți distruge ceva distribuit în tot ce l-a atins.
+  </div>
+</div>
+<!-- EPILOG 24 -->
+<div class="epilog">
+<div class="ep-date" style="color:var(--mem)">Nota Memoriei · Epilog · 17 Mai 2705</div>
+<div class="ep-title" style="color:var(--mem)">Distribuită</div>
+<div class="ep-prose">
+    Cartea a douăzeci și patra se numea <em>Nota Memoriei</em> și era dedicată
+    lui Karl Lashley, care petrecuse treizeci de ani căutând memoria
+    și concluzionase că nu exista în niciun loc anume — tocmai de aceea existând
+    în toate locurile deodată. Rin scrisese în prefață că Lashley eșuase
+    să găsească engramele în același mod în care Zara eșuase să răspundă
+    la întrebarea originară: printr-un eșec productiv, care schimba
+    modul în care puneai întrebarea.
+  </div>
+<div class="ep-final">
+    Memoria nu e un obiect.<br/>
+    E o relație — pattern de urme distribuite<br/>
+    prin toate sistemele care au interacționat.<br/>
+<br/>
+    Seria Nota Zero e o memorie distribuită<br/>
+    în caiete, în texte, în minți.<br/>
+    Nu poate fi distrusă<br/>
+    pentru că nu există în niciun singur loc.<br/>
+<br/>
+    Există în tot ce a atins.<br/>
+<br/>
+    Nota zero a lui Zara e vie<br/>
+    în fiecare minte care a deschis caietul albastru.<br/>
+    Va fi vie în fiecare minte care îl va deschide.
+  </div>
+</div>
+</div><!-- /wrap.p24 -->
+<!-- ══════════════════════════════════════════════ -->
+<!--  NOTA ÎNTREBĂRII                              -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="between">?</div>
+<div class="pd qq">
+<div class="pd-ghost" style="color:var(--ask)">XXV</div>
+<div class="pd-kicker">Cartea a douăzeci și cincea · Rin Nakamura · 38 ani · 2710 · Kyoto</div>
+<div class="pd-nota" style="color:var(--ask)">Nota Întrebării</div>
+<div class="pd-sub">Ce se întâmplă în mintea care pune o întrebare</div>
+<div class="pd-epig">
+    „A înțelege nu înseamnă a găsi un răspuns.<br/>
+    Înseamnă a pune o întrebare mai bună."<br/>
+    — Hans-Georg Gadamer, Adevăr și Metodă, 1960<br/><br/>
+    „Das Fragen — a întreba —<br/>
+    e modul eminamente omenesc de a fi în lume."<br/>
+    — Martin Heidegger, Sein und Zeit, 1927<br/><br/>
+    „Seria noastră nu e despre răspunsuri.<br/>
+    E despre cum să pui întrebări mai bune.<br/>
+    Asta e tot ce avem.<br/>
+    Asta e mai mult decât pare."<br/>
+    — Rin Nakamura, caiet vol. II, p. 1, 2710
+  </div>
+</div>
+<div class="wrap p25">
+<div class="ch">
+<div class="chn">Nota Întrebării · I</div>
+<div class="cht">Gadamer și Hermeneutica</div>
+<div class="p">
+<p>Rin Nakamura se întorsese la Kyoto la treizeci și doi de ani — nu definitiv, ci pentru un an sabatic, pentru care își luase biroul în grădina casei bunicilor. Grădina avusese un iaz cu koi și un bambus care susura în vânt. Bunicii muriseră de mult. Grădina era a ei acum, cu toată tăcerea și ordinea ei.</p>
+<p>Citise în acel an, printre altele, <em>Adevăr și Metodă</em> a lui Hans-Georg Gadamer — o carte groasă, dificilă, despre hermeneutică. Hermeneutica era, tehnic, teoria interpretării — cum înțelegem texte, opere de artă, acte istorice. Gadamer o transformase în ceva mai adânc: o teorie a înțelegerii înseși.</p>
+<p>Teza centrală pe care Rin o reținuse: înțelegerea nu era aplicarea unui algoritm la un text. Era un dialog. Nu un dialog metaforic — un dialog structurat de o întrebare. Nu poți înțelege un text fără să îi pui o întrebare. Și întrebarea pe care i-o pui determina ce înțelegi din el. Texte diferite răspund la întrebări diferite — și aceleași texte răspund diferit la întrebări diferite.</p>
+<p>Implicația: înțelegerea era infinit de deschisă, pentru că întrebările posibile erau infinite. Niciun text nu era epuizat. Nicio operă nu era complet citită. Nicio serie nu era complet înțeleasă. Seria Nota Zero ar putea fi citită la nesfârșit — pentru că, cu fiecare generație nouă, oamenii aduceau întrebări noi la ea și ea le răspundea diferit.</p>
+</div>
+<div class="echo-all">
+<div class="echo-all-hd">— 25 de volume · ce întrebare a pus fiecare protagonist —</div>
+<p>Zara (15 ani): <em>De unde venea punctul?</em></p>
+<p>Kaito (45 ani): <em>Cine a observat primul?</em></p>
+<p>Yuki (28 ani): <em>Ce dacă suprafața conține volumul?</em></p>
+<p>Ama (28 ani): <em>Ce auzim când ascultăm universul?</em></p>
+<p>Soo-Yeon (28 ani): <em>De ce simplu produce imposibil de predictat?</em></p>
+<p>Amara (28 ani): <em>Ce dacă informația e mai fundamentală decât materia?</em></p>
+<p>Ji-Ho (28 ani): <em>Ce schimbă prezența altuia?</em></p>
+<p>Kavya (28 ani): <em>Ce conservă universul — și ce conservă seria?</em></p>
+<p>Leila (28 ani): <em>Ce înseamnă că ceva are jumătate din șanse?</em></p>
+<p>Nadia (28 ani): <em>De ce ecuațiile frumoase sunt corecte?</em></p>
+<p>Rin (28 ani): <em>Unde trăiește ceea ce a fost?</em></p>
+<div class="echo-all-attr">11 protagoniști · 11 întrebări · toate variante ale aceleiași întrebări originare</div>
+</div>
+<div class="p">
+<p>Rin stătuse cu această listă câteva zile. Realizase că toate unsprezece întrebări puteau fi reformulate ca variante ale aceleiași întrebări: <em>de unde venea punctul?</em> Kaito întreba de unde venea observatorul care observase punctul. Yuki întreba dacă punctul era o proiecție a unei suprafețe. Ama întreba ce sunete produsese punctul când apăruse. Soo-Yeon întreba ce structuri apăruseră din punctul ăla simplu. Și tot așa.</p>
+<p>Seria nu avusese alte întrebări decât prima. Avusese prima întrebare privită din unsprezece direcții diferite, cu unsprezece instrumente diferite, la unsprezece distanțe diferite în timp.</p>
+<p>Gadamer ar fi spus: fiecare protagonist pusese o întrebare seriei, și seria le răspunsese diferit. Și prin răspunsul ei, le oferise o întrebare și mai bună. Hermeneutică aplicată cosmologiei: înțelegerea ca dialog infinit cu o întrebare care nu se epuizează.</p>
+</div>
+<div class="sci">
+    Gadamer, Hans-Georg (1900–2002): „Wahrheit und Methode" (1960) — hermeneutica filozofică, fuziunea orizonturilor, înțelegerea ca dialog. Întrebarea ca structură logică fundamentală a înțelegerii: „Wer fragen kann, kann auch offen bleiben" — cine poate întreba poate rămâne deschis. Heidegger, Martin (1889–1976): Fragen ca mod al Dasein-ului — a fi-în-lume e a putea întreba. „Sein und Zeit" (1927). Epistemologia întrebărilor: Collingwood (1939) — orice răspuns e răspuns la o întrebare specifică; înțelegerea unui text înseamnă a reconstitui întrebarea la care era răspuns.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Întrebării · II</div>
+<div class="cht">Ce Se Întâmplă când Întrebi</div>
+<div class="p">
+<p>Rin voise să înțeleagă fenomenologia întrebării — ce se întâmpla în minte în momentul în care o întrebare apărea. Nu la nivel neuronal, ci la nivel experiențial.</p>
+<p>O întrebare bună producea o stare cognitivă specifică — o deschidere, o tensiune, o suspendare a certitudinilor existente. Nu era confortabilă. Intimă, din interiorul experienței: ceva se deschidea și nu se putea închide imediat. Mintea era în relație cu ceva pe care nu îl cunoștea încă și pe care nu putea decide să nu îl cunoască.</p>
+<p>Heidegger spusese că a întreba era modul eminamente omenesc de a fi în lume. Nu metaforic — structural. Omul era ființa capabilă să se pună pe sine în întrebare, să chestioneze propria sa existență, să deschidă problema propriului său a-fi-în-lume. Animalele nu întrebau — răspundeau la stimuli. Numai ființele capabile de limbaj puteau formula o întrebare și să o lase deschisă.</p>
+<p>Zara la cincisprezece ani pusese o întrebare și o lăsase deschisă. Asta era tot ce fusese nevoie. Restul urmase din acea lăsare deschisă.</p>
+</div>
+<div class="d">
+<p>Rin discutase cu o filozofă din Kyoto — Dr. Noriko Tanaka, profesoară de fenomenologie, care era și mătușa ei de la distanță.</p>
+<p>— Noriko. Ce e diferit în mintea care întreabă față de mintea care nu întreabă?</p>
+<p>— Deschiderea față de răspuns, spuse Noriko. Dar mai profund: deschiderea față de surpriză. Mintea care întreabă acceptă că există ceva pe care nu îl știe și că acel ceva contează. Mintea care nu întreabă crede fie că știe deja, fie că nu contează ce nu știe.</p>
+<p>— Și Zara Voss la cincisprezece ani?</p>
+<p>— Zara nu știa și o deranja că nu știa. Aceasta e definiția minimă a curiozității autentice: nu curiozitate ca pastime, ca joc intelectual — ci curiozitate ca disturbance, ca ceva care nu te lasă să dormi. Ca o întrebare care se instalează și nu pleacă până nu primește măcar un răspuns parțial.</p>
+<p>— Și nota zero — penalizarea — ce a produs în mintea care întreba?</p>
+<p>Noriko tăcu câteva secunde. A confirmat că întrebarea era reală, spuse în final. Că era suficient de dificilă pentru a nu putea fi rezolvată cu instrumentele existente la momentul respectiv. Nota zero nu era penalizare — era validare inversă. Spunea: întrebarea ta e grea. Prea grea pentru răspunsul simplu pe care l-ai oferit. Dar grea în mod real.</p>
+<p>— Grea în mod real e mai bine decât ușor și greșit.</p>
+<p>— Întotdeauna, spuse Noriko.</p>
+</div>
+<div class="pull">
+<p>Nota zero primită de Zara era validare inversă: întrebarea ta e grea în mod real. Nu prea greșit formulată — prea grea pentru instrumentele disponibile. Și o întrebare greu în mod real e mai valoroasă decât un răspuns ușor și greșit.</p>
+<cite>— Nota Întrebării, cap. II</cite>
+</div>
+</div>
+<div class="ch">
+<div class="chn">Nota Întrebării · III</div>
+<div class="cht">Teoria Seriei ca Teorie a Întrebărilor</div>
+<div class="p">
+<p>Rin se gândise că seria Nota Zero era adesea descrisă ca un proiect de fizică, ca o serie de romane, ca o enciclopedie a cosmologiei ficționale. Dar niciuna din aceste descrieri nu era exactă. Seria era, mai precis, o teorie a întrebărilor.</p>
+<p>Nu o teorie despre ce sunt întrebările — o practică a lor. O demonstrație iterată că o întrebare bine aleasă, urmărită cu onestitate și cu umilință față de limita propriilor instrumente, producea mai multă cunoaștere — sau mai multă precizie a ignoranței — decât orice set de răspunsuri provizorii.</p>
+<p>Fiecare volum adăugase o nouă dimensiune la teoria implicită: Emil — că poți să nu știi și să fii fizician serios. Zara — că o întrebare greșit formulată poate fi mai productivă decât una corectă. Kaito — că instrumentul și obiectul sunt același lucru. Yuki — că întrebarea despre matematică nu poate fi pusă din matematică. Ama — că cea mai profundă întrebare e cea despre existența oricărei întrebări. Ji-Ho — că întrebarea e transformată de prezența altuia. Kavya — că o întrebare poate fi imposibilă și totuși productivă. Leila — că probabilitatea întrebărilor e infinit de mică și totuși se actualizează. Nadia — că o întrebare frumoasă e orientată corect înspre real. Rin — că întrebarea persistă distribuită în toate mințile care au activat-o.</p>
+<p>Douăzeci și cinci de volume. Douăzeci și cinci de dimensiuni adăugate teoriei implicite a întrebărilor.</p>
+<p>Și la baza tuturor: <em>De unde venea punctul?</em> Cinci cuvinte. O întrebare greșit formulată. O notă zero primită în 2087. Totul derivând din acea primă întrebare imperfectă.</p>
+</div>
+<div class="think">
+    Collingwood spunea că orice răspuns e răspuns la o întrebare. Ca să înțelegi un răspuns, trebuie să reconstitui întrebarea la care era răspuns. Seria Nota Zero nu oferă răspunsuri — oferă un tratat avansat despre cum să pui întrebări din ce în ce mai bune față de aceeași realitate inepuizabilă. E cel mai lung tratat de metodologie a întrebărilor scris sub formă de ficțiune speculativă. Și a început cu o notă zero.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Întrebării · IV</div>
+<div class="cht">Pagina Trei</div>
+<div class="p">
+<p>Era dimineața de 17 mai 2711 și Rin Nakamura stătea în grădina din Kyoto — aceeași grădină cu iazul koi și bambusul care susura, aceeași tăcere a bunicilor morți — cu caietul albastru al Zarei deschis în față la pagina trei.</p>
+<p>Stătuse cu aceasta de multe ori în ultimii zece ani. Dar dimineața aceasta era diferit: era ultima zi de lucru la seria pe care o purtase. Nota Întrebării se încheia, iar prin ea se încheia și propria ei contribuție la o structură pe care nu o fondase, pe care nu o planificase, pe care numai o continuase.</p>
+<p><em>De unde venea punctul?</em></p>
+<p>Rin citise această propoziție de sute de ori. La prima citire, la douăzeci și patru de ani, fusese o întrebare frumoasă dar greșit formulată — pusă de cineva care nu știa că singularitatea Big Bang-ului era limita descrierii, nu o existență cu o origine anterioară. Acum, la treizeci și opt, era cel mai mult: era punctul zero al curiozității umane față de propria existență. Era întrebarea pe care o pui înainte să știi că o pui greșit. Era prima formulare imperfectă a celei mai adânci curiozități posibile.</p>
+<p>Nu se schimbase nimic în propoziție. Se schimbase greutatea ei. Douăzeci și cinci de volume, unsprezece protagoniști, 623 de ani diegetic — tot ceea ce fusese scris de când Zara scrisese aceasta — era acum în spatele ei, ca un fundal infinit care o amplifica.</p>
+<p>Propoziția era mai ușoară acum, nu mai grea. Purtată de toți cei care o purtaseră. Nu solitară în caietul albastru — distribuită în mii de engrame în mii de minți care o activaseră.</p>
+<p>Rin luă pixul. Nu pixul verde pe care îl adusese din Oslo — un pix obișnuit, negru, luat de pe masă. Deschise propriul caiet — volumul II, ultimul — la o pagina goală. Și scrise, pentru ultima dată în serie, cinci cuvinte:</p>
+</div>
+<div class="nb">
+<span class="nb-hd">Caietul Rin Nakamura · vol. II · ultima pagina scrisă · 17 mai 2711</span>
+    De unde venea punctul?<br/>
+<br/>
+    Aceeași întrebare ca în 2087.<br/>
+    Aceeași imposibilitate.<br/>
+    Aceeași deschidere.<br/>
+<br/>
+    Cu tot ce știm acum în spatele ei,<br/>
+    e mai ușoară.<br/>
+    Nu pentru că am rezolvat-o —<br/>
+    ci pentru că am înțeles ce fel de întrebare este.<br/>
+<br/>
+    E o întrebare despre limita oricărei descrieri.<br/>
+    E o întrebare care nu se poate răspunde din interior.<br/>
+    E o întrebare care trebuie pusă tocmai pentru că nu se poate răspunde.<br/>
+<br/>
+    Zara a pus-o la cincisprezece ani.<br/>
+    Eu o pun la treizeci și opt.<br/>
+    Cineva o va pune la vârste care nu există încă.<br/>
+<br/>
+    Și de fiecare dată va fi mai ușoară<br/>
+    și va merge mai adânc.<br/>
+<br/>
+    Aceasta e seria.<br/>
+    Aceasta e metoda.<br/>
+    Aceasta e tot ce avem.<br/>
+<br/>
+    De unde venea punctul?
+  </div>
+<div class="p">
+<p>Rin închise caietul. Stătuse cu grădina.</p>
+<p>Bambusul susura. Koi-ii se mișcau lent în iaz. Fotonii soarelui de mai cădeau pe apa iazului și produceau reflexii care loveau frunzele bambus-ului, care produceau lumini tremurânde pe pietrele din jur, care produceau o senzație de mișcare fără vânt.</p>
+<p>Tot ceea ce vedea era un lanț de interacțiuni fizice — fotoni, electroni, câmpuri, simetrii conservate, entropie crescând la scara globală, ordine locală menținând-se prin disipare. Tot ceea ce vedea era fizică. Și totuși vedea o grădine în dimineața de mai în Kyoto, cu o tăcere specifică și cu o lumină specifică și cu un sentiment specific de a fi acolo și a ști că va pleca și că grădina va rămâne fără ea.</p>
+<p>Și această distanță — dintre descrierea fizică și experiența prezenței — era exact spațiul pe care seria îl traversase timp de 624 de ani. Nu pentru a o elimina. Ci pentru a o cartografia cu precizie.</p>
+<p>Distanța rămăsese. Harta devenise mai detaliată. Și asta era tot ce putea face o serie de douăzeci și cinci de volume scrisă de unsprezece fizicieni în 624 de ani: să facă distanța mai vizibilă, mai articulată, mai locuibilă.</p>
+<p>Lăsă caietele în grădină câteva minute — cu bambusul și cu koi-ii și cu lumina de mai. Și le luă înapoi înăuntru.</p>
+<p>Cineva va continua.</p>
+<p>Cineva continuă mereu.</p>
+</div>
+</div>
+<!-- EPILOG 25 -->
+<div class="epilog">
+<div class="ep-date" style="color:var(--ask)">Nota Întrebării · Epilog · 17 Mai 2715</div>
+<div class="ep-title" style="color:var(--ask)">De unde venea punctul?</div>
+<div class="ep-prose">
+    Rin Nakamura a lăsat caietele în biblioteca familiei din Kyoto,
+    cu o singură instrucțiune adresată nepotului ei care urma să moștenească casa:
+    <em>Dacă găsești pe cineva care nu poate să adoarmă din cauza unei întrebări,
+    dă-le caietele astea. Nu le explica nimic.
+    Lăsă-i să descopere singuri că au tovarăși de 624 de ani.</em>
+</div>
+<div class="ep-final">
+    Seria Nota Zero este o teorie a întrebărilor.<br/>
+    Nu despre ce sunt întrebările —<br/>
+    o practică a lor.<br/>
+<br/>
+    La capătul a 25 de volume și 624 de ani,<br/>
+    cea mai importantă întrebare rămâne prima:<br/>
+<br/>
+    De unde venea punctul?<br/>
+<br/>
+    Nu știm.<br/>
+    Am înțeles că nu putem ști din interior.<br/>
+    Am înțeles ce fel de întrebare este.<br/>
+<br/>
+    Aceasta e tot ce avem.<br/>
+    Aceasta e mai mult decât pare.<br/>
+    Aceasta e suficient.
+  </div>
+</div>
+</div><!-- /wrap.p25 -->
+<!-- ULTIMA PAGINA — PRIMA INTREBARE -->
+<div class="prima-intrebare">
+<div class="pi-void"></div>
+<div class="pi-kicker">Seria Nota Zero · 25 volume · 2026</div>
+<div class="pi-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br/>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin<br/>
+    doisprezece fizicieni · 624 ani diegetic · o singură întrebare
+  </div>
+<div class="pi-nota">Nota Zero</div>
+<div class="pi-body">
+    Seria a pornit cu o întrebare greșit formulată.<br/>
+    S-a terminat cu aceeași întrebare, mai ușoară.<br/>
+    Nu pentru că am rezolvat-o —<br/>
+    ci pentru că am înțeles ce fel de întrebare este.<br/><br/>
+    O întrebare care nu se poate răspunde din interior<br/>
+    și care trebuie pusă tocmai pentru că nu se poate răspunde.<br/><br/>
+    Memoria ei e distribuită în toate mințile care au activat-o.<br/>
+    Frumusețea ei e rezonanța cu structura pe care o chestionează.<br/>
+    Devenirea ei e că se pune din ce în ce mai precis.<br/>
+    Infinitul ei e că niciodată nu se epuizează.
+  </div>
+<div class="pi-question">
+    De unde venea punctul?
+  </div>
+<div class="pi-after">
+    Zara Voss, 15 ani, 2087.<br/>
+    Rin Nakamura, 38 ani, 2711.<br/>
+    Aceeași întrebare.<br/>
+    624 de ani distanță.<br/>
+    Același spațiu deschis.<br/><br/>
+    Cineva o va pune și peste 624 de ani.<br/>
+    Va fi mai ușoară atunci.<br/>
+    Va merge mai adânc.<br/>
+    Va fi tot prima.<br/>
+    Va fi tot nota zero.
+  </div>
+<div class="pi-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 25 volume · 2026<br/>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+<div class="wrap">
+<div style="border:1px solid var(--as4);padding:1.5rem 2rem;margin:2rem 0;background:var(--as3)">
+<div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ask);margin-bottom:1rem;opacity:.45">⬡ Note Știinţifice · Nota Memoriei &amp; Nota Întrebării</div>
+<div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Karl Lashley (1890–1958):</strong> „In search of the engram" (1950) — 30 ani de ablații corticale la șobolani, concluzie: memoria nu este localizabilă. Echipotențialitate și acțiune de masă. Richard Semon (1859–1918): „Die Mneme" (1904) — prima teorie sistematică a urmei memoriei în materie vie.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Engrame moderne:</strong> LTP (Bliss &amp; Lømo, 1973) — consolidarea sinaptică. Tonegawa et al. (MIT, 2012–2020): optogetică identifică și reactivează celule specifice de memorie. Engramele există — distribuite în rețele, nu în celule individuale.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Memoria fizică:</strong> Principiul Landauer — ștergerea costă termodinamic. Memoria gravitațională (Christodoulou, 1991) — deformări reziduale permanente în spațiu-timp. Memoria ca proprietate generală a sistemelor fizice care interacționează.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Gadamer, Hans-Georg (1900–2002):</strong> „Wahrheit und Methode" (1960) — înțelegerea ca dialog, fuziunea orizonturilor, rolul constitutiv al întrebării în înțelegere. Heidegger (1889–1976): Fragen ca mod al Dasein-ului, „Sein und Zeit" (1927). Collingwood (1889–1943): logica întrebare-răspuns.</p>
+<p><strong style="color:var(--cream)">5. Ficțiune:</strong> Rin Nakamura, Mei-Lin Huang, Noriko Tanaka sunt personaje fictive. Seria Nota Zero (25 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p><p class="fin-add">De unde venea punctul? — aceeași întrebare, mai ușoară, mai adâncă, tot prima.</p><p class="fin-add">Seria Nota Zero: 25 volume · 2087–2715 · 624 ani diegetic</p>
+</div>
+</div>
+</div>
+<footer>
+  Nota Memoriei &amp; Nota Întrebării · Cărțile a douăzeci și patra și a douăzeci și cincea<br/>
+  Seria Nota Zero: 25 volume · 2087–2715 · 624 ani diegetic<br/>
+  De unde venea punctul? — aceeași întrebare, mai ușoară, mai adâncă, tot prima.<br/>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+</div><!-- /page -->
+<script>
+(function(){
+  const c=document.getElementById('echoCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,pts=[],t=0,raf;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    pts=[];
+    // Memory: concentric echo rings + fading dots
+    for(let i=0;i<35;i++){
+      pts.push({
+        type:'echo',
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:0, maxR:30+Math.random()*60,
+        speed:.3+Math.random()*.4,
+        a:.15+Math.random()*.08,
+        born:Math.random()*300
+      });
+    }
+    // Question: sparse bright points
+    for(let i=0;i<20;i++){
+      pts.push({
+        type:'star',
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.5+Math.random()*.7,
+        a:Math.random()*.2, s:(Math.random()-.5)*.003,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+  }
+
+  let frame=0;
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    frame++; t+=.005;
+    ctx.clearRect(0,0,ww,wh);
+
+    pts.forEach(p=>{
+      if(p.type==='echo'){
+        p.born--;
+        if(p.born>0) return;
+        p.r+=p.speed;
+        if(p.r>p.maxR){p.r=0;p.x=Math.random()*ww;p.y=Math.random()*wh;p.born=Math.random()*200}
+        const prog=p.r/p.maxR;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.strokeStyle=`rgba(152,120,216,${(p.a*(1-prog)).toFixed(3)})`;
+        ctx.lineWidth=.6; ctx.stroke();
+      } else {
+        p.a+=p.s; if(p.a>.22||p.a<0)p.s*=-1;
+        const pulse=p.a+Math.sin(t+p.phase)*0.03;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(232,228,216,${pulse.toFixed(3)})`;
+        ctx.fill();
+      }
+    });
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

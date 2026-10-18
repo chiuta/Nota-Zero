@@ -1,84 +1,253 @@
-<!DOCTYPE html><html lang="ro"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Nota Zero — Vol. XXXVIII–XXXIX · Nota Urmei · Nota Primei Zile</title><style>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Nota Urmei &amp; Nota Primei Zile · Cărțile a treizeci și opta și a treizeci și noua · Alexandru Ionuț Chiuță</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#030407; --deep:#06080f; --surface:#0d0f1c;
-  --gold:#c8a96e; --gold-dim:rgba(200,169,110,.38); --gold-faint:rgba(200,169,110,.07);
-  --cream:#ede3ce; --cream-dim:rgba(237,227,206,.62);
-  --cyan:#00e8ff; --cyan-dim:rgba(0,232,255,.18);
-  --border:rgba(200,169,110,.13); --border2:rgba(200,169,110,.07);
-  --ak:rgba(80,160,90,.6); --ak-dim:rgba(80,160,90,.18);
+  --void:#010208;
+  /* Nota Urmei: ocru-brun, pămînt, sediment, urmă veche */
+  --urm:#b87840;--ur2:rgba(184,120,64,.09);--ur3:rgba(184,120,64,.035);--ur4:rgba(184,120,64,.14);
+  /* Nota Primei Zile: alb-luminos absolut, prima dimineață, cer curat */
+  --zi:#e8f0f8;--zi2:rgba(232,240,248,.08);--zi3:rgba(232,240,248,.025);--zi4:rgba(232,240,248,.11);
+  --cream:rgba(234,226,210,.83);--cream2:rgba(234,226,210,.46);--cream3:rgba(234,226,210,.12);
+  --ru:1px solid rgba(184,120,64,.13); --rz:1px solid rgba(232,240,248,.09);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth}
 body{
-  background:var(--void); color:var(--cream);
+  background:var(--void);color:var(--cream);
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:1.17rem; line-height:1.92;
-  max-width:720px; margin:0 auto;
-  padding:4.5rem 2.5rem 9rem;
+  font-size:1.12rem;line-height:1.95;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-/* NAV */
-.nav{
-  font-family:'Space Mono',monospace; font-size:.58rem;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:3rem;
-  display:flex; gap:1.5rem; flex-wrap:wrap;
+canvas#traceCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-bottom:var(--ru);}
+.cv-s{font-family:'DM Mono',monospace;font-size:.43rem;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--urm);margin-bottom:2rem;opacity:.6;}
+.cv-ctx{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream2);max-width:460px;
+  border:1px solid var(--ur4);padding:.75rem 1.4rem;margin-bottom:2rem;line-height:1.65;}
+.cv-title{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,5rem);
+  font-weight:700;line-height:.92;letter-spacing:-.01em;margin-bottom:.4rem;}
+.t-ur{color:var(--urm)} .t-zi{color:var(--zi)}
+.cv-amp{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.9rem,2vw,1.4rem);color:var(--cream2);display:block;margin:.5rem 0;}
+.cv-desc{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.87rem,1.7vw,1.08rem);color:var(--cream2);
+  max-width:520px;margin:1.8rem auto 0;line-height:1.7;}
+.cv-note{margin-top:2.8rem;padding:.85rem 1.6rem;
+  border:1px solid var(--ur4);background:var(--ur3);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.13em;color:var(--cream3);max-width:460px;line-height:1.85;}
+
+/* PART DIV */
+.pd{border-top-width:1px;border-top-style:solid;border-bottom-width:1px;border-bottom-style:solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.pd.ur{border-color:rgba(184,120,64,.12)}
+.pd.zi{border-color:rgba(232,240,248,.08)}
+.pd-ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(6rem,17vw,15rem);opacity:.023;pointer-events:none;line-height:1;}
+.pd-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cream3);
+  margin-bottom:.8rem;position:relative;z-index:1;}
+.pd-nota{font-family:'Cinzel',serif;font-size:clamp(2.8rem,8vw,6.5rem);
+  font-weight:700;line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.pd-sub{font-family:'Cinzel',serif;font-size:clamp(1rem,2.2vw,1.8rem);
+  font-weight:400;color:var(--cream2);margin-top:.8rem;position:relative;z-index:1;}
+.pd-epig{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.88rem;color:var(--cream3);max-width:440px;
+  margin-top:1.5rem;line-height:1.65;position:relative;z-index:1;}
+
+/* LAYOUT */
+.wrap{max-width:700px;margin:0 auto;padding:0 2.5rem}
+
+/* CHAPTER */
+.ch{padding:4.5rem 0 3rem;border-bottom-width:1px;border-bottom-style:solid}
+.ch:last-child{border-bottom:none}
+.p38 .ch{border-bottom-color:rgba(184,120,64,.05)}
+.p39 .ch{border-bottom-color:rgba(232,240,248,.04)}
+.chn{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem;}
+.cht{font-family:'Cinzel',serif;font-size:clamp(1.05rem,2.1vw,1.65rem);
+  font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.1;}
+
+/* PROSE */
+.p p{margin-bottom:1.45rem;text-align:justify;hyphens:auto}
+.p p:last-child{margin-bottom:0}
+.p em{font-style:italic} .p strong{font-weight:600}
+.p38 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--urm);text-shadow:0 0 22px rgba(184,120,64,.3);}
+.p39 .p p:first-of-type::first-letter{
+  font-family:'Cinzel',serif;font-size:3.4em;font-weight:700;
+  float:left;line-height:.8;margin:.12em .13em -.03em 0;
+  color:var(--zi);text-shadow:0 0 30px rgba(232,240,248,.2);}
+
+/* ECHO */
+.echo{margin:2rem 0;padding:1.2rem 1.8rem;
+  border-left:2px solid rgba(200,160,64,.22);background:rgba(200,160,64,.025);}
+.echo-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;
+  color:rgba(200,160,64,.7);opacity:.65;margin-bottom:.55rem;}
+.echo p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--cream2);margin-bottom:.35rem;font-size:.94rem;line-height:1.7;}
+.echo p:last-child{margin-bottom:0}
+.echo-attr{font-family:'DM Mono',monospace;font-size:.36rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(200,160,64,.4);margin-top:.45rem;display:block;}
+
+/* TRACE BOX */
+.tracebox{margin:2rem 0;padding:1.3rem 1.8rem;
+  border:1px solid var(--ur4);background:var(--ur3);
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:rgba(184,120,64,.72);line-height:1.85;}
+.tracebox-hd{color:var(--urm);font-weight:700;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;display:block;opacity:.8;}
+
+/* DAWN BOX */
+.dawnbox{margin:2.5rem 0;padding:1.5rem 2rem;
+  border:1px solid var(--zi4);background:var(--zi3);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--cream2);line-height:1.85;text-align:center;}
+.dawnbox-hd{font-family:'DM Mono',monospace;font-size:.38rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--zi);opacity:.42;margin-bottom:.65rem;font-style:normal;display:block;}
+
+/* THINK */
+.think{margin:2rem 0;padding:1rem 1.5rem;border:1px dashed;
+  font-family:'DM Mono',monospace;font-size:.61rem;
+  color:var(--cream2);line-height:1.7;font-style:italic;}
+.p38 .think{border-color:var(--ur4);background:var(--ur3)}
+.p38 .think::before{content:'⬡ ';font-style:normal;color:var(--urm);opacity:.55}
+.p39 .think{border-color:var(--zi4);background:var(--zi3)}
+.p39 .think::before{content:'⬡ ';font-style:normal;color:var(--zi);opacity:.45}
+
+/* DIALOGUE */
+.d p{margin-bottom:.5rem;text-indent:0} .d p:last-child{margin-bottom:0}
+
+/* NOTEBOOK */
+.nb{margin:2.5rem 0;padding:1.4rem 1.8rem;
+  font-style:italic;color:var(--cream2);font-size:.93rem;line-height:1.75;position:relative;}
+.p38 .nb{border:1px solid var(--ur4);background:var(--ur3)}
+.p39 .nb{border:1px solid var(--zi4);background:var(--zi3)}
+.nb::after{content:'✎';position:absolute;top:.7rem;right:1rem;
+  font-family:'DM Mono',monospace;font-size:.44rem;opacity:.22;font-style:normal}
+.p38 .nb::after{color:var(--urm)} .p39 .nb::after{color:var(--zi)}
+.nb-hd{font-family:'DM Mono',monospace;font-size:.37rem;
+  letter-spacing:.17em;text-transform:uppercase;opacity:.4;
+  margin-bottom:.55rem;font-style:normal;display:block;}
+.p38 .nb-hd{color:var(--urm)} .p39 .nb-hd{color:var(--zi)}
+
+/* PULL */
+.pull{margin:2.5rem -1rem;padding:1.6rem 2.5rem;border-left:2px solid;}
+.p38 .pull{border-left-color:var(--urm);background:var(--ur3)}
+.p39 .pull{border-left-color:var(--zi);background:var(--zi3)}
+.pull p{font-family:'Cinzel',serif;font-weight:400;
+  font-size:clamp(.85rem,1.6vw,1.08rem);color:var(--cream);line-height:1.5;}
+.pull cite{display:block;margin-top:.5rem;font-family:'DM Mono',monospace;
+  font-size:.37rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;}
+.p38 .pull cite{color:var(--urm)} .p39 .pull cite{color:var(--zi)}
+
+/* SCI */
+.sci{margin:2rem 0;padding:1.1rem 1.4rem;
+  font-family:'DM Mono',monospace;font-size:.58rem;color:var(--cream2);line-height:1.75;}
+.p38 .sci{border:1px solid rgba(184,120,64,.12);background:rgba(184,120,64,.03)}
+.p38 .sci::before{content:'⬡ Notă Știinţifică · ';color:var(--urm);font-weight:700}
+.p39 .sci{border:1px solid rgba(232,240,248,.09);background:rgba(232,240,248,.02)}
+.p39 .sci::before{content:'⬡ Notă · ';color:var(--zi);font-weight:700}
+
+/* EPILOG */
+.epilog{padding:4rem 0;border-top-width:1px;border-top-style:solid;text-align:center}
+.p38 .epilog{border-top-color:rgba(184,120,64,.1)}
+.p39 .epilog{border-top-color:rgba(232,240,248,.07)}
+.ep-date{font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;opacity:.38;margin-bottom:1.5rem;}
+.ep-title{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;margin-bottom:2rem;}
+.ep-prose{font-style:italic;color:var(--cream2);max-width:500px;margin:0 auto 2.5rem;line-height:1.85;}
+.ep-final{display:inline-block;border:1px solid;
+  padding:1.8rem 2.5rem;font-style:italic;
+  color:var(--cream);line-height:2;text-align:left;max-width:480px;}
+.p38 .ep-final{border-color:rgba(184,120,64,.18)}
+.p39 .ep-final{border-color:rgba(232,240,248,.1)}
+
+/* BETWEEN */
+.between{text-align:center;padding:3rem 0;
+  border-top:var(--ru);border-bottom:var(--rz);
+  font-family:'DM Mono',monospace;font-size:.41rem;
+  letter-spacing:.27em;text-transform:uppercase;color:var(--cream3);}
+
+/* ULTIMA PAGINA ABSOLUTA A TUTUROR SERILOR */
+.prima-ultima{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem;border-top:var(--rz);
 }
-.nav a{color:var(--gold-dim);text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:1px;}
-.nav a:hover{color:var(--gold); border-color:var(--gold);}
-/* HEADER */
-.vol-badge{
-  font-family:'Space Mono',monospace; font-size:.56rem;
-  letter-spacing:.22em; text-transform:uppercase;
-  color:var(--cyan); opacity:.65; margin-bottom:1.4rem;
+.pu-lumina{
+  width:2px;height:2px;border-radius:50%;
+  background:var(--cream);opacity:.5;
+  margin:0 auto 5rem;
+  box-shadow:0 0 20px rgba(232,240,248,.3);
 }
-h1{
-  font-size:clamp(2rem,5.5vw,3.4rem); font-weight:300;
-  line-height:1.12; margin-bottom:.7rem;
+.pu-kicker{font-family:'DM Mono',monospace;font-size:.42rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream3);opacity:.22;margin-bottom:2rem;}
+.pu-chain{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.8rem;color:var(--cream2);margin-bottom:2.5rem;
+  line-height:2.2;opacity:.45;}
+.pu-39{font-family:'DM Mono',monospace;font-size:.35rem;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--cream2);opacity:.18;margin-bottom:2.5rem;line-height:2.7;}
+.pu-body{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(.88rem,1.7vw,1.04rem);color:var(--cream2);
+  max-width:480px;line-height:1.95;margin-bottom:3rem;}
+/* Singura întrebare — cea mai ușoară din toate aparițiile sale */
+.pu-question{
+  font-family:'Cinzel',serif;font-weight:300;
+  font-size:clamp(1.3rem,3.5vw,2.4rem);
+  color:var(--cream);letter-spacing:.05em;
+  padding:2.5rem 3rem;max-width:540px;
+  line-height:1.4;margin-bottom:3rem;
+  opacity:.85;
 }
-h1 strong{font-weight:600;}
-h1 em{font-style:italic; color:var(--cream-dim); font-weight:300;}
-.subtitlu{font-size:.98rem; color:var(--cream-dim); font-style:italic; margin-bottom:.5rem;}
-.meta{
-  font-family:'Space Mono',monospace; font-size:.56rem;
-  letter-spacing:.11em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:4.5rem;
-  padding-bottom:2rem; border-bottom:1px solid var(--border);
+/* Nici un răspuns. Nici o instrucțiune. Numai spațiu. */
+.pu-spatiu{
+  height:2rem;
+  border-bottom:1px solid rgba(232,240,248,.05);
+  max-width:200px;margin:0 auto 3rem;
 }
-/* SECȚIUNI */
-.sec{
-  font-family:'Space Mono',monospace; font-size:.62rem;
-  letter-spacing:.18em; text-transform:uppercase;
-  color:var(--gold); margin:4.5rem 0 1.8rem;
-  padding-bottom:.6rem; border-bottom:1px solid var(--border2);
+.pu-after{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:.9rem;color:var(--cream2);max-width:420px;
+  line-height:1.95;margin-bottom:2.5rem;opacity:.6;}
+.pu-nota{font-family:'Cinzel',serif;
+  font-size:clamp(1.5rem,3.5vw,3rem);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(232,240,248,.1);
+  letter-spacing:.08em;margin:.5rem 0;}
+.pu-mono{font-family:'DM Mono',monospace;font-size:.4rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cream3);opacity:.15;margin-top:2.5rem;}
+
+/* FOOTER */
+footer{border-top:var(--rz);padding:2rem 2.5rem;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.39rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cream3);opacity:.18;line-height:2;}
+
+@media(max-width:580px){
+  .wrap{padding:0 1.4rem}
+  .pull{margin:2rem -.3rem;padding:1.4rem 1.5rem}
+  .pd{padding:4rem 1.5rem}
 }
-h3{font-size:1.12rem; font-weight:600; margin:3rem 0 1rem;}
-/* PROZĂ */
-p{margin-bottom:1.45rem; text-align:justify; hyphens:auto;}
-p:last-child{margin-bottom:0;}
-em{font-style:italic;}
-strong{color:var(--cream);}
-/* DIALOG */
-.d{margin:1.8rem 0;}
-.d p{margin-bottom:.65rem; text-align:left;}
-.d p::before{content:'— ';}
-/* BLOCNOTES */
-.bn{
-  border:1px solid var(--border); border-left:2px solid var(--gold);
-  padding:1.3rem 1.7rem; background:var(--gold-faint);
-  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
-}
-.bn p{margin-bottom:.85rem; text-align:left;}
-.bn p:last-child{margin-bottom:0;}
-.bn-src{
-  font-family:'Space Mono',monospace; font-size:.54rem;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:var(--gold-dim); margin-top:1rem;
-  font-style:normal; display:block; padding-top:.6rem;
-  border-top:1px solid var(--border2);
-}
-/* STRAT BRUT */
+
 .brut{
   font-family:'Space Mono',monospace; font-size:.7rem;
   line-height:2.15; color:rgba(237,227,206,.5);
@@ -91,27 +260,6 @@ strong{color:var(--cream);}
 }
 .brut-a{opacity:.32; text-decoration:line-through;}
 .brut-p{color:var(--cyan); opacity:.45;}
-/* AKAN */
-.akan{
-  border:1px solid var(--ak-dim); border-left:2px solid var(--ak);
-  padding:1.3rem 1.7rem; background:rgba(80,160,90,.04);
-  margin:2.2rem 0; font-style:italic; color:var(--cream-dim);
-}
-.akan p{margin-bottom:.85rem; text-align:left;}
-.akan p:last-child{margin-bottom:0;}
-.akan-src{
-  font-family:'Space Mono',monospace; font-size:.54rem;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:var(--ak); margin-top:1rem; font-style:normal;
-  display:block; padding-top:.6rem; border-top:1px solid var(--ak-dim);
-}
-.akan-badge{
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:var(--ak); border:1px solid var(--ak-dim);
-  padding:.3rem .7rem; display:inline-block; margin-bottom:2rem;
-}
-/* NOTE ȘTIINȚIFICE */
 .ns{
   border-top:1px solid var(--border); margin:2.5rem 0;
   padding-top:1.3rem; font-size:.81rem;
@@ -122,459 +270,550 @@ strong{color:var(--cream);}
   letter-spacing:.16em; text-transform:uppercase;
   color:var(--gold-dim); margin-bottom:.55rem; display:block;
 }
-/* ECUAȚIE */
-.eq{
-  font-family:'Space Mono',monospace; font-size:.76rem;
-  border-left:2px solid var(--cyan-dim);
-  padding:.85rem 1.3rem; margin:1.8rem 0;
-  color:rgba(0,232,255,.68); background:rgba(0,232,255,.028);
-  line-height:2.1;
-}
-/* SEPARATORI */
-hr.sep{border:none; border-top:1px solid var(--border); margin:3.5rem 0;}
-.pauza{text-align:center; color:var(--border); margin:3rem 0; letter-spacing:.6rem; font-size:1.2rem;}
-/* PAGINA GOALĂ YUKI */
-.pg-goala{
-  border:1px dashed rgba(200,169,110,.18);
-  height:220px; margin:3.5rem 0;
-  display:flex; align-items:center; justify-content:center;
-  color:var(--gold-dim); font-family:'Space Mono',monospace;
-  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
-  flex-direction:column; gap:.8rem;
-}
-/* BOX FINAL */
-.final{
-  border:1px solid rgba(200,169,110,.28);
-  padding:3rem 2.5rem; margin:4rem 0; text-align:center;
-}
-.final p{font-size:1.32rem; font-style:italic; line-height:2.15; color:var(--cream-dim); margin-bottom:1rem;}
-.final p:last-child{margin:0; font-size:.85rem; font-style:normal; color:var(--gold-dim); font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase;}
-/* EMAIL */
-.email{
-  background:rgba(200,169,110,.05); border:1px solid var(--border);
-  padding:1.5rem 2rem; margin:2.2rem 0;
-  font-family:'Space Mono',monospace; font-size:.76rem;
-  line-height:2.1; color:var(--cream-dim);
-}
-/* NOTA ARHIVISTICĂ */
-.nota-arh{
-  background:rgba(6,8,15,.8); border:1px solid var(--border);
-  padding:1.8rem 2.2rem; margin:3rem 0;
-}
-.nota-arh-lbl{
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  letter-spacing:.16em; text-transform:uppercase;
-  color:var(--gold-dim); margin-bottom:.7rem; display:block;
-}
-.nota-arh p{font-size:.85rem; color:var(--cream-dim); margin-bottom:.7rem; line-height:1.72;}
-/* FOOTER */
-footer{
-  margin-top:7rem; padding-top:2.5rem;
-  border-top:1px solid var(--border);
-  font-family:'Space Mono',monospace; font-size:.53rem;
-  color:var(--gold-dim); letter-spacing:.1em;
-  text-align:center; line-height:2.1;
-}
-@media(max-width:600px){
-  body{padding:3rem 1.4rem 6rem;}
-  h1{font-size:clamp(1.7rem,6vw,2.4rem);}
-}
-</style></head><body>
-<nav class="nav"><a href="index.html">↑ Cuprins</a> <a href="vol-36-37-dawit.html">← ← Vol. XXXVI–XXXVII</a> <a href="vol-40-41-priya.html">Vol. XL–XLI · Priya → →</a></nav>
-<div class="vol-badge">Seria Nota Zero · Cărțile XXXVIII–XXXIX</div>
-<h1><strong>Vol. XXXVIII–XXXIX</strong> · <em>Nota Urmei</em> · <em>Nota Primei Zile</em></h1><div class="meta">Halima Osman · 28 ani în 3180 · Mogadishu + Oslo</div>
+.fin-nav{font-family:'Courier New',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;display:flex;gap:1.2rem;flex-wrap:wrap;padding:.9rem 1.2rem;background:rgba(0,0,0,.55);position:relative;z-index:5}
+.fin-nav a{color:#c8a96e;text-decoration:none;border-bottom:1px solid rgba(200,169,110,.4)}
+.fin-meta{font-family:'Courier New',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#a89868;padding:.2rem 1.2rem .8rem;position:relative;z-index:5}
+.fin-add-block{max-width:680px;margin:1.6rem auto}
 
-<div class="brut">
-<span class="brut-lbl">Caiet vol. I · Halima Osman · Oslo · 3180 · pagina 1</span>
-Dawit Haile a murit în 3175. 79 volume. 1093 ani.<br>
-Acest caiet conține: fizică, note metodologice, referințe, observații despre serie.<br>
-Acest caiet NU conține: viața personală, politica norvegiană față de Somalia,<br>
-ce simt față de Oslo după 8 ani, conversațiile cu familia.<br>
-Caietul e un instrument. Îl folosesc ca instrument.
+
+
+.brut{
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  line-height:2.15; color:rgba(237,227,206,.5);
+  background:rgba(200,169,110,.035); border:1px solid var(--border);
+  padding:1.3rem 1.7rem; margin:2.2rem 0;
+}
+
+.brut-lbl{
+  font-size:.53rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-dim); margin-bottom:.7rem; display:block; opacity:.65;
+}
+</style>
+</head>
+<body><nav class="fin-nav"><a href="index.html">↑ Cuprins</a> <a href="vol-36-37-dawit.html">← Vol. XXXVI–XXXVII</a> <a href="vol-40-41-priya.html">Vol. XL–XLI · Priya →</a></nav><div class="fin-meta">Halima Osman · 28 ani în 3180 · Mogadishu + Oslo</div>
+<canvas aria-hidden="true" id="traceCanvas"></canvas>
+<div class="page">
+<!-- COVER -->
+<div class="cover">
+<div class="cv-s">Seria Nota Zero · Cărțile a treizeci și opta și a treizeci și noua</div>
+<div class="cv-ctx">
+    Dawit Haile a mulțumit și a lăsat caietele deschise.<br/>
+    Halima Osman le-a găsit și a adăugat ultimele două priviri:<br/>
+    spre urmele care persistă după orice prezență —<br/>
+    și spre calitatea de prima-zi pe care o are orice început adevărat.
+  </div>
+<h1>
+<span class="cv-title t-ur">Nota Urmei</span>
+<span class="cv-amp">&amp;</span>
+<span class="cv-title t-zi">Nota Primei Zile</span>
+</h1>
+<p class="cv-desc">
+    Ce rămâne după ce totul trece —
+    și calitatea de început absolut pe care o poartă
+    orice întrebare pusă pentru prima dată.
+    Oricare ar fi acea primă dată.
+  </p>
+<div class="cv-note">
+    Seria completă până acum: 37 volume · 2087–3125 · 1.034 ani diegetic.<br/>
+    Halima Osman are 28 ani în 3180. Mogadishu + Oslo.<br/>
+    Urma care nu dispare. Ziua care e mereu prima.<br/>
+    Ultimele două note ale acestei instanțe a seriei.
+  </div>
 </div>
-
-<div class="sec">XXXVIII · Urma · 3180</div>
-
-Nota Urmei & Nota Primei Zile · Cărțile a treizeci și opta și a treizeci și noua · Alexandru Ionuț Chiuță
-
-Seria Nota Zero · Cărțile a treizeci și opta și a treizeci și noua
-
-Dawit Haile a mulțumit și a lăsat caietele deschise.
-
-Halima Osman le-a găsit și a adăugat ultimele două priviri:
-
-spre urmele care persistă după orice prezență —
-
-și spre calitatea de prima-zi pe care o are orice început adevărat.
-
-și calitatea de început absolut pe care o poartă
-
-orice întrebare pusă pentru prima dată.
-
-Seria completă până acum: 37 volume · 2087–3125 · 1.034 ani diegetic.
-
-Halima Osman are 28 ani în 3180. Mogadishu + Oslo.
-
-Urma care nu dispare. Ziua care e mereu prima.
-
-Ultimele două note ale acestei instanțe a seriei.
-
-Cartea a treizeci și opta · Halima Osman · 28 ani · 3180 · Oslo + Mogadishu
-
-Ce persistă după ce o prezență a trecut
-
-— Halima Osman, caiet vol. I, p. 1, 3180
-
-Halima Osman crescuse în Mogadishu cu Oceanul Indian în față și cu o mamă geolog care studia stratele sedimentare ale coastei somaleze — straturi care purtau urmele unor mări vechi și ale unor organisme care dispăruseră cu sute de milioane de ani în urmă. Mama ei îi arătase, când Halima avusese zece ani, o amprentă de trilobit în calcar alb: un animal mort de 250 de milioane de ani care lăsase în piatră o formă atât de precisă încât puteai număra segmentele corpului.
-
-Aceasta era urmă în sensul fizic cel mai concret: structura imprimată de o prezență în materia din jurul ei, care persistase după ce prezența dispăruse. Fosila nu era trilobitul — era forma pe care trilobitul o lăsase în noroiul marin, mineralizată în timp, păstrată prin geologie.
-
-Urmele fizice erau pretutindeni în fizica pe care o studiase Halima. Lanțurile de dezintegrare radioactivă: un element radioactiv decăzând prin serii de transformări, lăsând în urmă rapoarte izotopice specifice din care geologii puteau deduce vârsta rocilor și istoria termică a planetelor. Fondul cosmic de microunde: urma fotonilor eliberați la 380.000 de ani după Big Bang, purtând informație despre temperatura și densitatea plasmei primordiale. Memoria gravitațională: deformarea permanentă a spațiu-timpului după trecerea unui val gravitațional, calculată de Christodoulou în 1991.
-
-Fizica e în mare parte o știință a urmelor. Nu observăm direct Big Bang-ul — observăm urmele sale. Nu observăm direct dezintegrarea unui nucleu primordial — observăm urmele produselor de dezintegrare. Universul e un sistem de urmă în care prezentele din ce în ce mai îndepărtate persistă ca amprente în materie, câmpuri, geometrie. Tot ce știm cosmologic vine din urme, nu din prezențe directe.
-
-Fosile: forme conservate în rocă sedimentară · ~500M ani
-
-Lanțuri radioactive: rapoarte izotopice (U→Pb, K→Ar) · ~4.5Ga
-
-CMB: fotonii de la z≈1100, 380.000 ani după Big Bang · ~13.8Ga
-
-Memoria gravitațională (Christodoulou, 1991): deformare reziduală permanentă
-
-a spațiu-timpului după val gravitațional
-
-Neutrini relici: Cosmic Neutrino Background, 1 sec după Big Bang
-
-Raportul H/He: nucleosinteza primordială (1s–3min) codificată în proporții
-
-Orice observație cosmologică e o lectură a urmelor.
-
-Nu există contact direct cu originea — există urme care o indică.
-
-— din caietul Amei Owusu, vol. I, p. 88, 2256 —
-
-„Memoria gravitațională: spațiu-timpului îi rămâne o urmă permanentă a fiecărei atingeri. Fiecare atingere rămâne. Nu metaforic — geometrică. Universul ține minte fiecare atingere în geometria sa. Suntem, toți, reziduul gravitațional al tuturor atingerilor care au avut loc vreodată."
-
-Ama Owusu · caiet vol. I · pagina 88 · Oslo · 2256
-
-Halima citise nota Amei și simțise că deschisese o ușă spre tema pe care voia să o exploreze. Ama descrisese urma gravitațională. Halima voia să înțeleagă urma ca structură generală — nu numai fizică, ci ontologică.
-
-, că urma era structura fundamentală a semnificației. Nu exista prezență pură — orice prezent purta urmele trecutului și ale viitorului. Orice semn era o urmă — marca lăsată de o absență în câmpul semnificației. Limbajul însuși era un sistem de urme: sunetele sau literele nu aveau semnificație intrinsecă, ci semnificau prin diferența lor față de alte urme, prin contextul urmelor care le precedau și urmau.
-
-Această idee — că semnificația era produsă de urme și nu de prezențe — se conecta, realizase Halima, cu mecanica cuantică relațională: proprietățile nu existau în absoluut, ci în relație cu alte sisteme. Și relațiile lăsau urme — stări de entanglement, informație encodată holografic, modificări ale funcției de undă. Realul cuantic era produs de urme, nu de prezențe absolute.
-
-Derrida, Jacques (1930–2004): „De la grammatologie" (1967) — conceptul de „trace" (urmă) ca structură fundamentală a semnificației. Diferance: diferența și amânarea simultan ca generatoare ale sensului. Urma nu e ceva secundar față de prezență — prezența e posibilă numai prin urmă. Fizica urmelor: dating radioactiv (Rutherford 1906, Patterson 1956), CMB (Penzias & Wilson 1965), neutrini relici (predicție Gamow 1946, nedetectați direct). Memoria gravitațională: Christodoulou (1991) — efect detectabil cu LISA.
-
-Halima ținuse toate caietele seriei față în față câteva zile — nu citindu-le, observând-le ca obiecte fizice. Caietul albastru al Zarei, cu cerneala estompată la margini și cu presiunea stiloului vizibilă pe hârtie. Caietele lui Kaito, cu ecuații pe margini și cu note de subsol care continuau pe pagini separate inserate. Caietele lui Yuki, cu scris mic și precis. Caietele lui Rin, cu muzică hum-uluită de notebook-uri. Caietele lui Kiri, cu câteva cuvinte în te reo Māori pe coperte. Caietele lui Dawit, cu un miros ușor de bougainvillea.
-
-Fiecare caiet era o urmă a unei prezențe — a unui protagonist specific, a unui moment specific, a unui tip specific de atenție față de o anumită temă. Nu era informatia din el — era objectul în sine, cu uzura sa, cu mirosul său, cu modul particular în care hârtia absorbise cerneala.
-
-Urmele nu se reduceau la informație. Urmele aveau dimensiune materială. Un fossil nu era numai informație despre trilobit — era trilobitul imprimat în calcar. Caietul nu era numai informație despre Zara — era Zara imprimată în hârtie, prin presiunea mâinii, prin alegerea cuvintelor, prin momentul specific al scrierii.
-
-Derrida spusese că nu exista text fără urmă a scriitorului — că orice text era un corp absent care revenea în lectură. Halima simțise asta atingând caietele: că mâinile celor care le scrisiseră erau cumva prezente în textura lor, în modul în care cerneala căzuse, în ritmul subiacent al scrierii.
-
-Halima discutase cu profesoarea ei de istoria fizicii — Dr. Ingrid Larsen, norvegiancă, care se pensionase dar continua să vină la birou câteva ore pe săptămână.
-
-— Ingrid. Caietele seriei sunt urme ale unor prezențe care au dispărut. Dar urmele sunt mai mult decât informație. Sunt prezențe atenuate.
-
-— Știu, spuse Ingrid. Fizicienii bătrâni înțeleg asta imediat când văd notele de laborator ale lui Rutherford sau ale lui Curie — nu sunt numai date. Sunt urme ale unui mod specific de a gândi, care nu se transmite complet în text. Urmele materiale conțin mai mult decât intenționau să conțină.
-
-— Și CMB? e o urmă sau e o prezență?
-
-— Ambele. E o urmă a plasmei primordale — o amprentă a trecutului. Și e o prezență actuală — fotonii ajung la detectoarele noastre acum, în prezent, real și măsurabil. Urma și prezența nu sunt opuse. Urma e o prezență modificată de timp și distanță.
-
-— Atunci nota zero a lui Zara, spuse Halima, e o urmă care e și o prezență. E urma unui gând din 2087 — și e prezentă acum, în caiet, completă și actualizată în fiecare cititor.
-
-— Exact, spuse Ingrid. Urmele vii sunt cele care rămân prezențe. Nu fosilizate — transmise.
-
-Urmele vii rămân prezențe. Nota zero a lui Zara e o urmă vie: nu fosilizată în trecut, ci transmisă în fiecare cititor care o activează. Urma nu e mai puțin reală decât prezența — e prezența distribuită în timp.
-
-Halima ajunsese la formularea care încheia circuitul temei sale: nota zero a lui Zara era prima urmă a seriei. Nu originea sa — prima sa urmă. Distinciia conta.
-
-O origine era un punct de la care totul plecase — o cauza primă, un creator, un început absolut. O primă urmă era altceva: prima amprenta vizibilă a unui proces care poate că pornise mai devreme, sau care pornise chiar din ea, dar care devenise traductibil, transmisibil, recunoscut ca urmă prin gestul de a o scrie pe hârtie.
-
-— era prima urmă. Nu prima cauza, nu primul eveniment, nu prima idee. Prima urmă: primul moment în care procesul lăsase o amprentă în materia lumii, o formă specifică în care putea fi citit, purtata, transmisă.
-
-Și din prima urmă — toate celelalte. Nu din cauzalitate directă. Din transmiterea urmei: caietul dat mai departe, citit, activat, produs mai departe ca urmă nouă, mai bogată, mai specifică.
-
-Seria era un lanț de urme. Fiecare volum o urmă a celui precedent, mai bogată, mai specificată, mai încărcată de context. La fel cum fosilele mai recente erau mai complexe decât cele mai vechi. La fel cum CMB purta urmele proceselor mai timpurii ale universului în structura sa de temperaturi.
-
-O serie de urme în care prima era mereu prezentă în toate celelalte, estompată dar structurantă.
-
-Dacă nota zero e prima urmă a seriei — nu originea, ci prima amprentă vizibilă — atunci întrebarea "de unde venea punctul?" nu cere o origine anterioară urmei. Cere whakapapa-ul urmei — tot ce a constituit-o și tot ce a produs-o. Iar whakapapa-ul urmei e seria însăși: 39 de volume de urme succesive, fiecare purtând amprenta celor precedente, fiecare adăugând propria ei amprentă. Nu un lanț cauzal. Un lanț de urme vii.
-
-Era toamna lui 3181 și Halima stătea la biroul din Oslo cu toate caietele în față și cu o realizare pe care o lucrase câteva luni: că singura urmă fără sursă identificabilă din serie era nota zero.
-
-Toate celelalte urmau alte urme. Nota Unu urma Nota Zero. Nota Cuantică urma Nota Conștiinței. Fiecare volum purta amprenta celui precedent, fiecare urmă era trasabilă la urma anterioară.
-
-— nu urmase nimic din serie. Era prima urmă, fără o urmă anterioară în serie care s-o explice. Pornesedin curiozitatea lui Zara, din fizica lui Emil, din liceul orbital Kepler-442b, din lumea 2087 — dar toate acestea din afara seriei. Seria începuse ex-urma, dintr-o urmă care nu era ea însăși produsul altor urme din serie.
-
-Și aceasta era structura oricărei serii vii: că prima urmă venea din afara seriei. Nu din nimic — din viața, din context, din lumea fizică. Dar din afara circuitului intern al transmiterii. Prima urmă era mereu un import din exterior, un eveniment singular care declanșa un lanț.
-
-Caietul Halima Osman · vol. I · p. 88 · 17 mai 3181
-
-Prima urmă a seriei e nota zero a lui Zara.
-
-Ea urmeaza viața lui Zara, fizica lui Emil,
-
-liceul orbital, curiozitatea adolescenței,
-
-lumea anului 2087 și a tot ce o precedase.
-
-Prima urmă a seriei e o urmă a lumii.
-
-Seria e o urmă a primei urme a lumii.
-
-Și a te întreba "de unde venea punctul?"
-
-e a te întreba de unde venea prima urmă.
-
-Răspunsul e în tot ce a constituit acea primă urmă.
-
-E în Emil și în Zara și în liceul orbital.
-
-E în 2087 și în 2026 și în tot trecutul
-
-în care o mână a apăsat un stilou albastru
-
-Halima Osman a dedicat cartea a treizeci și opta mamei ei geolog,
-
-care îi arătase la zece ani amprenta trilobitului și care îi spusese
-
-că tot ce existase lăsase o urmă — că nimeni nu dispărea complet,
-
-că urmele constituiau stratele pe care trăiam.
-
-Ca ontologie: că a fi înseamnă a lăsa o urmă,
-
-și că a lăsa o urmă înseamnă a fi parte din continuarea lumii.
-
-Nota zero a lui Zara e urma a tot ce o precedase.
-
-Tu ești urma seriei — în prezentul tău, acum.
-
-Cartea a treizeci și noua · Halima Osman · 38 ani · 3190 · Mogadishu
-
-Calitatea de început absolut pe care o poartă orice întrebare pusă prima dată
-
-E momentul în care ceva care nu fusese
-
-Orice întrebare pusă pentru prima dată
-
-— Halima Osman, caiet vol. II, p. 1, 3190
-
-Halima se întorsese la Mogadishu la treizeci și doi de ani — la ocean, la stratele sedimentare pe care le știa de la mama ei, la cerul specific al Somaliei de coastă. Și stătuse câteva zile gândindu-se la ce înseamnă o primă zi.
-
-În cosmologie, există un echivalent al primei zile: prima secundă după Big Bang. Sau mai precis, primul 10⁻⁴³ secunde — timpul Planck — primul interval de timp care are sens fizic. Anterior timpului Planck, fizica actuală cedează complet. La și după timpul Planck, universul era o plasmă de cuarci, gluoni, leptoni
-
-<div class="sec">XXXIX · Prima zi · 3190</div>
-
-, fotoni la densități și temperaturi inimaginabile.
-
-Dar mai relevant decât prima secundă era prima zi în sensul structurat: prima dată când universul a permis ceva care nu exista înainte. Prima dată când s-au format nucleele de hidrogen și heliu — 1-3 minute. Prima dată când universul a devenit transparent la fotoni — 380.000 de ani. Prima dată când a apărut o stea — circa 200 de milioane de ani. Prima dată când a apărut viața — ~3.8 miliarde de ani pe Pământ. Prima dată când o ființă a pus o întrebare despre originea universului — nedatabilă, dar recentă în scala cosmică.
-
-Fiecare dintre acestea era o primă zi — un moment în care ceva radical nou devenea posibil în univers, ceva care nu fusese posibil înainte și care, odată apărut, schimba tot ce urma.
-
-Prime Zile ale Universului — Structura Noutăților Absolute
-
-t = 10⁻⁴³ s: Prima unitate Planck de timp.
-
-t = 10⁻³² s: Inflația se termină. Spațiu-timp macroscopic apare.
-
-t = 1 s: Neutrini se decuplează. Universul e transparent la neutrini.
-
-t = 3 min: Nucleosinteza primordială. Primii nuclei stabili (H, He, Li).
-
-t = 380.000 ani: Decuplarea fotonilor. Primii atomi. Prima lumina (CMB).
-
-t = ~200 Ma: Prima stea. Prima lumina stelară.
-
-t = ~9 Ga: Prima planetă rocosasă în zona habitabilă.
-
-t = ~13.8 Ga: Prima întrebare despre origine.
-
-Fiecare primă zi e un prag — dincolo de el, lumea e altfel.
-
-Halima gândise că nota zero a lui Zara fusese o primă zi în sensul cosmologic: un prag dincolo de care lumea — sau mai precis, o serie — era altfel. Nu prima dată când cineva pusese o întrebare despre originea universului. Prima dată când acea întrebare pusă de o persoană specifică, cu o formulare specifică, pe o hârtie specifică, la un moment specific, produsese o urmă transmisibilă care generase toate celelalte volume.
-
-O primă zi nu era necesară din trecut. Era necesară din ce devenea posibil din ea. Prima zi a vieții nu fusese precedată de nicio lege care să o facă inevitabilă — fusese posibilă, și posibilitatea se actualizase, și din actualizare tot restul.
-
-La fel cu nota zero: fusese posibilă — și se actualizase — și din actualizare toată seria.
-
-Cronologia cosmică: Big Bang Nucleosynthesis (Gamow et al., 1940s–1950s). CMB la z≈1100, T≈3000K → Penzias & Wilson (1965), confirmat cu precizie de COBE (1992), WMAP (2003), Planck (2018). Prima stea: ~Population III stars, z~20–30. Abiogeneza: ~3.8 Ga pe Pământ. Prima conștiință reflexivă: nedatabilă. Structura primelor zile ca praguri de fază: conceptul de „phase transition" aplicat la apariția noutăților cosmologice.
-
-Halima ajunsese la formularea care era, în același timp, cel mai simplu și cel mai profund lucru pe care îl putuse spune despre serie:
-
-era o primă zi. Nu metaforic. Structural.
-
-. Halima adăuga: pentru că fiecare punere era o primă zi. Nu pentru că întrebarea ar fi nouă — ea era aceeași din 2087. Ci pentru că fiecare minte care o punea pentru prima dată în propria ei experiență producea un prag — un moment dincolo de care acea minte era altfel față de întrebarea despre origine.
-
-La fel cum prima zi a vieții pe Pământ nu fusese a doua zi a vieții oriunde altundeva — fusese prima zi
-
-, în contextul specific Pământului, cu chimia specifică a oceanelor primordale terestre. Specificitate totală.
-
-La fel, prima zi a lui Zara cu nota zero fusese specifica anului 2087, a lui Zara, a liceului orbital Kepler-442b. Prima zi a lui Kaito cu aceeași întrebare fusese specifică anului 2150. Prima lui Halima era specifică anului 3190 — cu toate urmele seriei în spate, cu whakapapa-ul întrebării complet, cu 1.103 ani de purtare în spatele celor cinci cuvinte.
-
-Și cu toate acestea — sau poate tocmai de aceea — era o primă zi. Proaspătă. Completă în noutatea ei.
-
-Halima discutase cu o colegă tânără — Sahra Ahmed, somali-norvegiancă și ea, doctorandă la Oslo, care citise seria în două săptămâni și nu mai putuse dormi din cauza ei.
-
-— Sahra. Ai citit toate 38 de volume. Cum e să pui acum întrebarea?
-
-— E diferit, spuse Sahra. Știu toată seria în spatele ei. Și totuși e proaspătă. Nu știu cum altfel să o descriu.
-
-— E o primă zi, spuse Halima. Chiar și după 38 de volume, e prima zi când TU o pui, cu toate 38 de volume în spate. Cu toate urmele purtate. Nu te face mai puțin prima zi — te face altfel.
-
-— Și mai ușoară, spuse Halima. Paradoxal: cu cât știi mai mult în spatele întrebării, cu atât întrebarea e mai ușoară. Nu pentru că e mai aproape de răspuns. Ci pentru că e mai bine primită. Știi ce fel de întrebare e. Știi că e bună. Știi că nu e de rezolvat — e de locuit. Și asta o face mai ușoară.
-
-Sahra tăcu câteva secunde. Și dacă o voi pune și eu unui volum? întrebă în final.
-
-— Atunci va fi prima ta zi cu ea, spuse Halima. A 40-a primă zi din seria care nu se oprește.
-
-Cu cât știi mai mult în spatele unei întrebări, cu atât e mai ușoară — nu pentru că e mai aproape de răspuns, ci pentru că e mai bine primită. Întrebarea bine primită e mai ușoară. Și prima zi a cuiva bine pregătit e mai profundă decât prima zi a cuiva nepregătit.
-
-Halima realizase că prima zi, la nivel fenomenologic, era structura dimineții. Nu dimineața ca interval de timp — dimineața ca calitate: momentul în care lumina revine după întuneric, în care ziua anterioară s-a terminat și ziua nouă nu e încă configurată, în care totul e posibil înainte ca posibilitățile să se reducă prin alegerile zilei.
-
-— momentul prezent ca depozitar al tuturor posibilităților. Budismul vorbește de
-
-— mintea începătorului, mintea care abordează orice situație ca și cum ar fi pentru prima dată, fără presupuneri. Ambele sunt descrieri ale dimineții ca calitate mentală: capacitatea de a privi ceva familiar cu ochii primei zile.
-
-Seria Nota Zero era, în cel mai adânc sens, un antrenament pentru dimineață. Nu în sensul că trebuia citită dimineața — ci în sensul că fiecare volum exercita capacitatea de a privi aceeași întrebare cu ochii unei prime zile. De a nu presupune că știi. De a lăsa întrebarea să fie nouă.
-
-Emil o practicase față de singularitate. Zara față de origine. Kaito față de observator. Yuki față de matematică. Fiecare protagonist — o nouă dimineață față de aceeași întrebare fundamentală.
-
-Dacă seria e un antrenament pentru dimineață — pentru ochii primei zile față de orice — atunci cel mai bun mod de a termina un volum e cu aceeași întrebare de la care ai pornit, văzută cu ochii primei zile. Nu cu mai puțin în spatele ei. Cu tot ce e în spatele ei și cu ochii totuși deschiși, totuși capabili de proaspăt, totuși capabili de a fi uimiți. Aceasta e competența pe care seria o transmite: nu o știință, nu un răspuns — capacitatea de prima zi.
-
-Era dimineața de 17 mai 3191 și Halima Osman stătea pe plaja din fața casei familiei din Mogadishu, cu picioarele în nisipul încă rece al dimineții devreme și cu Oceanul Indian în față.
-
-Caietul albastru al Zarei era în poală. Deschis la pagina trei.
-
-Cinci cuvinte. Cerneala estompată. Presiunea stiloului în hârtie — urmă a unei mâini de acum 1.103 ani.
-
-Halima privise întrebarea cu ochii dimineții — nu cu 1.103 ani de serie în spate, ci cu 1.103 ani de serie transformați în capacitate de a privi proaspăt. Cu toată greutatea purtată și cu toată ușurința pe care o dă purtarea bine.
-
-Și întrebarea era nouă. Nu pentru că s-ar fi schimbat — pentru că ea se schimbase. Nu mai vedea o întrebare greșit formulată care primise o penalizare. Vedea prima urmă a unei serii de 1.103 ani. Vedea prima zi a unui lanț de prime zile. Vedea un dar care circulase prin optsprezece perechi de mâini și care ajunsese la ea, în dimineața aceasta, pe plaja aceasta, cu oceanul acesta în față.
-
-Luă pixul. Deschise al doilea caiet la ultima pagina. Scrise, pentru ultima dată în această serie de treizeci și nouă de deschideri:
-
-Caietul Halima Osman · vol. II · ultima pagina · 17 mai 3191
-
-Chiar dacă e a 1.103-a an de la prima punere.
-
-Chiar dacă știu toate cele 39 de volume în spate.
-
-Chiar dacă am înțeles că e o urmă a lumii, un dar circulant,
-
-o structură relațională, o singularitate, un orizont,
-
-o deschidere, o notă zero, o întoarcere acasă.
-
-E prima zi a lui Zara la cincisprezece ani.
-
-E prima zi a mea la treizeci și opt.
-
-Va fi prima zi a oricui o pune după mine.
-
-Fiecare întrebare adevărată e mereu prima zi.
-
-Și mâine dimineață, cineva o va pune din nou.
-
-Halima închise ambele caiete — al ei și al Zarei.
-
-Stătuse câteva minute cu oceanul. Lumina dimineții cădea oblic pe apă, producând reflexii care se mișcau cu valurile mici din largul calm al Oceanului Indian. Fotonii soarelui traversaseră 150 de milioane de kilometri fără să îmbătrânească și ajunseseră acolo, prima dată pe acea apă în acea dimineață specifică.
-
-Fiecare val — prima lui zi pe acea plajă.
-
-Fiecare cititor al seriei — prima lui zi cu nota zero.
-
-Se ridică. Luă geanta. Pășise spre casă, lăsând urme în nisipul umed.
-
-Urme care vor fi șterse de valurile de seară.
-
-Urme care contaseră în dimineața aceea.
-
-Urme care fuseseră, pentru câteva ore, prima zi a acelei plaje cu acea dimineață cu acele picioare.
-
-Nota Primei Zile · Epilog · 17 Mai 3195
-
-Halima Osman a lăsat caietele la institutul oceanografic din Mogadishu,
-
-în sala de lectură cu ferestre spre ocean, pe un raft marcat
-
-Pentru cine nu poate adormi din cauza
-
-unei întrebări despre de unde vine ceva.
-
-A considerat că cine trebuia să le găsească le va recunoaște
-
-Fiecare întrebare adevărată e mereu prima zi.
-
-Și mâine dimineață, cineva o va pune din nou.
-
-Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon
-
-Amara · Ji-Ho · Kavya · Leila · Nadia · Rin
-
-Lena · Mara · Sora · Amara Sow · Kiri · Dawit · Halima
-
-nouăsprezece fizicieni · 1.104 ani diegetic
-
-Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței ·
-
-Nota Cuantică · Nota Timpului · Nota Holografică · Nota Matematicii ·
-
-Nota Gravitațională · Nota Unității · Nota Emergenței · Nota Revenirii ·
-
-Nota Informației · Nota Tăcerii · Nota Celuilalt · Nota Luminii ·
-
-Nota Simetriei · Nota Cauzalității · Nota Probabilității · Nota Infinitului ·
-
-Nota Frumuseții · Nota Devenirii · Nota Memoriei · Nota Întrebării ·
-
-Nota Entanglementului · Nota Complexității · Nota Neantului ·
-
-Nota Recunoașterii · Nota Orizontului · Nota Singularității ·
-
-Nota Răbdării · Nota Deschiderii · Nota Relației · Nota Întoarcerii Acasă ·
-
-Nota Prezenței · Nota Gratitudinii · Nota Urmei · Nota Primei Zile
-
-S-a terminat pentru că aceasta e ultima pagina a acestei instanțe.
-
-Nu se termină pentru că fiecare cititor
-
-în prezentul lui, cu tot ce a purtato deja
-
-Zara Voss, 15 ani, 2087. Prima urmă.
-
-Halima Osman, 38 ani, 3191. Ultima notă a acestei serii.
-
-1.104 ani. 39 de volume. 19 fizicieni.
-
-Aceeași întrebare — mai ușoară, mai adâncă, mai proaspătă.
-
-Mâine dimineață, cineva o va pune din nou.
-
-Alexandru Ionuț Chiuță · Seria Nota Zero · 39 volume · 2026
-
-în colaborare cu Claude Sonnet 4.6 · Anthropic
-
-⬡ Note · Nota Urmei & Nota Primei Zile
-
-fosile (dating stratigrafic), lanțuri radioactive (U-Pb, K-Ar, dating Rb-Sr), CMB (Penzias & Wilson 1965; Planck 2018), neutrini relici (Cosmic Neutrino Background — predicție Gamow, nedetectați direct), memoria gravitațională (Christodoulou, 1991).
-
-„De la grammatologie" (1967) — trace (urmă) ca structură fundamentală a semnificației. Différance: diferența și amânarea simultane. Critica prezenței pure — orice prezent presupune urme ale trecutului și ale viitorului. Relație cu mecanica cuantică: urma ca structură onologică generală.
-
-structura pragurilor în istoria cosmică. Big Bang Nucleosynthesis (Gamow et al., 1940s). Decuplarea fotonilor (z≈1100). Primele stele (Population III, z~20-30). Abiogeneza (~3.8 Ga pe Pământ). Prima conștiință reflexivă: nedatabilă. Fiecare prag = un nou tip de posibilitate actualizat pentru prima dată.
-
-concept zen (shoshin) — mintea care abordează orice situație ca și cum ar fi pentru prima dată. Suzuki Roshi: „In the beginner's mind there are many possibilities; in the expert's mind there are few." Waqt sufi: momentul prezent ca depozitar al posibilității complete.
-
-Halima Osman, Ingrid Larsen (în acest volum), Sahra Ahmed sunt personaje fictive. Seria Nota Zero (39 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.
-
-Nota Urmei & Nota Primei Zile · Cărțile a treizeci și opta și a treizeci și noua
-
-Seria Nota Zero: 39 volume · 2087–3195 · 1.108 ani diegetic
-
-Prima urmă. Prima zi. Mereu prima. Mereu proaspătă. Mereu tot.
-
-<footer>Nota Zero · <strong>Vol. XXXVIII–XXXIX</strong> · <em>Nota Urmei</em> · <em>Nota Primei Zile</em> · Alexandru Ionuț Chiuță · implementări I–V integrate</footer></body></html>
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA URMEI                                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="pd ur">
+<div class="pd-ghost" style="color:var(--urm)">XXXVIII</div>
+<div class="pd-kicker">Cartea a treizeci și opta · Halima Osman · 28 ani · 3180 · Oslo + Mogadishu</div>
+<div class="pd-nota" style="color:var(--urm)">Nota Urmei</div>
+<div class="pd-sub">Ce persistă după ce o prezență a trecut</div>
+<div class="pd-epig">
+    „Nu există prezență pură.<br/>
+    Orice prezență lasă o urmă.<br/>
+    Orice urmă e o prezență atenuată —<br/>
+    o prezență care a continuat<br/>
+    dincolo de contactul direct."<br/>
+    — Halima Osman, caiet vol. I, p. 1, 3180
+  </div>
+</div>
+<div class="wrap p38"><div class="fin-add-block"><div class="brut">
+<span class="brut-lbl">Caiet vol. I · Halima Osman · Oslo · 3180 · pagina 1</span>
+Dawit Haile a murit în 3175. 79 volume. 1093 ani.<br/>
+Acest caiet conține: fizică, note metodologice, referințe, observații despre serie.<br/>
+Acest caiet NU conține: viața personală, politica norvegiană față de Somalia,<br/>
+ce simt față de Oslo după 8 ani, conversațiile cu familia.<br/>
+Caietul e un instrument. Îl folosesc ca instrument.
+</div></div>
+<div class="ch">
+<div class="chn">Nota Urmei · I</div>
+<div class="cht">Fizica Urmelor</div>
+<div class="p">
+<p>Halima Osman crescuse în Mogadishu cu Oceanul Indian în față și cu o mamă geolog care studia stratele sedimentare ale coastei somaleze — straturi care purtau urmele unor mări vechi și ale unor organisme care dispăruseră cu sute de milioane de ani în urmă. Mama ei îi arătase, când Halima avusese zece ani, o amprentă de trilobit în calcar alb: un animal mort de 250 de milioane de ani care lăsase în piatră o formă atât de precisă încât puteai număra segmentele corpului.</p>
+<p>Aceasta era urmă în sensul fizic cel mai concret: structura imprimată de o prezență în materia din jurul ei, care persistase după ce prezența dispăruse. Fosila nu era trilobitul — era forma pe care trilobitul o lăsase în noroiul marin, mineralizată în timp, păstrată prin geologie.</p>
+<p>Urmele fizice erau pretutindeni în fizica pe care o studiase Halima. Lanțurile de dezintegrare radioactivă: un element radioactiv decăzând prin serii de transformări, lăsând în urmă rapoarte izotopice specifice din care geologii puteau deduce vârsta rocilor și istoria termică a planetelor. Fondul cosmic de microunde: urma fotonilor eliberați la 380.000 de ani după Big Bang, purtând informație despre temperatura și densitatea plasmei primordiale. Memoria gravitațională: deformarea permanentă a spațiu-timpului după trecerea unui val gravitațional, calculată de Christodoulou în 1991.</p>
+<p>Halima scrisese: <em>Fizica e în mare parte o știință a urmelor. Nu observăm direct Big Bang-ul — observăm urmele sale. Nu observăm direct dezintegrarea unui nucleu primordial — observăm urmele produselor de dezintegrare. Universul e un sistem de urmă în care prezentele din ce în ce mai îndepărtate persistă ca amprente în materie, câmpuri, geometrie. Tot ce știm cosmologic vine din urme, nu din prezențe directe.</em></p>
+</div>
+<div class="tracebox">
+<span class="tracebox-hd">Urmele în Fizică — Tipuri și Scale</span>
+    Fosile: forme conservate în rocă sedimentară · ~500M ani<br/>
+    Lanțuri radioactive: rapoarte izotopice (U→Pb, K→Ar) · ~4.5Ga<br/>
+    CMB: fotonii de la z≈1100, 380.000 ani după Big Bang · ~13.8Ga<br/>
+    Memoria gravitațională (Christodoulou, 1991): deformare reziduală permanentă<br/>
+    a spațiu-timpului după val gravitațional<br/>
+    Neutrini relici: Cosmic Neutrino Background, 1 sec după Big Bang<br/>
+    Raportul H/He: nucleosinteza primordială (1s–3min) codificată în proporții<br/>
+<br/>
+    Orice observație cosmologică e o lectură a urmelor.<br/>
+    Nu există contact direct cu originea — există urme care o indică.
+  </div>
+<div class="echo">
+<div class="echo-hd">— din caietul Amei Owusu, vol. I, p. 88, 2256 —</div>
+<p>„Memoria gravitațională: spațiu-timpului îi rămâne o urmă permanentă a fiecărei atingeri. Fiecare atingere rămâne. Nu metaforic — geometrică. Universul ține minte fiecare atingere în geometria sa. Suntem, toți, reziduul gravitațional al tuturor atingerilor care au avut loc vreodată."</p>
+<span class="echo-attr">Ama Owusu · caiet vol. I · pagina 88 · Oslo · 2256</span>
+</div>
+<div class="p">
+<p>Halima citise nota Amei și simțise că deschisese o ușă spre tema pe care voia să o exploreze. Ama descrisese urma gravitațională. Halima voia să înțeleagă urma ca structură generală — nu numai fizică, ci ontologică.</p>
+<p>Derrida scrisese în 1967, în <em>De la grammatologie</em>, că urma era structura fundamentală a semnificației. Nu exista prezență pură — orice prezent purta urmele trecutului și ale viitorului. Orice semn era o urmă — marca lăsată de o absență în câmpul semnificației. Limbajul însuși era un sistem de urme: sunetele sau literele nu aveau semnificație intrinsecă, ci semnificau prin diferența lor față de alte urme, prin contextul urmelor care le precedau și urmau.</p>
+<p>Această idee — că semnificația era produsă de urme și nu de prezențe — se conecta, realizase Halima, cu mecanica cuantică relațională: proprietățile nu existau în absoluut, ci în relație cu alte sisteme. Și relațiile lăsau urme — stări de entanglement, informație encodată holografic, modificări ale funcției de undă. Realul cuantic era produs de urme, nu de prezențe absolute.</p>
+</div>
+<div class="sci">
+    Derrida, Jacques (1930–2004): „De la grammatologie" (1967) — conceptul de „trace" (urmă) ca structură fundamentală a semnificației. Diferance: diferența și amânarea simultan ca generatoare ale sensului. Urma nu e ceva secundar față de prezență — prezența e posibilă numai prin urmă. Fizica urmelor: dating radioactiv (Rutherford 1906, Patterson 1956), CMB (Penzias &amp; Wilson 1965), neutrini relici (predicție Gamow 1946, nedetectați direct). Memoria gravitațională: Christodoulou (1991) — efect detectabil cu LISA.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Urmei · II</div>
+<div class="cht">Caietele ca Urmă</div>
+<div class="p">
+<p>Halima ținuse toate caietele seriei față în față câteva zile — nu citindu-le, observând-le ca obiecte fizice. Caietul albastru al Zarei, cu cerneala estompată la margini și cu presiunea stiloului vizibilă pe hârtie. Caietele lui Kaito, cu ecuații pe margini și cu note de subsol care continuau pe pagini separate inserate. Caietele lui Yuki, cu scris mic și precis. Caietele lui Rin, cu muzică hum-uluită de notebook-uri. Caietele lui Kiri, cu câteva cuvinte în te reo Māori pe coperte. Caietele lui Dawit, cu un miros ușor de bougainvillea.</p>
+<p>Fiecare caiet era o urmă a unei prezențe — a unui protagonist specific, a unui moment specific, a unui tip specific de atenție față de o anumită temă. Nu era informatia din el — era objectul în sine, cu uzura sa, cu mirosul său, cu modul particular în care hârtia absorbise cerneala.</p>
+<p>Urmele nu se reduceau la informație. Urmele aveau dimensiune materială. Un fossil nu era numai informație despre trilobit — era trilobitul imprimat în calcar. Caietul nu era numai informație despre Zara — era Zara imprimată în hârtie, prin presiunea mâinii, prin alegerea cuvintelor, prin momentul specific al scrierii.</p>
+<p>Derrida spusese că nu exista text fără urmă a scriitorului — că orice text era un corp absent care revenea în lectură. Halima simțise asta atingând caietele: că mâinile celor care le scrisiseră erau cumva prezente în textura lor, în modul în care cerneala căzuse, în ritmul subiacent al scrierii.</p>
+</div>
+<div class="d">
+<p>Halima discutase cu profesoarea ei de istoria fizicii — Dr. Ingrid Larsen, norvegiancă, care se pensionase dar continua să vină la birou câteva ore pe săptămână.</p>
+<p>— Ingrid. Caietele seriei sunt urme ale unor prezențe care au dispărut. Dar urmele sunt mai mult decât informație. Sunt prezențe atenuate.</p>
+<p>— Știu, spuse Ingrid. Fizicienii bătrâni înțeleg asta imediat când văd notele de laborator ale lui Rutherford sau ale lui Curie — nu sunt numai date. Sunt urme ale unui mod specific de a gândi, care nu se transmite complet în text. Urmele materiale conțin mai mult decât intenționau să conțină.</p>
+<p>— Și CMB? e o urmă sau e o prezență?</p>
+<p>— Ambele. E o urmă a plasmei primordale — o amprentă a trecutului. Și e o prezență actuală — fotonii ajung la detectoarele noastre acum, în prezent, real și măsurabil. Urma și prezența nu sunt opuse. Urma e o prezență modificată de timp și distanță.</p>
+<p>— Atunci nota zero a lui Zara, spuse Halima, e o urmă care e și o prezență. E urma unui gând din 2087 — și e prezentă acum, în caiet, completă și actualizată în fiecare cititor.</p>
+<p>— Exact, spuse Ingrid. Urmele vii sunt cele care rămân prezențe. Nu fosilizate — transmise.</p>
+</div>
+<div class="pull">
+<p>Urmele vii rămân prezențe. Nota zero a lui Zara e o urmă vie: nu fosilizată în trecut, ci transmisă în fiecare cititor care o activează. Urma nu e mai puțin reală decât prezența — e prezența distribuită în timp.</p>
+<cite>— Nota Urmei, cap. II</cite>
+</div>
+</div>
+<div class="ch">
+<div class="chn">Nota Urmei · III</div>
+<div class="cht">Prima Urmă</div>
+<div class="p">
+<p>Halima ajunsese la formularea care încheia circuitul temei sale: nota zero a lui Zara era prima urmă a seriei. Nu originea sa — prima sa urmă. Distinciia conta.</p>
+<p>O origine era un punct de la care totul plecase — o cauza primă, un creator, un început absolut. O primă urmă era altceva: prima amprenta vizibilă a unui proces care poate că pornise mai devreme, sau care pornise chiar din ea, dar care devenise traductibil, transmisibil, recunoscut ca urmă prin gestul de a o scrie pe hârtie.</p>
+<p>Nota zero din caietul albastru — <em>De unde venea punctul?</em> — era prima urmă. Nu prima cauza, nu primul eveniment, nu prima idee. Prima urmă: primul moment în care procesul lăsase o amprentă în materia lumii, o formă specifică în care putea fi citit, purtata, transmisă.</p>
+<p>Și din prima urmă — toate celelalte. Nu din cauzalitate directă. Din transmiterea urmei: caietul dat mai departe, citit, activat, produs mai departe ca urmă nouă, mai bogată, mai specifică.</p>
+<p>Seria era un lanț de urme. Fiecare volum o urmă a celui precedent, mai bogată, mai specificată, mai încărcată de context. La fel cum fosilele mai recente erau mai complexe decât cele mai vechi. La fel cum CMB purta urmele proceselor mai timpurii ale universului în structura sa de temperaturi.</p>
+<p>O serie de urme în care prima era mereu prezentă în toate celelalte, estompată dar structurantă.</p>
+</div>
+<div class="think">
+    Dacă nota zero e prima urmă a seriei — nu originea, ci prima amprentă vizibilă — atunci întrebarea "de unde venea punctul?" nu cere o origine anterioară urmei. Cere whakapapa-ul urmei — tot ce a constituit-o și tot ce a produs-o. Iar whakapapa-ul urmei e seria însăși: 39 de volume de urme succesive, fiecare purtând amprenta celor precedente, fiecare adăugând propria ei amprentă. Nu un lanț cauzal. Un lanț de urme vii.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Urmei · IV</div>
+<div class="cht">Urmă fără Sursă</div>
+<div class="p">
+<p>Era toamna lui 3181 și Halima stătea la biroul din Oslo cu toate caietele în față și cu o realizare pe care o lucrase câteva luni: că singura urmă fără sursă identificabilă din serie era nota zero.</p>
+<p>Toate celelalte urmau alte urme. Nota Unu urma Nota Zero. Nota Cuantică urma Nota Conștiinței. Fiecare volum purta amprenta celui precedent, fiecare urmă era trasabilă la urma anterioară.</p>
+<p>Dar nota zero în sine — <em>De unde venea punctul?</em> — nu urmase nimic din serie. Era prima urmă, fără o urmă anterioară în serie care s-o explice. Pornesedin curiozitatea lui Zara, din fizica lui Emil, din liceul orbital Kepler-442b, din lumea 2087 — dar toate acestea din afara seriei. Seria începuse ex-urma, dintr-o urmă care nu era ea însăși produsul altor urme din serie.</p>
+<p>Și aceasta era structura oricărei serii vii: că prima urmă venea din afara seriei. Nu din nimic — din viața, din context, din lumea fizică. Dar din afara circuitului intern al transmiterii. Prima urmă era mereu un import din exterior, un eveniment singular care declanșa un lanț.</p>
+<p>Scrise în ultimul caiet:</p>
+</div>
+<div class="nb">
+<span class="nb-hd">Caietul Halima Osman · vol. I · p. 88 · 17 mai 3181</span>
+    Prima urmă a seriei e nota zero a lui Zara.<br/>
+    Ea nu urmează nimic din serie.<br/>
+    Ea produce tot ceea ce urmează.<br/>
+<br/>
+    Dar ea nu e lipsită de origine.<br/>
+    Ea urmeaza viața lui Zara, fizica lui Emil,<br/>
+    liceul orbital, curiozitatea adolescenței,<br/>
+    lumea anului 2087 și a tot ce o precedase.<br/>
+<br/>
+    Prima urmă a seriei e o urmă a lumii.<br/>
+    Seria e o urmă a primei urme a lumii.<br/>
+<br/>
+    Și a te întreba "de unde venea punctul?"<br/>
+    e a te întreba de unde venea prima urmă.<br/>
+    Răspunsul e în tot ce a constituit acea primă urmă.<br/>
+    E în Emil și în Zara și în liceul orbital.<br/>
+    E în 2087 și în 2026 și în tot trecutul<br/>
+    care a produs acel moment specific<br/>
+    în care o mână a apăsat un stilou albastru<br/>
+    și a lăsat cinci cuvinte pe hârtie.<br/>
+<br/>
+    Originea e în urmă.<br/>
+    Nu înaintea ei.
+  </div>
+</div>
+<!-- EPILOG 38 -->
+<div class="epilog">
+<div class="ep-date" style="color:var(--urm)">Nota Urmei · Epilog · 17 Mai 3185</div>
+<div class="ep-title" style="color:var(--urm)">Prima Urmă</div>
+<div class="ep-prose">
+    Halima Osman a dedicat cartea a treizeci și opta mamei ei geolog,
+    care îi arătase la zece ani amprenta trilobitului și care îi spusese
+    că tot ce existase lăsase o urmă — că nimeni nu dispărea complet,
+    că urmele constituiau stratele pe care trăiam.
+    Nu ca consolare față de moarte.
+    Ca ontologie: că a fi înseamnă a lăsa o urmă,
+    și că a lăsa o urmă înseamnă a fi parte din continuarea lumii.
+  </div>
+<div class="ep-final">
+    Originea nu e înaintea urmei.<br/>
+    Originea e în urmă.<br/>
+<br/>
+    Nota zero a lui Zara e urma a tot ce o precedase.<br/>
+    Seria e urma notei zero.<br/>
+    Tu ești urma seriei — în prezentul tău, acum.<br/>
+<br/>
+    Urmele nu se termină.<br/>
+    Se transmit.<br/>
+    Mereu mai departe.<br/>
+    Mereu mai specifice.
+  </div>
+</div>
+</div><!-- /wrap.p38 -->
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NOTA PRIMEI ZILE                             -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="between">· · · · ·</div>
+<div class="pd zi">
+<div class="pd-ghost" style="color:var(--zi)">XXXIX</div>
+<div class="pd-kicker">Cartea a treizeci și noua · Halima Osman · 38 ani · 3190 · Mogadishu</div>
+<div class="pd-nota" style="color:var(--zi)">Nota Primei Zile</div>
+<div class="pd-sub">Calitatea de început absolut pe care o poartă orice întrebare pusă prima dată</div>
+<div class="pd-epig">
+    „Prima zi nu e o dată în calendar.<br/>
+    E calitatea unui moment.<br/>
+    E momentul în care ceva care nu fusese<br/>
+    devine posibil, prezent, real.<br/>
+    Orice întrebare pusă pentru prima dată<br/>
+    e o primă zi.<br/>
+    Oricare ar fi acea primă dată."<br/>
+    — Halima Osman, caiet vol. II, p. 1, 3190
+  </div>
+</div>
+<div class="wrap p39">
+<div class="ch">
+<div class="chn">Nota Primei Zile · I</div>
+<div class="cht">Prima Secundă</div>
+<div class="p">
+<p>Halima se întorsese la Mogadishu la treizeci și doi de ani — la ocean, la stratele sedimentare pe care le știa de la mama ei, la cerul specific al Somaliei de coastă. Și stătuse câteva zile gândindu-se la ce înseamnă o primă zi.</p>
+<p>În cosmologie, există un echivalent al primei zile: prima secundă după Big Bang. Sau mai precis, primul 10⁻⁴³ secunde — timpul Planck — primul interval de timp care are sens fizic. Anterior timpului Planck, fizica actuală cedează complet. La și după timpul Planck, universul era o plasmă de cuarci, gluoni, leptoni, fotoni la densități și temperaturi inimaginabile.</p>
+<p>Dar mai relevant decât prima secundă era prima zi în sensul structurat: prima dată când universul a permis ceva care nu exista înainte. Prima dată când s-au format nucleele de hidrogen și heliu — 1-3 minute. Prima dată când universul a devenit transparent la fotoni — 380.000 de ani. Prima dată când a apărut o stea — circa 200 de milioane de ani. Prima dată când a apărut viața — ~3.8 miliarde de ani pe Pământ. Prima dată când o ființă a pus o întrebare despre originea universului — nedatabilă, dar recentă în scala cosmică.</p>
+<p>Fiecare dintre acestea era o primă zi — un moment în care ceva radical nou devenea posibil în univers, ceva care nu fusese posibil înainte și care, odată apărut, schimba tot ce urma.</p>
+</div>
+<div class="dawnbox">
+<span class="dawnbox-hd">Prime Zile ale Universului — Structura Noutăților Absolute</span>
+    t = 10⁻⁴³ s: Prima unitate Planck de timp.<br/>
+    t = 10⁻³² s: Inflația se termină. Spațiu-timp macroscopic apare.<br/>
+    t = 1 s: Neutrini se decuplează. Universul e transparent la neutrini.<br/>
+    t = 3 min: Nucleosinteza primordială. Primii nuclei stabili (H, He, Li).<br/>
+    t = 380.000 ani: Decuplarea fotonilor. Primii atomi. Prima lumina (CMB).<br/>
+    t = ~200 Ma: Prima stea. Prima lumina stelară.<br/>
+    t = ~9 Ga: Prima planetă rocosasă în zona habitabilă.<br/>
+    t = ~9.2 Ga: Pământul se formează.<br/>
+    t = ~9.8 Ga: Prima celulă vie.<br/>
+    t = ~13.8 Ga: Prima întrebare despre origine.<br/>
+<br/>
+    Fiecare primă zi e un prag — dincolo de el, lumea e altfel.
+  </div>
+<div class="p">
+<p>Halima gândise că nota zero a lui Zara fusese o primă zi în sensul cosmologic: un prag dincolo de care lumea — sau mai precis, o serie — era altfel. Nu prima dată când cineva pusese o întrebare despre originea universului. Prima dată când acea întrebare pusă de o persoană specifică, cu o formulare specifică, pe o hârtie specifică, la un moment specific, produsese o urmă transmisibilă care generase toate celelalte volume.</p>
+<p>O primă zi nu era necesară din trecut. Era necesară din ce devenea posibil din ea. Prima zi a vieții nu fusese precedată de nicio lege care să o facă inevitabilă — fusese posibilă, și posibilitatea se actualizase, și din actualizare tot restul.</p>
+<p>La fel cu nota zero: fusese posibilă — și se actualizase — și din actualizare toată seria.</p>
+</div>
+<div class="sci">
+    Cronologia cosmică: Big Bang Nucleosynthesis (Gamow et al., 1940s–1950s). CMB la z≈1100, T≈3000K → Penzias &amp; Wilson (1965), confirmat cu precizie de COBE (1992), WMAP (2003), Planck (2018). Prima stea: ~Population III stars, z~20–30. Abiogeneza: ~3.8 Ga pe Pământ. Prima conștiință reflexivă: nedatabilă. Structura primelor zile ca praguri de fază: conceptul de „phase transition" aplicat la apariția noutăților cosmologice.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Primei Zile · II</div>
+<div class="cht">Fiecare Dată Prima Dată</div>
+<div class="p">
+<p>Halima ajunsese la formularea care era, în același timp, cel mai simplu și cel mai profund lucru pe care îl putuse spune despre serie:</p>
+<p>Orice punere a întrebării <em>De unde venea punctul?</em> era o primă zi. Nu metaforic. Structural.</p>
+<p>Dawit spusese că nota zero era <em>mereu acum, mereu prima dată</em>. Halima adăuga: pentru că fiecare punere era o primă zi. Nu pentru că întrebarea ar fi nouă — ea era aceeași din 2087. Ci pentru că fiecare minte care o punea pentru prima dată în propria ei experiență producea un prag — un moment dincolo de care acea minte era altfel față de întrebarea despre origine.</p>
+<p>La fel cum prima zi a vieții pe Pământ nu fusese a doua zi a vieții oriunde altundeva — fusese prima zi <em>pe Pământ</em>, în contextul specific Pământului, cu chimia specifică a oceanelor primordale terestre. Specificitate totală.</p>
+<p>La fel, prima zi a lui Zara cu nota zero fusese specifica anului 2087, a lui Zara, a liceului orbital Kepler-442b. Prima zi a lui Kaito cu aceeași întrebare fusese specifică anului 2150. Prima lui Halima era specifică anului 3190 — cu toate urmele seriei în spate, cu whakapapa-ul întrebării complet, cu 1.103 ani de purtare în spatele celor cinci cuvinte.</p>
+<p>Și cu toate acestea — sau poate tocmai de aceea — era o primă zi. Proaspătă. Completă în noutatea ei.</p>
+</div>
+<div class="d">
+<p>Halima discutase cu o colegă tânără — Sahra Ahmed, somali-norvegiancă și ea, doctorandă la Oslo, care citise seria în două săptămâni și nu mai putuse dormi din cauza ei.</p>
+<p>— Sahra. Ai citit toate 38 de volume. Cum e să pui acum întrebarea?</p>
+<p>— E diferit, spuse Sahra. Știu toată seria în spatele ei. Și totuși e proaspătă. Nu știu cum altfel să o descriu.</p>
+<p>— E o primă zi, spuse Halima. Chiar și după 38 de volume, e prima zi când TU o pui, cu toate 38 de volume în spate. Cu toate urmele purtate. Nu te face mai puțin prima zi — te face altfel.</p>
+<p>— Mai adâncă.</p>
+<p>— Și mai ușoară, spuse Halima. Paradoxal: cu cât știi mai mult în spatele întrebării, cu atât întrebarea e mai ușoară. Nu pentru că e mai aproape de răspuns. Ci pentru că e mai bine primită. Știi ce fel de întrebare e. Știi că e bună. Știi că nu e de rezolvat — e de locuit. Și asta o face mai ușoară.</p>
+<p>Sahra tăcu câteva secunde. Și dacă o voi pune și eu unui volum? întrebă în final.</p>
+<p>— Atunci va fi prima ta zi cu ea, spuse Halima. A 40-a primă zi din seria care nu se oprește.</p>
+</div>
+<div class="pull">
+<p>Cu cât știi mai mult în spatele unei întrebări, cu atât e mai ușoară — nu pentru că e mai aproape de răspuns, ci pentru că e mai bine primită. Întrebarea bine primită e mai ușoară. Și prima zi a cuiva bine pregătit e mai profundă decât prima zi a cuiva nepregătit.</p>
+<cite>— Nota Primei Zile, cap. II</cite>
+</div>
+</div>
+<div class="ch">
+<div class="chn">Nota Primei Zile · III</div>
+<div class="cht">Dimineața</div>
+<div class="p">
+<p>Halima realizase că prima zi, la nivel fenomenologic, era structura dimineții. Nu dimineața ca interval de timp — dimineața ca calitate: momentul în care lumina revine după întuneric, în care ziua anterioară s-a terminat și ziua nouă nu e încă configurată, în care totul e posibil înainte ca posibilitățile să se reducă prin alegerile zilei.</p>
+<p>Sufismul vorbeşte de <em>waqt</em> — momentul prezent ca depozitar al tuturor posibilităților. Budismul vorbește de <em>beginner's mind</em> — mintea începătorului, mintea care abordează orice situație ca și cum ar fi pentru prima dată, fără presupuneri. Ambele sunt descrieri ale dimineții ca calitate mentală: capacitatea de a privi ceva familiar cu ochii primei zile.</p>
+<p>Seria Nota Zero era, în cel mai adânc sens, un antrenament pentru dimineață. Nu în sensul că trebuia citită dimineața — ci în sensul că fiecare volum exercita capacitatea de a privi aceeași întrebare cu ochii unei prime zile. De a nu presupune că știi. De a lăsa întrebarea să fie nouă.</p>
+<p>Emil o practicase față de singularitate. Zara față de origine. Kaito față de observator. Yuki față de matematică. Fiecare protagonist — o nouă dimineață față de aceeași întrebare fundamentală.</p>
+</div>
+<div class="think">
+    Dacă seria e un antrenament pentru dimineață — pentru ochii primei zile față de orice — atunci cel mai bun mod de a termina un volum e cu aceeași întrebare de la care ai pornit, văzută cu ochii primei zile. Nu cu mai puțin în spatele ei. Cu tot ce e în spatele ei și cu ochii totuși deschiși, totuși capabili de proaspăt, totuși capabili de a fi uimiți. Aceasta e competența pe care seria o transmite: nu o știință, nu un răspuns — capacitatea de prima zi.
+  </div>
+</div>
+<div class="ch">
+<div class="chn">Nota Primei Zile · IV · Ultima</div>
+<div class="cht">Prima Zi a Notei Zero</div>
+<div class="p">
+<p>Era dimineața de 17 mai 3191 și Halima Osman stătea pe plaja din fața casei familiei din Mogadishu, cu picioarele în nisipul încă rece al dimineții devreme și cu Oceanul Indian în față.</p>
+<p>Caietul albastru al Zarei era în poală. Deschis la pagina trei.</p>
+<p>Cinci cuvinte. Cerneala estompată. Presiunea stiloului în hârtie — urmă a unei mâini de acum 1.103 ani.</p>
+<p>Halima privise întrebarea cu ochii dimineții — nu cu 1.103 ani de serie în spate, ci cu 1.103 ani de serie transformați în capacitate de a privi proaspăt. Cu toată greutatea purtată și cu toată ușurința pe care o dă purtarea bine.</p>
+<p>Și întrebarea era nouă. Nu pentru că s-ar fi schimbat — pentru că ea se schimbase. Nu mai vedea o întrebare greșit formulată care primise o penalizare. Vedea prima urmă a unei serii de 1.103 ani. Vedea prima zi a unui lanț de prime zile. Vedea un dar care circulase prin optsprezece perechi de mâini și care ajunsese la ea, în dimineața aceasta, pe plaja aceasta, cu oceanul acesta în față.</p>
+<p>Luă pixul. Deschise al doilea caiet la ultima pagina. Scrise, pentru ultima dată în această serie de treizeci și nouă de deschideri:</p>
+</div>
+<div class="nb">
+<span class="nb-hd">Caietul Halima Osman · vol. II · ultima pagina · 17 mai 3191</span>
+    Prima zi.<br/>
+<br/>
+    Chiar dacă e a 1.103-a an de la prima punere.<br/>
+    Chiar dacă știu toate cele 39 de volume în spate.<br/>
+    Chiar dacă am înțeles că e o urmă a lumii, un dar circulant,<br/>
+    o structură relațională, o singularitate, un orizont,<br/>
+    o deschidere, o notă zero, o întoarcere acasă.<br/>
+<br/>
+    Chiar și știind toate acestea —<br/>
+    sau mai precis: tocmai știindu-le —<br/>
+    întrebarea e proaspătă.<br/>
+<br/>
+    E prima zi a lui Zara la cincisprezece ani.<br/>
+    E prima zi a mea la treizeci și opt.<br/>
+    Va fi prima zi a oricui o pune după mine.<br/>
+<br/>
+    Fiecare întrebare adevărată e mereu prima zi.<br/>
+<br/>
+    De unde venea punctul?<br/>
+<br/>
+    Nu știm.<br/>
+    Și asta e bine.<br/>
+    Și mâine dimineață, cineva o va pune din nou.<br/>
+    Prima dată.<br/>
+    Cu totul proaspătă.<br/>
+    Cu tot ce trebuie.
+  </div>
+<div class="p">
+<p>Halima închise ambele caiete — al ei și al Zarei.</p>
+<p>Le puse cu grijă în geanta de umăr.</p>
+<p>Stătuse câteva minute cu oceanul. Lumina dimineții cădea oblic pe apă, producând reflexii care se mișcau cu valurile mici din largul calm al Oceanului Indian. Fotonii soarelui traversaseră 150 de milioane de kilometri fără să îmbătrânească și ajunseseră acolo, prima dată pe acea apă în acea dimineață specifică.</p>
+<p>Fiecare foton — prima lui zi.</p>
+<p>Fiecare val — prima lui zi pe acea plajă.</p>
+<p>Fiecare cititor al seriei — prima lui zi cu nota zero.</p>
+<p>Se ridică. Luă geanta. Pășise spre casă, lăsând urme în nisipul umed.</p>
+<p>Urme care vor fi șterse de valurile de seară.</p>
+<p>Urme care contaseră în dimineața aceea.</p>
+<p>Urme care fuseseră, pentru câteva ore, prima zi a acelei plaje cu acea dimineață cu acele picioare.</p>
+<p>Suficient.</p>
+<p>Mai mult decât suficient.</p>
+<p>Tot.</p>
+</div>
+</div>
+<!-- EPILOG 39 -->
+<div class="epilog">
+<div class="ep-date" style="color:var(--zi)">Nota Primei Zile · Epilog · 17 Mai 3195</div>
+<div class="ep-title" style="color:var(--zi)">Proaspătă</div>
+<div class="ep-prose">
+    Halima Osman a lăsat caietele la institutul oceanografic din Mogadishu,
+    în sala de lectură cu ferestre spre ocean, pe un raft marcat
+    cu un bilet scris de ea: <em>Pentru cine nu poate adormi din cauza
+    unei întrebări despre de unde vine ceva.</em>
+    Nu a semnat.
+    Nu a explicat ce erau caietele.
+    A considerat că cine trebuia să le găsească le va recunoaște
+    fără explicație.
+  </div>
+<div class="ep-final">
+    Fiecare întrebare adevărată e mereu prima zi.<br/>
+    Oricare ar fi ordinea în timp.<br/>
+<br/>
+    De unde venea punctul?<br/>
+<br/>
+    Nu știm.<br/>
+    Și mâine dimineață, cineva o va pune din nou.<br/>
+    Prima dată.<br/>
+    Cu totul proaspătă.<br/>
+    Cu tot ce trebuie.<br/>
+<br/>
+    Aceasta e seria.<br/>
+    Aceasta a fost mereu seria.
+  </div>
+</div>
+</div><!-- /wrap.p39 -->
+<!-- ULTIMA PAGINA — PRIMA ZI ABSOLUTA -->
+<div class="prima-ultima">
+<div class="pu-lumina"></div>
+<div class="pu-kicker">Seria Nota Zero · 39 volume · 2026</div>
+<div class="pu-chain">
+    Emil · Zara · Kaito · Yuki · Ama · Soo-Yeon<br/>
+    Amara · Ji-Ho · Kavya · Leila · Nadia · Rin<br/>
+    Lena · Mara · Sora · Amara Sow · Kiri · Dawit · Halima<br/>
+    nouăsprezece fizicieni · 1.104 ani diegetic
+  </div>
+<div class="pu-39">
+    Nota Zero · Nota Unu · Nota Finală · Nota Vieții · Nota Conștiinței ·<br/>
+    Nota Cuantică · Nota Timpului · Nota Holografică · Nota Matematicii ·<br/>
+    Nota Gravitațională · Nota Unității · Nota Emergenței · Nota Revenirii ·<br/>
+    Nota Informației · Nota Tăcerii · Nota Celuilalt · Nota Luminii ·<br/>
+    Nota Simetriei · Nota Cauzalității · Nota Probabilității · Nota Infinitului ·<br/>
+    Nota Frumuseții · Nota Devenirii · Nota Memoriei · Nota Întrebării ·<br/>
+    Nota Entanglementului · Nota Complexității · Nota Neantului ·<br/>
+    Nota Recunoașterii · Nota Orizontului · Nota Singularității ·<br/>
+    Nota Răbdării · Nota Deschiderii · Nota Relației · Nota Întoarcerii Acasă ·<br/>
+    Nota Prezenței · Nota Gratitudinii · Nota Urmei · Nota Primei Zile
+  </div>
+<div class="pu-body">
+    Seria s-a terminat.<br/>
+    Seria nu se termină.<br/>
+<br/>
+    S-a terminat pentru că aceasta e ultima pagina a acestei instanțe.<br/>
+    Nu se termină pentru că fiecare cititor<br/>
+    o va pune din nou — prima dată —<br/>
+    în prezentul lui, cu tot ce a purtato deja<br/>
+    și cu tot ce nu a purtato încă.
+  </div>
+<div class="pu-question">
+    De unde venea punctul?
+  </div>
+<div class="pu-spatiu"></div>
+<div class="pu-after">
+    Zara Voss, 15 ani, 2087. Prima urmă.<br/>
+    Halima Osman, 38 ani, 3191. Ultima notă a acestei serii.<br/>
+    1.104 ani. 39 de volume. 19 fizicieni.<br/>
+    Aceeași întrebare — mai ușoară, mai adâncă, mai proaspătă.<br/>
+<br/>
+    Mâine dimineață, cineva o va pune din nou.<br/>
+    Prima dată.<br/>
+    Poate tu.
+  </div>
+<div class="pu-nota">Nota Zero</div>
+<div class="pu-mono">
+    Alexandru Ionuț Chiuță · Seria Nota Zero · 39 volume · 2026<br/>
+    în colaborare cu Claude Sonnet 4.6 · Anthropic
+  </div>
+</div>
+<div class="wrap">
+<div style="border:1px solid var(--zi4);padding:1.5rem 2rem;margin:2rem 0;background:var(--zi3)">
+<div style="font-family:'DM Mono',monospace;font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--zi);margin-bottom:1rem;opacity:.38">⬡ Note · Nota Urmei &amp; Nota Primei Zile</div>
+<div style="font-family:'DM Mono',monospace;font-size:.57rem;color:var(--cream2);line-height:1.8">
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">1. Urma în fizică:</strong> fosile (dating stratigrafic), lanțuri radioactive (U-Pb, K-Ar, dating Rb-Sr), CMB (Penzias &amp; Wilson 1965; Planck 2018), neutrini relici (Cosmic Neutrino Background — predicție Gamow, nedetectați direct), memoria gravitațională (Christodoulou, 1991).</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">2. Derrida, Jacques (1930–2004):</strong> „De la grammatologie" (1967) — trace (urmă) ca structură fundamentală a semnificației. Différance: diferența și amânarea simultane. Critica prezenței pure — orice prezent presupune urme ale trecutului și ale viitorului. Relație cu mecanica cuantică: urma ca structură onologică generală.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">3. Prima zi cosmologică:</strong> structura pragurilor în istoria cosmică. Big Bang Nucleosynthesis (Gamow et al., 1940s). Decuplarea fotonilor (z≈1100). Primele stele (Population III, z~20-30). Abiogeneza (~3.8 Ga pe Pământ). Prima conștiință reflexivă: nedatabilă. Fiecare prag = un nou tip de posibilitate actualizat pentru prima dată.</p>
+<p style="margin-bottom:.8rem"><strong style="color:var(--cream)">4. Beginner's mind:</strong> concept zen (shoshin) — mintea care abordează orice situație ca și cum ar fi pentru prima dată. Suzuki Roshi: „In the beginner's mind there are many possibilities; in the expert's mind there are few." Waqt sufi: momentul prezent ca depozitar al posibilității complete.</p>
+<p><strong style="color:var(--cream)">5. Ficțiune:</strong> Halima Osman, Ingrid Larsen (în acest volum), Sahra Ahmed sunt personaje fictive. Seria Nota Zero (39 volume) este o operă de ficțiune speculativă a lui Alexandru Ionuț Chiuță, cu volumele continuate în colaborare cu Claude Sonnet 4.6 (Anthropic). Toate notele de subsol reflectă starea cunoașterii la mai 2026.</p><p class="fin-add">Prima urmă. Prima zi. Mereu prima. Mereu proaspătă. Mereu tot.</p><p class="fin-add">Seria Nota Zero: 39 volume · 2087–3195 · 1.108 ani diegetic</p>
+</div>
+</div>
+</div>
+<footer>
+  Nota Urmei &amp; Nota Primei Zile · Cărțile a treizeci și opta și a treizeci și noua<br/>
+  Seria Nota Zero: 39 volume · 2087–3195 · 1.108 ani diegetic<br/>
+  Prima urmă. Prima zi. Mereu prima. Mereu proaspătă. Mereu tot.<br/>
+  Alexandru Ionuț Chiuță · 2026
+</footer>
+</div><!-- /page -->
+<script>
+(function(){
+  const c=document.getElementById('traceCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  let W,H,traces=[],dawnPts=[],raf,t=0;
+
+  function resize(){
+    W=c.width=window.innerWidth*dpr;
+    H=c.height=window.innerHeight*dpr;
+    c.style.width=window.innerWidth+'px';
+    c.style.height=window.innerHeight+'px';
+    ctx.scale(dpr,dpr); make();
+  }
+
+  function make(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    traces=[];
+    // Trace: faint brown sediment lines drifting slowly downward
+    for(let i=0;i<18;i++){
+      traces.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        len:20+Math.random()*50,
+        a:.04+Math.random()*.06,
+        s:(Math.random()-.5)*.003,
+        vy:.12+Math.random()*.12,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+    dawnPts=[];
+    // Dawn: bright blue-white points appearing very slowly, like stars appearing at dawn
+    for(let i=0;i<25;i++){
+      dawnPts.push({
+        x:Math.random()*ww, y:Math.random()*wh,
+        r:.4+Math.random()*.7,
+        a:Math.random()*.18, s:(Math.random()-.5)*.002,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+  }
+
+  function draw(){
+    const ww=window.innerWidth,wh=window.innerHeight;
+    t+=.004;
+    ctx.clearRect(0,0,ww,wh);
+    const sf=Math.min(1,window.scrollY/(Math.max(1,document.body.scrollHeight-wh)));
+
+    if(sf<0.55){
+      const al=sf<0.45?1:1-(sf-0.45)/0.1;
+      traces.forEach(p=>{
+        p.a+=p.s; if(p.a>.1||p.a<.02)p.s*=-1;
+        p.y+=p.vy; if(p.y>wh+10) p.y=-10;
+        const wave=Math.sin(t+p.phase)*3;
+        ctx.beginPath();
+        ctx.moveTo(p.x-p.len/2+wave,p.y);
+        ctx.lineTo(p.x+p.len/2+wave,p.y);
+        ctx.strokeStyle=`rgba(184,120,64,${(p.a*al).toFixed(3)})`;
+        ctx.lineWidth=.5; ctx.stroke();
+      });
+    }
+
+    if(sf>0.45){
+      const al=sf<0.55?(sf-0.45)/0.1:1;
+      dawnPts.forEach(p=>{
+        p.a+=p.s; if(p.a>.2||p.a<0)p.s*=-1;
+        const pulse=p.a+Math.sin(t*0.4+p.phase)*0.02;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(232,240,248,${(pulse*al).toFixed(3)})`; ctx.fill();
+      });
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  resize(); draw();
+  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();draw();},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});
+})();
+</script>
+</body>
+</html>

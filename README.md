@@ -40,7 +40,7 @@ Pe lângă povestirea din `index.html` (volumul I), depozitul conține seria *No
 - `serie/COMPARATIE.md` — comparația dintre ediția finală și seria completă și ce s-a îmbinat.
 - `carte/Nota-Zero-carte-completa-ro.pdf` — cartea completă, 478 de pagini, format A5; `carte/Nota-Zero-carte-completa-ro.md` — tot textul din PDF, în Markdown.
 
-Paginile ediției finale (`serie/*.html`) sunt statice, fără scripturi. Arhiva și materialele suplimentare conțin doar scripturi locale mici (bară de progres, animații), fără apeluri de rețea, cu o excepție: două analize din arhivă (`ANALIZA-clasamente-72-indicatori.html`, `ANALIZA-recenzie-titlologica.html`) încarcă Chart.js de la cdnjs.cloudflare.com pentru grafice (textul se citește și fără). Nicio pagină nu încarcă fonturi externe. Textele sunt ficțiune scrisă în colaborare cu Claude (Anthropic); recenziile și clasamentele sunt generate de un model AI și nu sunt critică independentă.
+Paginile din `serie/` sunt statice, cu doar scripturi locale mici (animații de fundal, bară de progres), fără apeluri de rețea, cu o excepție: două analize din arhivă (`ANALIZA-clasamente-72-indicatori.html`, `ANALIZA-recenzie-titlologica.html`) încarcă Chart.js de la cdnjs.cloudflare.com pentru grafice (textul se citește și fără). Nicio pagină nu încarcă fonturi externe. Textele sunt ficțiune scrisă în colaborare cu Claude (Anthropic); recenziile și clasamentele sunt generate de un model AI și nu sunt critică independentă.
 
 ## Manual de utilizare
 

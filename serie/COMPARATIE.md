@@ -35,3 +35,9 @@ Secțiunile II–V erau rezumate prescurtate, cu fragmente rupte (de exemplu „
 ## PDF-ul cărții (adăugat ulterior)
 
 Tot textul din `carte/Nota-Zero-carte-completa-ro.pdf` a fost extras în `carte/Nota-Zero-carte-completa-ro.md` (aprox. 93.000 de cuvinte, 21 de volume-fișier, cuprins inclus). Față de paginile HTML din depozit, circa 4% din secvențele de 5 cuvinte ale PDF-ului nu s-au regăsit; cea mai mare parte sunt rupturi de pagină și cuvinte despărțite de textul justificat, dar câteva pasaje (de exemplu din cărțile V, IX și XXI) par să existe doar în PDF sau în altă formulare. Ele sunt acum în fișierul Markdown.
+
+## Reparația volumelor VI–XLI (18 octombrie 2026, seara)
+
+Verificarea a arătat că fișierele `vol-06…41` din ediția finală aveau structura distrusă: etichetele de paragraf, titlurile de capitol, citatele și stilurile se pierduseră, iar textul era un șir de linii goale, cu fragmente de titluri amestecate printre paragrafe. Textul, însă, era în mare parte prezent.
+
+Reparația: cele 18 fișiere au fost reconstruite pe scheletul HTML curat al seriei inițiale (copertă, capitole, citate, note științifice, animații de fundal locale). Adaosurile reale ale ediției finale au fost reintroduse: blocurile de caiet („strat brut”), notele și blocurile cu tradiția Akan din Vol. X–XI (Akosua, okra, sunsum, sankofa, anansesem), scenele și mesajele din Kaito, Yuki și Priya, plus două note științifice din Vol. II–V. Verificare: din paragrafele de minimum 10 cuvinte ale vechilor fișiere nu mai lipsesc decât titlurile și liniile de antet. Navigarea dintre volume și linkul rupt din `aparat-critic.html` au fost reparate; titlurile paginilor nu mai conțin etichete HTML.
