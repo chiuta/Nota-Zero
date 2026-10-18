@@ -81,6 +81,7 @@ Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ie
 
 - **18 octombrie 2026:** adăugate seria completă (`serie/`), arhiva inițială, materialele suplimentare și PDF-ul cărții; în ediția finală, cărțile II–V au textul integral în locul rezumatelor (vezi `serie/COMPARATIE.md`). Aplicația din `index.html` nu s-a schimbat.
 
+- **18 octombrie 2026:** linkuri adânci `?cap=1…7`, `?cap=epilog` și `?cap=science` (echivalente cu `#capN`; hash-ul are prioritate; valorile invalide sunt ignorate). Secțiune „Punți către alte aplicații” în `serie/` și fișiere de import în `punti/`. CSP: hash recalculat.
 - **14 octombrie 2026 (versiunea 1.1.0):** căutare locală în text, marcaje și note exportabile, kit comun, teste.
 
 - **12 octombrie 2026 (versiunea 1.0.0):** 1.0.0 — 2026-10-12: versiunea și data ultimei actualizări sunt afișate în aplicație (subsol, tradusă RO/EN/FR).

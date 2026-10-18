@@ -7,7 +7,7 @@ Principiu: nicio aplicație nu trimite și nu primește nimic în fundal. Legăt
 |---|---|---|
 | TerRa | `TerRa/#v=sky&t=2087-05-17T02:35:00Z&ll=59.9139,10.7522` | Acceptă orice an; precizie testată doar 1900–2100, peste 2100 ΔT e extrapolat și Pluto nu mai e valid |
 | ORARIUM | `orarium/#view=acum&body=luna&t=2087-05-14T22:14:00Z` | Fără limită de dată |
-| Nota Zero | `Nota-Zero/#cap5` | `?cap=` e ignorat |
+| Nota Zero | `Nota-Zero/#cap5` sau `Nota-Zero/?cap=5` | `?cap=1…7`, `epilog`, `science`; hash-ul are prioritate |
 
 ## Fișiere gata de importat (`punti/import/`)
 | Fișier | Aplicație | Cum |

@@ -12,8 +12,8 @@
     "localStorage"
   ],
   "storageKeys": [],
-  "sizeBytes": 908395,
-  "sha256": "a17a4bc4e123cd1db657993e9dd1803fa8c5ce10cf89bfb1637ced671910cdf8",
+  "sizeBytes": 908905,
+  "sha256": "b68411e13e94dcf149bb3b0ab465cadf79f5fcce96bc61777203b89dd68884d1",
   "csp": {
     "present": true,
     "directives": {
@@ -26,7 +26,7 @@
       "base-uri": "'self'",
       "form-action": "'self'",
       "worker-src": "'self' blob:",
-      "script-src": "'self' blob: sha256×4",
+      "script-src": "'self' blob: sha256×3",
       "connect-src": "'self'",
       "manifest-src": "'self'"
     },
