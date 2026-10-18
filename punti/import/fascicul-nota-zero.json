@@ -1,0 +1,96 @@
+{
+ "fascicul": 1,
+ "theme": "dark",
+ "objs": [
+  {
+   "id": "nz0",
+   "k": "n",
+   "x": 40,
+   "y": 40,
+   "w": 520,
+   "t": "„Dacă universul a început dintr-un punct, de unde venea punctul? Și dacă cineva îți spune că știe — nu te-a minți niciodată mai frumos.”",
+   "c": "#fff3a8",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz1",
+   "k": "n",
+   "x": 640,
+   "y": 40,
+   "w": 520,
+   "t": "„Dar de unde venea punctul?”",
+   "c": "#fff3a8",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz2",
+   "k": "n",
+   "x": 1240,
+   "y": 40,
+   "w": 520,
+   "t": "Teoria corzilor (anii '60–prezent) postulează că particulele elementare nu sunt puncte, ci corzi unidimensionale vibrând la frecvențe diferite. Tipul de vibrație determină tipul particulei.",
+   "c": "#ffd9e8",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz3",
+   "k": "n",
+   "x": 40,
+   "y": 378,
+   "w": 520,
+   "t": "Teoria M (Edward Witten, 1995) unifică cele cinci versiuni ale teoriei corzilor într-un cadru cu unsprezece dimensiuni: zece spațiale și una temporală.",
+   "c": "#c8f0ff",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz4",
+   "k": "n",
+   "x": 640,
+   "y": 208,
+   "w": 520,
+   "t": "Cosmologia branelor / Ekpyrotica (Paul Steinhardt, Neil Turok, 2001) propune că Big Bang-ul nu a fost o singularitate izolată, ci coliziunea a două membrane (brane) în spațiul multidimensional. Aceasta este baza scenei centrale din poveste.",
+   "c": "#d9ffc8",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz5",
+   "k": "n",
+   "x": 1240,
+   "y": 446,
+   "w": 520,
+   "t": "Principiul holografic (Gerard 't Hooft, Leonard Susskind, ~1993–1995) — confirmat parțial matematic prin corespondența AdS/CFT a lui Juan Maldacena (1997) — sugerează că informația unui volum poate fi complet codificată pe suprafața lui.",
+   "c": "#ffd9e8",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz6",
+   "k": "n",
+   "x": 40,
+   "y": 716,
+   "w": 520,
+   "t": "Gravitonul rămâne ipotetic în mai 2026, dar teoretic consistent cu teoria corzilor (coardă închisă, vibrând în modul de spin-2).",
+   "c": "#c8f0ff",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz7",
+   "k": "n",
+   "x": 640,
+   "y": 682,
+   "w": 520,
+   "t": "Dimensiunile compactificate nu au fost detectate experimental direct până în mai 2026, dar căutarea lor prin comportamentul gravitației la distanțe mici (experimente de tip Cavendish la scară microscopică) continuă activ la CERN și în laboratoare asociate.",
+   "c": "#d9ffc8",
+   "a": "Nota Zero"
+  },
+  {
+   "id": "nz8",
+   "k": "n",
+   "x": 1240,
+   "y": 920,
+   "w": 520,
+   "t": "Radiația cosmică de fond (CMB) — instrumentul real prin care fizicienii măsoară vârsta și forma universului, nu orbita Pământului. Satelitii Planck (ESA) au oferit până în 2018 cea mai precisă hartă a CMB, confirmând vârsta de 13,787 ± 0,020 miliarde de ani.",
+   "c": "#ffd9e8",
+   "a": "Nota Zero"
+  }
+ ]
+}
