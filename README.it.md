@@ -101,6 +101,5 @@ Audit: 2026-10-10 (aggiornato il 2026-10-11) — senza `fetch`/XHR/CDN; l'unica 
 
 Alexio — Alexandru-Ionuț Chiuță, contatto: alexio@trom.tf. La pagina rimanda al Centrul STRING (centrulstring.ro).
 
-## Riepilogo in inglese
-
+## Riepilogo
 Nota Zero è un racconto di narrativa speculativa sulla teoria delle stringhe di Alexandru Ionuț Chiuță, presentato come pagina di lettura in un unico file in rumeno, inglese e francese (circa 18 minuti). Offre navigazione per capitoli, note scientifiche, lettura ad alta voce con la sintesi vocale del browser, stampa e un ampio pannello di accessibilità (font per la dislessia, spaziatura, contrasto, seppia, modalità per daltonici). Le preferenze sono conservate in localStorage; nessuna richiesta di rete. Licenza MIT.

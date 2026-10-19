@@ -101,6 +101,5 @@ Auditoria: 2026-10-10 (atualizada a 2026-10-11) — sem `fetch`/XHR/CDN; a únic
 
 Alexio — Alexandru-Ionuț Chiuță, contacto: alexio@trom.tf. A página remete para o Centrul STRING (centrulstring.ro).
 
-## Resumo em inglês
-
+## Resumo
 Nota Zero é um conto de ficção especulativa sobre a teoria das cordas de Alexandru Ionuț Chiuță, apresentado como uma página de leitura de ficheiro único em romeno, inglês e francês (cerca de 18 minutos). Oferece navegação por capítulos, notas científicas, leitura em voz alta com a síntese de voz do navegador, impressão e um amplo painel de acessibilidade (tipo de letra para dislexia, espaçamento, contraste, sépia, modos para daltonismo). As preferências são guardadas em localStorage; sem pedidos de rede. Licença MIT.

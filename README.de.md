@@ -101,6 +101,5 @@ Audit: 2026-10-10 (aktualisiert 2026-10-11) — kein `fetch`/XHR/CDN; der einzig
 
 Alexio — Alexandru-Ionuț Chiuță, Kontakt: alexio@trom.tf. Die Seite verweist auf das Centrul STRING (centrulstring.ro).
 
-## Zusammenfassung auf Englisch
-
+## Zusammenfassung
 Nota Zero ist eine spekulative Kurzgeschichte über die Stringtheorie von Alexandru Ionuț Chiuță, präsentiert als Ein-Datei-Leseseite auf Rumänisch, Englisch und Französisch (etwa 18 Minuten). Sie bietet Kapitelnavigation, wissenschaftliche Anmerkungen, Vorlesen per Browser-Sprachsynthese, Drucken und ein umfangreiches Barrierefreiheits-Panel (Legasthenie-Schrift, Abstände, Kontrast, Sepia, Modi für Farbfehlsichtigkeit). Einstellungen werden in localStorage gehalten; keine Netzwerkanfragen. MIT-Lizenz.

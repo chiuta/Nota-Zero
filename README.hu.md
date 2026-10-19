@@ -101,6 +101,5 @@ Audit: 2026-10-10 (frissítve 2026-10-11) — `fetch`/XHR/CDN nélkül; az egyet
 
 Alexio — Alexandru-Ionuț Chiuță, kapcsolat: alexio@trom.tf. Az oldal a Centrul STRING-re (centrulstring.ro) hivatkozik.
 
-## Összefoglaló angolul
-
+## Összefoglaló
 A Nota Zero Alexandru Ionuț Chiuță spekulatív fikciós novellája a húrelméletről, egyetlen fájlos olvasóoldalként bemutatva románul, angolul és franciául (kb. 18 perc). Fejezetnavigációt, tudományos jegyzeteket, böngészős beszédszintézissel történő felolvasást, nyomtatást és széles akadálymentességi panelt kínál (diszlexiás betűtípus, térközök, kontraszt, szépia, színtévesztő módok). A beállításokat a localStorage őrzi; hálózati kérések nincsenek. MIT licenc.
