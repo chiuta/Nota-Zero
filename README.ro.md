@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.2.0 · **Ultima actualizare:** 2026-10-19
+**Versiune:** 1.3.0 · **Ultima actualizare:** 2026-10-19
+
+Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Ficțiune / speculație.** Operă literară; notele științifice au scop explicativ și nu înlocuiesc surse academice.
 
@@ -18,7 +20,7 @@ Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o
 
 ## Funcții
 
-- Text complet în română, engleză și franceză; comutare instantanee între limbi.
+- Interfață în 8 limbi (RO, EN, FR, IT, ES, PT, DE, HU); text complet în română, engleză și franceză (în celelalte limbi se afișează textul în engleză); comutare instantanee între limbi.
 - Capitole: I · Întrebarea Greșită, Interludiu · Tatăl, II · Muzica Înainte de Sunete, III · Membrana, IV · Înainte de Prima Secundă, V · Corzile, VI · Oglinda Universului, VII · Întoarcerea, Epilog · 17 Mai 2087, plus secțiunea „Note Științifice”.
 - Meniu „Capitole” cu navigare directă; buton „↑” pentru revenirea sus; meniu mobil.
 - Citire cu voce (🔊) prin sinteza vocală a browserului (Web Speech API): buton ▶ la fiecare capitol, player cu pauză, oprire, salt între fragmente, viteză (1×) și alegerea vocii.
@@ -46,7 +48,7 @@ Paginile din `serie/` sunt statice, cu doar scripturi locale mici (animații de 
 
 ## Manual de utilizare
 
-1. Deschide pagina și alege limba cu butoanele **EN / FR / RO** din bara de sus (sau din meniul ☰ pe mobil).
+1. Deschide pagina și alege limba cu butoanele **RO / EN / FR / IT / ES / PT / DE / HU** din bara de sus (sau din meniul ☰ pe mobil).
 2. Citește derulând, sau sari la un capitol din meniul „Capitole”; „Știință” duce la „Note Științifice”.
 3. Pentru ascultare: apasă 🔊 din bară sau ▶ lângă titlul unui capitol. Cu redarea pornită, **Spațiu** pune pe pauză/reia, iar **Esc** oprește.
 4. Din ⚙ Accesibilitate setezi mărimea textului, fontul, spațierea, contrastul, modurile de culoare și altele; preferințele se salvează automat.

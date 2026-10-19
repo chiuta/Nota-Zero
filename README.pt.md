@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.2.0 · **Última atualização:** 2026-10-19
+**Versão:** 1.3.0 · **Última atualização:** 2026-10-19
+
+Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Ficção / especulação.** Obra literária; as notas científicas têm finalidade explicativa e não substituem as fontes académicas.
 
@@ -18,7 +20,7 @@ Nota Zero é um conto de Alexandru Ionuț Chiuță (2026), apresentado como uma 
 
 ## Funcionalidades
 
-- Texto completo em romeno, inglês e francês; alternância instantânea entre línguas.
+- Interface em 8 línguas (RO, EN, FR, IT, ES, PT, DE, HU); texto completo em romeno, inglês e francês (nas outras línguas é apresentado o texto em inglês); alternância instantânea entre línguas.
 - Capítulos: I · A Pergunta Errada, Interlúdio · O Pai, II · A Música Antes dos Sons, III · A Membrana, IV · Antes do Primeiro Segundo, V · As Cordas, VI · O Espelho do Universo, VII · O Regresso, Epílogo · 17 de maio de 2087, mais a secção «Notas científicas».
 - Menu «Capítulos» com navegação direta; botão «↑» para voltar ao topo; menu móvel.
 - Leitura em voz alta (🔊) através da síntese de voz do navegador (Web Speech API): botão ▶ em cada capítulo, leitor com pausa, paragem, salto entre fragmentos, velocidade (1×) e escolha da voz.
@@ -46,7 +48,7 @@ As páginas de `serie/` são estáticas, com apenas pequenos scripts locais (ani
 
 ## Manual de utilização
 
-1. Abra a página e escolha a língua com os botões **EN / FR / RO** da barra superior (ou no menu ☰ no telemóvel).
+1. Abra a página e escolha a língua com os botões **RO / EN / FR / IT / ES / PT / DE / HU** da barra superior (ou no menu ☰ no telemóvel).
 2. Leia deslocando a página, ou salte para um capítulo a partir do menu «Capítulos»; «Ciência» leva às «Notas científicas».
 3. Para ouvir: prima 🔊 na barra ou ▶ junto ao título de um capítulo. Com a reprodução ativa, **Espaço** coloca em pausa/retoma e **Esc** pára.
 4. Em ⚙ Acessibilidade define o tamanho do texto, o tipo de letra, o espaçamento, o contraste, os modos de cor e mais; as preferências são guardadas automaticamente.

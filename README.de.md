@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.2.0 · **Zuletzt aktualisiert:** 2026-10-19
+**Version:** 1.3.0 · **Zuletzt aktualisiert:** 2026-10-19
+
+Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fiktion / Spekulation.** Literarisches Werk; die wissenschaftlichen Anmerkungen dienen der Erläuterung und ersetzen keine akademischen Quellen.
 
@@ -18,7 +20,7 @@ Nota Zero ist eine Erzählung von Alexandru Ionuț Chiuță (2026), präsentiert
 
 ## Funktionen
 
-- Vollständiger Text auf Rumänisch, Englisch und Französisch; sofortiger Wechsel zwischen den Sprachen.
+- Oberfläche in 8 Sprachen (RO, EN, FR, IT, ES, PT, DE, HU); vollständiger Text auf Rumänisch, Englisch und Französisch (in den anderen Sprachen wird der englische Text angezeigt); sofortiger Wechsel zwischen den Sprachen.
 - Kapitel: I · Die falsche Frage, Zwischenspiel · Der Vater, II · Die Musik vor den Klängen, III · Die Membran, IV · Vor der ersten Sekunde, V · Die Saiten, VI · Der Spiegel des Universums, VII · Die Rückkehr, Epilog · 17. Mai 2087, dazu der Abschnitt „Wissenschaftliche Anmerkungen“.
 - Menü „Kapitel“ mit Direktnavigation; Schaltfläche „↑“ zur Rückkehr nach oben; mobiles Menü.
 - Vorlesen (🔊) über die Sprachsynthese des Browsers (Web Speech API): ▶-Schaltfläche bei jedem Kapitel, Player mit Pause, Stopp, Sprung zwischen Abschnitten, Geschwindigkeit (1×) und Stimmauswahl.
@@ -46,7 +48,7 @@ Die Seiten in `serie/` sind statisch, mit nur kleinen lokalen Skripten (Hintergr
 
 ## Anleitung
 
-1. Öffne die Seite und wähle die Sprache mit den Schaltflächen **EN / FR / RO** in der oberen Leiste (oder im ☰-Menü auf dem Smartphone).
+1. Öffne die Seite und wähle die Sprache mit den Schaltflächen **RO / EN / FR / IT / ES / PT / DE / HU** in der oberen Leiste (oder im ☰-Menü auf dem Smartphone).
 2. Lies durch Scrollen oder springe über das Menü „Kapitel“ zu einem Kapitel; „Wissenschaft“ führt zu den „Wissenschaftlichen Anmerkungen“.
 3. Zum Zuhören: Drücke 🔊 in der Leiste oder ▶ neben dem Titel eines Kapitels. Bei laufender Wiedergabe pausiert/setzt **Leertaste** fort und **Esc** stoppt.
 4. Unter ⚙ Barrierefreiheit stellst du Textgröße, Schrift, Abstände, Kontrast, Farbmodi und mehr ein; die Einstellungen werden automatisch gespeichert.

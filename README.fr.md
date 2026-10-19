@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.2.0 · **Dernière mise à jour :** 2026-10-19
+**Version :** 1.3.0 · **Dernière mise à jour :** 2026-10-19
+
+Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fiction / spéculation.** Œuvre littéraire ; les notes scientifiques ont une visée explicative et ne remplacent pas les sources académiques.
 
@@ -18,7 +20,7 @@ Nota Zero est une nouvelle d'Alexandru Ionuț Chiuță (2026), présentée comme
 
 ## Fonctions
 
-- Texte complet en roumain, anglais et français ; bascule instantanée entre les langues.
+- Interface en 8 langues (RO, EN, FR, IT, ES, PT, DE, HU) ; texte complet en roumain, anglais et français (dans les autres langues, le texte anglais s'affiche) ; bascule instantanée entre les langues.
 - Chapitres : I · La Mauvaise Question, Interlude · Le Père, II · La Musique avant les sons, III · La Membrane, IV · Avant la première seconde, V · Les Cordes, VI · Le Miroir de l'Univers, VII · Le Retour, Épilogue · 17 mai 2087, plus la section « Notes scientifiques ».
 - Menu « Chapitres » avec navigation directe ; bouton « ↑ » pour revenir en haut ; menu mobile.
 - Lecture à voix haute (🔊) via la synthèse vocale du navigateur (Web Speech API) : bouton ▶ à chaque chapitre, lecteur avec pause, arrêt, saut entre les passages, vitesse (1×) et choix de la voix.
@@ -46,7 +48,7 @@ Les pages de `serie/` sont statiques, avec seulement de petits scripts locaux (a
 
 ## Mode d'emploi
 
-1. Ouvrez la page et choisissez la langue avec les boutons **EN / FR / RO** de la barre supérieure (ou depuis le menu ☰ sur mobile).
+1. Ouvrez la page et choisissez la langue avec les boutons **RO / EN / FR / IT / ES / PT / DE / HU** de la barre supérieure (ou depuis le menu ☰ sur mobile).
 2. Lisez en faisant défiler, ou passez à un chapitre depuis le menu « Chapitres » ; « Science » mène aux « Notes scientifiques ».
 3. Pour écouter : appuyez sur 🔊 dans la barre ou sur ▶ à côté du titre d'un chapitre. Pendant la lecture, **Espace** met en pause/reprend et **Échap** arrête.
 4. Depuis ⚙ Accessibilité, vous réglez la taille du texte, la police, l'espacement, le contraste, les modes de couleur et plus encore ; les préférences sont enregistrées automatiquement.

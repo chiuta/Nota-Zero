@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 1.2.0 · **Última actualización:** 2026-10-19
+**Versión:** 1.3.0 · **Última actualización:** 2026-10-19
+
+Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Ficción / especulación.** Obra literaria; las notas científicas tienen finalidad explicativa y no sustituyen las fuentes académicas.
 
@@ -18,7 +20,7 @@ Nota Zero es un relato de Alexandru Ionuț Chiuță (2026), presentado como una 
 
 ## Funciones
 
-- Texto completo en rumano, inglés y francés; cambio instantáneo entre idiomas.
+- Interfaz en 8 idiomas (RO, EN, FR, IT, ES, PT, DE, HU); texto completo en rumano, inglés y francés (en los demás idiomas se muestra el texto en inglés); cambio instantáneo entre idiomas.
 - Capítulos: I · La Pregunta Equivocada, Interludio · El Padre, II · La Música antes de los Sonidos, III · La Membrana, IV · Antes del Primer Segundo, V · Las Cuerdas, VI · El Espejo del Universo, VII · El Regreso, Epílogo · 17 de mayo de 2087, más la sección «Notas científicas».
 - Menú «Capítulos» con navegación directa; botón «↑» para volver arriba; menú móvil.
 - Lectura en voz alta (🔊) mediante la síntesis de voz del navegador (Web Speech API): botón ▶ en cada capítulo, reproductor con pausa, parada, salto entre fragmentos, velocidad (1×) y elección de voz.
@@ -46,7 +48,7 @@ Las páginas de `serie/` son estáticas, con solo pequeños scripts locales (ani
 
 ## Manual de uso
 
-1. Abre la página y elige el idioma con los botones **EN / FR / RO** de la barra superior (o desde el menú ☰ en móvil).
+1. Abre la página y elige el idioma con los botones **RO / EN / FR / IT / ES / PT / DE / HU** de la barra superior (o desde el menú ☰ en móvil).
 2. Lee desplazándote, o salta a un capítulo desde el menú «Capítulos»; «Ciencia» lleva a las «Notas científicas».
 3. Para escuchar: pulsa 🔊 en la barra o ▶ junto al título de un capítulo. Con la reproducción activa, **Espacio** pausa/reanuda y **Esc** detiene.
 4. Desde ⚙ Accesibilidad ajustas el tamaño del texto, la fuente, el espaciado, el contraste, los modos de color y más; las preferencias se guardan automáticamente.

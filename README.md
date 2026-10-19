@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.2.0 · **Last updated:** 2026-10-19
+**Version:** 1.3.0 · **Last updated:** 2026-10-19
+
+Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fiction / speculation.** A literary work; the scientific notes are meant as explanation and do not replace academic sources.
 
@@ -18,7 +20,7 @@ Nota Zero is a short story by Alexandru Ionuț Chiuță (2026), presented as a s
 
 ## Features
 
-- Full text in Romanian, English and French; instant switching between languages.
+- Interface in 8 languages (RO, EN, FR, IT, ES, PT, DE, HU); full text in Romanian, English and French (in the other languages the English text is shown); instant switching between languages.
 - Chapters: I · The Wrong Question, Interlude · The Father, II · The Music Before Sounds, III · The Membrane, IV · Before the First Second, V · The Strings, VI · The Mirror of the Universe, VII · The Return, Epilogue · 17 May 2087, plus the "Scientific Notes" section.
 - A "Chapters" menu with direct navigation; a "↑" button to return to the top; mobile menu.
 - Voice reading (🔊) through the browser's speech synthesis (Web Speech API): a ▶ button at each chapter, a player with pause, stop, skipping between passages, speed (1×) and voice choice.
@@ -46,7 +48,7 @@ The pages in `serie/` are static, with only small local scripts (background anim
 
 ## User guide
 
-1. Open the page and choose the language with the **EN / FR / RO** buttons in the top bar (or from the ☰ menu on mobile).
+1. Open the page and choose the language with the **RO / EN / FR / IT / ES / PT / DE / HU** buttons in the top bar (or from the ☰ menu on mobile).
 2. Read by scrolling, or jump to a chapter from the "Chapters" menu; "Science" takes you to the "Scientific Notes".
 3. For listening: press 🔊 in the bar or ▶ next to a chapter's title. While playback is on, **Space** pauses/resumes and **Esc** stops.
 4. From ⚙ Accessibility you set the text size, font, spacing, contrast, colour modes and more; the preferences are saved automatically.

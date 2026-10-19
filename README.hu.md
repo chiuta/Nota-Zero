@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.0 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.3.0 · **Utolsó frissítés:** 2026-10-19
+
+A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fikció / spekuláció.** Irodalmi mű; a tudományos jegyzetek magyarázó célúak, és nem helyettesítik a tudományos forrásokat.
 
@@ -18,7 +20,7 @@ A Nota Zero Alexandru Ionuț Chiuță novellája (2026), egyetlen fájlos olvas�
 
 ## Funkciók
 
-- Teljes szöveg románul, angolul és franciául; azonnali váltás a nyelvek között.
+- 8 nyelvű felület (RO, EN, FR, IT, ES, PT, DE, HU); teljes szöveg románul, angolul és franciául (a többi nyelven az angol szöveg látható); azonnali váltás a nyelvek között.
 - Fejezetek: I · A rossz kérdés, Közjáték · Az apa, II · A hangok előtti zene, III · A membrán, IV · Az első másodperc előtt, V · A húrok, VI · A világegyetem tükre, VII · A visszatérés, Epilógus · 2087. május 17., valamint a „Tudományos jegyzetek” szakasz.
 - „Fejezetek” menü közvetlen navigációval; „↑” gomb a tetejére való visszatéréshez; mobilmenü.
 - Felolvasás (🔊) a böngésző beszédszintézisével (Web Speech API): ▶ gomb minden fejezetnél, lejátszó szünettel, leállítással, ugrással a szakaszok között, sebességgel (1×) és hangválasztással.
@@ -46,7 +48,7 @@ A `serie/` oldalai statikusak, csak kis helyi szkriptekkel (háttéranimációk,
 
 ## Használati útmutató
 
-1. Nyisd meg az oldalt, és válaszd ki a nyelvet a felső sáv **EN / FR / RO** gombjaival (vagy mobilon a ☰ menüből).
+1. Nyisd meg az oldalt, és válaszd ki a nyelvet a felső sáv **RO / EN / FR / IT / ES / PT / DE / HU** gombjaival (vagy mobilon a ☰ menüből).
 2. Olvass görgetéssel, vagy ugorj egy fejezetre a „Fejezetek” menüből; a „Tudomány” a „Tudományos jegyzetekhez” visz.
 3. Hallgatáshoz: nyomd meg a 🔊 gombot a sávban vagy a ▶ gombot egy fejezet címe mellett. Lejátszás közben a **szóköz** szünetel/folytat, az **Esc** leállít.
 4. A ⚙ Akadálymentesség alatt beállítod a szövegméretet, a betűtípust, a térközöket, a kontrasztot, a színmódokat és egyebeket; a beállítások automatikusan mentődnek.

@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.2.0 · **Ultimo aggiornamento:** 2026-10-19
+**Versione:** 1.3.0 · **Ultimo aggiornamento:** 2026-10-19
+
+Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Narrativa / speculazione.** Opera letteraria; le note scientifiche hanno scopo esplicativo e non sostituiscono le fonti accademiche.
 
@@ -18,7 +20,7 @@ Nota Zero è un racconto di Alexandru Ionuț Chiuță (2026), presentato come un
 
 ## Funzioni
 
-- Testo completo in rumeno, inglese e francese; passaggio istantaneo tra le lingue.
+- Interfaccia in 8 lingue (RO, EN, FR, IT, ES, PT, DE, HU); testo completo in rumeno, inglese e francese (nelle altre lingue viene mostrato il testo inglese); passaggio istantaneo tra le lingue.
 - Capitoli: I · La Domanda Sbagliata, Interludio · Il Padre, II · La Musica prima dei suoni, III · La Membrana, IV · Prima del Primo Secondo, V · Le Stringhe, VI · Lo Specchio dell'Universo, VII · Il Ritorno, Epilogo · 17 maggio 2087, più la sezione «Note scientifiche».
 - Menu «Capitoli» con navigazione diretta; pulsante «↑» per tornare in cima; menu mobile.
 - Lettura ad alta voce (🔊) tramite la sintesi vocale del browser (Web Speech API): pulsante ▶ a ogni capitolo, lettore con pausa, arresto, salto tra i frammenti, velocità (1×) e scelta della voce.
@@ -46,7 +48,7 @@ Le pagine di `serie/` sono statiche, con soli piccoli script locali (animazioni 
 
 ## Guida all'uso
 
-1. Apri la pagina e scegli la lingua con i pulsanti **EN / FR / RO** della barra in alto (o dal menu ☰ su dispositivi mobili).
+1. Apri la pagina e scegli la lingua con i pulsanti **RO / EN / FR / IT / ES / PT / DE / HU** della barra in alto (o dal menu ☰ su dispositivi mobili).
 2. Leggi scorrendo, oppure passa a un capitolo dal menu «Capitoli»; «Scienza» porta alle «Note scientifiche».
 3. Per ascoltare: premi 🔊 nella barra oppure ▶ accanto al titolo di un capitolo. Con la riproduzione avviata, **Spazio** mette in pausa/riprende e **Esc** interrompe.
 4. Da ⚙ Accessibilità imposti la dimensione del testo, il font, la spaziatura, il contrasto, le modalità di colore e altro; le preferenze vengono salvate automaticamente.
