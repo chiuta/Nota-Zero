@@ -1,101 +1,103 @@
 # Nota Zero
 
-**Versiune:** 1.2.0 · **Ultima actualizare:** 19 octombrie 2026
+**English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Ficțiune / speculație.** Operă literară; notele științifice au scop explicativ și nu înlocuiesc surse academice.
+**Version:** 1.2.0 · **Last updated:** 2026-10-19
 
-Povestire de ficțiune speculativă despre teoria corzilor, citibilă în română, engleză și franceză, cu cititor vocal și opțiuni de accesibilitate.
+**Fiction / speculation.** A literary work; the scientific notes are meant as explanation and do not replace academic sources.
+
+A speculative-fiction short story about string theory, readable in Romanian, English and French, with a voice reader and accessibility options.
 
 **Live:** https://chiuta.github.io/Nota-Zero/
 
-![Captura de ecran](screenshot.png)
+![Screenshot](screenshot.png)
 
-## Ce este
+## What it is
 
-Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o pagină de lectură single-file (`index.html`). Conform paginii, este „ficțiune speculativă · teoria corzilor · 2087”, cu o lectură de aproximativ 18 minute, în trei limbi (RO · EN · FR). Începe cu: „Înainte de Big Bang era ceva. Nimeni nu știe ce. Zara are de gând să afle.” Textul integral este inclus în fișier, alături de note științifice.
+Nota Zero is a short story by Alexandru Ionuț Chiuță (2026), presented as a single-file reading page (`index.html`). According to the page, it is "speculative fiction · string theory · 2087", with a reading time of about 18 minutes, in three languages (RO · EN · FR). It begins: "Before the Big Bang there was something. Nobody knows what. Zara intends to find out." The full text is included in the file, alongside scientific notes.
 
-## Funcții
+## Features
 
-- Text complet în română, engleză și franceză; comutare instantanee între limbi.
-- Capitole: I · Întrebarea Greșită, Interludiu · Tatăl, II · Muzica Înainte de Sunete, III · Membrana, IV · Înainte de Prima Secundă, V · Corzile, VI · Oglinda Universului, VII · Întoarcerea, Epilog · 17 Mai 2087, plus secțiunea „Note Științifice”.
-- Meniu „Capitole” cu navigare directă; buton „↑” pentru revenirea sus; meniu mobil.
-- Citire cu voce (🔊) prin sinteza vocală a browserului (Web Speech API): buton ▶ la fiecare capitol, player cu pauză, oprire, salt între fragmente, viteză (1×) și alegerea vocii.
-- Imprimare (🖨).
-- „Reia lectura”: la o nouă vizită, dacă ai citit anterior mai departe de primul capitol, apare o bară discretă „Ai rămas la …” cu butoanele Continuă și Închide (urmărește limba aleasă).
-- Panou de accesibilitate (⚙): mărime text (A− / A+), font pentru dislexie (Atkinson Hyperlegible), spațiere litere/cuvinte/rânduri/paragrafe, umbră text, coloană îngustă, subliniere linkuri, contrast ridicat, mod luminos, mod sepia (fundal bej deschis cu text brun), fără animații, ghid de lectură, moduri pentru daltonism (protanopie, deuteranopie, tritanopie) și „Resetează toate preferințele”.
-- Animație de fundal (canvas) în antet, care poate fi dezactivată din „Fără animații”.
+- Full text in Romanian, English and French; instant switching between languages.
+- Chapters: I · The Wrong Question, Interlude · The Father, II · The Music Before Sounds, III · The Membrane, IV · Before the First Second, V · The Strings, VI · The Mirror of the Universe, VII · The Return, Epilogue · 17 May 2087, plus the "Scientific Notes" section.
+- A "Chapters" menu with direct navigation; a "↑" button to return to the top; mobile menu.
+- Voice reading (🔊) through the browser's speech synthesis (Web Speech API): a ▶ button at each chapter, a player with pause, stop, skipping between passages, speed (1×) and voice choice.
+- Printing (🖨).
+- "Resume reading": on a new visit, if you previously read further than the first chapter, a discreet bar "You left off at …" appears with Continue and Close buttons (it follows the chosen language).
+- Accessibility panel (⚙): text size (A− / A+), dyslexia font (Atkinson Hyperlegible), letter/word/line/paragraph spacing, text shadow, narrow column, link underlining, high contrast, light mode, sepia mode (light beige background with brown text), no animations, reading guide, colour-blindness modes (protanopia, deuteranopia, tritanopia) and "Reset all preferences".
+- A background animation (canvas) in the header, which can be disabled from "No animations".
 
-## Alte fișiere
+## Other files
 
-- `index.md` — textul poveștii în format Markdown (versiune în română).
-- `recenzie.html` — „Recenzie exhaustivă” a lucrării, **generată de un model AI (Claude Sonnet 4.6)**, nu critică literară independentă; scorurile (ex. 9,4/10) sunt generate automat și nu au fost validate de un evaluator uman. Eticheta „Recenzie generată de AI / AI-generated review” este afișată bilingv (RO/EN) în titlu, în antet, în notă și în subsol.
+- `index.md` — the story's text in Markdown format (Romanian version).
+- `recenzie.html` — an "Exhaustive review" of the work, **generated by an AI model (Claude Sonnet 4.6)**, not independent literary criticism; the scores (e.g. 9.4/10) are generated automatically and were not validated by a human evaluator. The label "Recenzie generată de AI / AI-generated review" is displayed bilingually (RO/EN) in the title, in the header, in the note and in the footer.
 
-## Seria completă (41 de volume)
+## The complete series (41 volumes)
 
-Pe lângă povestirea din `index.html` (volumul I), depozitul conține seria *Nota Zero* în română:
+Besides the story in `index.html` (volume I), the repository contains the *Nota Zero* series in Romanian:
 
-- `serie/` — ediția finală (19 fișiere, 41 de volume), cu `index.html` ca cuprins. Începe la `serie/index.html`.
-- `serie/arhiva-initiala/` — seria inițială, cu volumele pe teme, și cele 10 analize critice (generate de un model AI).
-- `serie/suplimentare/` — *Nota Muzicii* (Vol. XVII-A), zece scene în proză, o recenzie ficțională din 2400 și ghidul de implementare.
-- `serie/COMPARATIE.md` — comparația dintre ediția finală și seria completă și ce s-a îmbinat.
-- `carte/Nota-Zero-carte-completa-ro.pdf` — cartea completă, 478 de pagini, format A5; `carte/Nota-Zero-carte-completa-ro.md` — tot textul din PDF, în Markdown.
+- `serie/` — the final edition (19 files, 41 volumes), with `index.html` as the table of contents. It starts at `serie/index.html`.
+- `serie/arhiva-initiala/` — the initial series, with the volumes by theme, and the 10 critical analyses (generated by an AI model).
+- `serie/suplimentare/` — *Nota Muzicii* (Vol. XVII-A), ten prose scenes, a fictional review from 2400 and the implementation guide.
+- `serie/COMPARATIE.md` — the comparison between the final edition and the complete series and what was merged.
+- `carte/Nota-Zero-carte-completa-ro.pdf` — the complete book, 478 pages, A5 format; `carte/Nota-Zero-carte-completa-ro.md` — all the text of the PDF, in Markdown.
 
-Paginile din `serie/` sunt statice, cu doar scripturi locale mici (animații de fundal, bară de progres), fără apeluri de rețea, cu o excepție: două analize din arhivă (`ANALIZA-clasamente-72-indicatori.html`, `ANALIZA-recenzie-titlologica.html`) încarcă Chart.js de la cdnjs.cloudflare.com pentru grafice (textul se citește și fără). Nicio pagină nu încarcă fonturi externe. Textele sunt ficțiune scrisă în colaborare cu Claude (Anthropic); recenziile și clasamentele sunt generate de un model AI și nu sunt critică independentă.
+The pages in `serie/` are static, with only small local scripts (background animations, progress bar), with no network calls, with one exception: two analyses in the archive (`ANALIZA-clasamente-72-indicatori.html`, `ANALIZA-recenzie-titlologica.html`) load Chart.js from cdnjs.cloudflare.com for charts (the text can be read without it). No page loads external fonts. The texts are fiction written in collaboration with Claude (Anthropic); the reviews and rankings are generated by an AI model and are not independent criticism.
 
-## Manual de utilizare
+## User guide
 
-1. Deschide pagina și alege limba cu butoanele **EN / FR / RO** din bara de sus (sau din meniul ☰ pe mobil).
-2. Citește derulând, sau sari la un capitol din meniul „Capitole”; „Știință” duce la „Note Științifice”.
-3. Pentru ascultare: apasă 🔊 din bară sau ▶ lângă titlul unui capitol. Cu redarea pornită, **Spațiu** pune pe pauză/reia, iar **Esc** oprește.
-4. Din ⚙ Accesibilitate setezi mărimea textului, fontul, spațierea, contrastul, modurile de culoare și altele; preferințele se salvează automat.
-5. Folosește 🖨 pentru a imprima textul.
-6. În meniurile derulante, săgețile ↑ / ↓ mută selecția, Esc închide, Tab închide meniul.
+1. Open the page and choose the language with the **EN / FR / RO** buttons in the top bar (or from the ☰ menu on mobile).
+2. Read by scrolling, or jump to a chapter from the "Chapters" menu; "Science" takes you to the "Scientific Notes".
+3. For listening: press 🔊 in the bar or ▶ next to a chapter's title. While playback is on, **Space** pauses/resumes and **Esc** stops.
+4. From ⚙ Accessibility you set the text size, font, spacing, contrast, colour modes and more; the preferences are saved automatically.
+5. Use 🖨 to print the text.
+6. In the drop-down menus, the ↑ / ↓ arrows move the selection, Esc closes, Tab closes the menu.
 
-## Confidențialitate și rețea
+## Privacy and network
 
-- **Stocare locală (localStorage):** limba (`nz-lang`), mărimea textului (`nz-fz`), preferințele de accesibilitate (`nz-a11y-*`, `nz-cb`), ultimul capitol atins (`nz-pos`), viteza și vocea citirii (`nz-tts-speed`, `nz-tts-voice-*`). Nu se stochează textul sau alte date personale.
-- **Rețea:** nu am găsit apeluri `fetch`/XHR și nici scripturi sau fonturi încărcate de pe servere externe. Linkurile către centrulstring.ro, alexio.tf, Buy Me a Coffee și chiuta.github.io se deschid doar la click.
-- Citirea cu voce folosește vocile instalate în browser/sistem; unele browsere pot trimite textul unui serviciu vocal propriu, în funcție de vocea aleasă (comportament al browserului, nu al aplicației).
+- **Local storage (localStorage):** the language (`nz-lang`), the text size (`nz-fz`), the accessibility preferences (`nz-a11y-*`, `nz-cb`), the last chapter reached (`nz-pos`), the reading speed and voice (`nz-tts-speed`, `nz-tts-voice-*`). The text and other personal data are not stored.
+- **Network:** I found no `fetch`/XHR calls and no scripts or fonts loaded from external servers. The links to centrulstring.ro, alexio.tf, Buy Me a Coffee and chiuta.github.io open only on click.
+- Voice reading uses the voices installed in the browser/system; some browsers may send the text to their own voice service, depending on the chosen voice (browser behaviour, not the app's).
 
-## Rulare locală / offline
+## Running locally / offline
 
-Descarcă `index.html` și deschide-l în browser; textul, accesibilitatea și imprimarea nu au nevoie de internet. Cititorul vocal depinde de vocile disponibile local în browser/sistem.
+Download `index.html` and open it in a browser; the text, accessibility and printing need no internet. The voice reader depends on the voices available locally in the browser/system.
 
-## Licență
+## License
 
-MIT — vezi fișierul LICENSE
+MIT — see the LICENSE file
 
 ## Audit
 
-Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ieșire către rețea este la click pe linkuri. Corecturi de accesibilitate (etichete pentru comutatoarele din panoul de accesibilitate, contrast în teme luminoase, panouri cu fundal închis în modul luminos).
+Audit: 2026-10-10 (updated 2026-10-11) — no `fetch`/XHR/CDN; the only network exit is on clicking links. Accessibility fixes (labels for the toggles in the accessibility panel, contrast in light themes, dark-background panels in light mode).
 
-## Funcții noi (v1.1.0)
+## New features (v1.1.0)
 
-- **Căutare locală în text** (butonul 🔎, FFF.search): caută în paragrafele capitolelor din limba activă (ro, en, fr), fără diacritice și cu mici greșeli, apoi sare la pasaj. Fără rețea.
-- **Marcaje și note** (butonul 📝): selectezi un fragment, adaugi o notă; se păstrează doar în browser, se pot șterge, exporta ca Markdown și intră în copia de siguranță .fff.json (din „Transparență”).
-- Citirea capitolelor cu voce existentă rămâne neschimbată; kit comun (core, label, bundle, tts, search).
-- Textele noi sunt în toate limbile aplicației (inclusiv hu/de unde există sistem i18n); traducerile automate sunt neverificate nativ.
-- Teste: `tests/fff-r8.test.mjs` (rețea blocată, 1280 și 360 px, axe 0 violări cu dialogurile deschise, note adăugate/persistate/șterse/exportate).
+- **Local search in the text** (the 🔎 button, FFF.search): searches the chapter paragraphs in the active language (ro, en, fr), without diacritics and with small typos, then jumps to the passage. No network.
+- **Bookmarks and notes** (the 📝 button): you select a passage, add a note; they are kept only in the browser, can be deleted, exported as Markdown and are included in the .fff.json backup (from "Transparency").
+- Reading chapters aloud, as before, remains unchanged; shared kit (core, label, bundle, tts, search).
+- The new texts are in all the app's languages (including hu/de where an i18n system exists); the automatic translations are not natively verified.
+- Tests: `tests/fff-r8.test.mjs` (network blocked, 1280 and 360 px, axe 0 violations with dialogs open, notes added/persisted/deleted/exported).
 
-## Istoric / Changelog
+## History / Changelog
 
-- **19 octombrie 2026 (versiunea 1.2.0):** în „Note Științifice”, linkuri spre Horizons (Universul ciclic, Radiația cosmică fosilă) și Universul-Observabil-3D; texte ro/en/fr.
+- **19 October 2026 (version 1.2.0):** in "Scientific Notes", links to Horizons (Cyclic universe, Cosmic microwave background) and Universul-Observabil-3D; ro/en/fr texts.
 
-- **18 octombrie 2026:** adăugate seria completă (`serie/`), arhiva inițială, materialele suplimentare și PDF-ul cărții; în ediția finală, cărțile II–V au textul integral în locul rezumatelor (vezi `serie/COMPARATIE.md`). Aplicația din `index.html` nu s-a schimbat.
+- **18 October 2026:** added the complete series (`serie/`), the initial archive, the supplementary materials and the book's PDF; in the final edition, books II–V have the full text in place of the summaries (see `serie/COMPARATIE.md`). The app in `index.html` did not change.
 
-- **18 octombrie 2026:** linkuri adânci `?cap=1…7`, `?cap=epilog` și `?cap=science` (echivalente cu `#capN`; hash-ul are prioritate; valorile invalide sunt ignorate). Secțiune „Punți către alte aplicații” în `serie/` și fișiere de import în `punti/`. CSP: hash recalculat.
-- **18 octombrie 2026 (versiunea 1.1.1):** `?cap=1b` (Interludiu) și focus pe capitolul-țintă la `?cap=`; etichete cinstite pentru punțile TerRa/ORARIUM din `serie/` (loc și oră ilustrative, timp orbital), Pământul „sus pe cerul selenar” (≈31° elevație) în Vol. I, nota de arhivă, linkul punți → GitHub; fișiere de import corectate (BorderlessMelodies, Akasha, CalmWaves ≤ 8 presetări).
-- **14 octombrie 2026 (versiunea 1.1.0):** căutare locală în text, marcaje și note exportabile, kit comun, teste.
+- **18 October 2026:** deep links `?cap=1…7`, `?cap=epilog` and `?cap=science` (equivalent to `#capN`; the hash takes priority; invalid values are ignored). A "Bridges to other apps" section in `serie/` and import files in `punti/`. CSP: hash recalculated.
+- **18 October 2026 (version 1.1.1):** `?cap=1b` (Interlude) and focus on the target chapter at `?cap=`; honest labels for the TerRa/ORARIUM bridges in `serie/` (illustrative place and time, orbital time), the Earth "high in the lunar sky" (≈31° elevation) in Vol. I, the archive note, the bridges → GitHub link; corrected import files (BorderlessMelodies, Akasha, CalmWaves ≤ 8 presets).
+- **14 October 2026 (version 1.1.0):** local search in the text, exportable bookmarks and notes, shared kit, tests.
 
-- **12 octombrie 2026 (versiunea 1.0.0):** 1.0.0 — 2026-10-12: versiunea și data ultimei actualizări sunt afișate în aplicație (subsol, tradusă RO/EN/FR).
+- **12 October 2026 (version 1.0.0):** 1.0.0 — 2026-10-12: the version and the date of the last update are shown in the app (footer, translated RO/EN/FR).
 
-- **11 octombrie 2026 (rev. 3):** atribuirea citatului din antet nu mai atinge rândul AUTOR/AN pe desktop (margine sub citat); bara de progres expune și timpul rămas estimat (`aria-valuetext`, ~18 min total, RO/EN/FR) și nu mai produce NaN pe pagini fără derulare. CSP: hash recalculat.
-- **11 octombrie 2026 (rev. 2):** cele 82 de handlere `onclick`/`onchange` inline au fost înlocuite cu un dispatcher delegat (`data-onclick`/`data-onchange`, argumente literale, listă albă de funcții); CSP are acum `script-src` cu hash și fără `'unsafe-inline'`. Mărimea textului (A−/A+) se aplica doar parțial în paragrafele capitolelor la ≥1100 px și pe mobil; acum scalează peste tot. Activarea unei opțiuni (ex. dislexie) nu mai schimbă tema din luminoasă (a sistemului) în întunecată. Nou: „Reia lectura”.
-- **11 octombrie 2026:** modul sepia dădea un fundal închis (rgb(26,20,16)); acum este o temă caldă deschisă (fundal #f4e8d0, text brun #3b2a14). Bara de progres și butoanele de sprijin sunt acum în repere ARIA (`complementary`), deci axe-core raportează 0 violări (regula `region`) la 1280 și 360 px. Neschimbat: 82 de handlere `onclick` inline (CSP păstrează `'unsafe-inline'`). Secțiunea „Ce rămâne necunoscut · Mai 2026” păstrează data ei; nu am găsit o confirmare experimentală nouă a teoriei corzilor, gravitonului sau dimensiunilor extra la această dată.
+- **11 October 2026 (rev. 3):** the attribution of the quote in the header no longer touches the AUTHOR/YEAR row on desktop (margin under the quote); the progress bar also exposes the estimated remaining time (`aria-valuetext`, ~18 min total, RO/EN/FR) and no longer produces NaN on pages without scrolling. CSP: hash recalculated.
+- **11 October 2026 (rev. 2):** the 82 inline `onclick`/`onchange` handlers were replaced by a delegated dispatcher (`data-onclick`/`data-onchange`, literal arguments, whitelist of functions); the CSP now has `script-src` with a hash and without `'unsafe-inline'`. The text size (A−/A+) was applied only partially in the chapter paragraphs at ≥1100 px and on mobile; now it scales everywhere. Activating an option (e.g. dyslexia) no longer switches the theme from light (system) to dark. New: "Resume reading".
+- **11 October 2026:** sepia mode gave a dark background (rgb(26,20,16)); it is now a warm light theme (background #f4e8d0, brown text #3b2a14). The progress bar and the support buttons are now in ARIA landmarks (`complementary`), so axe-core reports 0 violations (the `region` rule) at 1280 and 360 px. Unchanged: 82 inline `onclick` handlers (the CSP keeps `'unsafe-inline'`). The section "What remains unknown · May 2026" keeps its date; I found no new experimental confirmation of string theory, the graviton or extra dimensions at this date.
 
-## Autor
+## Author
 
-Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf. Pagina trimite către Centrul STRING (centrulstring.ro).
+Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf. The page links to Centrul STRING (centrulstring.ro).
 
 ## English summary
 
