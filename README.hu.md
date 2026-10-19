@@ -12,7 +12,7 @@ Spekulatív fikciós novella a húrelméletről, románul, angolul és franciáu
 
 **Élő:** https://chiuta.github.io/Nota-Zero/
 
-![Képernyőkép](screenshot.png)
+![Képernyőkép](screenshot.hu.png)
 
 ## Mi ez
 

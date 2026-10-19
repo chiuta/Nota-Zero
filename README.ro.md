@@ -12,7 +12,7 @@ Povestire de ficțiune speculativă despre teoria corzilor, citibilă în român
 
 **Live:** https://chiuta.github.io/Nota-Zero/
 
-![Captura de ecran](screenshot.png)
+![Captura de ecran](screenshot.ro.png)
 
 ## Ce este
 

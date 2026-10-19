@@ -12,7 +12,7 @@ Racconto di narrativa speculativa sulla teoria delle stringhe, leggibile in rume
 
 **Online:** https://chiuta.github.io/Nota-Zero/
 
-![Schermata](screenshot.png)
+![Schermata](screenshot.it.png)
 
 ## Che cos'è
 

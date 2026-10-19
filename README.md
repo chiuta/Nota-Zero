@@ -12,7 +12,7 @@ A speculative-fiction short story about string theory, readable in Romanian, Eng
 
 **Live:** https://chiuta.github.io/Nota-Zero/
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.en.png)
 
 ## What it is
 

@@ -12,7 +12,7 @@ Eine spekulative Kurzgeschichte über die Stringtheorie, lesbar auf Rumänisch, 
 
 **Online:** https://chiuta.github.io/Nota-Zero/
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.de.png)
 
 ## Was es ist
 

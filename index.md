@@ -353,3 +353,7 @@ Toate întrebările din această poveste sunt întrebări reale. Unele au răspu
 ---
 
 *© Alexandru Ionuț Chiuță · alexio.tf · Toate drepturile rezervate · Trade-free*
+
+---
+
+**Seria completă Nota Zero (41 de volume): [serie/index.html](serie/index.html)** · [cartea completă (PDF)](carte/Nota-Zero-carte-completa-ro.pdf)

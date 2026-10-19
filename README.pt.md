@@ -12,7 +12,7 @@ Conto de ficção especulativa sobre a teoria das cordas, legível em romeno, in
 
 **Online:** https://chiuta.github.io/Nota-Zero/
 
-![Captura de ecrã](screenshot.png)
+![Captura de ecrã](screenshot.pt.png)
 
 ## O que é
 

@@ -12,7 +12,7 @@ Nouvelle de fiction spéculative sur la théorie des cordes, lisible en roumain,
 
 **En ligne :** https://chiuta.github.io/Nota-Zero/
 
-![Capture d'écran](screenshot.png)
+![Capture d'écran](screenshot.fr.png)
 
 ## Ce que c'est
 

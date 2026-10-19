@@ -12,7 +12,7 @@ Relato de ficción especulativa sobre la teoría de cuerdas, legible en rumano, 
 
 **En línea:** https://chiuta.github.io/Nota-Zero/
 
-![Captura de pantalla](screenshot.png)
+![Captura de pantalla](screenshot.es.png)
 
 ## Qué es
 
