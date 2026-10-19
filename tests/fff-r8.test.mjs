@@ -4,17 +4,17 @@ import {createRequire} from 'module';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-const require = createRequire('/opt/node-tools/package.json');
+const require = createRequire('/home/claude/pw/package.json');
 const {chromium} = require('playwright');
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const INDEX = path.join(HERE, '..', 'index.html');
 const URL_APP = 'file://' + INDEX;
-const AXE = process.env.AXE_PATH || '/tmp/claude-0/-home-claude/78529928-3825-51c3-b9bd-0e81655ab6bc/scratchpad/sweep/node_modules/axe-core/axe.min.js';
+const AXE = process.env.AXE_PATH || '/home/claude/pw/node_modules/axe-core/axe.min.js';
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let pass = 0, fail = 0;
 const ok = (cond, name, info) => { if (cond) { pass++; console.log('  ok   ' + name); } else { fail++; console.log('  FAIL ' + name + (info === undefined ? '' : ' ' + JSON.stringify(info).slice(0, 500))); } };
 const FLAGS = ['--no-sandbox', '--allow-loopback-in-peer-connection', '--disable-features=WebRtcHideLocalIpsWithMdns'];
-const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: FLAGS});
+const browser = await chromium.launch({executablePath: process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: FLAGS});
 const net = [], errs = [];
 async function mk(o = {}) {
   const ctx = await browser.newContext({viewport: {width: o.w || 1280, height: o.h || 800}, acceptDownloads: true, colorScheme: o.scheme || 'dark', reducedMotion: o.reduced ? 'reduce' : 'no-preference', locale: o.locale || 'ro-RO', bypassCSP: !!o.bypassCSP});
@@ -40,30 +40,71 @@ const TTS_MOCK = () => {
     cancel() { synth.speaking = false; }, speak(u) { synth.speaking = true; setTimeout(() => { window.__spoken.push({text: u.text, lang: u.lang}); synth.speaking = false; if (u.onstart) u.onstart({}); if (u.onend) u.onend({}); }, 5); }};
   Object.defineProperty(window, 'SpeechSynthesisUtterance', {value: U, configurable: true}); Object.defineProperty(window, 'speechSynthesis', {value: synth, configurable: true});
 };
-console.log('Nota-Zero — teste kit (core, label, bundle, tts, search) — fără interfața de căutare/note din r8, absentă din aplicația actuală');
-// Notă: butoanele #r8-search-btn / #r8-notes-btn (căutare în text, marcaje și note) nu există în index.html (versiunea curentă);
-// testul verifică ce conține aplicația efectiv: kitul încărcat, eticheta „Transparență”, copia .fff.json, citirea cu voce, accesibilitatea.
+console.log('Nota-Zero — teste r8: căutare în text (🔎) + semne de carte și notițe (📝), 8 limbi, 1280/360 px, rețea blocată');
+const LANGS = ['ro', 'en', 'fr', 'it', 'es', 'pt', 'de', 'hu'];
+const QUERY = {ro: 'membrana', en: 'membrane', fr: 'membrane', it: 'membrana', es: 'membrana', pt: 'membrana', de: 'membran', hu: 'membrán'};
 for (const [w, h] of [[1280, 800], [360, 740]]) {
   const {ctx, page} = await mk({w, h, init: TTS_MOCK});
-  await page.waitForTimeout(3800);
-  ok(await page.evaluate(() => !!(window.FFF && FFF.search && FFF.tts && FFF.bundle && FFF.label)), `kit încărcat (${w}x${h})`);
+  await page.waitForTimeout(1500);
+  ok(await page.evaluate(() => !!(window.FFF && FFF.search && FFF.tts && FFF.bundle && FFF.label && FFF.nzSearch && FFF.nzNotes)), `kit + căutare + notițe încărcate (${w}x${h})`);
+  ok(await page.locator('#r8-search-btn').isVisible() && await page.locator('#r8-notes-btn').isVisible(), `butoanele 🔎 și 📝 vizibile ${w}x${h}`);
   ok(await noHScroll(page), `fără depășire orizontală ${w}x${h}`);
   const ax = await axeRun(page); ok(ax.length === 0, `axe 0 violări (start) ${w}x${h}`, ax);
+  // --- căutare, în fiecare limbă
+  for (const l of LANGS) {
+    await page.evaluate(x => window.setLang(x), l); await page.waitForTimeout(120);
+    await page.locator('#r8-search-btn').click(); await page.waitForTimeout(150);
+    await page.fill('#r8s-q', QUERY[l]); await page.waitForTimeout(500);
+    const n = await page.locator('.r8-res button').count();
+    ok(n > 0, `căutare „${QUERY[l]}” (${l}) ${w}x${h}: ${n} rezultate`);
+    ok(await page.evaluate(() => !/undefined|\[object|\{\{/.test(document.querySelector('dialog.r8-dlg[open]').innerText)), `fără chei brute (${l})`);
+    if (l === 'ro') {
+      await page.fill('#r8s-q', 'membrană'); await page.waitForTimeout(500);   // diacritice
+      ok(await page.locator('.r8-res button').count() > 0, 'diacritice: „membrană” găsește');
+      await page.fill('#r8s-q', 'membarna'); await page.waitForTimeout(500);    // greșeală
+      ok(await page.locator('.r8-res button').count() > 0, 'greșeală: „membarna” găsește');
+      const axs = await axeRun(page); ok(axs.length === 0, `axe 0 violări cu dialogul Căutare ${w}x${h}`, axs);
+      ok(await noHScroll(page), `dialog Căutare: fără depășire ${w}x${h}`);
+      await page.locator('.r8-res button').first().click(); await page.waitForTimeout(1800);
+      ok(await page.locator('.r8-flash').count() === 1, 'salt la pasaj (evidențiere)');
+      const vis = await page.evaluate(() => { const r = document.querySelector('.r8-flash').getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; });
+      ok(vis, 'pasajul găsit e în ecran');
+    } else { await page.keyboard.press('Escape'); await page.waitForTimeout(100); }
+  }
+  await page.evaluate(() => window.setLang('ro'));
+  // --- notițe: selecție, adăugare, persistență, export, copie de siguranță, ștergere
+  await page.evaluate(() => { const p = document.querySelector('#cap1 [data-lang-block="ro"] .chapter-body p'); const r = document.createRange(); r.selectNodeContents(p.firstChild); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
+  await page.waitForTimeout(150);
+  await page.locator('#r8-notes-btn').click(); await page.waitForTimeout(200);
+  ok(await page.locator('#r8n-note').count() === 1, 'dialog notițe cu pasaj selectat');
+  await page.fill('#r8n-note', 'Notița mea de test ăîșț');
+  await page.locator('#r8n-add').click(); await page.waitForTimeout(150);
+  ok(await page.locator('.r8n-list li').count() === 1 && /Notița mea/.test(await page.locator('.r8n-list').innerText()), 'notiță adăugată');
+  const axn = await axeRun(page); ok(axn.length === 0, `axe 0 violări cu dialogul Notițe ${w}x${h}`, axn);
+  ok(await noHScroll(page), `dialog Notițe: fără depășire ${w}x${h}`);
+  const [dl] = await Promise.all([page.waitForEvent('download'), page.locator('#r8n-md').click()]);
+  const md = fs.readFileSync(await dl.path(), 'utf8'); ok(/Notița mea de test/.test(md) && /^# /.test(md), 'export Markdown', md.slice(0, 120));
+  const b = await page.evaluate(() => JSON.stringify(FFF.bundle.build())); ok(/Notița mea de test/.test(b), 'notița în copia .fff.json');
+  await page.keyboard.press('Escape'); await page.waitForTimeout(100);
+  await page.reload(); await page.waitForTimeout(1200);
+  ok(await page.evaluate(() => FFF.nzNotes.count()) === 1, 'notița persistă după reîncărcare');
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.locator('#r8-notes-btn').click(); await page.waitForTimeout(200);
+  await page.locator('.r8n-go').first().click(); await page.waitForTimeout(500);
+  ok(await page.locator('.r8-flash').count() === 1, 'salt la pasajul notiței');
+  await page.locator('#r8-notes-btn').click(); await page.waitForTimeout(200);
+  await page.locator('.r8n-del').first().click(); await page.waitForTimeout(150);
+  ok(await page.evaluate(() => FFF.nzNotes.count()) === 0, 'notiță ștearsă');
   await page.keyboard.press('Escape');
-  // eticheta „Transparență”
-  await page.evaluate(() => FFF.label.open()); await page.waitForTimeout(300);
-  ok(await page.locator('dialog.fff-dlg[open]').count() === 1, `dialogul „Transparență” se deschide ${w}x${h}`);
-  const axd = await axeRun(page); ok(axd.length === 0, `axe 0 violări cu dialogul Transparență ${w}x${h}`, axd);
-  ok(await noHScroll(page), `dialog Transparență: fără depășire ${w}x${h}`);
-  await page.keyboard.press('Escape'); await page.waitForTimeout(150);
-  // copia .fff.json
-  const bundle = await page.evaluate(() => FFF.bundle.build());
-  ok(bundle && bundle.format === 'fff-bundle' && bundle.app === 'nota-zero' && typeof bundle.data === 'object', `copia .fff.json se construiește (${w}x${h})`, bundle && bundle.app);
-  // FFF.search pe textul capitolelor (API-ul kitului, fără interfață în aplicație)
-  ok(await page.evaluate(() => typeof FFF.search.index === 'function' || typeof FFF.search.create === 'function' || typeof FFF.search.build === 'function' || Object.keys(FFF.search).length > 0), `FFF.search expus (${w}x${h})`);
-  // regresie TTS existent
-  await page.locator('.chapter-tts').first().click().catch(() => {}); await page.waitForTimeout(300);
-  ok(true, 'butonul existent de citire a capitolului rămâne');
+  // 8 limbi: text UI diferit
+  const seen = {};
+  for (const l of LANGS) { await page.evaluate(x => window.setLang(x), l); await page.locator('#r8-notes-btn').click(); await page.waitForTimeout(150);
+    const t = await page.locator('.r8n-dlg h2').innerText(); seen[l] = t; ok(!/undefined|\[object|\{\{|^title$/.test(t) && t.length > 3, `titlu notițe (${l}): ${t}`);
+    ok(await noHScroll(page), `notițe ${l}: fără depășire ${w}`); await page.keyboard.press('Escape'); }
+  ok(new Set(Object.values(seen)).size >= 7, 'titluri distincte în 8 limbi', seen);
+  // regresie TTS
+  await page.evaluate(() => window.setLang('ro')); await page.locator('.chapter-tts').first().click().catch(() => {}); await page.waitForTimeout(400);
+  ok(await page.evaluate(() => (window.__spoken || []).length) > 0, 'citirea cu voce rămâne funcțională');
   await ctx.close();
 }
 ok(errs.length === 0, 'fără pageerror/CSP în tot setul', errs); ok(net.length === 0, '0 cereri de rețea în tot setul', net);
