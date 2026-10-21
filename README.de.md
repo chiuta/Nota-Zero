@@ -2,13 +2,13 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.4.0 · **Zuletzt aktualisiert:** 2026-10-19
+**Version:** 1.4.1 · **Zuletzt aktualisiert:** 2026-10-21
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fiktion / Spekulation.** Literarisches Werk; die wissenschaftlichen Anmerkungen dienen der Erläuterung und ersetzen keine akademischen Quellen.
 
-Eine spekulative Kurzgeschichte über die Stringtheorie, lesbar auf Rumänisch, Englisch und Französisch, mit Sprachausgabe und Barrierefreiheits-Optionen.
+Eine spekulative Kurzgeschichte über die Stringtheorie, lesbar auf 8 Sprachen (Rumänisch, Englisch, Französisch, Deutsch, Spanisch, Portugiesisch, Italienisch, Ungarisch), mit Sprachausgabe und Barrierefreiheits-Optionen.
 
 **Online:** https://chiuta.github.io/Nota-Zero/
 
@@ -16,11 +16,11 @@ Eine spekulative Kurzgeschichte über die Stringtheorie, lesbar auf Rumänisch, 
 
 ## Was es ist
 
-Nota Zero ist eine Erzählung von Alexandru Ionuț Chiuță (2026), präsentiert als Ein-Datei-Leseseite (`index.html`). Laut Seite ist sie „spekulative Fiktion · Stringtheorie · 2087“, mit einer Lesezeit von etwa 18 Minuten, in drei Sprachen (RO · EN · FR). Sie beginnt mit: „Vor dem Urknall war etwas. Niemand weiß, was. Zara hat vor, es herauszufinden.“ Der vollständige Text ist in der Datei enthalten, zusammen mit wissenschaftlichen Anmerkungen.
+Nota Zero ist eine Erzählung von Alexandru Ionuț Chiuță (2026), präsentiert als Ein-Datei-Leseseite (`index.html`). Laut Seite ist sie „spekulative Fiktion · Stringtheorie · 2087“, mit einer Lesezeit von etwa 18 Minuten, in acht Sprachen (RO · EN · FR · IT · ES · PT · DE · HU). Sie beginnt mit: „Vor dem Urknall war etwas. Niemand weiß, was. Zara hat vor, es herauszufinden.“ Der vollständige Text ist in der Datei enthalten, zusammen mit wissenschaftlichen Anmerkungen.
 
 ## Funktionen
 
-- Oberfläche in 8 Sprachen (RO, EN, FR, IT, ES, PT, DE, HU); vollständiger Text auf Rumänisch, Englisch und Französisch (in den anderen Sprachen wird der englische Text angezeigt); sofortiger Wechsel zwischen den Sprachen.
+- Oberfläche und vollständiger Text in 8 Sprachen (RO, EN, FR, IT, ES, PT, DE, HU): Die Erzählung (9 Kapitel) und die „Wissenschaftlichen Anmerkungen“ gibt es in jeder Sprache; die Übersetzungen ins Italienische, Spanische, Portugiesische, Deutsche und Ungarische entstanden mit KI-Unterstützung und wurden nicht von Muttersprachlern geprüft; sofortiger Wechsel zwischen den Sprachen.
 - Kapitel: I · Die falsche Frage, Zwischenspiel · Der Vater, II · Die Musik vor den Klängen, III · Die Membran, IV · Vor der ersten Sekunde, V · Die Saiten, VI · Der Spiegel des Universums, VII · Die Rückkehr, Epilog · 17. Mai 2087, dazu der Abschnitt „Wissenschaftliche Anmerkungen“.
 - Menü „Kapitel“ mit Direktnavigation; Schaltfläche „↑“ zur Rückkehr nach oben; mobiles Menü.
 - Vorlesen (🔊) über die Sprachsynthese des Browsers (Web Speech API): ▶-Schaltfläche bei jedem Kapitel, Player mit Pause, Stopp, Sprung zwischen Abschnitten, Geschwindigkeit (1×) und Stimmauswahl.
@@ -33,6 +33,7 @@ Nota Zero ist eine Erzählung von Alexandru Ionuț Chiuță (2026), präsentiert
 
 - `index.md` — der Text der Erzählung im Markdown-Format (rumänische Fassung).
 - `recenzie.html` — eine „Erschöpfende Rezension“ des Werks, **erzeugt von einem KI-Modell (Claude Sonnet 4.6)**, keine unabhängige Literaturkritik; die Bewertungen (z. B. 9,4/10) werden automatisch erzeugt und wurden nicht von einer menschlichen Bewertung geprüft. Das Etikett „Recenzie generată de AI / AI-generated review“ wird zweisprachig (RO/EN) im Titel, im Kopf, im Hinweis und in der Fußzeile angezeigt.
+- Sprachgrenzen: die Rezension (`recenzie.html`) und der Serienindex (`serie/index.html`) haben eine Sprachauswahl (RO/EN/FR/IT/ES/PT/DE/HU; Link `?lang=xx`; die Wahl wird über `nz-lang` mit der App geteilt), und die Importanleitung `punti/README.md` gibt es in 8 Sprachen (Englisch ist maßgeblich). **Nur auf Rumänisch** bleiben: die 41 Bände (`serie/vol-*.html`, der kritische Apparat, die ergänzenden Dateien und das Anfangsarchiv), `carte/` (das Buch, PDF), die Datendateien in `punti/import/` und `index.md` (die Erzählung); der Serienindex weist in den anderen Sprachen darauf hin. Die Übersetzungen der Rezension und der Importanleitung sind automatisch, nicht von Muttersprachlern geprüft, und müssen überprüft werden (kritischer Ton, Physikbegriffe wie ekpyrotisch/Bulk/Brane). Die Rezension beschreibt die App v14 (RO/EN/FR) und wurde nicht auf die 8 Sprachen der App aktualisiert.
 
 ## Die vollständige Reihe (41 Bände)
 
@@ -57,7 +58,7 @@ Die Seiten in `serie/` sind statisch, mit nur kleinen lokalen Skripten (Hintergr
 
 ## Datenschutz und Netzwerk
 
-- **Lokaler Speicher (localStorage):** die Sprache (`nz-lang`), die Textgröße (`nz-fz`), die Barrierefreiheits-Einstellungen (`nz-a11y-*`, `nz-cb`), das zuletzt erreichte Kapitel (`nz-pos`), die Geschwindigkeit und Stimme des Vorlesens (`nz-tts-speed`, `nz-tts-voice-*`). Der Text und andere personenbezogene Daten werden nicht gespeichert.
+- **Lokaler Speicher (localStorage):** die Sprache (`nz-lang`), die Textgröße (`nz-fz`), die Barrierefreiheits-Einstellungen (`nz-a11y-*`, `nz-cb`), das zuletzt erreichte Kapitel (`nz-pos`), die Geschwindigkeit und Stimme des Vorlesens (`nz-tts-speed`, `nz-tts-voice-*`). Der Text und andere personenbezogene Daten werden nicht gespeichert. Eine Ausnahme sind die Notizen, die Sie selbst schreiben (📝): Sie bleiben nur in Ihrem Browser (Schlüssel `fff.nota-zero.notes`), können gelöscht werden und werden nur auf Ihren Wunsch exportiert.
 - **Netzwerk:** Ich habe keine `fetch`/XHR-Aufrufe und keine von externen Servern geladenen Skripte oder Schriften gefunden. Die Links zu centrulstring.ro, alexio.tf, Buy Me a Coffee und chiuta.github.io öffnen sich nur per Klick.
 - Das Vorlesen nutzt die im Browser/System installierten Stimmen; manche Browser senden den Text je nach gewählter Stimme an einen eigenen Sprachdienst (Verhalten des Browsers, nicht der App).
 
@@ -73,15 +74,18 @@ MIT — siehe die Datei LICENSE
 
 Audit: 2026-10-10 (aktualisiert 2026-10-11) — kein `fetch`/XHR/CDN; der einzige Weg ins Netzwerk führt über Klicks auf Links. Korrekturen zur Barrierefreiheit (Beschriftungen für die Schalter im Barrierefreiheits-Panel, Kontrast in hellen Designs, Panels mit dunklem Hintergrund im hellen Modus).
 
-## Neue Funktionen (v1.1.0)
+## Suche und Notizen (seit v1.1.0)
 
-- **Lokale Suche im Text** (Schaltfläche 🔎, FFF.search): durchsucht die Kapitelabsätze in der aktiven Sprache (ro, en, fr), ohne Beachtung von Diakritika und mit kleinen Tippfehlern, und springt dann zur Stelle. Ohne Netzwerk.
+- **Lokale Suche im Text** (Schaltfläche 🔎, FFF.search): durchsucht die Kapitelabsätze in der aktiven Sprache (ro, en, fr, it, es, pt, de, hu), ohne Beachtung von Diakritika und mit kleinen Tippfehlern, und springt dann zur Stelle. Ohne Netzwerk.
 - **Lesezeichen und Notizen** (Schaltfläche 📝): Du markierst eine Stelle und fügst eine Notiz hinzu; sie bleiben nur im Browser, lassen sich löschen, als Markdown exportieren und sind in der .fff.json-Sicherung enthalten (unter „Transparenz“).
 - Das bestehende Vorlesen der Kapitel bleibt unverändert; gemeinsames Kit (core, label, bundle, tts, search).
-- Die neuen Texte liegen in allen Sprachen der App vor (einschließlich hu/de, wo ein i18n-System existiert); die automatischen Übersetzungen sind nicht von Muttersprachlern geprüft.
+- Die neuen Texte liegen in allen 8 Sprachen der App vor (ro, en, fr, it, es, pt, de, hu); die automatischen Übersetzungen sind nicht von Muttersprachlern geprüft.
 - Tests: `tests/fff-r8.test.mjs` (Netzwerk gesperrt, 1280 und 360 px, axe 0 Verstöße bei geöffneten Dialogen, Notizen hinzugefügt/gespeichert/gelöscht/exportiert).
 
 ## Verlauf / Changelog
+
+- **21. Oktober 2026 (Version 1.4.1):** `recenzie.html` und `serie/index.html` erhalten eine Sprachauswahl (8 Sprachen, `?lang=xx`, gemeinsamer Schlüssel `nz-lang`), und `punti/README.md` gibt es in 8 Sprachen; strenge CSP auf diesen Seiten; der Fußzeilenlink zur Serie folgt der aktuellen Sprache. Die 41 Bände bleiben auf Rumänisch.
+- **19. Oktober 2026 (Version 1.4.0):** die oben beschriebene lokale Suche und die Lesezeichen/Notizen (eingeführt in 1.1.0) sind in der aktuellen Version vorhanden: Sie waren bei einer früheren Bereinigung versehentlich entfernt worden und wurden neu implementiert (Suche in allen 8 Sprachen; Notizen mit Markdown-Export und in der `.fff.json`-Kopie enthalten; Tests in `tests/fff-r8.test.mjs`). Die Erzählung (9 Kapitel), die „Wissenschaftlichen Anmerkungen“ und die Oberfläche sind in 8 Sprachen verfügbar (Italienisch, Spanisch, Portugiesisch, Deutsch und Ungarisch zu Rumänisch, Englisch und Französisch hinzugefügt).
 
 - **19. Oktober 2026 (Version 1.2.0):** In den „Wissenschaftlichen Anmerkungen“ Links zu Horizons (Zyklisches Universum, Kosmische Hintergrundstrahlung) und Universul-Observabil-3D; Texte ro/en/fr.
 
@@ -102,4 +106,4 @@ Audit: 2026-10-10 (aktualisiert 2026-10-11) — kein `fetch`/XHR/CDN; der einzig
 Alexio — Alexandru-Ionuț Chiuță, Kontakt: alexio@trom.tf. Die Seite verweist auf das Centrul STRING (centrulstring.ro).
 
 ## Zusammenfassung
-Nota Zero ist eine spekulative Kurzgeschichte über die Stringtheorie von Alexandru Ionuț Chiuță, präsentiert als Ein-Datei-Leseseite auf Rumänisch, Englisch und Französisch (etwa 18 Minuten). Sie bietet Kapitelnavigation, wissenschaftliche Anmerkungen, Vorlesen per Browser-Sprachsynthese, Drucken und ein umfangreiches Barrierefreiheits-Panel (Legasthenie-Schrift, Abstände, Kontrast, Sepia, Modi für Farbfehlsichtigkeit). Einstellungen werden in localStorage gehalten; keine Netzwerkanfragen. MIT-Lizenz.
+Nota Zero ist eine spekulative Kurzgeschichte über die Stringtheorie von Alexandru Ionuț Chiuță, präsentiert als Ein-Datei-Leseseite auf 8 Sprachen (Rumänisch, Englisch, Französisch, Deutsch, Spanisch, Portugiesisch, Italienisch, Ungarisch) (etwa 18 Minuten). Sie bietet Kapitelnavigation, wissenschaftliche Anmerkungen, Vorlesen per Browser-Sprachsynthese, Drucken und ein umfangreiches Barrierefreiheits-Panel (Legasthenie-Schrift, Abstände, Kontrast, Sepia, Modi für Farbfehlsichtigkeit). Einstellungen werden in localStorage gehalten; keine Netzwerkanfragen. MIT-Lizenz.

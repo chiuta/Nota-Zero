@@ -1,43 +1,44 @@
-# Punți Nota Zero ↔ aplicații (verificate în cod și în Chromium, 18 octombrie 2026)
+# Nota Zero ↔ app bridges (checked in code and in Chromium, 18 October 2026)
+**English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-Principiu: nicio aplicație nu trimite și nu primește nimic în fundal. Legăturile se deschid doar la click, iar fișierele de aici se importă manual. Nota Zero citește din adresă doar `#capN` și `?cap=` (`1`–`7`, `1b`, `epilog`, `science`); orice alt parametru e ignorat.
+Principle: no app sends or receives anything in the background. The links open only on click, and the files here are imported manually. Nota Zero reads only `#capN` and `?cap=` from the address (`1`–`7`, `1b`, `epilog`, `science`); any other parameter is ignored.
 
-## Linkuri adânci (în `serie/index.html`)
-| Țintă | Link | Observație |
+## Deep links (in `serie/index.html`)
+| Target | Link | Note |
 |---|---|---|
-| TerRa | `TerRa/#v=sky&t=2087-05-17T02:35:00Z&ll=59.9139,10.7522&from=nota-zero` | Acceptă orice an; precizie testată doar 1900–2100, peste 2100 ΔT e extrapolat și Pluto nu mai e valid |
-| ORARIUM | `orarium/#view=acum&body=luna&t=2087-05-14T22:14:00Z&from=nota-zero` | Fără limită de dată; `22:14` e timp orbital, aproximat ca UTC |
-| Nota Zero | `Nota-Zero/#cap5` sau `Nota-Zero/?cap=5` | `?cap=1…7`, `1b` (Interludiu), `epilog`, `science`; hash-ul are prioritate; ținta primește focusul (tastatură, cititor de ecran) |
+| TerRa | `TerRa/#v=sky&t=2087-05-17T02:35:00Z&ll=59.9139,10.7522&from=nota-zero` | Accepts any year; precision tested only for 1900–2100, beyond 2100 ΔT is extrapolated and Pluto is no longer valid |
+| ORARIUM | `orarium/#view=acum&body=luna&t=2087-05-14T22:14:00Z&from=nota-zero` | No date limit; `22:14` is orbital time, approximated as UTC |
+| Nota Zero | `Nota-Zero/#cap5` or `Nota-Zero/?cap=5` | `?cap=1…7`, `1b` (Interlude), `epilog`, `science`; the hash takes priority; the target receives focus (keyboard, screen reader) |
 
-## Fișiere gata de importat (`punti/import/`)
-| Fișier | Aplicație | Cum |
+## Files ready to import (`punti/import/`)
+| File | App | How |
 |---|---|---|
-| `undava-nota-zero-quiz.json` | Undava | import quiz (9 întrebări din notele științifice) |
-| `fabrica-nota-zero.course.json`, `fabrica-intrebari-nota-zero.csv` | Fabrica | curs JSON sau CSV de întrebări |
-| `akasha-nota-zero.json` | Akasha | import registre (12 înregistrări; fără `meta`, deci nu schimbă preferința „stele”; înregistrările-caiet poartă data importului, iar data din poveste e în titlu) |
-| `clopotel-nota-zero.json` / `.csv` | Clopotel | JSON, CSV sau lipire (9 elemente) |
-| `calmwaves-nota-zero.fff.json`, `calmwaves-coduri-varianta.txt` | CalmWaves | import pachet FFF (8 presetări, ca să rămână loc sub limita de 12; celelalte 4 — Kavya, Leila, Zara, Rin — sunt în fișierul de coduri). **Atenție:** din CalmWaves 1.1.2 importul îmbină presetările importate cu cele proprii (același nume = înlocuit, plafon 12). Maparea pe texturi e editorială |
-| `asmr-nota-zero.fff.json`, `asmr-linkuri-mix.txt` | ASMR | import pachet FFF (ASMR 1.1.1 îmbină presetările importate cu cele proprii; același nume = înlocuit; plafon 50); `#mix=` cere click pe „Redă mixul” |
-| `borderlessmelodies-genuri-nota-muzicii.json` | BorderlessMelodies | import genuri; doar 12-TET, maqam aproximat |
-| `zicala-nota-zero.txt` | Zicala | import .txt (2 proverbe: akan, māori) |
-| `fascicul-nota-zero.json` | FASCICUL | „Începe ca ecran” → 📂 Sesiune; 9 note (2 epigrafe + 7 note științifice, ≤ 400 caractere, fără suprapuneri) |
-| `constelar-nota-zero.json` | Constelar | companion „Zara Voss” (backstory fără repetiții, 4 amintiri permanente); **înlocuiește** companionii existenți (cere confirmare). De la Constelar 1.2.0 importul păstrează limba, providerul și modelul curente |
-| `nexus-nota-zero.json` | Nexus | persona „Zara Voss (Nota Zero)”; Nexus adaugă, nu înlocuiește |
-| `lexicon-nota-zero.tsv` | Lexicon | import TSV (17 intrări: 7 note științifice + 10 termeni akan din Vol. X–XI); la import se cere licența (decizia e a autorului). Observat: prima interogare după import poate să nu returneze nimic, a doua funcționează |
+| `undava-nota-zero-quiz.json` | Undava | quiz import (9 questions from the scientific notes) |
+| `fabrica-nota-zero.course.json`, `fabrica-intrebari-nota-zero.csv` | Fabrica | JSON course or CSV of questions |
+| `akasha-nota-zero.json` | Akasha | register import (12 entries; no `meta`, so it does not change the “stars” preference; the notebook entries carry the import date, while the in-story date is in the title) |
+| `clopotel-nota-zero.json` / `.csv` | Clopotel | JSON, CSV or paste (9 items) |
+| `calmwaves-nota-zero.fff.json`, `calmwaves-coduri-varianta.txt` | CalmWaves | FFF package import (8 presets, to leave room under the limit of 12; the other 4 — Kavya, Leila, Zara, Rin — are in the codes file). **Note:** since CalmWaves 1.1.2 the import merges the imported presets with your own (same name = replaced, cap of 12). The mapping onto textures is editorial |
+| `asmr-nota-zero.fff.json`, `asmr-linkuri-mix.txt` | ASMR | FFF package import (ASMR 1.1.1 merges the imported presets with your own; same name = replaced; cap of 50); `#mix=` requires a click on “Play the mix” |
+| `borderlessmelodies-genuri-nota-muzicii.json` | BorderlessMelodies | genre import; 12-TET only, maqam approximate |
+| `zicala-nota-zero.txt` | Zicala | .txt import (2 proverbs: Akan, Māori) |
+| `fascicul-nota-zero.json` | FASCICUL | “Start as a screen” → 📂 Session; 9 notes (2 epigraphs + 7 scientific notes, ≤ 400 characters, no overlaps) |
+| `constelar-nota-zero.json` | Constelar | “Zara Voss” companion (backstory without repetitions, 4 permanent memories); **replaces** the existing companions (asks for confirmation). Since Constelar 1.2.0 the import keeps the current language, provider and model |
+| `nexus-nota-zero.json` | Nexus | persona “Zara Voss (Nota Zero)”; Nexus adds, it does not replace |
+| `lexicon-nota-zero.tsv` | Lexicon | TSV import (17 entries: 7 scientific notes + 10 Akan terms from Vol. X–XI); the licence is requested on import (the decision is the author's). Observed: the first query after import may return nothing, the second works |
 
-## Direct, fără fișiere
-- ATINGERE: încarcă `carte/Nota-Zero-carte-completa-ro.pdf` sau `.md` (braille sau audio). Din ATINGERE 1.1.1 limba `ro` e detectată corect (punctul median „·” din titluri nu mai votează catalana).
-- VoiceAtelier 1.2.0: mostra „Nota Zero — Alexio” (două propoziții din Vol. I) apare în lista de mostre.
-- AcademiSearch 4.2.0: `https://chiuta.github.io/AcademiSearch/#q=ekpyrotic%20universe%20Steinhardt%20Turok` precompletează câmpul (nu pornește căutarea); alte exemple: `#q=AdS%2FCFT%20Maldacena`, `#q=holographic%20principle%20Susskind`, `#q=Planck%202018%20cosmological%20parameters`.
-- TerRa 1.5.0 / ValeaPlopului1972 1.2.0: `TerRa/#v=2d&ufo=valea-plopului&from=valeaplopului` centrează harta pe cazul Valea Plopului; ValeaPlopului1972 are în meniu linkul înapoi spre TerRa. Textul „primul caz OZN atestat…” din TerRa nu a fost modificat încă (decizie a proprietarului).
-- MarkdownAtelier: importă `carte/Nota-Zero-carte-completa-ro.md`.
-- AI-Liber / TranslateHub / Nexus / LocalMind (RAG): doar extrase; cer rețea sau model local.
+## Direct, without files
+- ATINGERE: load `carte/Nota-Zero-carte-completa-ro.pdf` or `.md` (braille or audio). Since ATINGERE 1.1.1 the `ro` language is detected correctly (the middle dot “·” in the headings no longer votes for Catalan).
+- VoiceAtelier 1.2.0: the sample “Nota Zero — Alexio” (two sentences from Vol. I) appears in the list of samples.
+- AcademiSearch 4.2.0: `https://chiuta.github.io/AcademiSearch/#q=ekpyrotic%20universe%20Steinhardt%20Turok` pre-fills the field (it does not start the search); other examples: `#q=AdS%2FCFT%20Maldacena`, `#q=holographic%20principle%20Susskind`, `#q=Planck%202018%20cosmological%20parameters`.
+- TerRa 1.5.0 / ValeaPlopului1972 1.2.0: `TerRa/#v=2d&ufo=valea-plopului&from=valeaplopului` centres the map on the Valea Plopului case; ValeaPlopului1972 has a link back to TerRa in its menu. The text “the first attested UFO case…” in TerRa has not been changed yet (the owner's decision).
+- MarkdownAtelier: import `carte/Nota-Zero-carte-completa-ro.md`.
+- AI-Liber / TranslateHub / Nexus / LocalMind (RAG): excerpts only; they require a network or a local model.
 
-## Infirmate
-Aurora, Limpezimea (doar reglaje), Arhiva, Orar (nu citește adresa), Eclipsa-2027, ECLIPSA, HoroScop, CLEPSIDRA, IncredibleCosmos, Pendulul, Nemurirea.
+## Ruled out
+Aurora, Limpezimea (settings only), Arhiva, Orar (does not read the address), Eclipsa-2027, ECLIPSA, HoroScop, CLEPSIDRA, IncredibleCosmos, Pendulul, Nemurirea.
 
 ## VEL-MOR
-Romanul *VEL-MOR* (*A Șasea Nemurire*, 3 cărți, 9 părți, 41 de capitole, extinde personajul Reflexia din „A cincea nemurire”) trăiește azi doar în conversații și în ediția bilingvă DOCX/PDF; nu există depozit. Punți pregătite: aceleași fișiere-șablon (Akasha/Fabrica pentru cântecele și glosar) se pot genera din textul lui după ce este depus aici.
+The novel *VEL-MOR* (*A Șasea Nemurire*, 3 books, 9 parts, 41 chapters, extending the character Reflexia from “A cincea nemurire”) lives today only in conversations and in the bilingual DOCX/PDF edition; there is no repository. Prepared bridges: the same template files (Akasha/Fabrica for the songs and glossary) can be generated from its text once it is deposited here.
 
-## Reciprocitate
-Linkurile către TerRa și ORARIUM poartă `&from=nota-zero`; TerRa și ORARIUM afișează un buton „← înapoi” doar pentru surse cunoscute (terra, orarium, nota-zero). Orice altă valoare e ignorată.
+## Reciprocity
+The links to TerRa and ORARIUM carry `&from=nota-zero`; TerRa and ORARIUM show a “← back” button only for known sources (terra, orarium, nota-zero). Any other value is ignored.

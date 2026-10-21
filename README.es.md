@@ -2,13 +2,13 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 1.4.0 · **Última actualización:** 2026-10-19
+**Versión:** 1.4.1 · **Última actualización:** 2026-10-21
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Ficción / especulación.** Obra literaria; las notas científicas tienen finalidad explicativa y no sustituyen las fuentes académicas.
 
-Relato de ficción especulativa sobre la teoría de cuerdas, legible en rumano, inglés y francés, con lector de voz y opciones de accesibilidad.
+Relato de ficción especulativa sobre la teoría de cuerdas, legible en 8 idiomas (rumano, inglés, francés, alemán, español, portugués, italiano, húngaro), con lector de voz y opciones de accesibilidad.
 
 **En línea:** https://chiuta.github.io/Nota-Zero/
 
@@ -16,11 +16,11 @@ Relato de ficción especulativa sobre la teoría de cuerdas, legible en rumano, 
 
 ## Qué es
 
-Nota Zero es un relato de Alexandru Ionuț Chiuță (2026), presentado como una página de lectura de un solo archivo (`index.html`). Según la página, es «ficción especulativa · teoría de cuerdas · 2087», con una lectura de unos 18 minutos, en tres idiomas (RO · EN · FR). Comienza así: «Antes del Big Bang había algo. Nadie sabe qué. Zara tiene intención de averiguarlo.» El texto íntegro está incluido en el archivo, junto con notas científicas.
+Nota Zero es un relato de Alexandru Ionuț Chiuță (2026), presentado como una página de lectura de un solo archivo (`index.html`). Según la página, es «ficción especulativa · teoría de cuerdas · 2087», con una lectura de unos 18 minutos, en ocho idiomas (RO · EN · FR · IT · ES · PT · DE · HU). Comienza así: «Antes del Big Bang había algo. Nadie sabe qué. Zara tiene intención de averiguarlo.» El texto íntegro está incluido en el archivo, junto con notas científicas.
 
 ## Funciones
 
-- Interfaz en 8 idiomas (RO, EN, FR, IT, ES, PT, DE, HU); texto completo en rumano, inglés y francés (en los demás idiomas se muestra el texto en inglés); cambio instantáneo entre idiomas.
+- Interfaz y texto completo en 8 idiomas (RO, EN, FR, IT, ES, PT, DE, HU): el relato (9 capítulos) y las «Notas científicas» existen en cada idioma; las traducciones al italiano, español, portugués, alemán y húngaro se realizaron con ayuda de la IA y no han sido verificadas por hablantes nativos; cambio instantáneo entre idiomas.
 - Capítulos: I · La Pregunta Equivocada, Interludio · El Padre, II · La Música antes de los Sonidos, III · La Membrana, IV · Antes del Primer Segundo, V · Las Cuerdas, VI · El Espejo del Universo, VII · El Regreso, Epílogo · 17 de mayo de 2087, más la sección «Notas científicas».
 - Menú «Capítulos» con navegación directa; botón «↑» para volver arriba; menú móvil.
 - Lectura en voz alta (🔊) mediante la síntesis de voz del navegador (Web Speech API): botón ▶ en cada capítulo, reproductor con pausa, parada, salto entre fragmentos, velocidad (1×) y elección de voz.
@@ -33,6 +33,7 @@ Nota Zero es un relato de Alexandru Ionuț Chiuță (2026), presentado como una 
 
 - `index.md` — el texto del relato en formato Markdown (versión en rumano).
 - `recenzie.html` — una «Reseña exhaustiva» de la obra, **generada por un modelo de IA (Claude Sonnet 4.6)**, no crítica literaria independiente; las puntuaciones (p. ej. 9,4/10) se generan automáticamente y no fueron validadas por un evaluador humano. La etiqueta «Recenzie generată de AI / AI-generated review» se muestra en forma bilingüe (RO/EN) en el título, en la cabecera, en la nota y en el pie.
+- Límites de idioma: la reseña (`recenzie.html`) y el índice de la serie (`serie/index.html`) tienen selector de idioma (RO/EN/FR/IT/ES/PT/DE/HU; enlace `?lang=xx`; la elección se comparte con la aplicación mediante `nz-lang`), y la guía de importación `punti/README.md` existe en 8 idiomas (el inglés es canónico). Siguen **solo en rumano**: los 41 volúmenes (`serie/vol-*.html`, el aparato crítico, los archivos suplementarios y el archivo inicial), `carte/` (el libro, PDF), los archivos de datos de `punti/import/` y `index.md` (el relato); el índice de la serie lo indica en los demás idiomas. Las traducciones de la reseña y de la guía de importación son automáticas, no verificadas por hablantes nativos, y requieren revisión (tono crítico, términos de física como ekpyrotic/bulk/brane). La reseña describe la aplicación v14 (RO/EN/FR) y no se actualizó a los 8 idiomas de la aplicación.
 
 ## La serie completa (41 volúmenes)
 
@@ -57,7 +58,7 @@ Las páginas de `serie/` son estáticas, con solo pequeños scripts locales (ani
 
 ## Privacidad y red
 
-- **Almacenamiento local (localStorage):** el idioma (`nz-lang`), el tamaño del texto (`nz-fz`), las preferencias de accesibilidad (`nz-a11y-*`, `nz-cb`), el último capítulo alcanzado (`nz-pos`), la velocidad y la voz de lectura (`nz-tts-speed`, `nz-tts-voice-*`). No se almacenan el texto ni otros datos personales.
+- **Almacenamiento local (localStorage):** el idioma (`nz-lang`), el tamaño del texto (`nz-fz`), las preferencias de accesibilidad (`nz-a11y-*`, `nz-cb`), el último capítulo alcanzado (`nz-pos`), la velocidad y la voz de lectura (`nz-tts-speed`, `nz-tts-voice-*`). No se almacenan el texto ni otros datos personales. Las notas que escribes tú (📝) son la excepción: se guardan solo en tu navegador (clave `fff.nota-zero.notes`), se pueden borrar y solo se exportan si lo pides.
 - **Red:** no he encontrado llamadas `fetch`/XHR ni scripts o fuentes cargados desde servidores externos. Los enlaces a centrulstring.ro, alexio.tf, Buy Me a Coffee y chiuta.github.io se abren solo al hacer clic.
 - La lectura en voz alta usa las voces instaladas en el navegador/sistema; algunos navegadores pueden enviar el texto a un servicio de voz propio, según la voz elegida (comportamiento del navegador, no de la aplicación).
 
@@ -73,15 +74,18 @@ MIT — véase el archivo LICENSE
 
 Auditoría: 2026-10-10 (actualizada el 2026-10-11) — sin `fetch`/XHR/CDN; la única salida a la red es al hacer clic en enlaces. Correcciones de accesibilidad (etiquetas para los interruptores del panel de accesibilidad, contraste en los temas claros, paneles con fondo oscuro en modo claro).
 
-## Funciones nuevas (v1.1.0)
+## Búsqueda y notas (desde la v1.1.0)
 
-- **Búsqueda local en el texto** (botón 🔎, FFF.search): busca en los párrafos de los capítulos del idioma activo (ro, en, fr), sin distinguir signos diacríticos y con pequeños errores, y luego salta al pasaje. Sin red.
+- **Búsqueda local en el texto** (botón 🔎, FFF.search): busca en los párrafos de los capítulos del idioma activo (ro, en, fr, it, es, pt, de, hu), sin distinguir signos diacríticos y con pequeños errores, y luego salta al pasaje. Sin red.
 - **Marcadores y notas** (botón 📝): seleccionas un fragmento, añades una nota; se conservan solo en el navegador, se pueden borrar, exportar como Markdown y entran en la copia de seguridad .fff.json (desde «Transparencia»).
 - La lectura en voz alta de los capítulos, ya existente, no cambia; kit común (core, label, bundle, tts, search).
-- Los textos nuevos están en todos los idiomas de la aplicación (incluidos hu/de donde existe un sistema i18n); las traducciones automáticas no están verificadas por hablantes nativos.
+- Los textos nuevos están en los 8 idiomas de la aplicación (ro, en, fr, it, es, pt, de, hu); las traducciones automáticas no están verificadas por hablantes nativos.
 - Pruebas: `tests/fff-r8.test.mjs` (red bloqueada, 1280 y 360 px, axe 0 infracciones con los diálogos abiertos, notas añadidas/conservadas/borradas/exportadas).
 
 ## Historial / Changelog
+
+- **21 de octubre de 2026 (versión 1.4.1):** `recenzie.html` y `serie/index.html` reciben un selector de idioma (8 idiomas, `?lang=xx`, clave común `nz-lang`) y `punti/README.md` está disponible en 8 idiomas; CSP estricta en estas páginas; el enlace del pie hacia la serie sigue el idioma actual. Los 41 volúmenes siguen en rumano.
+- **19 de octubre de 2026 (versión 1.4.0):** la búsqueda local y los marcadores/notas descritos arriba (introducidos en la 1.1.0) están presentes en la versión actual: se habían eliminado por error en una limpieza anterior y se reimplementaron (búsqueda en los 8 idiomas; notas con exportación a Markdown e incluidas en la copia `.fff.json`; pruebas en `tests/fff-r8.test.mjs`). El relato (9 capítulos), las «Notas científicas» y la interfaz están disponibles en 8 idiomas (italiano, español, portugués, alemán y húngaro añadidos al rumano, inglés y francés).
 
 - **19 de octubre de 2026 (versión 1.2.0):** en las «Notas científicas», enlaces a Horizons (Universo cíclico, Fondo cósmico de microondas) y a Universul-Observabil-3D; textos ro/en/fr.
 
@@ -103,4 +107,4 @@ Alexio — Alexandru-Ionuț Chiuță, contacto: alexio@trom.tf. La página remit
 
 ## Resumen
 
-Nota Zero es un relato de ficción especulativa sobre la teoría de cuerdas de Alexandru Ionuț Chiuță, presentado como una página de lectura de un solo archivo en rumano, inglés y francés (unos 18 minutos). Ofrece navegación por capítulos, notas científicas, lectura en voz alta con la síntesis de voz del navegador, impresión y un amplio panel de accesibilidad (fuente para dislexia, espaciado, contraste, sepia, modos para daltonismo). Las preferencias se guardan en localStorage; sin solicitudes de red. Licencia MIT.
+Nota Zero es un relato de ficción especulativa sobre la teoría de cuerdas de Alexandru Ionuț Chiuță, presentado como una página de lectura de un solo archivo en 8 idiomas (rumano, inglés, francés, alemán, español, portugués, italiano, húngaro) (unos 18 minutos). Ofrece navegación por capítulos, notas científicas, lectura en voz alta con la síntesis de voz del navegador, impresión y un amplio panel de accesibilidad (fuente para dislexia, espaciado, contraste, sepia, modos para daltonismo). Las preferencias se guardan en localStorage; sin solicitudes de red. Licencia MIT.

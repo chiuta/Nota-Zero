@@ -2,13 +2,13 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.4.0 · **Ultima actualizare:** 2026-10-19
+**Versiune:** 1.4.1 · **Ultima actualizare:** 2026-10-21
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Ficțiune / speculație.** Operă literară; notele științifice au scop explicativ și nu înlocuiesc surse academice.
 
-Povestire de ficțiune speculativă despre teoria corzilor, citibilă în română, engleză și franceză, cu cititor vocal și opțiuni de accesibilitate.
+Povestire de ficțiune speculativă despre teoria corzilor, citibilă în 8 limbi (română, engleză, franceză, germană, spaniolă, portugheză, italiană, maghiară), cu cititor vocal și opțiuni de accesibilitate.
 
 **Live:** https://chiuta.github.io/Nota-Zero/
 
@@ -16,11 +16,11 @@ Povestire de ficțiune speculativă despre teoria corzilor, citibilă în român
 
 ## Ce este
 
-Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o pagină de lectură single-file (`index.html`). Conform paginii, este „ficțiune speculativă · teoria corzilor · 2087”, cu o lectură de aproximativ 18 minute, în trei limbi (RO · EN · FR). Începe cu: „Înainte de Big Bang era ceva. Nimeni nu știe ce. Zara are de gând să afle.” Textul integral este inclus în fișier, alături de note științifice.
+Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o pagină de lectură single-file (`index.html`). Conform paginii, este „ficțiune speculativă · teoria corzilor · 2087”, cu o lectură de aproximativ 18 minute, în opt limbi (RO · EN · FR · IT · ES · PT · DE · HU). Începe cu: „Înainte de Big Bang era ceva. Nimeni nu știe ce. Zara are de gând să afle.” Textul integral este inclus în fișier, alături de note științifice.
 
 ## Funcții
 
-- Interfață în 8 limbi (RO, EN, FR, IT, ES, PT, DE, HU); text complet în română, engleză și franceză (în celelalte limbi se afișează textul în engleză); comutare instantanee între limbi.
+- Interfață și text complet în 8 limbi (RO, EN, FR, IT, ES, PT, DE, HU): povestirea (9 capitole) și „Notele științifice” există în fiecare limbă; traducerile în italiană, spaniolă, portugheză, germană și maghiară au fost realizate cu ajutorul AI și nu au fost verificate de vorbitori nativi; comutare instantanee între limbi.
 - Capitole: I · Întrebarea Greșită, Interludiu · Tatăl, II · Muzica Înainte de Sunete, III · Membrana, IV · Înainte de Prima Secundă, V · Corzile, VI · Oglinda Universului, VII · Întoarcerea, Epilog · 17 Mai 2087, plus secțiunea „Note Științifice”.
 - Meniu „Capitole” cu navigare directă; buton „↑” pentru revenirea sus; meniu mobil.
 - Citire cu voce (🔊) prin sinteza vocală a browserului (Web Speech API): buton ▶ la fiecare capitol, player cu pauză, oprire, salt între fragmente, viteză (1×) și alegerea vocii.
@@ -33,6 +33,7 @@ Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o
 
 - `index.md` — textul poveștii în format Markdown (versiune în română).
 - `recenzie.html` — „Recenzie exhaustivă” a lucrării, **generată de un model AI (Claude Sonnet 4.6)**, nu critică literară independentă; scorurile (ex. 9,4/10) sunt generate automat și nu au fost validate de un evaluator uman. Eticheta „Recenzie generată de AI / AI-generated review” este afișată bilingv (RO/EN) în titlu, în antet, în notă și în subsol.
+- Limite de limbă: recenzia (`recenzie.html`) și indexul seriei (`serie/index.html`) au selector de limbă (RO/EN/FR/IT/ES/PT/DE/HU; link `?lang=xx`; alegerea este comună cu aplicația prin `nz-lang`), iar ghidul de import `punti/README.md` există în 8 limbi (engleza e canonică). Rămân **doar în română**: cele 41 de volume (`serie/vol-*.html`, aparatul critic, fișierele suplimentare și arhiva inițială), `carte/` (cartea, PDF), fișierele de date din `punti/import/` și `index.md` (povestirea); indexul seriei spune asta în celelalte limbi. Traducerile recenziei și ale ghidului de import sunt automate, neverificate de vorbitori nativi, și necesită revizie (ton critic, termeni de fizică precum ekpyrotic/bulk/brane). Recenzia descrie aplicația v14 (RO/EN/FR) și nu a fost actualizată la cele 8 limbi ale aplicației.
 
 ## Seria completă (41 de volume)
 
@@ -57,7 +58,7 @@ Paginile din `serie/` sunt statice, cu doar scripturi locale mici (animații de 
 
 ## Confidențialitate și rețea
 
-- **Stocare locală (localStorage):** limba (`nz-lang`), mărimea textului (`nz-fz`), preferințele de accesibilitate (`nz-a11y-*`, `nz-cb`), ultimul capitol atins (`nz-pos`), viteza și vocea citirii (`nz-tts-speed`, `nz-tts-voice-*`). Nu se stochează textul sau alte date personale.
+- **Stocare locală (localStorage):** limba (`nz-lang`), mărimea textului (`nz-fz`), preferințele de accesibilitate (`nz-a11y-*`, `nz-cb`), ultimul capitol atins (`nz-pos`), viteza și vocea citirii (`nz-tts-speed`, `nz-tts-voice-*`). Nu se stochează textul sau alte date personale. Excepție fac notițele pe care le scrii tu (📝): se păstrează doar în browserul tău (cheia `fff.nota-zero.notes`), pot fi șterse și se exportă doar dacă o ceri.
 - **Rețea:** nu am găsit apeluri `fetch`/XHR și nici scripturi sau fonturi încărcate de pe servere externe. Linkurile către centrulstring.ro, alexio.tf, Buy Me a Coffee și chiuta.github.io se deschid doar la click.
 - Citirea cu voce folosește vocile instalate în browser/sistem; unele browsere pot trimite textul unui serviciu vocal propriu, în funcție de vocea aleasă (comportament al browserului, nu al aplicației).
 
@@ -73,15 +74,18 @@ MIT — vezi fișierul LICENSE
 
 Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ieșire către rețea este la click pe linkuri. Corecturi de accesibilitate (etichete pentru comutatoarele din panoul de accesibilitate, contrast în teme luminoase, panouri cu fundal închis în modul luminos).
 
-## Funcții noi (v1.1.0)
+## Căutare și notițe (din v1.1.0)
 
-- **Căutare locală în text** (butonul 🔎, FFF.search): caută în paragrafele capitolelor din limba activă (ro, en, fr), fără diacritice și cu mici greșeli, apoi sare la pasaj. Fără rețea.
+- **Căutare locală în text** (butonul 🔎, FFF.search): caută în paragrafele capitolelor din limba activă (ro, en, fr, it, es, pt, de, hu), fără diacritice și cu mici greșeli, apoi sare la pasaj. Fără rețea.
 - **Marcaje și note** (butonul 📝): selectezi un fragment, adaugi o notă; se păstrează doar în browser, se pot șterge, exporta ca Markdown și intră în copia de siguranță .fff.json (din „Transparență”).
 - Citirea capitolelor cu voce existentă rămâne neschimbată; kit comun (core, label, bundle, tts, search).
-- Textele noi sunt în toate limbile aplicației (inclusiv hu/de unde există sistem i18n); traducerile automate sunt neverificate nativ.
+- Textele noi sunt în toate cele 8 limbi ale aplicației (ro, en, fr, it, es, pt, de, hu); traducerile automate sunt neverificate nativ.
 - Teste: `tests/fff-r8.test.mjs` (rețea blocată, 1280 și 360 px, axe 0 violări cu dialogurile deschise, note adăugate/persistate/șterse/exportate).
 
 ## Istoric / Changelog
+
+- **21 octombrie 2026 (versiunea 1.4.1):** `recenzie.html` și `serie/index.html` primesc selector de limbă (8 limbi, `?lang=xx`, cheia comună `nz-lang`), iar `punti/README.md` este disponibil în 8 limbi; CSP strictă pe aceste pagini; linkul din subsol către serie urmează limba curentă. Cele 41 de volume rămân în română.
+- **19 octombrie 2026 (versiunea 1.4.0):** căutarea locală și semnele de carte/notițele descrise mai sus (introduse în 1.1.0) sunt prezente în versiunea curentă: fuseseră eliminate din greșeală într-o curățare anterioară și au fost reimplementate (căutare în toate cele 8 limbi; notițe cu export Markdown și incluse în copia `.fff.json`; teste în `tests/fff-r8.test.mjs`). Povestirea (9 capitole), „Notele științifice” și interfața sunt disponibile în 8 limbi (italiană, spaniolă, portugheză, germană și maghiară adăugate la română, engleză și franceză).
 
 - **19 octombrie 2026 (versiunea 1.2.0):** în „Note Științifice”, linkuri spre Horizons (Universul ciclic, Radiația cosmică fosilă) și Universul-Observabil-3D; texte ro/en/fr.
 
@@ -103,4 +107,4 @@ Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf. Pagina trimite c�
 
 ## Rezumat
 
-Nota Zero este o povestire de ficțiune speculativă despre teoria corzilor de Alexandru Ionuț Chiuță, prezentată ca pagină de lectură într-un singur fișier în română, engleză și franceză (aproximativ 18 minute). Are navigare pe capitole, note științifice, citire cu sinteză vocală a browserului, tipărire și un panou larg de accesibilitate (font pentru dislexie, spațiere, contrast, sepia, moduri pentru daltonism). Preferințele se păstrează în localStorage; fără cereri de rețea. Licență MIT.
+Nota Zero este o povestire de ficțiune speculativă despre teoria corzilor de Alexandru Ionuț Chiuță, prezentată ca pagină de lectură într-un singur fișier în 8 limbi (română, engleză, franceză, germană, spaniolă, portugheză, italiană, maghiară) (aproximativ 18 minute). Are navigare pe capitole, note științifice, citire cu sinteză vocală a browserului, tipărire și un panou larg de accesibilitate (font pentru dislexie, spațiere, contrast, sepia, moduri pentru daltonism). Preferințele se păstrează în localStorage; fără cereri de rețea. Licență MIT.

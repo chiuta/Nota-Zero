@@ -2,13 +2,13 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.4.0 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.4.1 · **Utolsó frissítés:** 2026-10-21
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fikció / spekuláció.** Irodalmi mű; a tudományos jegyzetek magyarázó célúak, és nem helyettesítik a tudományos forrásokat.
 
-Spekulatív fikciós novella a húrelméletről, románul, angolul és franciául olvasható, felolvasóval és akadálymentességi lehetőségekkel.
+Spekulatív fikciós novella a húrelméletről, 8 nyelven (románul, angolul, franciául, németül, spanyolul, portugálul, olaszul, magyarul) olvasható, felolvasóval és akadálymentességi lehetőségekkel.
 
 **Élő:** https://chiuta.github.io/Nota-Zero/
 
@@ -16,11 +16,11 @@ Spekulatív fikciós novella a húrelméletről, románul, angolul és franciáu
 
 ## Mi ez
 
-A Nota Zero Alexandru Ionuț Chiuță novellája (2026), egyetlen fájlos olvasóoldalként bemutatva (`index.html`). Az oldal szerint „spekulatív fikció · húrelmélet · 2087”, kb. 18 perces olvasással, három nyelven (RO · EN · FR). Így kezdődik: „A Big Bang előtt volt valami. Senki sem tudja, mi. Zara ki akarja deríteni.” A teljes szöveg a fájlban van, tudományos jegyzetekkel együtt.
+A Nota Zero Alexandru Ionuț Chiuță novellája (2026), egyetlen fájlos olvasóoldalként bemutatva (`index.html`). Az oldal szerint „spekulatív fikció · húrelmélet · 2087”, kb. 18 perces olvasással, nyolc nyelven (RO · EN · FR · IT · ES · PT · DE · HU). Így kezdődik: „A Big Bang előtt volt valami. Senki sem tudja, mi. Zara ki akarja deríteni.” A teljes szöveg a fájlban van, tudományos jegyzetekkel együtt.
 
 ## Funkciók
 
-- 8 nyelvű felület (RO, EN, FR, IT, ES, PT, DE, HU); teljes szöveg románul, angolul és franciául (a többi nyelven az angol szöveg látható); azonnali váltás a nyelvek között.
+- Felület és teljes szöveg 8 nyelven (RO, EN, FR, IT, ES, PT, DE, HU): a novella (9 fejezet) és a „Tudományos jegyzetek” minden nyelven megvan; az olasz, spanyol, portugál, német és magyar fordítások MI segítségével készültek, anyanyelvi beszélők nem ellenőrizték őket; azonnali váltás a nyelvek között.
 - Fejezetek: I · A rossz kérdés, Közjáték · Az apa, II · A hangok előtti zene, III · A membrán, IV · Az első másodperc előtt, V · A húrok, VI · A világegyetem tükre, VII · A visszatérés, Epilógus · 2087. május 17., valamint a „Tudományos jegyzetek” szakasz.
 - „Fejezetek” menü közvetlen navigációval; „↑” gomb a tetejére való visszatéréshez; mobilmenü.
 - Felolvasás (🔊) a böngésző beszédszintézisével (Web Speech API): ▶ gomb minden fejezetnél, lejátszó szünettel, leállítással, ugrással a szakaszok között, sebességgel (1×) és hangválasztással.
@@ -33,6 +33,7 @@ A Nota Zero Alexandru Ionuț Chiuță novellája (2026), egyetlen fájlos olvas�
 
 - `index.md` — a novella szövege Markdown formátumban (román változat).
 - `recenzie.html` — a mű „Kimerítő recenziója”, amelyet **egy MI-modell (Claude Sonnet 4.6) generált**, nem független irodalomkritika; a pontszámok (pl. 9,4/10) automatikusan generáltak, és emberi értékelő nem hagyta jóvá őket. A „Recenzie generată de AI / AI-generated review” felirat kétnyelvűen (RO/EN) látható a címben, a fejlécben, a megjegyzésben és a láblécben.
+- Nyelvi korlátok: az értékelés (`recenzie.html`) és a sorozat indexe (`serie/index.html`) nyelvválasztóval rendelkezik (RO/EN/FR/IT/ES/PT/DE/HU; `?lang=xx` hivatkozás; a választás az `nz-lang` révén közös az alkalmazással), az importálási útmutató (`punti/README.md`) pedig 8 nyelven létezik (az angol a mérvadó). **Csak románul** marad: a 41 kötet (`serie/vol-*.html`, a kritikai apparátus, a kiegészítő fájlok és a kezdeti archívum), a `carte/` (a könyv, PDF), a `punti/import/` adatfájljai és az `index.md` (az elbeszélés); a sorozatindex ezt a többi nyelven jelzi. Az értékelés és az importálási útmutató fordításai automatikusak, anyanyelvi beszélők nem ellenőrizték, és felülvizsgálatot igényelnek (kritikai hang, fizikai szakkifejezések, mint ekpyrotic/bulk/brane). Az értékelés a v14-es alkalmazást írja le (RO/EN/FR), és nem frissült az alkalmazás 8 nyelvére.
 
 ## A teljes sorozat (41 kötet)
 
@@ -57,7 +58,7 @@ A `serie/` oldalai statikusak, csak kis helyi szkriptekkel (háttéranimációk,
 
 ## Adatvédelem és hálózat
 
-- **Helyi tárhely (localStorage):** a nyelv (`nz-lang`), a szövegméret (`nz-fz`), az akadálymentességi beállítások (`nz-a11y-*`, `nz-cb`), az utoljára elért fejezet (`nz-pos`), a felolvasás sebessége és hangja (`nz-tts-speed`, `nz-tts-voice-*`). A szöveget és más személyes adatokat nem tárolja.
+- **Helyi tárhely (localStorage):** a nyelv (`nz-lang`), a szövegméret (`nz-fz`), az akadálymentességi beállítások (`nz-a11y-*`, `nz-cb`), az utoljára elért fejezet (`nz-pos`), a felolvasás sebessége és hangja (`nz-tts-speed`, `nz-tts-voice-*`). A szöveget és más személyes adatokat nem tárolja. Kivétel a saját magad írta jegyzetek (📝): ezek csak a böngésződben maradnak (kulcs: `fff.nota-zero.notes`), törölhetők, és csak kérésedre exportálódnak.
 - **Hálózat:** nem találtam `fetch`/XHR hívásokat, sem külső szerverekről betöltött szkripteket vagy betűtípusokat. A centrulstring.ro, alexio.tf, Buy Me a Coffee és chiuta.github.io hivatkozások csak kattintásra nyílnak meg.
 - A felolvasás a böngészőben/rendszerben telepített hangokat használja; egyes böngészők a kiválasztott hangtól függően elküldhetik a szöveget saját beszédszolgáltatásuknak (a böngésző viselkedése, nem az alkalmazásé).
 
@@ -73,15 +74,18 @@ MIT — lásd a LICENSE fájlt
 
 Audit: 2026-10-10 (frissítve 2026-10-11) — `fetch`/XHR/CDN nélkül; az egyetlen hálózati kimenet a hivatkozásokra kattintáskor történik. Akadálymentességi javítások (címkék az akadálymentességi panel kapcsolóihoz, kontraszt a világos témákban, sötét hátterű panelek világos módban).
 
-## Új funkciók (v1.1.0)
+## Keresés és jegyzetek (v1.1.0 óta)
 
-- **Helyi keresés a szövegben** (🔎 gomb, FFF.search): az aktív nyelv (ro, en, fr) fejezetbekezdéseiben keres, ékezetek nélkül és kisebb elírásokkal, majd a szakaszra ugrik. Hálózat nélkül.
+- **Helyi keresés a szövegben** (🔎 gomb, FFF.search): az aktív nyelv (ro, en, fr, it, es, pt, de, hu) fejezetbekezdéseiben keres, ékezetek nélkül és kisebb elírásokkal, majd a szakaszra ugrik. Hálózat nélkül.
 - **Könyvjelzők és jegyzetek** (📝 gomb): kijelölsz egy részletet, jegyzetet fűzöl hozzá; csak a böngészőben maradnak meg, törölhetők, Markdownként exportálhatók, és bekerülnek a .fff.json biztonsági mentésbe (az „Átláthatóság” menüpontból).
 - A fejezetek már meglévő felolvasása változatlan marad; közös készlet (core, label, bundle, tts, search).
-- Az új szövegek az alkalmazás minden nyelvén megvannak (beleértve a hu/de nyelvet, ahol van i18n rendszer); az automatikus fordításokat anyanyelvi beszélők nem ellenőrizték.
+- Az új szövegek az alkalmazás mind a 8 nyelvén megvannak (ro, en, fr, it, es, pt, de, hu); az automatikus fordításokat anyanyelvi beszélők nem ellenőrizték.
 - Tesztek: `tests/fff-r8.test.mjs` (blokkolt hálózat, 1280 és 360 px, axe 0 hiba megnyitott párbeszédpanelekkel, jegyzetek hozzáadva/megőrizve/törölve/exportálva).
 
 ## Előzmények / Changelog
+
+- **2026. október 21. (1.4.1 verzió):** a `recenzie.html` és a `serie/index.html` nyelvválasztót kap (8 nyelv, `?lang=xx`, közös `nz-lang` kulcs), a `punti/README.md` pedig 8 nyelven érhető el; szigorú CSP ezeken az oldalakon; a láblécben a sorozatra mutató hivatkozás az aktuális nyelvet követi. A 41 kötet románul marad.
+- **2026. október 19. (1.4.0 verzió):** a fentebb leírt helyi keresés és a könyvjelzők/jegyzetek (az 1.1.0-ban bevezetve) megvannak a jelenlegi verzióban: egy korábbi takarításkor tévedésből eltávolították őket, és újra megvalósítottuk őket (keresés mind a 8 nyelven; jegyzetek Markdown-exporttal, és szerepelnek a `.fff.json` másolatban; tesztek a `tests/fff-r8.test.mjs` fájlban). A novella (9 fejezet), a „Tudományos jegyzetek” és a felület 8 nyelven érhető el (az olasz, spanyol, portugál, német és magyar csatlakozott a román, angol és francia mellé).
 
 - **2026. október 19. (1.2.0 verzió):** a „Tudományos jegyzetekben” hivatkozások a Horizonsra (Ciklikus világegyetem, Kozmikus mikrohullámú háttérsugárzás) és az Universul-Observabil-3D-re; ro/en/fr szövegek.
 
@@ -102,4 +106,4 @@ Audit: 2026-10-10 (frissítve 2026-10-11) — `fetch`/XHR/CDN nélkül; az egyet
 Alexio — Alexandru-Ionuț Chiuță, kapcsolat: alexio@trom.tf. Az oldal a Centrul STRING-re (centrulstring.ro) hivatkozik.
 
 ## Összefoglaló
-A Nota Zero Alexandru Ionuț Chiuță spekulatív fikciós novellája a húrelméletről, egyetlen fájlos olvasóoldalként bemutatva románul, angolul és franciául (kb. 18 perc). Fejezetnavigációt, tudományos jegyzeteket, böngészős beszédszintézissel történő felolvasást, nyomtatást és széles akadálymentességi panelt kínál (diszlexiás betűtípus, térközök, kontraszt, szépia, színtévesztő módok). A beállításokat a localStorage őrzi; hálózati kérések nincsenek. MIT licenc.
+A Nota Zero Alexandru Ionuț Chiuță spekulatív fikciós novellája a húrelméletről, egyetlen fájlos olvasóoldalként bemutatva 8 nyelven (románul, angolul, franciául, németül, spanyolul, portugálul, olaszul, magyarul) (kb. 18 perc). Fejezetnavigációt, tudományos jegyzeteket, böngészős beszédszintézissel történő felolvasást, nyomtatást és széles akadálymentességi panelt kínál (diszlexiás betűtípus, térközök, kontraszt, szépia, színtévesztő módok). A beállításokat a localStorage őrzi; hálózati kérések nincsenek. MIT licenc.

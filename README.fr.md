@@ -2,13 +2,13 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.4.0 · **Dernière mise à jour :** 2026-10-19
+**Version :** 1.4.1 · **Dernière mise à jour :** 2026-10-21
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Fiction / spéculation.** Œuvre littéraire ; les notes scientifiques ont une visée explicative et ne remplacent pas les sources académiques.
 
-Nouvelle de fiction spéculative sur la théorie des cordes, lisible en roumain, anglais et français, avec lecteur vocal et options d'accessibilité.
+Nouvelle de fiction spéculative sur la théorie des cordes, lisible en 8 langues (roumain, anglais, français, allemand, espagnol, portugais, italien, hongrois), avec lecteur vocal et options d'accessibilité.
 
 **En ligne :** https://chiuta.github.io/Nota-Zero/
 
@@ -16,11 +16,11 @@ Nouvelle de fiction spéculative sur la théorie des cordes, lisible en roumain,
 
 ## Ce que c'est
 
-Nota Zero est une nouvelle d'Alexandru Ionuț Chiuță (2026), présentée comme une page de lecture en un seul fichier (`index.html`). Selon la page, c'est de la « fiction spéculative · théorie des cordes · 2087 », avec une lecture d'environ 18 minutes, en trois langues (RO · EN · FR). Elle commence ainsi : « Avant le Big Bang, il y avait quelque chose. Personne ne sait quoi. Zara compte le découvrir. » Le texte intégral est inclus dans le fichier, avec des notes scientifiques.
+Nota Zero est une nouvelle d'Alexandru Ionuț Chiuță (2026), présentée comme une page de lecture en un seul fichier (`index.html`). Selon la page, c'est de la « fiction spéculative · théorie des cordes · 2087 », avec une lecture d'environ 18 minutes, en huit langues (RO · EN · FR · IT · ES · PT · DE · HU). Elle commence ainsi : « Avant le Big Bang, il y avait quelque chose. Personne ne sait quoi. Zara compte le découvrir. » Le texte intégral est inclus dans le fichier, avec des notes scientifiques.
 
 ## Fonctions
 
-- Interface en 8 langues (RO, EN, FR, IT, ES, PT, DE, HU) ; texte complet en roumain, anglais et français (dans les autres langues, le texte anglais s'affiche) ; bascule instantanée entre les langues.
+- Interface et texte complet en 8 langues (RO, EN, FR, IT, ES, PT, DE, HU) : la nouvelle (9 chapitres) et les « Notes scientifiques » existent dans chaque langue ; les traductions en italien, espagnol, portugais, allemand et hongrois ont été réalisées avec l'aide de l'IA et n'ont pas été vérifiées par des locuteurs natifs ; bascule instantanée entre les langues.
 - Chapitres : I · La Mauvaise Question, Interlude · Le Père, II · La Musique avant les sons, III · La Membrane, IV · Avant la première seconde, V · Les Cordes, VI · Le Miroir de l'Univers, VII · Le Retour, Épilogue · 17 mai 2087, plus la section « Notes scientifiques ».
 - Menu « Chapitres » avec navigation directe ; bouton « ↑ » pour revenir en haut ; menu mobile.
 - Lecture à voix haute (🔊) via la synthèse vocale du navigateur (Web Speech API) : bouton ▶ à chaque chapitre, lecteur avec pause, arrêt, saut entre les passages, vitesse (1×) et choix de la voix.
@@ -33,6 +33,7 @@ Nota Zero est une nouvelle d'Alexandru Ionuț Chiuță (2026), présentée comme
 
 - `index.md` — le texte de la nouvelle au format Markdown (version roumaine).
 - `recenzie.html` — une « Critique exhaustive » de l'œuvre, **générée par un modèle d'IA (Claude Sonnet 4.6)**, et non une critique littéraire indépendante ; les notes (par ex. 9,4/10) sont générées automatiquement et n'ont pas été validées par un évaluateur humain. L'étiquette « Recenzie generată de AI / AI-generated review » est affichée en version bilingue (RO/EN) dans le titre, dans l'en-tête, dans la note et dans le pied de page.
+- Limites linguistiques : la critique (`recenzie.html`) et l'index de la série (`serie/index.html`) ont un sélecteur de langue (RO/EN/FR/IT/ES/PT/DE/HU ; lien `?lang=xx` ; le choix est partagé avec l'application via `nz-lang`), et le guide d'importation `punti/README.md` existe en 8 langues (l'anglais fait foi). Restent **en roumain uniquement** : les 41 volumes (`serie/vol-*.html`, l'appareil critique, les fichiers supplémentaires et l'archive initiale), `carte/` (le livre, PDF), les fichiers de données de `punti/import/` et `index.md` (le récit) ; l'index de la série le signale dans les autres langues. Les traductions de la critique et du guide d'importation sont automatiques, non vérifiées par des locuteurs natifs, et doivent être relues (ton critique, termes de physique comme ekpyrotique/bulk/brane). La critique décrit l'application v14 (RO/EN/FR) et n'a pas été mise à jour pour les 8 langues de l'application.
 
 ## La série complète (41 volumes)
 
@@ -57,7 +58,7 @@ Les pages de `serie/` sont statiques, avec seulement de petits scripts locaux (a
 
 ## Confidentialité et réseau
 
-- **Stockage local (localStorage) :** la langue (`nz-lang`), la taille du texte (`nz-fz`), les préférences d'accessibilité (`nz-a11y-*`, `nz-cb`), le dernier chapitre atteint (`nz-pos`), la vitesse et la voix de lecture (`nz-tts-speed`, `nz-tts-voice-*`). Le texte et d'autres données personnelles ne sont pas stockés.
+- **Stockage local (localStorage) :** la langue (`nz-lang`), la taille du texte (`nz-fz`), les préférences d'accessibilité (`nz-a11y-*`, `nz-cb`), le dernier chapitre atteint (`nz-pos`), la vitesse et la voix de lecture (`nz-tts-speed`, `nz-tts-voice-*`). Le texte et d'autres données personnelles ne sont pas stockés. Les notes que vous écrivez vous-même (📝) font exception : elles ne sont conservées que dans votre navigateur (clé `fff.nota-zero.notes`), peuvent être supprimées et ne sont exportées que si vous le demandez.
 - **Réseau :** je n'ai trouvé aucun appel `fetch`/XHR ni script ou police chargés depuis des serveurs externes. Les liens vers centrulstring.ro, alexio.tf, Buy Me a Coffee et chiuta.github.io ne s'ouvrent qu'au clic.
 - La lecture à voix haute utilise les voix installées dans le navigateur/le système ; certains navigateurs peuvent envoyer le texte à un service vocal propre, selon la voix choisie (comportement du navigateur, non de l'application).
 
@@ -73,15 +74,18 @@ MIT — voir le fichier LICENSE
 
 Audit : 2026-10-10 (mis à jour le 2026-10-11) — sans `fetch`/XHR/CDN ; la seule sortie vers le réseau a lieu au clic sur des liens. Corrections d'accessibilité (étiquettes pour les commutateurs du panneau d'accessibilité, contraste dans les thèmes clairs, panneaux à fond sombre en mode clair).
 
-## Nouvelles fonctions (v1.1.0)
+## Recherche et notes (depuis la v1.1.0)
 
-- **Recherche locale dans le texte** (bouton 🔎, FFF.search) : cherche dans les paragraphes des chapitres de la langue active (ro, en, fr), sans tenir compte des diacritiques et avec de petites fautes, puis saute au passage. Sans réseau.
+- **Recherche locale dans le texte** (bouton 🔎, FFF.search) : cherche dans les paragraphes des chapitres de la langue active (ro, en, fr, it, es, pt, de, hu), sans tenir compte des diacritiques et avec de petites fautes, puis saute au passage. Sans réseau.
 - **Signets et notes** (bouton 📝) : vous sélectionnez un passage, ajoutez une note ; ils ne sont conservés que dans le navigateur, peuvent être supprimés, exportés en Markdown et sont inclus dans la sauvegarde .fff.json (depuis « Transparence »).
 - La lecture à voix haute des chapitres, déjà existante, reste inchangée ; kit commun (core, label, bundle, tts, search).
-- Les nouveaux textes existent dans toutes les langues de l'application (y compris hu/de là où un système i18n existe) ; les traductions automatiques ne sont pas vérifiées par des locuteurs natifs.
+- Les nouveaux textes existent dans les 8 langues de l'application (ro, en, fr, it, es, pt, de, hu) ; les traductions automatiques ne sont pas vérifiées par des locuteurs natifs.
 - Tests : `tests/fff-r8.test.mjs` (réseau bloqué, 1280 et 360 px, axe 0 violation avec les boîtes de dialogue ouvertes, notes ajoutées/conservées/supprimées/exportées).
 
 ## Historique / Changelog
+
+- **21 octobre 2026 (version 1.4.1) :** `recenzie.html` et `serie/index.html` reçoivent un sélecteur de langue (8 langues, `?lang=xx`, clé commune `nz-lang`) et `punti/README.md` est disponible en 8 langues ; CSP stricte sur ces pages ; le lien du pied de page vers la série suit la langue courante. Les 41 volumes restent en roumain.
+- **19 octobre 2026 (version 1.4.0) :** la recherche locale et les signets/notes décrits ci-dessus (introduits dans la 1.1.0) sont présents dans la version actuelle : ils avaient été supprimés par erreur lors d'un nettoyage antérieur et ont été réimplémentés (recherche dans les 8 langues ; notes avec export Markdown et incluses dans la copie `.fff.json` ; tests dans `tests/fff-r8.test.mjs`). La nouvelle (9 chapitres), les « Notes scientifiques » et l'interface sont disponibles en 8 langues (italien, espagnol, portugais, allemand et hongrois ajoutés au roumain, à l'anglais et au français).
 
 - **19 octobre 2026 (version 1.2.0) :** dans les « Notes scientifiques », liens vers Horizons (Univers cyclique, Fond diffus cosmologique) et Universul-Observabil-3D ; textes ro/en/fr.
 
@@ -102,4 +106,4 @@ Audit : 2026-10-10 (mis à jour le 2026-10-11) — sans `fetch`/XHR/CDN ; la seu
 Alexio — Alexandru-Ionuț Chiuță, contact : alexio@trom.tf. La page renvoie vers le Centrul STRING (centrulstring.ro).
 
 ## Résumé
-Nota Zero est une nouvelle de fiction spéculative sur la théorie des cordes d'Alexandru Ionuț Chiuță, présentée comme une page de lecture en un seul fichier en roumain, anglais et français (environ 18 minutes). Elle propose une navigation par chapitres, des notes scientifiques, une lecture à voix haute par synthèse vocale du navigateur, l'impression et un vaste panneau d'accessibilité (police pour la dyslexie, espacement, contraste, sépia, modes pour daltoniens). Les préférences sont conservées dans localStorage ; aucune requête réseau. Licence MIT.
+Nota Zero est une nouvelle de fiction spéculative sur la théorie des cordes d'Alexandru Ionuț Chiuță, présentée comme une page de lecture en un seul fichier en 8 langues (roumain, anglais, français, allemand, espagnol, portugais, italien, hongrois) (environ 18 minutes). Elle propose une navigation par chapitres, des notes scientifiques, une lecture à voix haute par synthèse vocale du navigateur, l'impression et un vaste panneau d'accessibilité (police pour la dyslexie, espacement, contraste, sépia, modes pour daltoniens). Les préférences sont conservées dans localStorage ; aucune requête réseau. Licence MIT.
