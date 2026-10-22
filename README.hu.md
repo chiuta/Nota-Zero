@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.4.6 · **Utolsó frissítés:** 2026-10-23
+**Verzió:** 1.4.7 · **Utolsó frissítés:** 2026-10-23
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -83,6 +83,10 @@ Audit: 2026-10-10 (frissítve 2026-10-11) — `fetch`/XHR/CDN nélkül; az egyet
 - Tesztek: `tests/fff-r8.test.mjs` (blokkolt hálózat, 1280 és 360 px, axe 0 hiba megnyitott párbeszédpanelekkel, jegyzetek hozzáadva/megőrizve/törölve/exportálva).
 
 ## Előzmények / Changelog
+
+### 1.4.7 — 2026-10-23
+
+- Párbeszédablakok: a natív `alert`/`confirm`/`prompt` ablakokat akadálymentes, lefordított `FFF.dialog` ablakok váltották fel (billentyűzet, fókuszcsapda, Esc), változatlan viselkedéssel (fff-kit 1.2.0).
 
 ### 1.4.5 — 2026-10-22
 
