@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.4.3 · **Last updated:** 2026-10-22
+**Version:** 1.4.4 · **Last updated:** 2026-10-22
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -84,6 +84,7 @@ Audit: 2026-10-10 (updated 2026-10-11) — no `fetch`/XHR/CDN; the only network 
 
 ## History / Changelog
 
+- 1.4.4 — 2026-10-22: fff-kit 1.1.2: PBKDF2 600,000 iterations, anti-clickjacking protection
 - **21 October 2026 (version 1.4.1):** `recenzie.html` and `serie/index.html` get a language selector (8 languages, `?lang=xx`, shared `nz-lang` key) and `punti/README.md` is available in 8 languages; strict CSP on these pages; the footer link to the series follows the current language. The 41 volumes stay in Romanian.
 - **19 October 2026 (version 1.4.0):** the local search and the bookmarks/notes described above (introduced in 1.1.0) are present in the current version: they had been removed by mistake in an earlier cleanup and were reimplemented (search over all 8 languages; notes with Markdown export and inclusion in the `.fff.json` backup; tests in `tests/fff-r8.test.mjs`). The story (9 chapters), the "Scientific Notes" and the interface are available in 8 languages (Italian, Spanish, Portuguese, German and Hungarian added to Romanian, English and French).
 

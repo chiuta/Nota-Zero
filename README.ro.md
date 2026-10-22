@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.4.3 · **Ultima actualizare:** 2026-10-22
+**Versiune:** 1.4.4 · **Ultima actualizare:** 2026-10-22
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -84,6 +84,7 @@ Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ie
 
 ## Istoric / Changelog
 
+- 1.4.4 — 2026-10-22: fff-kit 1.1.2: PBKDF2 600 000 iterații, protecție anti-clickjacking
 - **21 octombrie 2026 (versiunea 1.4.1):** `recenzie.html` și `serie/index.html` primesc selector de limbă (8 limbi, `?lang=xx`, cheia comună `nz-lang`), iar `punti/README.md` este disponibil în 8 limbi; CSP strictă pe aceste pagini; linkul din subsol către serie urmează limba curentă. Cele 41 de volume rămân în română.
 - **19 octombrie 2026 (versiunea 1.4.0):** căutarea locală și semnele de carte/notițele descrise mai sus (introduse în 1.1.0) sunt prezente în versiunea curentă: fuseseră eliminate din greșeală într-o curățare anterioară și au fost reimplementate (căutare în toate cele 8 limbi; notițe cu export Markdown și incluse în copia `.fff.json`; teste în `tests/fff-r8.test.mjs`). Povestirea (9 capitole), „Notele științifice” și interfața sunt disponibile în 8 limbi (italiană, spaniolă, portugheză, germană și maghiară adăugate la română, engleză și franceză).
 

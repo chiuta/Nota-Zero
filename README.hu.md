@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.4.3 · **Utolsó frissítés:** 2026-10-22
+**Verzió:** 1.4.4 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -84,6 +84,7 @@ Audit: 2026-10-10 (frissítve 2026-10-11) — `fetch`/XHR/CDN nélkül; az egyet
 
 ## Előzmények / Changelog
 
+- 1.4.4 — 2026-10-22: fff-kit 1.1.2: PBKDF2 600 000 iterációval, clickjacking elleni védelem
 - **2026. október 21. (1.4.1 verzió):** a `recenzie.html` és a `serie/index.html` nyelvválasztót kap (8 nyelv, `?lang=xx`, közös `nz-lang` kulcs), a `punti/README.md` pedig 8 nyelven érhető el; szigorú CSP ezeken az oldalakon; a láblécben a sorozatra mutató hivatkozás az aktuális nyelvet követi. A 41 kötet románul marad.
 - **2026. október 19. (1.4.0 verzió):** a fentebb leírt helyi keresés és a könyvjelzők/jegyzetek (az 1.1.0-ban bevezetve) megvannak a jelenlegi verzióban: egy korábbi takarításkor tévedésből eltávolították őket, és újra megvalósítottuk őket (keresés mind a 8 nyelven; jegyzetek Markdown-exporttal, és szerepelnek a `.fff.json` másolatban; tesztek a `tests/fff-r8.test.mjs` fájlban). A novella (9 fejezet), a „Tudományos jegyzetek” és a felület 8 nyelven érhető el (az olasz, spanyol, portugál, német és magyar csatlakozott a román, angol és francia mellé).
 

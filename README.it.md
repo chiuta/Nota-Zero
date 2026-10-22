@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.4.3 · **Ultimo aggiornamento:** 2026-10-22
+**Versione:** 1.4.4 · **Ultimo aggiornamento:** 2026-10-22
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -84,6 +84,7 @@ Audit: 2026-10-10 (aggiornato il 2026-10-11) — senza `fetch`/XHR/CDN; l'unica 
 
 ## Cronologia / Changelog
 
+- 1.4.4 — 2026-10-22: fff-kit 1.1.2: PBKDF2 con 600.000 iterazioni, protezione anti-clickjacking
 - **21 ottobre 2026 (versione 1.4.1):** `recenzie.html` e `serie/index.html` ricevono un selettore di lingua (8 lingue, `?lang=xx`, chiave comune `nz-lang`) e `punti/README.md` è disponibile in 8 lingue; CSP rigorosa su queste pagine; il link a piè di pagina verso la serie segue la lingua corrente. I 41 volumi restano in rumeno.
 - **19 ottobre 2026 (versione 1.4.0):** la ricerca locale e i segnalibri/le note descritti sopra (introdotti nella 1.1.0) sono presenti nella versione attuale: erano stati rimossi per errore in una pulizia precedente e sono stati reimplementati (ricerca in tutte le 8 lingue; note con esportazione Markdown e incluse nella copia `.fff.json`; test in `tests/fff-r8.test.mjs`). Il racconto (9 capitoli), le «Note scientifiche» e l'interfaccia sono disponibili in 8 lingue (italiano, spagnolo, portoghese, tedesco e ungherese aggiunti a rumeno, inglese e francese).
 
