@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 1.4.2 · **Última actualización:** 2026-10-22
+**Versión:** 1.4.3 · **Última actualización:** 2026-10-22
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -108,6 +108,9 @@ Alexio — Alexandru-Ionuț Chiuță, contacto: alexio@trom.tf. La página remit
 ## Resumen
 
 Nota Zero es un relato de ficción especulativa sobre la teoría de cuerdas de Alexandru Ionuț Chiuță, presentado como una página de lectura de un solo archivo en 8 idiomas (rumano, inglés, francés, alemán, español, portugués, italiano, húngaro) (unos 18 minutos). Ofrece navegación por capítulos, notas científicas, lectura en voz alta con la síntesis de voz del navegador, impresión y un amplio panel de accesibilidad (fuente para dislexia, espaciado, contraste, sepia, modos para daltonismo). Las preferencias se guardan en localStorage; sin solicitudes de red. Licencia MIT.
+
+### 1.4.3 — 2026-10-22
+- La barra de reanudación, el menú móvil y el botón de imprimir tienen ahora etiquetas en el idioma actual, y el título del capítulo «leyendo ahora» (audio) sigue el idioma elegido en lugar del rumano.
 
 ### 1.4.2 — 2026-10-22
 - Los controles de lectura en voz alta (panel, botones, selector de voz, avisos) y el aviso de ficción del pie de página están traducidos a los 8 idiomas.
