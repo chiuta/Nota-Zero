@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.4.1 · **Last updated:** 2026-10-21
+**Version:** 1.4.2 · **Last updated:** 2026-10-22
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -108,3 +108,7 @@ Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf. The page links to
 ## English summary
 
 Nota Zero is a speculative-fiction short story about string theory by Alexandru Ionuț Chiuță, presented as a single-file reading page in 8 languages (Romanian, English, French, German, Spanish, Portuguese, Italian, Hungarian) (about 18 minutes). It has chapter navigation, scientific notes, browser text-to-speech reading, printing and a wide accessibility panel (dyslexia font, spacing, contrast, sepia, colour-blind modes). Preferences are kept in localStorage; no network requests. MIT licence.
+
+### 1.4.2 — 2026-10-22
+- Audio reading controls (panel, buttons, voice selector, announcements) and the fiction notice in the footer are now translated into all 8 languages.
+

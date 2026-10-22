@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.4.1 · **Ultimo aggiornamento:** 2026-10-21
+**Versione:** 1.4.2 · **Ultimo aggiornamento:** 2026-10-22
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -107,3 +107,7 @@ Alexio — Alexandru-Ionuț Chiuță, contatto: alexio@trom.tf. La pagina rimand
 
 ## Riepilogo
 Nota Zero è un racconto di narrativa speculativa sulla teoria delle stringhe di Alexandru Ionuț Chiuță, presentato come pagina di lettura in un unico file in 8 lingue (rumeno, inglese, francese, tedesco, spagnolo, portoghese, italiano, ungherese) (circa 18 minuti). Offre navigazione per capitoli, note scientifiche, lettura ad alta voce con la sintesi vocale del browser, stampa e un ampio pannello di accessibilità (font per la dislessia, spaziatura, contrasto, seppia, modalità per daltonici). Le preferenze sono conservate in localStorage; nessuna richiesta di rete. Licenza MIT.
+
+### 1.4.2 — 2026-10-22
+- I controlli di lettura audio (pannello, pulsanti, selettore della voce, annunci) e l'avviso di finzione nel piè di pagina sono tradotti in tutte e 8 le lingue.
+

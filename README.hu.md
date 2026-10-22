@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.4.1 · **Utolsó frissítés:** 2026-10-21
+**Verzió:** 1.4.2 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -107,3 +107,7 @@ Alexio — Alexandru-Ionuț Chiuță, kapcsolat: alexio@trom.tf. Az oldal a Cent
 
 ## Összefoglaló
 A Nota Zero Alexandru Ionuț Chiuță spekulatív fikciós novellája a húrelméletről, egyetlen fájlos olvasóoldalként bemutatva 8 nyelven (románul, angolul, franciául, németül, spanyolul, portugálul, olaszul, magyarul) (kb. 18 perc). Fejezetnavigációt, tudományos jegyzeteket, böngészős beszédszintézissel történő felolvasást, nyomtatást és széles akadálymentességi panelt kínál (diszlexiás betűtípus, térközök, kontraszt, szépia, színtévesztő módok). A beállításokat a localStorage őrzi; hálózati kérések nincsenek. MIT licenc.
+
+### 1.4.2 — 2026-10-22
+- A hangos felolvasás vezérlői (panel, gombok, hangválasztó, bejelentések) és a lábléc fikciós megjegyzése mind a 8 nyelven le van fordítva.
+

@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.4.1 · **Dernière mise à jour :** 2026-10-21
+**Version :** 1.4.2 · **Dernière mise à jour :** 2026-10-22
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -107,3 +107,7 @@ Alexio — Alexandru-Ionuț Chiuță, contact : alexio@trom.tf. La page renvoie 
 
 ## Résumé
 Nota Zero est une nouvelle de fiction spéculative sur la théorie des cordes d'Alexandru Ionuț Chiuță, présentée comme une page de lecture en un seul fichier en 8 langues (roumain, anglais, français, allemand, espagnol, portugais, italien, hongrois) (environ 18 minutes). Elle propose une navigation par chapitres, des notes scientifiques, une lecture à voix haute par synthèse vocale du navigateur, l'impression et un vaste panneau d'accessibilité (police pour la dyslexie, espacement, contraste, sépia, modes pour daltoniens). Les préférences sont conservées dans localStorage ; aucune requête réseau. Licence MIT.
+
+### 1.4.2 — 2026-10-22
+- Les commandes de lecture audio (panneau, boutons, sélecteur de voix, annonces) et la mention de fiction du pied de page sont traduites dans les 8 langues.
+

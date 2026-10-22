@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.4.1 · **Ultima actualizare:** 2026-10-21
+**Versiune:** 1.4.2 · **Ultima actualizare:** 2026-10-22
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -108,3 +108,7 @@ Alexio — Alexandru-Ionuț Chiuță, contact: alexio@trom.tf. Pagina trimite c�
 ## Rezumat
 
 Nota Zero este o povestire de ficțiune speculativă despre teoria corzilor de Alexandru Ionuț Chiuță, prezentată ca pagină de lectură într-un singur fișier în 8 limbi (română, engleză, franceză, germană, spaniolă, portugheză, italiană, maghiară) (aproximativ 18 minute). Are navigare pe capitole, note științifice, citire cu sinteză vocală a browserului, tipărire și un panou larg de accesibilitate (font pentru dislexie, spațiere, contrast, sepia, moduri pentru daltonism). Preferințele se păstrează în localStorage; fără cereri de rețea. Licență MIT.
+
+### 1.4.2 — 2026-10-22
+- Controalele de citire audio (panou, butoane, selector de voce, anunțuri) și nota de ficțiune din subsol sunt traduse în toate cele 8 limbi.
+
