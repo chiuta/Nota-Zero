@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.4.4 · **Zuletzt aktualisiert:** 2026-10-22
+**Version:** 1.4.5 · **Zuletzt aktualisiert:** 2026-10-22
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -83,6 +83,10 @@ Audit: 2026-10-10 (aktualisiert 2026-10-11) — kein `fetch`/XHR/CDN; der einzig
 - Tests: `tests/fff-r8.test.mjs` (Netzwerk gesperrt, 1280 und 360 px, axe 0 Verstöße bei geöffneten Dialogen, Notizen hinzugefügt/gespeichert/gelöscht/exportiert).
 
 ## Verlauf / Changelog
+
+### 1.4.5 — 2026-10-22
+
+fff-kit 1.1.4: Touch-Ziele und Mindestschriftgröße; Touch-Ziele und Text korrigiert.
 
 - 1.4.4 — 2026-10-22: fff-kit 1.1.2: PBKDF2 mit 600.000 Iterationen, Schutz vor Clickjacking
 - **21. Oktober 2026 (Version 1.4.1):** `recenzie.html` und `serie/index.html` erhalten eine Sprachauswahl (8 Sprachen, `?lang=xx`, gemeinsamer Schlüssel `nz-lang`), und `punti/README.md` gibt es in 8 Sprachen; strenge CSP auf diesen Seiten; der Fußzeilenlink zur Serie folgt der aktuellen Sprache. Die 41 Bände bleiben auf Rumänisch.
