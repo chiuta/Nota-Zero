@@ -1,0 +1,20 @@
+// Nota-Zero — metadate: og:image există, app.json ↔ index.html coerente (versiune, mărime, sha256 cu câmpul golit). Rulare: node tests/meta.test.mjs
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const R = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const rd = f => fs.readFileSync(path.join(R, f), 'utf8');
+let pass = 0, fail = 0;
+const ok = (c, n, i) => { if (c) { pass++; console.log('  ok   ' + n); } else { fail++; console.log('  FAIL ' + n + (i === undefined ? '' : ' ' + JSON.stringify(i))); } };
+const h = rd('index.html'), app = JSON.parse(rd('app.json'));
+const info = JSON.parse(h.match(/<script type="application\/json" id="fff-info">([\s\S]*?)<\/script>/)[1]);
+const og = h.match(/property="og:image" content="https:\/\/chiuta\.github\.io\/Nota-Zero\/([^"]+)"/);
+ok(og && fs.existsSync(path.join(R, og[1])), 'og:image indică un fișier existent în repo', og && og[1]);
+ok(app.version === info.version && info.version === h.match(/name="application-version" content="([^"]+)"/)[1], 'versiune coerentă app.json / fff-info / meta', [app.version, info.version]);
+ok(rd('sw.js').includes('VERSION = "' + app.version + '"'), 'sw.js are aceeași versiune');
+ok(app.sizeBytes === Buffer.byteLength(h) && info.sizeBytes === app.sizeBytes, 'sizeBytes corect');
+const d = crypto.createHash('sha256').update(h.replace(/"sha256":"[0-9a-f]{64}"/, '"sha256":""')).digest('hex');
+ok(app.sha256 === d && info.sha256 === d, 'sha256 corect (câmpul sha256 golit)');
+for (const f of fs.readdirSync(R).filter(f => /^README(\.\w\w)?\.md$/.test(f))) ok(rd(f).includes('1.4.8') && rd(f).split('\n')[4].includes(app.version), f + ' are versiunea curentă');
+console.log('\n' + pass + ' reușite, ' + fail + ' eșuate'); process.exit(fail ? 1 : 0);
