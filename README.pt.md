@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.4.7 · **Última atualização:** 2026-10-23
+**Versão:** 1.4.8 · **Última atualização:** 2026-10-23
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -83,6 +83,10 @@ Auditoria: 2026-10-10 (atualizada a 2026-10-11) — sem `fetch`/XHR/CDN; a únic
 - Testes: `tests/fff-r8.test.mjs` (rede bloqueada, 1280 e 360 px, axe 0 violações com os diálogos abertos, notas adicionadas/mantidas/apagadas/exportadas).
 
 ## Histórico / Changelog
+
+### 1.4.8 — 2026-10-23
+
+- Pré-visualização social: `og:image` apontava para um ficheiro inexistente (`og-image.jpg`, HTTP 404); agora aponta para `screenshot.png`.
 
 ### 1.4.7 — 2026-10-23
 

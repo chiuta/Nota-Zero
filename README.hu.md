@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.4.7 · **Utolsó frissítés:** 2026-10-23
+**Verzió:** 1.4.8 · **Utolsó frissítés:** 2026-10-23
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -83,6 +83,10 @@ Audit: 2026-10-10 (frissítve 2026-10-11) — `fetch`/XHR/CDN nélkül; az egyet
 - Tesztek: `tests/fff-r8.test.mjs` (blokkolt hálózat, 1280 és 360 px, axe 0 hiba megnyitott párbeszédpanelekkel, jegyzetek hozzáadva/megőrizve/törölve/exportálva).
 
 ## Előzmények / Changelog
+
+### 1.4.8 — 2026-10-23
+
+- Közösségi előnézet: az `og:image` egy nem létező fájlra mutatott (`og-image.jpg`, HTTP 404); mostantól a `screenshot.png`-re mutat.
 
 ### 1.4.7 — 2026-10-23
 
