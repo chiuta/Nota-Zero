@@ -16,5 +16,5 @@ ok(rd('sw.js').includes('VERSION = "' + app.version + '"'), 'sw.js are aceeași 
 ok(app.sizeBytes === Buffer.byteLength(h) && info.sizeBytes === app.sizeBytes, 'sizeBytes corect');
 const d = crypto.createHash('sha256').update(h.replace(/"sha256":"[0-9a-f]{64}"/, '"sha256":""')).digest('hex');
 ok(app.sha256 === d && info.sha256 === d, 'sha256 corect (câmpul sha256 golit)');
-for (const f of fs.readdirSync(R).filter(f => /^README(\.\w\w)?\.md$/.test(f))) ok(rd(f).includes('1.4.8') && rd(f).split('\n')[4].includes(app.version), f + ' are versiunea curentă');
+for (const f of fs.readdirSync(R).filter(f => /^README(\.\w\w)?\.md$/.test(f))) ok(rd(f).includes('1.4.9') && rd(f).split('\n')[4].includes(app.version), f + ' are versiunea curentă');
 console.log('\n' + pass + ' reușite, ' + fail + ' eșuate'); process.exit(fail ? 1 : 0);
