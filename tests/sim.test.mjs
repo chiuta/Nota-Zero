@@ -127,6 +127,8 @@ console.log('Nota Zero — note vii (simulări)');
   const w = await page.evaluate(() => ({sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth, cvw: document.querySelector('.nz-sim canvas').getBoundingClientRect().width}));
   ok(w.sw <= w.cw + 1 && w.cvw > 250, 'telefon 360px: fără defilare orizontală, desenul încape', w);
   if (AXE && fs.existsSync(AXE)) {
+    // așteaptă (pe condiție) ca strămoșii simulării să termine tranzițiile de apariție (opacitate .8s) — altfel axe măsoară contrastul pe un text pe jumătate transparent
+    await page.waitForFunction(() => { const sim = document.querySelector('.nz-sim'); if (!sim) return false; for (let e = sim; e && e.nodeType === 1; e = e.parentElement) { if (+getComputedStyle(e).opacity !== 1) return false; if (e.getAnimations && e.getAnimations().length) return false; } return true; }, null, {timeout: 15000});
     await page.addScriptTag({content: fs.readFileSync(AXE, 'utf8')});
     const v = await page.evaluate(async () => { const x = await axe.run('.nz-sim'); return x.violations.map(a => a.id + ':' + a.nodes.length); });
     ok(!v.length, 'axe-core pe panoul simulării: 0 violări', v);

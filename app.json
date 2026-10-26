@@ -14,8 +14,8 @@
   "storageKeys": [
     "notes"
   ],
-  "sizeBytes": 1262559,
-  "sha256": "f8e3741dbc74c6e536471faa276764a2533c98589d5b12f0615e72e1c6451691",
+  "sizeBytes": 1262558,
+  "sha256": "a79411255de6b505a10c1babdecd0a3e0c0dcfe5464688caa0091930c950a6d8",
   "csp": {
     "present": true,
     "directives": {
