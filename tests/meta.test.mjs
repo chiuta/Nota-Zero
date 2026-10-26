@@ -1,4 +1,8 @@
 // Nota-Zero — metadate: og:image există, app.json ↔ index.html coerente (versiune, mărime, sha256 cu câmpul golit). Rulare: node tests/meta.test.mjs
+// [fff-portable] versiunea/data/kitul aplicației se citesc din app.json (nu mai sunt hard-codate în teste)
+import {readFileSync as __fffRF} from 'node:fs';
+const __FFF_APP = JSON.parse(__fffRF(new URL('../app.json', import.meta.url), 'utf8'));
+const __fffRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import path from 'node:path';
@@ -14,7 +18,7 @@ ok(og && fs.existsSync(path.join(R, og[1])), 'og:image indică un fișier existe
 ok(app.version === info.version && info.version === h.match(/name="application-version" content="([^"]+)"/)[1], 'versiune coerentă app.json / fff-info / meta', [app.version, info.version]);
 ok(rd('sw.js').includes('VERSION = "' + app.version + '"'), 'sw.js are aceeași versiune');
 ok(app.sizeBytes === Buffer.byteLength(h) && info.sizeBytes === app.sizeBytes, 'sizeBytes corect');
-const d = crypto.createHash('sha256').update(h.replace(/"sha256":"[0-9a-f]{64}"/, '"sha256":""')).digest('hex');
+const d = crypto.createHash('sha256').update(h.replace(/data-fff-hash="[0-9a-f]*"/g, 'data-fff-hash=""').replace(/"sha256":"[0-9a-f]{64}"/, '"sha256":""')).digest('hex');
 ok(app.sha256 === d && info.sha256 === d, 'sha256 corect (câmpul sha256 golit)');
-for (const f of fs.readdirSync(R).filter(f => /^README(\.\w\w)?\.md$/.test(f))) ok(rd(f).includes('1.4.9') && rd(f).split('\n')[4].includes(app.version), f + ' are versiunea curentă');
+for (const f of fs.readdirSync(R).filter(f => /^README(\.\w\w)?\.md$/.test(f))) ok(rd(f).includes(__FFF_APP.version) && rd(f).split('\n')[4].includes(app.version), f + ' are versiunea curentă');
 console.log('\n' + pass + ' reușite, ' + fail + ' eșuate'); process.exit(fail ? 1 : 0);
