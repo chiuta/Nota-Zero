@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.4.9 · **Last updated:** 2026-10-26
+**Version:** 2.0.0 · **Last updated:** 2026-10-26
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -28,6 +28,8 @@ Nota Zero is a short story by Alexandru Ionuț Chiuță (2026), presented as a s
 - "Resume reading": on a new visit, if you previously read further than the first chapter, a discreet bar "You left off at …" appears with Continue and Close buttons (it follows the chosen language).
 - Accessibility panel (⚙): text size (A− / A+), dyslexia font (Atkinson Hyperlegible), letter/word/line/paragraph spacing, text shadow, narrow column, link underlining, high contrast, light mode, sepia mode (light beige background with brown text), no animations, reading guide, colour-blindness modes (protanopia, deuteranopia, tritanopia) and "Reset all preferences".
 - A background animation (canvas) in the header, which can be disabled from "No animations".
+
+- **Living notes (2.0.0):** five of the scientific notes (strings, compactified dimensions, colliding branes, the graviton, the holographic principle) open as small interactive simulations next to the passage that evokes them and in the notes section; schematic illustrations, not to scale. The story text is untouched.
 
 ## Other files
 

@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.4.9 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -28,6 +28,7 @@ Nota Zero este o povestire de Alexandru Ionuț Chiuță (2026), prezentată ca o
 - „Reia lectura”: la o nouă vizită, dacă ai citit anterior mai departe de primul capitol, apare o bară discretă „Ai rămas la …” cu butoanele Continuă și Închide (urmărește limba aleasă).
 - Panou de accesibilitate (⚙): mărime text (A− / A+), font pentru dislexie (Atkinson Hyperlegible), spațiere litere/cuvinte/rânduri/paragrafe, umbră text, coloană îngustă, subliniere linkuri, contrast ridicat, mod luminos, mod sepia (fundal bej deschis cu text brun), fără animații, ghid de lectură, moduri pentru daltonism (protanopie, deuteranopie, tritanopie) și „Resetează toate preferințele”.
 - Animație de fundal (canvas) în antet, care poate fi dezactivată din „Fără animații”.
+- **Note vii (2.0.0):** cinci dintre notele științifice (corzi, dimensiuni compactificate, ciocnirea branelor, gravitonul, principiul holografic) se deschid ca mici simulări interactive (canvas, fără rețea) — atât lângă pasajul din poveste care le evocă, cât și în secțiunea de note; glisoare și buton de animație (oprit automat la „mișcare redusă”). Sunt ilustrări schematice, nu la scară; notele 6–7 nu au simulare. Textul poveștii nu este modificat.
 
 ## Alte fișiere
 
@@ -83,6 +84,10 @@ Audit: 2026-10-10 (actualizat 2026-10-11) — fără `fetch`/XHR/CDN; singura ie
 - Teste: `tests/fff-r8.test.mjs` (rețea blocată, 1280 și 360 px, axe 0 violări cu dialogurile deschise, note adăugate/persistate/șterse/exportate).
 
 ## Istoric / Changelog
+
+### 2.0.0 — 2026-10-26
+
+- Nou: **note vii** — simulări interactive pentru notele științifice 1–5, în 8 limbi. Test nou: `tests/sim.test.mjs`. Textul poveștii nu a fost modificat.
 
 ### 1.4.8 — 2026-10-23
 
