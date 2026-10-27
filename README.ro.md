@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.0.1 · **Ultima actualizare:** 2026-10-27
+
+**Stare:** stabil · **Offline:** complet (fără cereri în rețea; cititorul vocal folosește vocile instalate pe dispozitiv)
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -13,6 +15,27 @@ Povestire de ficțiune speculativă despre teoria corzilor, citibilă în 8 limb
 **Live:** https://chiuta.github.io/Nota-Zero/
 
 ![Captura de ecran](screenshot.ro.png)
+
+## Sinopsis
+
+Zara, o adolescentă de cincisprezece ani care întreabă mereu „dar de unde venea punctul?”, pleacă spre Lună după ce tatăl ei, fizicianul Emil Voss, dispare în Marele Colizor Cuantic. Trecând printr-o deschizătură din sala colizorului, ajunge între membrane cosmice și află că Big Bang-ul nu a fost un punct, ci atingerea a două lumi vaste — și că noi suntem „universul privind universul”.
+
+### Extras (capitolul I, „Întrebarea Greșită”)
+
+> Zara avea cincisprezece ani și un blocnotes albastru cu coperta uzată în care colecționa întrebări fără răspuns. Unele aveau două cuvinte. Altele ocupau o pagină întreagă și se terminau cu trei semne de exclamare. Toate aveau în comun că nu le-o pusese nimeni altcineva, și că de fiecare dată când le punea ea, în clasă sau la masă sau la telefon cu tatăl ei, urmau fie o tăcere lungă, fie un zâmbet de genul: *ce copil interesant*. Zara obosise de zâmbetul ăla.
+>
+> Întrebarea pe care o tot punea și tot primea înapoi era una singură, în versiuni diferite:
+>
+> „Dar de unde venea punctul?”
+
+(Sinopsisul și extrasul sunt preluate din povestirea din `index.html`.)
+
+## Descărcare: EPUB și PDF
+
+- **EPUB (povestirea, 9 capitole + note științifice), câte un fișier pe limbă:** `carte/Nota-Zero-poveste-<lang>.epub`, cu `<lang>` = `ro`, `en`, `fr`, `it`, `es`, `pt`, `de`, `hu`. Generat din textul din `index.html` cu `python3 scripts/build_epub.py` (doar biblioteca standard Python, fără rețea). Versiunile italiană, spaniolă, portugheză, germană și maghiară sunt traduceri asistate de AI, neverificate de vorbitori nativi.
+- **PDF (seria completă, 41 de volume, în română, 478 de pagini):** `carte/Nota-Zero-carte-completa-ro.pdf`.
+- Observație: `index.md` este o variantă Markdown mai veche a povestirii și poate diferi de textul din `index.html`, care este referința.
+- Nefăcut: un buton „Export” în aplicație (ar modifica scripturile inline ale paginii și hash-urile CSP); EPUB/PDF sunt oferite ca fișiere.
 
 ## Ce este
 
