@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.1 · **Last updated:** 2026-10-27
+**Version:** 2.1.0 · **Last updated:** 2026-10-27
 
 **Status:** stable · **Offline:** complete (no network requests; the voice reader uses voices installed on the device)
 
@@ -35,7 +35,7 @@ Zara, a fifteen-year-old who keeps asking “but where did the point come from?�
 - **EPUB (the story, 9 chapters + scientific notes), one file per language:** `carte/Nota-Zero-poveste-<lang>.epub` with `<lang>` = `ro`, `en`, `fr`, `it`, `es`, `pt`, `de`, `hu`. Generated from the text in `index.html` with `python3 scripts/build_epub.py` (standard library only, no network). The Italian, Spanish, Portuguese, German and Hungarian versions are AI-assisted translations, not verified by native speakers.
 - **PDF (the complete 41-volume series, Romanian, 478 pages):** `carte/Nota-Zero-carte-completa-ro.pdf`.
 - Note: `index.md` is an earlier Markdown version of the story and may differ from the text in `index.html`, which is the reference.
-- Not done: an in-app “Export” button (it would change the page’s inline scripts and its CSP hashes); the EPUB/PDF are offered as files.
+- **From the app:** the 📖 button in the top bar generates and downloads the EPUB of the active language straight from the page text (local, no network, hand-written ZIP, no library). Checked by `tests/epub-in-app.test.mjs`: valid ZIP/XML and the same chapters as in `carte/`.
 
 ## What it is
 

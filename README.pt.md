@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 2.0.0 · **Última atualização:** 2026-10-26
+**Versão:** 2.1.0 · **Última atualização:** 2026-10-27
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -17,6 +17,10 @@ Conto de ficção especulativa sobre a teoria das cordas, legível em 8 línguas
 ## O que é
 
 Nota Zero é um conto de Alexandru Ionuț Chiuță (2026), apresentado como uma página de leitura de ficheiro único (`index.html`). Segundo a página, é «ficção especulativa · teoria das cordas · 2087», com uma leitura de cerca de 18 minutos, em oito línguas (RO · EN · FR · IT · ES · PT · DE · HU). Começa assim: «Antes do Big Bang havia algo. Ninguém sabe o quê. A Zara pretende descobrir.» O texto integral está incluído no ficheiro, juntamente com notas científicas.
+
+## Transferência EPUB
+
+O botão 📖 da barra superior gera e descarrega o EPUB do idioma ativo a partir do texto da página (local, sem rede). Ficheiros já prontos: `carte/Nota-Zero-poveste-<lang>.epub`. (Tradução automática, não verificada por um falante nativo.)
 
 ## Funcionalidades
 

@@ -1,5 +1,16 @@
 # Jurnal de modificări — Nota Zero
 
+## 2.1.0 — 2026-10-27
+
+Anterior: v2.0.1. Recenzie 2 (2026-10-27).
+
+- Buton nou 📖 în bara de sus: generează și descarcă EPUB 3 pentru limba activă direct din textul paginii (script inline nou `nz-epub`; ZIP „store” scris de mână, fără bibliotecă, fără rețea). Rezultat verificat: ZIP/XML valid, `mimetype` primul, aceleași capitole și titluri ca EPUB-urile din `carte/` (ro, en, de testate). Etichetele noi: RO și EN; fr/it/es/pt/de/hu sunt traduceri automate, neverificate de vorbitori nativi.
+- Hash-urile CSP recalculate (`fixcsp`); `app.json`/`fff-info` regenerate.
+- README: EN și RO actualizate (butonul din aplicație); fr, it, es, pt, de, hu aduse la versiunea 2.1.0 cu o secțiune scurtă „EPUB” (traducere automată).
+- Test nou `tests/epub-in-app.test.mjs`.
+
+Nu s-a implementat: EPUB pentru seria completă de 41 de volume (textul Markdown a fost extras din PDF și ar propaga neregulile de extragere).
+
 ## 2.0.1 — 2026-10-27
 
 Anterior: v2.0.0. Recenzie 2026-10-27 (doar texte și fișiere de descărcare; logica aplicației nu s-a schimbat).
