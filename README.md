@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Last updated:** 2026-10-26
+**Version:** 2.0.1 · **Last updated:** 2026-10-27
+
+**Status:** stable · **Offline:** complete (no network requests; the voice reader uses voices installed on the device)
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -13,6 +15,27 @@ A speculative-fiction short story about string theory, readable in 8 languages (
 **Live:** https://chiuta.github.io/Nota-Zero/
 
 ![Screenshot](screenshot.en.png)
+
+## Synopsis
+
+Zara, a fifteen-year-old who keeps asking “but where did the point come from?”, travels to the Moon when her father, the physicist Emil Voss, vanishes inside the Great Quantum Collider. Stepping through an opening in the collider hall, she finds herself between cosmic membranes, where she learns that the Big Bang was not a point but the touch of two vast worlds — and that we are “the universe looking at the universe”.
+
+### Excerpt (chapter I, “The Wrong Question”)
+
+> Zara was fifteen and kept a blue notebook with a worn cover where she collected unanswered questions. Some were two words long. Others ran to a full page and ended with three exclamation marks. What they all had in common was that no one else had asked them, and that every time she did — in class, at dinner, on the phone with her father — she got back either a long silence or a smile that meant: *what an interesting child*. Zara was tired of that smile.
+>
+> The question she kept asking, in different forms, was always the same one:
+>
+> “But where did the point come from?”
+
+(The synopsis and the excerpt are taken from the story in `index.html`; the translations other than Romanian are AI-assisted.)
+
+## Download: EPUB and PDF
+
+- **EPUB (the story, 9 chapters + scientific notes), one file per language:** `carte/Nota-Zero-poveste-<lang>.epub` with `<lang>` = `ro`, `en`, `fr`, `it`, `es`, `pt`, `de`, `hu`. Generated from the text in `index.html` with `python3 scripts/build_epub.py` (standard library only, no network). The Italian, Spanish, Portuguese, German and Hungarian versions are AI-assisted translations, not verified by native speakers.
+- **PDF (the complete 41-volume series, Romanian, 478 pages):** `carte/Nota-Zero-carte-completa-ro.pdf`.
+- Note: `index.md` is an earlier Markdown version of the story and may differ from the text in `index.html`, which is the reference.
+- Not done: an in-app “Export” button (it would change the page’s inline scripts and its CSP hashes); the EPUB/PDF are offered as files.
 
 ## What it is
 
