@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.0.0 · **Ultimo aggiornamento:** 2026-10-26
+**Versione:** 2.1.0 · **Ultimo aggiornamento:** 2026-10-27
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -17,6 +17,10 @@ Racconto di narrativa speculativa sulla teoria delle stringhe, leggibile in 8 li
 ## Che cos'è
 
 Nota Zero è un racconto di Alexandru Ionuț Chiuță (2026), presentato come una pagina di lettura in un unico file (`index.html`). Secondo la pagina, è «narrativa speculativa · teoria delle stringhe · 2087», con una lettura di circa 18 minuti, in otto lingue (RO · EN · FR · IT · ES · PT · DE · HU). Inizia così: «Prima del Big Bang c'era qualcosa. Nessuno sa cosa. Zara ha intenzione di scoprirlo.» Il testo integrale è incluso nel file, insieme a note scientifiche.
+
+## Download EPUB
+
+Il pulsante 📖 nella barra superiore genera e scarica l'EPUB della lingua attiva dal testo della pagina (locale, senza rete). File già pronti: `carte/Nota-Zero-poveste-<lang>.epub`. (Traduzione automatica, non verificata da madrelingua.)
 
 ## Funzioni
 

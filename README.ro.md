@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.1 · **Ultima actualizare:** 2026-10-27
+**Versiune:** 2.1.0 · **Ultima actualizare:** 2026-10-27
 
 **Stare:** stabil · **Offline:** complet (fără cereri în rețea; cititorul vocal folosește vocile instalate pe dispozitiv)
 
@@ -35,7 +35,7 @@ Zara, o adolescentă de cincisprezece ani care întreabă mereu „dar de unde v
 - **EPUB (povestirea, 9 capitole + note științifice), câte un fișier pe limbă:** `carte/Nota-Zero-poveste-<lang>.epub`, cu `<lang>` = `ro`, `en`, `fr`, `it`, `es`, `pt`, `de`, `hu`. Generat din textul din `index.html` cu `python3 scripts/build_epub.py` (doar biblioteca standard Python, fără rețea). Versiunile italiană, spaniolă, portugheză, germană și maghiară sunt traduceri asistate de AI, neverificate de vorbitori nativi.
 - **PDF (seria completă, 41 de volume, în română, 478 de pagini):** `carte/Nota-Zero-carte-completa-ro.pdf`.
 - Observație: `index.md` este o variantă Markdown mai veche a povestirii și poate diferi de textul din `index.html`, care este referința.
-- Nefăcut: un buton „Export” în aplicație (ar modifica scripturile inline ale paginii și hash-urile CSP); EPUB/PDF sunt oferite ca fișiere.
+- **Din aplicație:** butonul 📖 din bara de sus generează și descarcă EPUB-ul limbii active direct din textul paginii (local, fără rețea, ZIP scris de mână, fără bibliotecă). Verificat în `tests/epub-in-app.test.mjs`: ZIP/XML valid și aceleași capitole ca în `carte/`.
 
 ## Ce este
 

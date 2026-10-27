@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 2.0.0 · **Utolsó frissítés:** 2026-10-26
+**Verzió:** 2.1.0 · **Utolsó frissítés:** 2026-10-27
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -17,6 +17,10 @@ Spekulatív fikciós novella a húrelméletről, 8 nyelven (románul, angolul, f
 ## Mi ez
 
 A Nota Zero Alexandru Ionuț Chiuță novellája (2026), egyetlen fájlos olvasóoldalként bemutatva (`index.html`). Az oldal szerint „spekulatív fikció · húrelmélet · 2087”, kb. 18 perces olvasással, nyolc nyelven (RO · EN · FR · IT · ES · PT · DE · HU). Így kezdődik: „A Big Bang előtt volt valami. Senki sem tudja, mi. Zara ki akarja deríteni.” A teljes szöveg a fájlban van, tudományos jegyzetekkel együtt.
+
+## EPUB letöltése
+
+A felső sáv 📖 gombja az oldal szövegéből előállítja és letölti az aktív nyelv EPUB-ját (helyben, hálózat nélkül). Kész fájlok: `carte/Nota-Zero-poveste-<lang>.epub`. (Gépi fordítás, anyanyelvi beszélő nem ellenőrizte.)
 
 ## Funkciók
 

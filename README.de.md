@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Zuletzt aktualisiert:** 2026-10-26
+**Version:** 2.1.0 · **Zuletzt aktualisiert:** 2026-10-27
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -17,6 +17,10 @@ Eine spekulative Kurzgeschichte über die Stringtheorie, lesbar auf 8 Sprachen (
 ## Was es ist
 
 Nota Zero ist eine Erzählung von Alexandru Ionuț Chiuță (2026), präsentiert als Ein-Datei-Leseseite (`index.html`). Laut Seite ist sie „spekulative Fiktion · Stringtheorie · 2087“, mit einer Lesezeit von etwa 18 Minuten, in acht Sprachen (RO · EN · FR · IT · ES · PT · DE · HU). Sie beginnt mit: „Vor dem Urknall war etwas. Niemand weiß, was. Zara hat vor, es herauszufinden.“ Der vollständige Text ist in der Datei enthalten, zusammen mit wissenschaftlichen Anmerkungen.
+
+## EPUB-Download
+
+Die Schaltfläche 📖 in der oberen Leiste erzeugt und lädt das EPUB der aktiven Sprache aus dem Seitentext herunter (lokal, ohne Netz). Fertige Dateien: `carte/Nota-Zero-poveste-<lang>.epub`. (Automatische Übersetzung, nicht von Muttersprachlern geprüft.)
 
 ## Funktionen
 
