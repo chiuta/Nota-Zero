@@ -14,8 +14,8 @@
   "storageKeys": [
     "notes"
   ],
-  "sizeBytes": 1270704,
-  "sha256": "edcf82f30c1951ab70dff3e205de83864fddeee05a23441a1ee1c1dea5f65b22",
+  "sizeBytes": 1411138,
+  "sha256": "687e05ef442c307f35bb2c9fb875f8fbc9787d7c7666fd6d5f1c2b4099658fea",
   "csp": {
     "present": true,
     "directives": {
@@ -58,6 +58,10 @@
       "dialog",
       "label",
       "bundle",
+      "qr",
+      "p2p",
+      "sync",
+      "history",
       "tts",
       "search"
     ]
@@ -70,6 +74,10 @@
       "dialog",
       "label",
       "bundle",
+      "qr",
+      "p2p",
+      "sync",
+      "history",
       "tts",
       "search"
     ]
