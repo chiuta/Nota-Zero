@@ -1,4 +1,4 @@
-// Nota Zero 2.1.1 — export EPUB direct din aplicație (buton 📖): ZIP valid, mimetype primul, XML bine format, aceleași capitole ca în carte/*.epub.
+// Nota Zero 2.1.2 — export EPUB direct din aplicație (buton 📖): ZIP valid, mimetype primul, XML bine format, aceleași capitole ca în carte/*.epub.
 // Rulare: node tests/epub-in-app.test.mjs   (Playwright, Chromium, rețea blocată)
 import {createRequire} from 'module';
 import fs from 'node:fs';
