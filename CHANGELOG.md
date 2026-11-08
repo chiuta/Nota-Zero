@@ -1,5 +1,8 @@
 # Jurnal de modificări — Nota Zero
 
+## 2.1.3 — 2026-11-08
+Secțiunea «Note științifice» repetă în cap avertismentul «Ficțiune / speculație; notele nu înlocuiesc surse academice» (cheia existentă foot.fiction, 8 limbi). Testul sim.test.mjs selectează acum `div.sci-item:nth-of-type` (paragraful nou nu mai strică numărătoarea nth-child).
+
 ## 2.1.0 — 2026-11-02 (reîmprospătare kit)
 
 - Nou (kit): **Sincronizare între dispozitive** (`FFF.sync`) — în dialogul «Transparență» (clic pe versiune → Copie de siguranță): conectezi două dispozitive direct (WebRTC, cod/QR, fără server și fără cont) și își schimbă datele aplicației; cea mai recentă valoare câștigă, secretele (chei API, parole) nu se trimit, ștergerile nu se propagă. Aplicarea trece prin importul kitului (confirmare, chei permise, rollback).

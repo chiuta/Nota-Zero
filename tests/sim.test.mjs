@@ -99,13 +99,13 @@ console.log('Nota Zero — note vii (simulări)');
   ok(miss.length === 0, 'i18n: toate cheile „sim.*” există în cele 8 limbi, cu aceleași {variabile}', miss);
   // secțiunea de note științifice
   await page.evaluate(() => setLang('ro'));
-  await page.locator('#science .sci-header').first().scrollIntoViewIfNeeded(); await page.click('#science .sci-item:nth-child(2) .sci-header');
-  await page.click('#science .sci-item:nth-child(2) .nz-open');
-  const s1 = await page.evaluate(() => { const b = document.querySelector('#science .sci-item:nth-child(2) .sci-body'); return {open: b.classList.contains('open'), sim: !!b.querySelector('.nz-sim'), has: b.classList.contains('has-sim'), id: b.querySelector('.nz-sim') && b.querySelector('.nz-sim').getAttribute('data-sim'), txt: b.querySelector('.nz-open').textContent}; });
+  await page.locator('#science .sci-header').first().scrollIntoViewIfNeeded(); await page.click('#science div.sci-item:nth-of-type(2) .sci-header');
+  await page.click('#science div.sci-item:nth-of-type(2) .nz-open');
+  const s1 = await page.evaluate(() => { const b = document.querySelector('#science div.sci-item:nth-of-type(2) .sci-body'); return {open: b.classList.contains('open'), sim: !!b.querySelector('.nz-sim'), has: b.classList.contains('has-sim'), id: b.querySelector('.nz-sim') && b.querySelector('.nz-sim').getAttribute('data-sim'), txt: b.querySelector('.nz-open').textContent}; });
   ok(s1.open && s1.sim && s1.has && s1.id === 'strings', 'nota 1 (corzi): simularea se deschide în secțiunea de note', s1);
-  await page.click('#science .sci-item:nth-child(3) .sci-header'); await page.waitForTimeout(400);
+  await page.click('#science div.sci-item:nth-of-type(3) .sci-header'); await page.waitForTimeout(400);
   ok(await page.evaluate(() => !document.querySelector('.nz-sim')), 'închiderea notei închide și simularea ei');
-  ok(await page.evaluate(() => document.querySelectorAll('#science .sci-item:nth-child(7) .nz-open, #science .sci-item:nth-child(8) .nz-open').length === 0), 'notele 6–7 (CMB, necunoscut) nu au simulare: nu s-a inventat niciuna');
+  ok(await page.evaluate(() => document.querySelectorAll('#science div.sci-item:nth-of-type(7) .nz-open, #science div.sci-item:nth-of-type(8) .nz-open').length === 0), 'notele 6–7 (CMB, necunoscut) nu au simulare: nu s-a inventat niciuna');
   await ctx.close();
 }
 {
