@@ -2,8 +2,8 @@
   "schema": 1,
   "slug": "nota-zero",
   "name": "Nota Zero · Alexandru Ionuț Chiuță",
-  "version": "2.1.4",
-  "updated": "2026-11-10",
+  "version": "2.1.5",
+  "updated": "2026-11-11",
   "description": "O poveste SF despre ce s-a întâmplat înainte de tot — teoria corzilor, membrane cosmice și răspunsul la întrebarea pe care știința o evită.",
   "egress": [],
   "permissions": [
@@ -14,8 +14,8 @@
   "storageKeys": [
     "notes"
   ],
-  "sizeBytes": 1447807,
-  "sha256": "286af824bf195ba8148e53869968271cc13ff4eaf1673de746bff0aee517d4d7",
+  "sizeBytes": 1449034,
+  "sha256": "010f694e8377b0e411e00a45ec8cfa364ba7e80e59b08d53a04bfdeb5936a35b",
   "csp": {
     "present": true,
     "directives": {
