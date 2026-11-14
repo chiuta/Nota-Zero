@@ -9,13 +9,14 @@
   "permissions": [
     "speechSynthesis",
     "serviceWorker",
-    "localStorage"
+    "localStorage",
+    "WebGL"
   ],
   "storageKeys": [
     "notes"
   ],
-  "sizeBytes": 1465494,
-  "sha256": "da4728f1627f2bdcc95da0a084426c5aeafebe9329748d885cde6b6a5596b646",
+  "sizeBytes": 1517136,
+  "sha256": "1c874ff8cd984b81b8e3692a790e2ac901ddcb290bada351f690fc79a11993bc",
   "csp": {
     "present": true,
     "directives": {
@@ -28,7 +29,7 @@
       "base-uri": "'self'",
       "form-action": "'self'",
       "worker-src": "'self' blob:",
-      "script-src": "'self' blob: sha256×6",
+      "script-src": "'self' blob: sha256×7",
       "connect-src": "'self'",
       "manifest-src": "'self'"
     },
